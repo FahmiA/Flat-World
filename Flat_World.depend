@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1309160888 source:c:\users\fahmi\documents\c++\flat_world\main.cpp
+	<SFML/System.hpp>
+	<iostream>
+
