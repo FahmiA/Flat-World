@@ -16,10 +16,11 @@
 					<Add option="-DSFML_DYNAMIC" />
 				</Compiler>
 				<Linker>
+					<Add option="-lsfml-window-d" />
 					<Add option="-lsfml-system-d" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="cp libs/sfml-system-d.dll bin/Debug/sfml-system-d.dll" />
+					<Add after="cp libs/debug/* bin/Debug/" />
 				</ExtraCommands>
 			</Target>
 			<Target title="Release">
@@ -35,13 +36,19 @@
 					<Add option="-s" />
 					<Add option="-lsfml-system" />
 				</Linker>
+				<ExtraCommands>
+					<Add after="cp libs/release/* bin/Release/" />
+				</ExtraCommands>
 			</Target>
 		</Build>
 		<Compiler>
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
-		<Unit filename="libs\sfml-system-d.dll">
+		<Unit filename="libs\debug\sfml-system-d.dll">
+			<Option target="Debug" />
+		</Unit>
+		<Unit filename="libs\debug\sfml-window-d.dll">
 			<Option target="Debug" />
 		</Unit>
 		<Unit filename="main.cpp" />
