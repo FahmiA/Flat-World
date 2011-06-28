@@ -1,12 +1,10 @@
-#include <SFML/Window.hpp>
-//#include <iostream>
+#include <SFML/Graphics.hpp>
 
 using namespace sf;
-//using namespace std;
 
 int main()
 {
-    Window app(VideoMode(800, 600, 32), "SFML Window");
+    RenderWindow app(VideoMode(800, 600, 32), "SFML Graphics");
     Clock clock;
 
     while(app.IsOpened())
@@ -22,11 +20,21 @@ int main()
             // Escape key pressed
             if((event.Type == Event::KeyPressed) && (event.Key.Code == Key::Escape))
                 app.Close();
+
+            // Take screenshot
+            if (event.Key.Code == sf::Key::F1)
+            {
+                Image Screen = app.Capture();
+                Screen.SaveToFile("screenshot.jpg");
+            }
+
+            // Handle window resize
+            //if(event.Type == Event::Resized)
+            //    glViewport(0, 0, event.Size.Width, event.Size.Height);
         }
 
-        //Get elapsed time since last loop
-        float frameRate = 1.0f / = Clock.GetElapsedTime();
-        clock.Reset();
+        // Clear the screen (fill it with black color)
+        app.Clear(Color(200, 0, 0));
 
         // Always display the window last, after all updates.
         app.Display();
