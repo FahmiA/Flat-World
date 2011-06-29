@@ -13,7 +13,7 @@ class Player: public GameObject
 
         virtual ~Player();
 
-        void update(Clock *clock, RenderWindow *window);
+        void update(Clock *clock, RenderWindow *window, World *world);
         void draw(RenderWindow *window);
 
     private:

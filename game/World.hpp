@@ -17,7 +17,9 @@ class World: public GameObject
         void addLevelObject(GameObject *gameObject);
         void setPlayer(Player *player);
 
-        void update(Clock *clock, RenderWindow *window);
+        list<GameObject*>* getObjects();
+
+        void update(Clock *clock, RenderWindow *window, World *world);
         void draw(RenderWindow *window);
 
     private:

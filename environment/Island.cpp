@@ -14,7 +14,12 @@ Island::~Island()
     delete sprite;
 }
 
-void Island::update(Clock *clock, RenderWindow *window)
+Sprite* Island::getSprite()
+{
+    return sprite;
+}
+
+void Island::update(Clock *clock, RenderWindow *window, World *world)
 {
 
 }

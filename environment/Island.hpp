@@ -12,7 +12,9 @@ class Island: public GameObject
         Island(float x, float y, float width, float height, Sprite *sprite);
         virtual ~Island();
 
-        void update(Clock *clock, RenderWindow *window);
+        Sprite* getSprite();
+
+        void update(Clock *clock, RenderWindow *window, World *world);
         void draw(RenderWindow *window);
 
     private:

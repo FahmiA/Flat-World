@@ -56,7 +56,7 @@ int main()
             }
         }
 
-        world.update(&clock, &app);
+        world.update(&clock, &app, 0);
         clock.Reset();
 
         // Clear the screen (fill it with black color)

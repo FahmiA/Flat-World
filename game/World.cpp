@@ -22,15 +22,20 @@ void World::setPlayer(Player *player)
     this->player = player;
 }
 
-void World::update(Clock *clock, RenderWindow *window)
+list<GameObject*>* World::getObjects()
+{
+    return levelObjects;
+}
+
+void World::update(Clock *clock, RenderWindow *window, World *world)
 {
     for(list<GameObject*>::iterator it = levelObjects->begin(); it != levelObjects->end(); it++)
     {
-        (*it)->update(clock, window);
+        (*it)->update(clock, window, this);
     }
 
     if(player != 0)
-        player->update(clock, window);
+        player->update(clock, window, this);
 
 }
 
