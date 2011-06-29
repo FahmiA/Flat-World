@@ -21,6 +21,10 @@ int main()
     // Set the center for proper rotation
     sprite.SetCenter(image.GetWidth()/2, image.GetHeight()/2);
 
+    View view(FloatRect(100, 100, 300, 300));
+    view.SetCenter(300, 300);
+    app.SetView(view);
+
     while(app.IsOpened())
     {
 
