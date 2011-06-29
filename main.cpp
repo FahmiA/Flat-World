@@ -10,18 +10,28 @@ int main()
     RenderWindow app(VideoMode(800, 600, 32), "SFML Graphics");
     Clock clock;
 
-    Image groundBlockImage;
-    if(!groundBlockImage.LoadFromFile("media/textures/DirtBlock.png"))
+    // Create the ground
+    Image groundImage;
+    if(!groundImage.LoadFromFile("media/textures/Ground.png"))
     {
         // Error
         return EXIT_FAILURE;
     }
+    Sprite groundSprite;
+    groundSprite.SetImage(groundImage);
+    Island island(400, 550, 800, 122, &groundSprite);
 
-    Sprite groundBlock;
-    groundBlock.SetImage(groundBlockImage);
-    Island island(400, 550, 770, 100, &groundBlock);
+    // Create the player
+    Image playerImage;
+    if(!playerImage.LoadFromFile("media/textures/CharacterBoy.png"))
+        return EXIT_FAILURE;
+    Sprite playerSprite;
+    playerSprite.SetImage(playerImage);
+    Player player(100, 470, 68, 85, 500, &playerSprite);
 
+    // Create the world
     World world;
+    world.setPlayer(&player);
     world.addLevelObject(&island);
 
     while(app.IsOpened())

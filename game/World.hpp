@@ -15,9 +15,9 @@ class World: public GameObject
         virtual ~World();
 
         void addLevelObject(GameObject *gameObject);
+        void setPlayer(Player *player);
 
         void update(Clock *clock, RenderWindow *window);
-
         void draw(RenderWindow *window);
 
     private:

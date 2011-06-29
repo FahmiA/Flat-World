@@ -24,7 +24,7 @@
 				<ExtraCommands>
 					<Add after="cp libs/debug/* bin/Debug/" />
 					<Add after="mkdir bin/Debug/media" />
-					<Add after="cp -ruv media/* bin/Debug/media/" />
+					<Add after="cp -ru media/* bin/Debug/media/" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
