@@ -8,6 +8,7 @@
 		<Build>
 			<Target title="Debug">
 				<Option output="bin\Debug\Flat_World" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin\Debug\" />
 				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -22,10 +23,14 @@
 				</Linker>
 				<ExtraCommands>
 					<Add after="cp libs/debug/* bin/Debug/" />
+					<Add after="mkdir bin/Debug/media" />
+					<Add after="cp -r media/* bin/Debug/media/" />
+					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
 			<Target title="Release">
 				<Option output="bin\Release\Flat_World" prefix_auto="1" extension_auto="1" />
+				<Option working_dir="bin\Release\" />
 				<Option object_output="obj\Release\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -55,6 +60,7 @@
 			<Option target="Debug" />
 		</Unit>
 		<Unit filename="main.cpp" />
+		<Unit filename="media\textures\Key.png" />
 		<Extensions>
 			<code_completion />
 			<debugger />

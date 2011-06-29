@@ -1,6 +1,6 @@
 # depslib dependency file v1.0
-1309243393 source:c:\users\fahmi\documents\c++\flat_world\main.cpp
-	<SFML/Window.hpp>
+1309313153 source:c:\users\fahmi\documents\c++\flat_world\main.cpp
+	<SFML/Graphics.hpp>
 
 1309160888 
 
