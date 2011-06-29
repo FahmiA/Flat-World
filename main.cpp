@@ -1,5 +1,8 @@
 #include <SFML/Graphics.hpp>
 
+#include "game/World.hpp"
+#include "environment/Island.hpp"
+
 using namespace sf;
 
 int main()
@@ -7,31 +10,22 @@ int main()
     RenderWindow app(VideoMode(800, 600, 32), "SFML Graphics");
     Clock clock;
 
-    Image image;
-    if(!image.LoadFromFile("media/textures/Key.png"))
+    Image groundBlockImage;
+    if(!groundBlockImage.LoadFromFile("media/textures/DirtBlock.png"))
     {
         // Error
         return EXIT_FAILURE;
     }
 
-    Sprite sprite;
-    sprite.SetImage(image);
-    sprite.SetX(200);
-    sprite.SetY(200);
-    // Set the center for proper rotation
-    sprite.SetCenter(image.GetWidth()/2, image.GetHeight()/2);
+    Sprite groundBlock;
+    groundBlock.SetImage(groundBlockImage);
+    Island island(400, 550, 770, 100, &groundBlock);
 
-    View view(FloatRect(100, 100, 300, 300));
-    view.SetCenter(300, 300);
-    app.SetView(view);
+    World world;
+    world.addLevelObject(&island);
 
     while(app.IsOpened())
     {
-
-        // Get the elapsed time since the last frame.
-        float elapsedTime = clock.GetElapsedTime();
-        clock.Reset();
-
         // Process events
         Event event;
         while(app.GetEvent(event))
@@ -50,28 +44,15 @@ int main()
                 Image Screen = app.Capture();
                 Screen.SaveToFile("screenshot.jpg");
             }
-
-            // Move the sprite
-            if (app.GetInput().IsKeyDown(Key::Left))    sprite.Move(-1000 * elapsedTime, 0);
-            if (app.GetInput().IsKeyDown(Key::Right))   sprite.Move( 1000 * elapsedTime, 0);
-            if (app.GetInput().IsKeyDown(Key::Up))      sprite.Move(0, -1000 * elapsedTime);
-            if (app.GetInput().IsKeyDown(Key::Down))    sprite.Move(0,  1000 * elapsedTime);
-
-            // Rotate the sprite
-            if (app.GetInput().IsKeyDown(Key::Add))  sprite.Rotate(-500 * elapsedTime);
-            if (app.GetInput().IsKeyDown(Key::Subtract))sprite.Rotate(500 * elapsedTime);
-
-
-            // Handle window resize
-            //if(event.Type == Event::Resized)
-            //    glViewport(0, 0, event.Size.Width, event.Size.Height);
         }
+
+        world.update(&clock, &app);
+        clock.Reset();
 
         // Clear the screen (fill it with black color)
         app.Clear(Color(200, 0, 0));
 
-        // Draw the sprite
-        app.Draw(sprite);
+        world.draw(&app);
 
         // Always display the window last, after all updates.
         app.Display();
