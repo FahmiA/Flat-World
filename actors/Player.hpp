@@ -20,7 +20,7 @@ class Player: public GameObject
         float speed;
         Sprite *sprite;
 
-        Vector2i* rayTrace(Sprite *sprite, int fromX, int fromY, int toY);
+        Vector2i* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY);
 };
 
 #endif // PLAYER_H
