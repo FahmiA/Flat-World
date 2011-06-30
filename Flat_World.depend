@@ -16,10 +16,13 @@
 1309316329 source:c:\users\fahmi\documents\c++\flat_world\actors\actor.cpp
 	"actor.hpp"
 
-1309338198 source:c:\users\fahmi\documents\c++\flat_world\actors\player.cpp
+1309425216 source:c:\users\fahmi\documents\c++\flat_world\actors\player.cpp
 	"Player.hpp"
+	"../game/World.hpp"
+	"../environment/Island.hpp"
+	<list>
 
-1309338239 c:\users\fahmi\documents\c++\flat_world\actors\player.hpp
+1309424376 c:\users\fahmi\documents\c++\flat_world\actors\player.hpp
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 
