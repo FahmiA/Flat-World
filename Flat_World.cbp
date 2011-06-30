@@ -22,9 +22,8 @@
 					<Add option="-lsfml-system-d" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="cp libs/debug/* bin/Debug/" />
-					<Add after="mkdir bin/Debug/media" />
-					<Add after="cp -ru media/* bin/Debug/media/" />
+					<Add after="xcopy libs\debug bin\Debug /E /I /Y" />
+					<Add after="xcopy media bin\Debug\media /E /I /Y" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -45,7 +44,8 @@
 					<Add option="-lsfml-system" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="cp libs/release/* bin/Release/" />
+					<Add after="xcopy libs\release bin\Release /E /I /Y" />
+					<Add after="xcopy media bin\Release\media /E /I /Y" />
 				</ExtraCommands>
 			</Target>
 		</Build>
