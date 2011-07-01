@@ -53,8 +53,8 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
     bottomLeft = groundSprite->TransformToLocal(bottomLeft);
     bottomRight = groundSprite->TransformToLocal(bottomRight);
 
-    Vector2f targetLeft = sprite->TransformToGlobal(Vector2f(0, sprite->GetSize().y + 20));
-    Vector2f targetRight = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x, sprite->GetSize().y + 20));
+    Vector2f targetLeft = sprite->TransformToGlobal(Vector2f(0, sprite->GetSize().y + 5));
+    Vector2f targetRight = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x, sprite->GetSize().y + 5));
     targetLeft = groundSprite->TransformToLocal(targetLeft);
     targetRight = groundSprite->TransformToLocal(targetRight);
 
@@ -76,7 +76,7 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
             velocityY = sin(90 * M_PI / 180) * (speed * elapsedTime);
             sprite->Move(velocityX, velocityY);
         }else{
-            // Rotate to the correct angle and up (against gravity)
+            // Rotate to the correct angle and move up (against gravity)
             //cout << rightCollide->y << " " << leftCollide->y << " " << rightCollide->x << " " << leftCollide->x << endl;
             float angle = atan2(rightCollide->y - leftCollide->y, rightCollide->x - leftCollide->x);
             angle = angle * (180.0f/M_PI);
@@ -102,10 +102,11 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
         sprite->Move(velocityX, velocityY);
     }else if(bottomRight.y >= 0){
         // Land to the right
-        //sprite->Rotate(1);
+        sprite->Rotate(1);
     }else if(bottomLeft.y >= 0){
         // Land to the left
-        //sprite->Rotate(-1);
+        sprite->Rotate(-1);
+        //cout << "here " << elapsedTime << endl;
     }
 }
 
