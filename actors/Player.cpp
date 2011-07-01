@@ -3,7 +3,6 @@
 #include "../game/World.hpp"
 #include "../environment/Island.hpp"
 
-#include <stdio.h>
 #include<iostream>
 #include<math.h>
 #include<list>
@@ -29,12 +28,18 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
 {
     float elapsedTime = clock->GetElapsedTime();
 
+    float velocityX = cos(sprite->GetRotation() * M_PI / 180) * (speed * elapsedTime);
+    float velocityY = sin(sprite->GetRotation() * M_PI / 180) * (speed * elapsedTime);
+
     // Respond to user input events
     if(window->GetInput().IsKeyDown(Key::Right))
-        sprite->Move(speed * elapsedTime, 0);
+        sprite->Move(velocityX, -velocityY);
 
     if(window->GetInput().IsKeyDown(Key::Left))
-        sprite->Move(-speed * elapsedTime, 0);
+        sprite->Move(-velocityX, velocityY);
+
+    if(window->GetInput().IsKeyDown(Key::R))
+        sprite->Rotate(100 * elapsedTime);
 
     // Perform collision detection
     list<GameObject*>* objects = world->getObjects();
@@ -43,48 +48,64 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
     // Get the pixels directly under the player
     Sprite *groundSprite = ground->getSprite();
 
-    // Get where I want to look (bottom of image).
-    int lookXLeft = sprite->GetPosition().x - (sprite->GetSize().x/2);
-    int lookXRight = sprite->GetPosition().x + (sprite->GetSize().x/2);
+    Vector2f bottomLeft = sprite->TransformToGlobal(Vector2f(0, sprite->GetSize().y));
+    Vector2f bottomRight = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x, sprite->GetSize().y));
+    bottomLeft = groundSprite->TransformToLocal(bottomLeft);
+    bottomRight = groundSprite->TransformToLocal(bottomRight);
 
-    // Get where I will look (position of next image).
-    int targetXLeft = lookXLeft;
-    int targetXRight = lookXRight;
-    int targetTop = groundSprite->GetPosition().y - (groundSprite->GetSize().y/2);
-    int playerBottom = sprite->GetPosition().y + (sprite->GetSize().y/2);
-    int targetY = playerBottom - targetTop;
+    Vector2f targetLeft = sprite->TransformToGlobal(Vector2f(0, sprite->GetSize().y + 20));
+    Vector2f targetRight = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x, sprite->GetSize().y + 20));
+    targetLeft = groundSprite->TransformToLocal(targetLeft);
+    targetRight = groundSprite->TransformToLocal(targetRight);
 
-    if(playerBottom < targetTop)
+    //cout << "lx: " << targetLeft.x <<"\tlt: " << targetLeft.y << "\trx: " << targetRight.x << "\try: " << targetRight.y << endl;
+    int groundTop = groundSprite->GetPosition().y - groundSprite->GetSize().y/2;
+    line = Shape::Line(targetLeft.x, targetLeft.y + groundTop, targetRight.x, targetRight.y + groundTop, 1, Color::White);
+
+    if(bottomLeft.y >= 0 && bottomRight.y >= 0)
     {
-        sprite->Move(0, speed * elapsedTime);
-        return;
-    }
-    static float prevAngle = 0.0f;
+        // Land directly below
 
-    Vector2i *leftCollide = rayTrace(groundSprite, targetXLeft, targetY, lookXLeft, targetY + 5);
-    Vector2i *rightCollide = rayTrace(groundSprite, targetXRight, targetY, lookXRight, targetY + 5);
+        Vector2i *leftCollide = rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, targetLeft.x, targetLeft.y);
+        Vector2i *rightCollide = rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
 
-    if(leftCollide == 0 || rightCollide == 0)
-    {
-        // Move down
-        sprite->Move(0, speed * elapsedTime);
-    }else{
-        int groundDistanceLeft = targetY - leftCollide->y;
-        int groundDistanceRight = targetY - rightCollide->y;
-        float angle = atan2(groundDistanceRight - groundDistanceLeft, targetXRight - targetXLeft);
-        angle = angle * (180.0f/3.14156f);
-
-        sprite->Rotate(-prevAngle);
-        sprite->Rotate(angle);
-        prevAngle = angle;
-
-        if(groundDistanceRight == 0)
+        if(leftCollide == 0 || rightCollide == 0)
         {
-            sprite->Move(0, -speed * elapsedTime);
+            // Move down (with gravity)
+            velocityX = cos(90 * M_PI / 180) * (speed * elapsedTime);
+            velocityY = sin(90 * M_PI / 180) * (speed * elapsedTime);
+            sprite->Move(velocityX, velocityY);
+        }else{
+            // Rotate to the correct angle and up (against gravity)
+            //cout << rightCollide->y << " " << leftCollide->y << " " << rightCollide->x << " " << leftCollide->x << endl;
+            float angle = atan2(rightCollide->y - leftCollide->y, rightCollide->x - leftCollide->x);
+            angle = angle * (180.0f/M_PI);
+
+            sprite->SetRotation(-angle); // Rotate to the correct angle
+
+            Color pixel = groundSprite->GetPixel(bottomLeft.x, bottomLeft.y);
+            if(pixel.a > 200)
+            {
+                velocityX = cos((angle - 90) * M_PI / 180) * (speed * elapsedTime);
+                velocityY = sin((angle - 90) * M_PI / 180) * (speed * elapsedTime);
+                sprite->Move(velocityX, velocityY);
+            }
         }
 
         delete leftCollide;
         delete rightCollide;
+    }else if(bottomLeft.y < 0 && bottomRight.y < 0){
+        // No land below
+        // Move down (with gravity)
+        velocityX = cos(90 * M_PI / 180) * (speed * elapsedTime);
+        velocityY = sin(90 * M_PI / 180) * (speed * elapsedTime);
+        sprite->Move(velocityX, velocityY);
+    }else if(bottomRight.y >= 0){
+        // Land to the right
+        //sprite->Rotate(1);
+    }else if(bottomLeft.y >= 0){
+        // Land to the left
+        //sprite->Rotate(-1);
     }
 }
 
@@ -137,4 +158,6 @@ Vector2i* Player::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int to
 void Player::draw(RenderWindow *window)
 {
     window->Draw(*sprite);
+
+    window->Draw(line);
 }

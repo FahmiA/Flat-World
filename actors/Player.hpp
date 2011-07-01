@@ -19,6 +19,7 @@ class Player: public GameObject
     private:
         float speed;
         Sprite *sprite;
+        Shape line;
 
         Vector2i* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY);
 };
