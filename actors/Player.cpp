@@ -49,7 +49,7 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
     Sprite *groundSprite = ground->getSprite();
 
     int lookDepth = 50;
-    int lookOffset = 10;
+    int lookOffset = 14;
     Vector2f bottomLeft = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) - lookOffset, sprite->GetSize().y));
     Vector2f bottomMiddle = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y));
     Vector2f bottomRight = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) + lookOffset, sprite->GetSize().y));
@@ -57,9 +57,9 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
     bottomMiddle = groundSprite->TransformToLocal(bottomMiddle);
     bottomRight = groundSprite->TransformToLocal(bottomRight);
 
-    Vector2f targetLeft = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) - lookOffset, sprite->GetSize().y + lookDepth));
+    Vector2f targetLeft = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + lookDepth));
     Vector2f targetMiddle = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + lookDepth));
-    Vector2f targetRight = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) + lookOffset, sprite->GetSize().y + lookDepth));
+    Vector2f targetRight = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + lookDepth));
     targetLeft = groundSprite->TransformToLocal(targetLeft);
     targetMiddle = groundSprite->TransformToLocal(targetMiddle);
     targetRight = groundSprite->TransformToLocal(targetRight);
@@ -67,30 +67,44 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
     //cout << "lx: " << targetLeft.x <<"\tlt: " << targetLeft.y << "\trx: " << targetRight.x << "\try: " << targetRight.y << endl;
     int groundTop = groundSprite->GetPosition().y - (groundSprite->GetSize().y/2);
     int groundLeft = groundSprite->GetPosition().x - (groundSprite->GetSize().x/2);
+    //int groundBottom = groundSprite->GetPosition().y + (groundSprite->GetSize().x/2);
+    //int groundRight = groundSprite->GetPosition().x + (groundSprite->GetSize().x/2);
     //line = Shape::Line(bottomLeft.x, bottomLeft.y + groundTop, bottomRight.x, bottomRight.y + groundTop, 1, Color::White);
 
-    if(bottomLeft.y >= 0 && bottomRight.y >= 0) // Inside island region
+    if(bottomLeft.y >= 0 && (int)(bottomRight.y) >= 0 && bottomLeft.x >= 0 && bottomRight.x >= 0
+       && bottomLeft.y < groundSprite->GetSize().y && bottomRight.y < groundSprite->GetSize().y
+       && bottomLeft.x < groundSprite->GetSize().x && bottomRight.x < groundSprite->GetSize().x) // Inside island region
     {
+        //cout << "In Island: " << elapsedTime << endl;
         // Land directly below
-        Vector2i *leftCollide = rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, targetLeft.x, targetLeft.y);
-        Vector2i *middleCollide = rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, targetMiddle.x, targetMiddle.y);
-        Vector2i *rightCollide = rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
+        Vector2f *leftCollide = rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, targetLeft.x, targetLeft.y);
+        Vector2f *middleCollide = rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, targetMiddle.x, targetMiddle.y);
+        Vector2f *rightCollide = rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
 
-        if(leftCollide == 0 && rightCollide != 0)
+        if(rightCollide == 0 && leftCollide != 0)
         {
-            //cout << "leftCollide: " << ((leftCollide == 0) ? "False" : "True") << " rightCollide: " << ((rightCollide == 0) ? "False" : "True") << endl;
-            // No land below
-            // Move down (with gravity)
-            //float angle = sprite->GetRotation() + 90;
-            //velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
-            //velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
-            //sprite->Move(velocityX, velocityY);
+            /*float dx = bottomLeft.x - leftCollide->x;
+            float dy = bottomLeft.y - leftCollide->y;
+            float distance = (dx * dx) + (dy * dy);
+            distance = sqrt(distance);
+            int x = bottomRight.x;
+            int y = leftCollide->y + (2 * distance);
+            rightCollide = new Vector2f(x, y);
 
-        } else if(leftCollide != 0 && rightCollide == 0){
-            cout << "leftCollide: " << ((leftCollide == 0) ? "False" : "True") << " rightCollide: " << ((rightCollide == 0) ? "False" : "True") << endl;
+            cout << "New Position: x = " << rightCollide->x << "  y = " << rightCollide->y << endl;*/
+            rightCollide = new Vector2f(bottomRight.x, bottomRight.y);
+            cout << "Right Collide missing" << endl;
+        }else if(rightCollide != 0 && leftCollide == 0){
+            leftCollide = new Vector2f(bottomLeft.x, bottomLeft.y);
+            cout << "Left Collide missing" << endl;
+        }
 
-        }else if(leftCollide == 0 && rightCollide == 0){
-            cout << "leftCollide: " << ((leftCollide == 0) ? "False" : "True") << " rightCollide: " << ((rightCollide == 0) ? "False" : "True") << endl;
+        if(leftCollide == 0 && rightCollide == 0){
+            //cout << "\tleftCollide: " << ((leftCollide == 0) ? "False" : "True") << " rightCollide: " << ((rightCollide == 0) ? "False" : "True") << endl;
+            float angle = sprite->GetRotation() - 90;
+            velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
+            velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
+            sprite->Move(velocityX, velocityY);
         }else{
             line = Shape::Line(leftCollide->x + groundLeft, leftCollide->y + groundTop, rightCollide->x + groundLeft, rightCollide->y + groundTop, 1, Color::White);
             // Rotate to the correct angle and move up (against gravity)
@@ -101,54 +115,53 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
 
             sprite->SetRotation(-angle); // Rotate to the correct angle
 
-            float dx = bottomMiddle.x - middleCollide->x;
-            float dy = bottomMiddle.y - middleCollide->y;
-            float distance = (dx * dx) + (dy * dy);
-            distance = sqrt(distance);
-
-            if(distance > 5)
+            if(middleCollide != 0)
             {
-                Color pixel = groundSprite->GetPixel(bottomMiddle.x, bottomMiddle.y);
-                float reverseAngle = angle;
-                //cout << (int)(pixel.a) << endl;
-                if((int)(pixel.a) == 0) // Transparent
-                {
-                    // Move down
-                    reverseAngle += 90;
-                }else{ // Not transparent
-                    // Move up
-                    reverseAngle -= 90;
-                }
+                float dx = bottomMiddle.x - middleCollide->x;
+                float dy = bottomMiddle.y - middleCollide->y;
+                float distance = (dx * dx) + (dy * dy);
+                distance = sqrt(distance);
 
-                velocityX = cos(reverseAngle * M_PI / 180) * (speed * elapsedTime);
-                velocityY = sin(reverseAngle * M_PI / 180) * (speed * elapsedTime);
-                sprite->Move(velocityX, velocityY);
+                //cout << distance << endl;
+                if(distance > 2 || distance < 1)
+                {
+                    Color pixel = groundSprite->GetPixel(bottomMiddle.x, bottomMiddle.y);
+                    float reverseAngle = angle;
+                    //cout << (int)(pixel.a) << endl;
+                    if(pixel.a == 0) // Transparent
+                    {
+                        // Move down
+                        reverseAngle += 90;
+                    }else{ // Not transparent
+                        // Move up
+                        reverseAngle -= 90;
+                    }
+                    //cout << angle << " " << reverseAngle << endl;
+                    velocityX = cos((reverseAngle * M_PI) / 180) * (speed * elapsedTime);
+                    velocityY = sin((reverseAngle * M_PI) / 180) * (speed * elapsedTime);
+                    sprite->Move(velocityX, velocityY);
+                }
             }
-    }
+        }
 
         delete leftCollide;
-        //delete middleCollide;
+        delete middleCollide;
         delete rightCollide;
-    }else if(bottomLeft.y < 0 && bottomRight.y < 0){
+    }else{
         // No land below
         // Move down (with gravity)
-        velocityX = cos(90 * M_PI / 180) * (speed * elapsedTime);
-        velocityY = sin(90 * M_PI / 180) * (speed * elapsedTime);
+        float angle = sprite->GetRotation() + 90;
+        velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
+        velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
         sprite->Move(velocityX, velocityY);
 
-        cout << "No Land below 2: " << elapsedTime << endl;
-    }else if(bottomRight.y >= 0){
-        // Land to the right
-        //sprite->Rotate(1);
-        //cout << "Right Vacant: " << elapsedTime << endl;
-    }else if(bottomLeft.y >= 0){
-        // Land to the left
-        //sprite->Rotate(-1);
-        //cout << "Left Vacant: " << elapsedTime << endl;
+        cout << "No Land below 2: blx = " << bottomLeft.x << " bly = " << bottomLeft.y << " brx = " << bottomRight.x << " bry = " << bottomRight.y << endl;
     }
+
+    //cout << sprite->GetRotation() << endl;
 }
 
-Vector2i* Player::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY)
+Vector2f* Player::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY)
 {
     //printf("fromX: %d\tfromY: %d\ttoX: %d\ttoY: %d\n", fromX, fromY, toX, toY);
     // Simplified Bresenham line algorithm
@@ -157,7 +170,7 @@ Vector2i* Player::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int to
     // x0 = fromX   y0 = fromY  x1 = toX    y1 = toY
 
     // Declare the required variables
-    Vector2i *collidePosition = 0;
+    Vector2f *collidePosition = 0;
     int differenceX = abs(toX - fromX);
     int differenceY = abs(toY - fromY);
     int error = differenceX - differenceY;
@@ -170,9 +183,9 @@ Vector2i* Player::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int to
         // Check pixel (fromX, fromY)
         Color pixel = sprite->GetPixel(fromX, fromY);
 
-        if(pixel.a > 200) // Not transparent
+        if(pixel.a > 0) // Not transparent
         {
-            collidePosition = new Vector2i(fromX, fromY);
+            collidePosition = new Vector2f(fromX, fromY);
             break;
         }
 

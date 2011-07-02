@@ -16,7 +16,7 @@
 1309316329 source:c:\users\fahmi\documents\c++\flat_world\actors\actor.cpp
 	"actor.hpp"
 
-1309564274 source:c:\users\fahmi\documents\c++\flat_world\actors\player.cpp
+1309581255 source:c:\users\fahmi\documents\c++\flat_world\actors\player.cpp
 	"Player.hpp"
 	"../game/World.hpp"
 	"../environment/Island.hpp"
@@ -24,7 +24,7 @@
 	<math.h>
 	<list>
 
-1309483075 c:\users\fahmi\documents\c++\flat_world\actors\player.hpp
+1309580989 c:\users\fahmi\documents\c++\flat_world\actors\player.hpp
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 

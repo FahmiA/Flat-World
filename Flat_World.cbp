@@ -24,7 +24,6 @@
 				<ExtraCommands>
 					<Add after="xcopy libs\debug bin\Debug /E /I /Y" />
 					<Add after="xcopy media bin\Debug\media /E /I /Y" />
-					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
 			<Target title="Release">

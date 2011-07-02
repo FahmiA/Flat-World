@@ -21,7 +21,7 @@ class Player: public GameObject
         Sprite *sprite;
         Shape line;
 
-        Vector2i* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY);
+        Vector2f* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY);
 };
 
 #endif // PLAYER_H
