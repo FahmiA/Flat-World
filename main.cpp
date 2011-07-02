@@ -12,14 +12,14 @@ int main()
 
     // Create the ground
     Image groundImage;
-    if(!groundImage.LoadFromFile("media/textures/Ground.png"))
+    if(!groundImage.LoadFromFile("media/textures/Asteroid.png"))
     {
         // Error
         return EXIT_FAILURE;
     }
     Sprite groundSprite;
     groundSprite.SetImage(groundImage);
-    Island island(400, 550, 800, 122, &groundSprite);
+    Island island(200, 400, 235, 235, &groundSprite);
 
     // Create the player
     Image playerImage;
@@ -27,7 +27,7 @@ int main()
         return EXIT_FAILURE;
     Sprite playerSprite;
     playerSprite.SetImage(playerImage);
-    Player player(100, 470, 68, 85, 500, &playerSprite);
+    Player player(150, 200, 68, 85, 500, &playerSprite);
 
     // Create the world
     World world;
