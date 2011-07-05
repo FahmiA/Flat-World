@@ -73,116 +73,93 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
     targetMiddle = groundSprite->TransformToLocal(targetMiddle);
     targetRight = groundSprite->TransformToLocal(targetRight);
 
-    // TODO: Move the bottom positions to be within the image bounds
-    //clampCoordinates(bottomLeft, targetLeft, groundSprite)
-    //clampCoordinates(bottomMiddle, targetMiddle, groundSprite)
-    //clampCoordinates(bottomRight, targetRight, groundSprite)
+    // Land directly below
+    Vector2f *leftCollide = rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, targetLeft.x, targetLeft.y);
+    Vector2f *middleCollide = rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, targetMiddle.x, targetMiddle.y);
+    Vector2f *rightCollide = rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
 
-    int groundTop = groundSprite->GetPosition().y - (groundSprite->GetSize().y/2);
-    int groundLeft = groundSprite->GetPosition().x - (groundSprite->GetSize().x/2);
-
-    // If the target iw within the image bounds
-    //if(bottomLeft.y >= 0 && (int)(bottomRight.y) >= 0 && bottomLeft.x >= 0 && bottomRight.x >= 0
-    //   && bottomLeft.y < groundSprite->GetSize().y && bottomRight.y < groundSprite->GetSize().y
-    //   && bottomLeft.x < groundSprite->GetSize().x && bottomRight.x < groundSprite->GetSize().x) // Inside island region
-
+    // Resolve the problem of only one ray-trace finding land
+    if(rightCollide == 0 && leftCollide != 0)
     {
-        // Land directly below
-        Vector2f *leftCollide = rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, targetLeft.x, targetLeft.y);
-        Vector2f *middleCollide = rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, targetMiddle.x, targetMiddle.y);
-        Vector2f *rightCollide = rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
-
-        // Resolve the problem of only one ray-trace finding land
-        if(rightCollide == 0 && leftCollide != 0)
-        {
-            //rightCollide = new Vector2f(bottomRight.x, leftCollide->y + 5);
-            rightCollide = &groundSprite->TransformToGlobal(Vector2f(bottomRight.x, leftCollide->y));
-            rightCollide = &sprite->TransformToLocal(*rightCollide);
-            rightCollide->y += 10;
-            rightCollide = &sprite->TransformToGlobal(*rightCollide);
-            rightCollide = &groundSprite->TransformToLocal(*rightCollide);
-            cout << "Right Collide missing" << endl;
-        }else if(rightCollide != 0 && leftCollide == 0){
-            //leftCollide = new Vector2f(bottomLeft.x, rightCollide->y + 5);
-            leftCollide = &groundSprite->TransformToGlobal(Vector2f(bottomLeft.x, rightCollide->y));
-            leftCollide = &sprite->TransformToLocal(*leftCollide);
-            leftCollide->y += 10;
-            leftCollide = &sprite->TransformToGlobal(*leftCollide);
-            leftCollide = &groundSprite->TransformToLocal(*leftCollide);
-            cout << "Left Collide missing" << endl;
-        }
-
-        if(leftCollide == 0 && rightCollide == 0){
-            // Move with relative gravity
-            float angle = sprite->GetRotation() + 90;
-            velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
-            velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
-            sprite->Move(velocityX, velocityY);
-            //cout << "here: " << elapsedTime << endl;
-        }else{
-            line = Shape::Line(leftCollide->x + groundLeft, leftCollide->y + groundTop, rightCollide->x + groundLeft, rightCollide->y + groundTop, 1, Color::White);
-            // Rotate to the correct angle and move up (against gravity)
-            //cout << rightCollide->y << " " << leftCollide->y << " " << rightCollide->x << " " << leftCollide->x << endl;
-            float angle = atan2(rightCollide->y - leftCollide->y, rightCollide->x - leftCollide->x);
-            angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
-            //cout << "Angle: " << angle << endl;
-
-            sprite->SetRotation(-angle); // Rotate to the correct angle
-
-            if(middleCollide != 0)
-            {
-                float dx = bottomMiddle.x - middleCollide->x;
-                float dy = bottomMiddle.y - middleCollide->y;
-                float distance = (dx * dx) + (dy * dy);
-                distance = sqrt(distance);
-
-                //cout << distance << endl;
-                if(distance > 2 || distance < 1)
-                {
-                    CoordinateUtil coordUtil;
-                    Color pixel;
-
-                    if(coordUtil.isLocalPointInside(bottomMiddle, *groundSprite))
-                        pixel = groundSprite->GetPixel(bottomMiddle.x, bottomMiddle.y);
-                    else
-                        pixel = Color(0, 0, 0, 0);
-
-                    float reverseAngle = angle;
-                    //cout << (int)(pixel.a) << endl;
-                    if(pixel.a == 0) // Transparent
-                    {
-                        // Move down
-                        reverseAngle += 90;
-                    }else{ // Not transparent
-                        // Move up
-                        reverseAngle -= 90;
-                    }
-                    //cout << angle << " " << reverseAngle << endl;
-                    velocityX = cos((reverseAngle * M_PI) / 180) * (speed * elapsedTime);
-                    velocityY = sin((reverseAngle * M_PI) / 180) * (speed * elapsedTime);
-                    sprite->Move(velocityX, velocityY);
-                }
-            }
-        }
-
-        delete leftCollide;
-        delete middleCollide;
-        delete rightCollide;
+        //rightCollide = new Vector2f(bottomRight.x, leftCollide->y + 5);
+        rightCollide = &groundSprite->TransformToGlobal(Vector2f(bottomRight.x, leftCollide->y));
+        rightCollide = &sprite->TransformToLocal(*rightCollide);
+        rightCollide->y += 10;
+        rightCollide = &sprite->TransformToGlobal(*rightCollide);
+        rightCollide = &groundSprite->TransformToLocal(*rightCollide);
+        cout << "Right Collide missing" << endl;
+    }else if(rightCollide != 0 && leftCollide == 0){
+        //leftCollide = new Vector2f(bottomLeft.x, rightCollide->y + 5);
+        leftCollide = &groundSprite->TransformToGlobal(Vector2f(bottomLeft.x, rightCollide->y));
+        leftCollide = &sprite->TransformToLocal(*leftCollide);
+        leftCollide->y += 10;
+        leftCollide = &sprite->TransformToGlobal(*leftCollide);
+        leftCollide = &groundSprite->TransformToLocal(*leftCollide);
+        cout << "Left Collide missing" << endl;
     }
 
-    //cout << sprite->GetRotation() << endl;
+    if(leftCollide == 0 && rightCollide == 0)
+    {
+        // No land below. Move with relative gravity
+        float angle = sprite->GetRotation() + 90;
+        velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
+        velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
+        sprite->Move(velocityX, velocityY);
+    }else{
+        // Draw the ground line for debugging purposes
+        int groundTop = groundSprite->GetPosition().y - (groundSprite->GetSize().y/2);
+        int groundLeft = groundSprite->GetPosition().x - (groundSprite->GetSize().x/2);
+        line = Shape::Line(leftCollide->x + groundLeft, leftCollide->y + groundTop, rightCollide->x + groundLeft, rightCollide->y + groundTop, 1, Color::White);
+
+        // Rotate to the correct angle
+        float angle = atan2(rightCollide->y - leftCollide->y, rightCollide->x - leftCollide->x);
+        angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
+        sprite->SetRotation(-angle); // Rotate to the correct angle
+
+        // Move up or down depending on distance with ground.
+        if(middleCollide != 0)
+        {
+            // Get the distance to the ground
+            float dx = bottomMiddle.x - middleCollide->x;
+            float dy = bottomMiddle.y - middleCollide->y;
+            float distance = (dx * dx) + (dy * dy);
+            distance = sqrt(distance);
+
+            // Only move up or down if the distance is not acceptable
+            if(distance > 2 || distance < 1)
+            {
+                CoordinateUtil coordUtil;
+                Color pixel;
+
+                // Get the pixel of the ground
+                if(coordUtil.isLocalPointInside(bottomMiddle, *groundSprite)) // Ground exists, get the pixel.
+                    pixel = groundSprite->GetPixel(bottomMiddle.x, bottomMiddle.y);
+                else // Ground does not exist, assume transparent.
+                    pixel = Color(0, 0, 0, 0);
+
+                float reverseAngle = angle;
+                if(pixel.a == 0) // Transparent
+                {
+                    // Move down
+                    reverseAngle += 90;
+                }else{ // Not transparent
+                    // Move up
+                    reverseAngle -= 90;
+                }
+
+                // Move the charcter approprietly
+                velocityX = cos((reverseAngle * M_PI) / 180) * (speed * elapsedTime);
+                velocityY = sin((reverseAngle * M_PI) / 180) * (speed * elapsedTime);
+                sprite->Move(velocityX, velocityY);
+            }
+        }
+    }
+
+    // Perform cleanup.
+    delete leftCollide;
+    delete middleCollide;
+    delete rightCollide;
 }
-
-// Clamps the origin
-/*void Player::clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds)
-{
-    // TODO: If the origin and target is within bounds to nothing.
-    float lookAngle = atan2(target.y - origin.y, target.x - origin.x);
-    float clampedX = -1;
-    float clampedY = -1;
-
-
-}*/
 
 Vector2f* Player::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY)
 {
@@ -192,23 +169,7 @@ Vector2f* Player::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int to
 
     // x0 = fromX   y0 = fromY  x1 = toX    y1 = toY
 
-    /*CoordinateUtil coordUtil;
-    Vector2f fromPosition(fromX, fromY);
-    Vector2f toPosition(toX, toY);
-    bool fromInside = coordUtil.isLocalPointInside(fromPosition, *sprite);
-    bool toInside = coordUtil.isLocalPointInside(toPosition, *sprite);
-
-    if(!fromInside && !toInside)
-    {
-        return 0;
-    }else if(!fromInside){
-        clamp(fromX, 0, sprite->GetSize().x - 1);
-        clamp(fromY, 0, sprite->GetSize().y - 1);
-    }else if(!toInside){
-        clamp(toX, 0, sprite->GetSize().x - 1);
-        clamp(toY, 0, sprite->GetSize().y - 1);
-    }*/
-
+    // Clamp positions to within the bounds of the sprite
     clamp(fromX, 0, sprite->GetSize().x - 1);
     clamp(fromY, 0, sprite->GetSize().y - 1);
     clamp(toX, 0, sprite->GetSize().x - 1);
@@ -254,7 +215,9 @@ Vector2f* Player::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int to
 
 void Player::draw(RenderWindow *window)
 {
+    // Draw the charcter.
     window->Draw(*sprite);
 
+    // Draw the ground line for debugging.
     window->Draw(line);
 }
