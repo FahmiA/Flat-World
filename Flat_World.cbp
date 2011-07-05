@@ -68,6 +68,10 @@
 		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="media\textures\Key.png" />
+		<Unit filename="util\CoordinateUtil.cpp" />
+		<Unit filename="util\CoordinateUtil.hpp" />
+		<Unit filename="util\NumberUtil.cpp" />
+		<Unit filename="util\NumberUtil.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

@@ -14,6 +14,8 @@ class Player: public GameObject
         virtual ~Player();
 
         void update(Clock *clock, RenderWindow *window, World *world);
+        void clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds);
+
         void draw(RenderWindow *window);
 
     private:
