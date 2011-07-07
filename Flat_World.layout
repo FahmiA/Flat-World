@@ -2,27 +2,27 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="actors\Player.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="2004" topLine="47" />
+		<Cursor position="7779" topLine="162" />
 	</File>
 	<File name="actors\Player.hpp" open="1" top="0" tabpos="2">
-		<Cursor position="757" topLine="12" />
+		<Cursor position="440" topLine="11" />
 	</File>
 	<File name="environment\Island.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="103" topLine="0" />
+		<Cursor position="677" topLine="0" />
 	</File>
 	<File name="environment\Island.hpp" open="0" top="0" tabpos="7">
-		<Cursor position="38" topLine="0" />
+		<Cursor position="505" topLine="0" />
 	</File>
 	<File name="game\GameObject.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="27" topLine="0" />
 	</File>
-	<File name="game\GameObject.hpp" open="1" top="0" tabpos="4">
-		<Cursor position="342" topLine="0" />
+	<File name="game\GameObject.hpp" open="0" top="0" tabpos="4">
+		<Cursor position="355" topLine="0" />
 	</File>
 	<File name="game\World.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="129" topLine="0" />
 	</File>
-	<File name="game\World.hpp" open="1" top="0" tabpos="3">
+	<File name="game\World.hpp" open="0" top="0" tabpos="3">
 		<Cursor position="97" topLine="0" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="1">
@@ -40,11 +40,11 @@
 	<File name="scene\SteadyCamera.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="71" topLine="0" />
 	</File>
-	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="205" topLine="0" />
+	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="1339" topLine="46" />
 	</File>
-	<File name="util\CoordinateUtil.hpp" open="0" top="0" tabpos="6">
-		<Cursor position="146" topLine="3" />
+	<File name="util\CoordinateUtil.hpp" open="0" top="0" tabpos="3">
+		<Cursor position="515" topLine="0" />
 	</File>
 	<File name="util\NumberUtil.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="199" topLine="0" />

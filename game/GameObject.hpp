@@ -15,6 +15,8 @@ class GameObject
         virtual void draw(RenderWindow *window) = 0;
 
         virtual const Vector2f& getPosition() = 0;
+
+        virtual const Vector2f& getSize() = 0;
 };
 
 #endif // GAMEOBJECT_H

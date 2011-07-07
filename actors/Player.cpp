@@ -8,8 +8,6 @@
 #include<list>
 using namespace std;
 
-#define LAND_NEAR_DISTANCE 200
-
 Player::Player(float x, float y, float width, float height, float speed, Sprite *sprite)
 {
     this->speed = speed;
@@ -22,6 +20,7 @@ Player::Player(float x, float y, float width, float height, float speed, Sprite 
 
     currentGround = 0;
     prevGround = 0;
+    inJump = false;
 }
 
 Player::~Player()
@@ -49,46 +48,65 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
         cout << "Island Jump" << endl;
         prevGround = currentGround;
         currentGround = 0;
+        inJump = true;
     }
 
     if(window->GetInput().IsKeyDown(Key::R))        // Rotate (DEEBUG FEATURE)
         sprite->Rotate(100 * elapsedTime);
+
+    int lookDepth = 50; // Depth to ray-trace
+    int lookOffset = 50; // Distance between left and right ray-traces
 
     // Perform collision detection
     if(currentGround == 0)
     {
         // Get the nearest island
         list<GameObject*>* objects = world->getObjects();
-        float nearestDistance = 0;
-        GameObject* nearestObject = 0;
         for(list<GameObject*>::iterator it = objects->begin(); it != objects->end(); it++)
         {
-            if(prevGround == *it) // Ignore the previous ground
-                continue;
-
-            if(nearestObject == 0)
+            if(prevGround != *it) // Ignore the previous ground
             {
-                nearestObject = *it;
-                nearestDistance = coordUtil.distance(sprite->GetPosition(), nearestObject->getPosition());
-            }else{
-                float distance = coordUtil.distance(sprite->GetPosition(), (*it)->getPosition());
-                if(distance < nearestDistance)
+                //float distance = coordUtil.distance(sprite->GetPosition(), (*it)->getPosition());
+                if(coordUtil.collide(sprite, ((Island*)(*it))->getSprite()))
                 {
-                    nearestObject = *it;
-                    nearestDistance = distance;
+                    // Mark the new ground as the current ground
+                    prevGround = currentGround;
+                    currentGround = (Island*)(*it);
+
+                    // Rotate to the new ground
+                    float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y, currentGround->getPosition().x - sprite->GetPosition().x);
+                    angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
+                    sprite->SetRotation(-angle + 90); // Rotate to the correct angle
+
+                    cout << "found new ground" << endl;
+                    break;
                 }
             }
         }
-
-        currentGround = (Island*)(nearestObject);
     }
 
-    //cout << (currentGround != 0) << endl;
+    if(currentGround == 0)
+    {
+        float angle = -sprite->GetRotation();
+        if(inJump)
+        {
+            angle -= 90; // Up (jump)
+            //cout << "up"  << endl;
+        } else {
+            angle += 90; // Down (gravity)
+            //cout << "down" << endl;
+        }
+
+        velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
+        velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
+        sprite->Move(velocityX, velocityY);
+        return;
+    }else{
+        inJump = false;
+    }
+
     // Get the pixels directly under the player
     Sprite *groundSprite = currentGround->getSprite();
-
-    int lookDepth = 50; // Depth to ray-trace
-    int lookOffset = 50; // Distance between left and right ray-traces
 
     // Get the position at the bottom of the charcter
     // Global Positions
@@ -116,7 +134,7 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
     Vector2f *rightCollide = rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
 
     // Resolve the problem of only one ray-trace finding land
-    if(rightCollide == 0 && leftCollide != 0)
+    /*if(rightCollide == 0 && leftCollide != 0)
     {
         //rightCollide = new Vector2f(bottomRight.x, leftCollide->y + 5);
         rightCollide = &groundSprite->TransformToGlobal(Vector2f(bottomRight.x, leftCollide->y));
@@ -133,12 +151,12 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
         leftCollide = &sprite->TransformToGlobal(*leftCollide);
         leftCollide = &groundSprite->TransformToLocal(*leftCollide);
         cout << "Left Collide missing" << endl;
-    }
+    }*/
 
-    if(leftCollide == 0 && rightCollide == 0)
+    if(leftCollide == 0 || rightCollide == 0)
     {
         // No land below. Move with relative gravity
-        float angle = sprite->GetRotation() + 90;
+        float angle = -sprite->GetRotation() + 90;
         velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
         velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
         sprite->Move(velocityX, velocityY);
@@ -157,14 +175,11 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
         if(middleCollide != 0)
         {
             // Get the distance to the ground
-            /*float dx = bottomMiddle.x - middleCollide->x;
-            float dy = bottomMiddle.y - middleCollide->y;
-            float distance = (dx * dx) + (dy * dy);
-            distance = sqrt(distance);*/
             float distance = coordUtil.distance(bottomMiddle, *middleCollide);
 
             // Only move up or down if the distance is not acceptable
-            if(distance > 2 || distance < 1)
+            //cout << distance << endl;
+            if(distance > 2 || distance < 1.5)
             {
                 Color pixel;
 
@@ -262,6 +277,11 @@ void Player::draw(RenderWindow *window)
 const Vector2f& Player::getPosition()
 {
     return sprite->GetPosition();
+}
+
+const Vector2f& Player::getSize()
+{
+    return sprite->GetSize();
 }
 
 float Player::getRotation()

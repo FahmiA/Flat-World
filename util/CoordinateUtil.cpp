@@ -48,6 +48,18 @@ float CoordinateUtil::distance(Vector2f &p1, Vector2f &p2)
     return distance;
 }
 
+bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
+{
+    // TODO: Implement collide method efficiently (collision between two sprites (rectangles)
+    Vector2f topLeft(object1->GetPosition().x, object1->GetPosition().y);
+    Vector2f topRight(object1->GetPosition().x + object1->GetSize().x, object1->GetPosition().y);
+    Vector2f bottomLeft(object1->GetPosition().x, object1->GetPosition().y + object1->GetSize().y);
+    Vector2f bottomRight(object1->GetPosition().x + object1->GetSize().x, object1->GetPosition().y + object1->GetSize().y);
+
+    return isGlobalPointInside(topLeft, *object2) || isGlobalPointInside(topRight, *object2) ||
+            isGlobalPointInside(bottomLeft, *object2) || isGlobalPointInside(bottomRight, *object2);
+}
+
 /*void CoordinateUtil::clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds)
 {
     // Check if the points are inside the bounds

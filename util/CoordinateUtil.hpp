@@ -1,6 +1,8 @@
 #ifndef COORDINATE_UTIL_H
 #define COORDINATES_UTIL_H
 
+#include "../game/GameObject.hpp"
+
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
@@ -14,6 +16,8 @@ class CoordinateUtil
 
         float distance(const Vector2f &p1, const Vector2f &p2);
         float distance(Vector2f &p1, Vector2f &p2);
+
+        bool collide(Sprite *object1, Sprite *object2);
 
         //void clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds);
 

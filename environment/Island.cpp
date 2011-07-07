@@ -33,3 +33,8 @@ const Vector2f& Island::getPosition()
 {
     return sprite->GetPosition();
 }
+
+const Vector2f& Island::getSize()
+{
+    return sprite->GetSize();
+}
