@@ -28,3 +28,8 @@ void Island::draw(RenderWindow *window)
 {
     window->Draw(*sprite);
 }
+
+const Vector2f& Island::getPosition()
+{
+    return sprite->GetPosition();
+}

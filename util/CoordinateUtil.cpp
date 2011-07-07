@@ -28,6 +28,26 @@ bool CoordinateUtil::isLocalPointInside(Vector2f &point, Sprite &bounds)
     return false;
 }
 
+float CoordinateUtil::distance(const Vector2f &p1, const Vector2f &p2)
+{
+    float dx = p2.x - p1.x;
+    float dy = p2.y - p1.y;
+    float distance = (dx * dx) + (dy * dy);
+    distance = sqrt(distance);
+
+    return distance;
+}
+
+float CoordinateUtil::distance(Vector2f &p1, Vector2f &p2)
+{
+    float dx = p2.x - p1.x;
+    float dy = p2.y - p1.y;
+    float distance = (dx * dx) + (dy * dy);
+    distance = sqrt(distance);
+
+    return distance;
+}
+
 /*void CoordinateUtil::clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds)
 {
     // Check if the points are inside the bounds

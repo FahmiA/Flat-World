@@ -1,8 +1,9 @@
-#include <SFML/Graphics.hpp>
-
 #include "game/World.hpp"
 #include "environment/Island.hpp"
 
+#include "scene/SteadyCamera.hpp"
+
+#include <SFML/Graphics.hpp>
 using namespace sf;
 
 int main()
@@ -11,15 +12,25 @@ int main()
     Clock clock;
 
     // Create the ground
-    Image groundImage;
-    if(!groundImage.LoadFromFile("media/textures/Asteroid.png"))
+    Image groundImage1;
+    if(!groundImage1.LoadFromFile("media/textures/Asteroid1.png"))
     {
         // Error
         return EXIT_FAILURE;
     }
-    Sprite groundSprite;
-    groundSprite.SetImage(groundImage);
-    Island island(200, 400, 235, 235, &groundSprite);
+    Sprite groundSprite1;
+    groundSprite1.SetImage(groundImage1);
+    Island island1(200, 400, 235, 235, &groundSprite1);
+
+    Image groundImage2;
+    if(!groundImage2.LoadFromFile("media/textures/Asteroid2.png"))
+    {
+        // Error
+        return EXIT_FAILURE;
+    }
+    Sprite groundSprite2;
+    groundSprite2.SetImage(groundImage2);
+    Island island2(600, 200, 235, 235, &groundSprite2);
 
     // Create the player
     Image playerImage;
@@ -32,7 +43,12 @@ int main()
     // Create the world
     World world;
     world.setPlayer(&player);
-    world.addLevelObject(&island);
+    world.addLevelObject(&island1);
+    world.addLevelObject(&island2);
+
+    // Create the camera
+    Camera *camera = new SteadyCamera();
+    world.setCamera(camera);
 
     while(app.IsOpened())
     {
@@ -56,7 +72,7 @@ int main()
             }
         }
 
-        world.update(&clock, &app, 0);
+        world.update(&clock, &app);
         clock.Reset();
 
         // Clear the screen (fill it with black color)
@@ -68,5 +84,6 @@ int main()
         app.Display();
     }
 
+    delete camera;
     return EXIT_SUCCESS;
 }

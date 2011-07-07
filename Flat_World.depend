@@ -1,8 +1,9 @@
 # depslib dependency file v1.0
-1309508470 source:c:\users\fahmi\documents\c++\flat_world\main.cpp
-	<SFML/Graphics.hpp>
+1309952352 source:c:\users\fahmi\documents\c++\flat_world\main.cpp
 	"game/World.hpp"
 	"environment/Island.hpp"
+	"scene/SteadyCamera.hpp"
+	<SFML/Graphics.hpp>
 
 1309160888 
 
@@ -16,56 +17,70 @@
 1309316329 source:c:\users\fahmi\documents\c++\flat_world\actors\actor.cpp
 	"actor.hpp"
 
-1309855427 source:c:\users\fahmi\documents\c++\flat_world\actors\player.cpp
+1310018370 source:c:\users\fahmi\documents\c++\flat_world\actors\player.cpp
 	"Player.hpp"
-	"../game/World.hpp"
-	"../environment/Island.hpp"
 	"../util/NumberUtil.hpp"
 	"../util/CoordinateUtil.hpp"
 	<iostream>
 	<math.h>
 	<list>
 
-1309764893 c:\users\fahmi\documents\c++\flat_world\actors\player.hpp
-	"../game/GameObject.hpp"
+1310018373 c:\users\fahmi\documents\c++\flat_world\actors\player.hpp
+	"../game/World.hpp"
+	"../environment/Island.hpp"
 	<SFML/Graphics.hpp>
 
 1309317716 c:\users\fahmi\documents\c++\flat_world\gameobject.hpp
 	<SFML/Graphics.hpp>
 
-1309338794 source:c:\users\fahmi\documents\c++\flat_world\environment\island.cpp
+1309941114 source:c:\users\fahmi\documents\c++\flat_world\environment\island.cpp
 	"Island.hpp"
 
-1309338771 c:\users\fahmi\documents\c++\flat_world\environment\island.hpp
+1309941122 c:\users\fahmi\documents\c++\flat_world\environment\island.hpp
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 
 1309317262 source:c:\users\fahmi\documents\c++\flat_world\gameobject.cpp
 	"GameObject.hpp"
 
-1309337988 c:\users\fahmi\documents\c++\flat_world\game\gameobject.hpp
+1309989991 c:\users\fahmi\documents\c++\flat_world\game\gameobject.hpp
 	<SFML/Graphics.hpp>
 
-1309318425 source:c:\users\fahmi\documents\c++\flat_world\game\gameobject.cpp
+1309951752 source:c:\users\fahmi\documents\c++\flat_world\game\gameobject.cpp
 	"GameObject.hpp"
 
-1309338495 source:c:\users\fahmi\documents\c++\flat_world\game\world.cpp
+1309940525 source:c:\users\fahmi\documents\c++\flat_world\game\world.cpp
 	"World.hpp"
 
-1309338506 c:\users\fahmi\documents\c++\flat_world\game\world.hpp
-	<list>
-	"GameObject.hpp"
+1309952616 c:\users\fahmi\documents\c++\flat_world\game\world.hpp
+	"../game/GameObject.hpp"
 	"../actors/Player.hpp"
+	"../scene/Camera.hpp"
+	<list>
 
-1309852051 source:c:\users\fahmi\documents\c++\flat_world\util\coordinateutil.cpp
+1309941309 source:c:\users\fahmi\documents\c++\flat_world\util\coordinateutil.cpp
 	"CoordinateUtil.hpp"
 	<math.h>
 
-1309851525 c:\users\fahmi\documents\c++\flat_world\util\coordinateutil.hpp
+1309941019 c:\users\fahmi\documents\c++\flat_world\util\coordinateutil.hpp
 	<SFML/Graphics.hpp>
 
 1309852624 source:c:\users\fahmi\documents\c++\flat_world\util\numberutil.cpp
 	"NumberUtil.hpp"
 
 1309852610 c:\users\fahmi\documents\c++\flat_world\util\numberutil.hpp
+
+1309939671 source:c:\users\fahmi\documents\c++\flat_world\scene\camera.cpp
+	"Camera.hpp"
+
+1309950789 c:\users\fahmi\documents\c++\flat_world\scene\camera.hpp
+	<SFML/Graphics.hpp>
+
+1309952317 source:c:\users\fahmi\documents\c++\flat_world\scene\steadycamera.cpp
+	"SteadyCamera.hpp"
+	"../game/World.hpp"
+	<SFML/Graphics.hpp>
+
+1309938024 c:\users\fahmi\documents\c++\flat_world\scene\steadycamera.hpp
+	"Camera.hpp"
 

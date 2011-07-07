@@ -1,7 +1,5 @@
 #include "Player.hpp"
 
-#include "../game/World.hpp"
-#include "../environment/Island.hpp"
 #include "../util/NumberUtil.hpp"
 #include "../util/CoordinateUtil.hpp"
 
@@ -9,6 +7,8 @@
 #include<math.h>
 #include<list>
 using namespace std;
+
+#define LAND_NEAR_DISTANCE 200
 
 Player::Player(float x, float y, float width, float height, float speed, Sprite *sprite)
 {
@@ -19,6 +19,9 @@ Player::Player(float x, float y, float width, float height, float speed, Sprite 
     sprite->SetY(y);
     sprite->Resize(width, height);
     this->sprite = sprite;
+
+    currentGround = 0;
+    prevGround = 0;
 }
 
 Player::~Player()
@@ -29,6 +32,7 @@ Player::~Player()
 void Player::update(Clock *clock, RenderWindow *window, World *world)
 {
     float elapsedTime = clock->GetElapsedTime();
+    CoordinateUtil coordUtil;
 
     float velocityX = cos(sprite->GetRotation() * M_PI / 180) * (speed * elapsedTime);
     float velocityY = sin(sprite->GetRotation() * M_PI / 180) * (speed * elapsedTime);
@@ -40,15 +44,48 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
     if(window->GetInput().IsKeyDown(Key::Left))     // Move left
         sprite->Move(-velocityX, velocityY);
 
+    if(window->GetInput().IsKeyDown(Key::Space) && currentGround != 0)     // Island Jump
+    {
+        cout << "Island Jump" << endl;
+        prevGround = currentGround;
+        currentGround = 0;
+    }
+
     if(window->GetInput().IsKeyDown(Key::R))        // Rotate (DEEBUG FEATURE)
         sprite->Rotate(100 * elapsedTime);
 
     // Perform collision detection
-    list<GameObject*>* objects = world->getObjects();
-    Island *ground = (Island*)(objects->front());
+    if(currentGround == 0)
+    {
+        // Get the nearest island
+        list<GameObject*>* objects = world->getObjects();
+        float nearestDistance = 0;
+        GameObject* nearestObject = 0;
+        for(list<GameObject*>::iterator it = objects->begin(); it != objects->end(); it++)
+        {
+            if(prevGround == *it) // Ignore the previous ground
+                continue;
 
+            if(nearestObject == 0)
+            {
+                nearestObject = *it;
+                nearestDistance = coordUtil.distance(sprite->GetPosition(), nearestObject->getPosition());
+            }else{
+                float distance = coordUtil.distance(sprite->GetPosition(), (*it)->getPosition());
+                if(distance < nearestDistance)
+                {
+                    nearestObject = *it;
+                    nearestDistance = distance;
+                }
+            }
+        }
+
+        currentGround = (Island*)(nearestObject);
+    }
+
+    //cout << (currentGround != 0) << endl;
     // Get the pixels directly under the player
-    Sprite *groundSprite = ground->getSprite();
+    Sprite *groundSprite = currentGround->getSprite();
 
     int lookDepth = 50; // Depth to ray-trace
     int lookOffset = 50; // Distance between left and right ray-traces
@@ -120,15 +157,15 @@ void Player::update(Clock *clock, RenderWindow *window, World *world)
         if(middleCollide != 0)
         {
             // Get the distance to the ground
-            float dx = bottomMiddle.x - middleCollide->x;
+            /*float dx = bottomMiddle.x - middleCollide->x;
             float dy = bottomMiddle.y - middleCollide->y;
             float distance = (dx * dx) + (dy * dy);
-            distance = sqrt(distance);
+            distance = sqrt(distance);*/
+            float distance = coordUtil.distance(bottomMiddle, *middleCollide);
 
             // Only move up or down if the distance is not acceptable
             if(distance > 2 || distance < 1)
             {
-                CoordinateUtil coordUtil;
                 Color pixel;
 
                 // Get the pixel of the ground
@@ -220,4 +257,14 @@ void Player::draw(RenderWindow *window)
 
     // Draw the ground line for debugging.
     window->Draw(line);
+}
+
+const Vector2f& Player::getPosition()
+{
+    return sprite->GetPosition();
+}
+
+float Player::getRotation()
+{
+    return sprite->GetRotation();
 }

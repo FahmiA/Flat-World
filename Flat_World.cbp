@@ -68,6 +68,10 @@
 		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="media\textures\Key.png" />
+		<Unit filename="scene\Camera.cpp" />
+		<Unit filename="scene\Camera.hpp" />
+		<Unit filename="scene\SteadyCamera.cpp" />
+		<Unit filename="scene\SteadyCamera.hpp" />
 		<Unit filename="util\CoordinateUtil.cpp" />
 		<Unit filename="util\CoordinateUtil.hpp" />
 		<Unit filename="util\NumberUtil.cpp" />

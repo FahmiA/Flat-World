@@ -16,6 +16,7 @@ class Island: public GameObject
 
         void update(Clock *clock, RenderWindow *window, World *world);
         void draw(RenderWindow *window);
+        const Vector2f& getPosition();
 
     private:
         Sprite *sprite;
