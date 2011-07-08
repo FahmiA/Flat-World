@@ -2,6 +2,7 @@
 #include "environment/Island.hpp"
 
 #include "scene/SteadyCamera.hpp"
+#include "actors/Player.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;

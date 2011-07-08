@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   xmlns:dc="http://purl.org/dc/elements/1.1/"
+   xmlns:cc="http://creativecommons.org/ns#"
+   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+   xmlns:svg="http://www.w3.org/2000/svg"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   width="744.09448819"
+   height="1052.3622047"
+   id="svg2"
+   version="1.1"
+   inkscape:version="0.47 r22583"
+   sodipodi:docname="Sheep.svg">
+  <defs
+     id="defs4">
+    <inkscape:perspective
+       sodipodi:type="inkscape:persp3d"
+       inkscape:vp_x="0 : 526.18109 : 1"
+       inkscape:vp_y="0 : 1000 : 0"
+       inkscape:vp_z="744.09448 : 526.18109 : 1"
+       inkscape:persp3d-origin="372.04724 : 350.78739 : 1"
+       id="perspective10" />
+  </defs>
+  <sodipodi:namedview
+     id="base"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageopacity="0.0"
+     inkscape:pageshadow="2"
+     inkscape:zoom="1.979899"
+     inkscape:cx="253.73273"
+     inkscape:cy="671.17801"
+     inkscape:document-units="px"
+     inkscape:current-layer="layer1"
+     showgrid="false"
+     inkscape:window-width="1280"
+     inkscape:window-height="738"
+     inkscape:window-x="-8"
+     inkscape:window-y="-8"
+     inkscape:window-maximized="1" />
+  <metadata
+     id="metadata7">
+    <rdf:RDF>
+      <cc:Work
+         rdf:about="">
+        <dc:format>image/svg+xml</dc:format>
+        <dc:type
+           rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
+        <dc:title></dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       sodipodi:type="arc"
+       style="fill:#cccccc;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2930"
+       sodipodi:cx="148.49243"
+       sodipodi:cy="394.75287"
+       sodipodi:rx="43.436558"
+       sodipodi:ry="44.446712"
+       d="m 191.92899,394.75287 a 43.436558,44.446712 0 1 1 -86.87312,0 43.436558,44.446712 0 1 1 86.87312,0 z"
+       transform="matrix(1.0046354,0,0,0.63490605,66.991899,113.27634)"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#f9f9f9;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2916"
+       sodipodi:cx="159.28572"
+       sodipodi:cy="693.07648"
+       sodipodi:rx="55"
+       sodipodi:ry="55"
+       d="m 214.28572,693.07648 a 55,55 0 1 1 -110,0 55,55 0 1 1 110,0 z"
+       transform="matrix(0.6619898,0,0,0.6619898,88.901475,-112.47675)"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2918"
+       sodipodi:cx="77.276672"
+       sodipodi:cy="329.09296"
+       sodipodi:rx="14.142136"
+       sodipodi:ry="14.142136"
+       d="m 91.418808,329.09296 a 14.142136,14.142136 0 1 1 -28.284271,0 14.142136,14.142136 0 1 1 28.284271,0 z"
+       transform="matrix(0.6619898,0,0,0.6619898,125.70025,117.55162)"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       transform="matrix(0.6619898,0,0,0.6619898,160.12372,117.55162)"
+       d="m 91.418808,329.09296 a 14.142136,14.142136 0 1 1 -28.284271,0 14.142136,14.142136 0 1 1 28.284271,0 z"
+       sodipodi:ry="14.142136"
+       sodipodi:rx="14.142136"
+       sodipodi:cy="329.09296"
+       sodipodi:cx="77.276672"
+       id="path2920"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:2;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       sodipodi:type="arc"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 189.24239,385.76773 -11.5174,19.94872"
+       id="path2946"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 203.57143,391.6479 -7.85714,19.28571"
+       id="path2952"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 235.25254,388.58155 8.57143,18.57143"
+       id="path2954"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 175,358.21932 c 0,0 20,23.57143 37.14286,0.71429"
+       id="path2960"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       sodipodi:type="arc"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       id="path2962"
+       sodipodi:cx="139.10715"
+       sodipodi:cy="335.75504"
+       sodipodi:rx="3.5714285"
+       sodipodi:ry="3.5714285"
+       d="m 142.67858,335.75504 a 3.5714285,3.5714285 0 1 1 -7.14286,0 3.5714285,3.5714285 0 1 1 7.14286,0 z"
+       transform="translate(37.142857,1.6428571)"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+    <path
+       transform="translate(71.5,1.6428571)"
+       d="m 142.67858,335.75504 a 3.5714285,3.5714285 0 1 1 -7.14286,0 3.5714285,3.5714285 0 1 1 7.14286,0 z"
+       sodipodi:ry="3.5714285"
+       sodipodi:rx="3.5714285"
+       sodipodi:cy="335.75504"
+       sodipodi:cx="139.10715"
+       id="path2977"
+       style="fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:#000000;stroke-width:4;stroke-miterlimit:4;stroke-opacity:1;stroke-dasharray:none;stroke-dashoffset:0"
+       sodipodi:type="arc"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\C++\Flat_World\media\textures\Sheep.png"
+       inkscape:export-xdpi="90"
+       inkscape:export-ydpi="90" />
+  </g>
+</svg>

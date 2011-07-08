@@ -1,5 +1,7 @@
 #include "World.hpp"
 
+#include "../actors/Player.hpp"
+
 World::World()
 {
     this->player = 0;

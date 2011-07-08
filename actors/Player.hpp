@@ -1,37 +1,19 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-//#include "../game/GameObject.hpp"
-#include "../game/World.hpp"
-#include "../environment/Island.hpp"
+#include "Character.hpp"
 
-#include <SFML/Graphics.hpp>
-using namespace sf;
+//#include <SFML/Graphics.hpp>
+//using namespace sf;
 
-class Player: public GameObject
+class Player: public Character
 {
     public:
         Player(float x, float y, float width, float height, float speed, Sprite *sprite);
 
-        virtual ~Player();
+        ~Player();
 
-        void update(Clock *clock, RenderWindow *window, World *world);
-
-        void draw(RenderWindow *window);
-
-        const Vector2f& getPosition();
-        const Vector2f& getSize();
-        float getRotation();
-
-    private:
-        float speed;
-        Sprite *sprite;
-        Shape line;
-        Island *currentGround;
-        Island *prevGround;
-        bool inJump;
-
-        Vector2f* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY);
+        void subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow *window, World *world);
 };
 
 #endif // PLAYER_H

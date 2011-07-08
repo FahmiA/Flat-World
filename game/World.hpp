@@ -2,7 +2,7 @@
 #define WORLD_H
 
 #include "../game/GameObject.hpp"
-#include "../actors/Player.hpp"
+//#include "../actors/Player.hpp"
 #include "../scene/Camera.hpp"
 
 class Player;
