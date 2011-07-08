@@ -28,6 +28,7 @@ class Character: public GameObject
         void landHop();
         void moveLeft();
         void moveRight();
+        Sprite *getSprite();
 
     private:
         float speed;

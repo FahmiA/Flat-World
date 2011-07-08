@@ -62,6 +62,7 @@
 		<Unit filename="environment\Island.hpp" />
 		<Unit filename="game\GameObject.cpp" />
 		<Unit filename="game\GameObject.hpp" />
+		<Unit filename="game\ID.hpp" />
 		<Unit filename="game\World.cpp" />
 		<Unit filename="game\World.hpp" />
 		<Unit filename="libs\debug\sfml-system-d.dll">

@@ -3,6 +3,7 @@
 
 #include "scene/SteadyCamera.hpp"
 #include "actors/Player.hpp"
+#include "actors/Sheep.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
@@ -33,6 +34,17 @@ int main()
     groundSprite2.SetImage(groundImage2);
     Island island2(600, 200, 235, 235, &groundSprite2);
 
+    // Create a Sheep
+    Image sheepImage;
+    if(!sheepImage.LoadFromFile("media/textures/Sheep.png"))
+    {
+        // Error
+        return EXIT_FAILURE;
+    }
+    Sprite sheepSprite;
+    sheepSprite.SetImage(sheepImage);
+    Sheep sheep(600, 50, 103, 102, 200, &sheepSprite);
+
     // Create the player
     Image playerImage;
     if(!playerImage.LoadFromFile("media/textures/CharacterBoy.png"))
@@ -46,6 +58,7 @@ int main()
     world.setPlayer(&player);
     world.addLevelObject(&island1);
     world.addLevelObject(&island2);
+    world.addLevelObject(&sheep);
 
     // Create the camera
     Camera *camera = new SteadyCamera();

@@ -2,6 +2,7 @@
 
 #include "../util/NumberUtil.hpp"
 #include "../util/CoordinateUtil.hpp"
+#include "../game/ID.hpp"
 
 #include<iostream>
 #include<math.h>
@@ -93,7 +94,7 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         list<GameObject*>* objects = world->getObjects();
         for(list<GameObject*>::iterator it = objects->begin(); it != objects->end(); it++)
         {
-            if(prevGround != *it) // Ignore the previous ground
+            if((*it)->getID() == ID_ISLAND && prevGround != *it) // Ignore the previous ground
             {
                 //float distance = coordUtil.distance(sprite->GetPosition(), (*it)->getPosition());
                 if(coordUtil.collide(sprite, ((Island*)(*it))->getSprite()))
@@ -316,4 +317,9 @@ const Vector2f& Character::getSize()
 float Character::getRotation()
 {
     return sprite->GetRotation();
+}
+
+Sprite* Character::getSprite()
+{
+    return sprite;
 }

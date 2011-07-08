@@ -1,13 +1,14 @@
 #include "Player.hpp"
 
+#include "../game/ID.hpp"
+
 Player::Player(float x, float y, float width, float height, float speed, Sprite *sprite)
     : Character(x, y, width, height, speed, sprite)
 {
+    setID(ID_PLAYER);
 }
 
-Player::~Player()
-{
-}
+Player::~Player() {}
 
 void Player::subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow *window, World *world)
 {
