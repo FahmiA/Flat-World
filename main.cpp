@@ -5,6 +5,9 @@
 #include "actors/Player.hpp"
 #include "actors/Sheep.hpp"
 
+#include "gameIO/ContentManager.hpp"
+#include "gameIO/LevelLoader.hpp"
+
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
@@ -13,6 +16,17 @@ int main()
     RenderWindow app(VideoMode(800, 600, 32), "SFML Graphics");
     Clock clock;
 
+    ContentManager content;
+    // Load the level
+    World *world = new World();
+    string xmlPath = "configuration\\levels\\level_1.xml";
+    LevelLoader levelLoader(xmlPath, &content);
+    bool worldLoaded = levelLoader.loadWorld(world);
+
+    if(!worldLoaded)
+        return EXIT_FAILURE;
+
+    /*
     // Create the ground
     Image groundImage1;
     if(!groundImage1.LoadFromFile("media/textures/Asteroid1.png"))
@@ -59,10 +73,11 @@ int main()
     world.addLevelObject(&island1);
     world.addLevelObject(&island2);
     world.addLevelObject(&sheep);
+    */
 
     // Create the camera
     Camera *camera = new SteadyCamera();
-    world.setCamera(camera);
+    world->setCamera(camera);
 
     while(app.IsOpened())
     {
@@ -86,18 +101,19 @@ int main()
             }
         }
 
-        world.update(&clock, &app);
+        world->update(&clock, &app);
         clock.Reset();
 
         // Clear the screen (fill it with black color)
         app.Clear(Color(200, 0, 0));
 
-        world.draw(&app);
+        world->draw(&app);
 
         // Always display the window last, after all updates.
         app.Display();
     }
 
     delete camera;
+    delete world;
     return EXIT_SUCCESS;
 }

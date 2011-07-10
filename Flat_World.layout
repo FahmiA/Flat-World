@@ -1,32 +1,38 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="actors\Character.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="11523" topLine="295" />
+	<File name="actors\Character.cpp" open="0" top="0" tabpos="3">
+		<Cursor position="11379" topLine="302" />
 	</File>
-	<File name="actors\Character.hpp" open="1" top="0" tabpos="4">
-		<Cursor position="487" topLine="8" />
+	<File name="actors\Character.hpp" open="0" top="0" tabpos="4">
+		<Cursor position="942" topLine="21" />
 	</File>
 	<File name="actors\Player.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="273" topLine="0" />
+		<Cursor position="248" topLine="0" />
 	</File>
 	<File name="actors\Player.hpp" open="0" top="0" tabpos="3">
 		<Cursor position="223" topLine="0" />
 	</File>
-	<File name="actors\Sheep.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="869" topLine="11" />
+	<File name="actors\Sheep.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="592" topLine="11" />
 	</File>
-	<File name="actors\Sheep.hpp" open="1" top="0" tabpos="2">
+	<File name="actors\Sheep.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="89" topLine="0" />
 	</File>
 	<File name="environment\Island.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="358" topLine="0" />
+		<Cursor position="405" topLine="0" />
 	</File>
 	<File name="environment\Island.hpp" open="0" top="0" tabpos="7">
 		<Cursor position="505" topLine="0" />
 	</File>
+	<File name="gameIO\LevelLoader.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="2854" topLine="75" />
+	</File>
+	<File name="gameIO\LevelLoader.hpp" open="1" top="0" tabpos="1">
+		<Cursor position="798" topLine="4" />
+	</File>
 	<File name="game\GameObject.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="67" topLine="0" />
+		<Cursor position="131" topLine="0" />
 	</File>
 	<File name="game\GameObject.hpp" open="0" top="0" tabpos="4">
 		<Cursor position="503" topLine="5" />
@@ -35,13 +41,13 @@
 		<Cursor position="26" topLine="0" />
 	</File>
 	<File name="game\World.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="292" topLine="40" />
+		<Cursor position="1156" topLine="0" />
 	</File>
 	<File name="game\World.hpp" open="0" top="0" tabpos="3">
-		<Cursor position="118" topLine="0" />
+		<Cursor position="356" topLine="12" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="1181" topLine="33" />
+		<Cursor position="1592" topLine="52" />
 	</File>
 	<File name="scene\Camera.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="118" topLine="0" />
@@ -54,6 +60,15 @@
 	</File>
 	<File name="scene\SteadyCamera.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="71" topLine="0" />
+	</File>
+	<File name="tinyxml\tinystr.h" open="0" top="0" tabpos="0">
+		<Cursor position="875" topLine="4" />
+	</File>
+	<File name="tinyxml\tinyxml.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="18336" topLine="901" />
+	</File>
+	<File name="tinyxml\tinyxml.h" open="0" top="0" tabpos="0">
+		<Cursor position="15905" topLine="522" />
 	</File>
 	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="192" topLine="9" />

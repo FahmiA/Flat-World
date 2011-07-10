@@ -24,6 +24,7 @@
 				<ExtraCommands>
 					<Add after="xcopy libs\debug bin\Debug /E /I /Y" />
 					<Add after="xcopy media bin\Debug\media /E /I /Y" />
+					<Add after="xcopy configuration bin\Debug\configuration /E /I /Y" />
 				</ExtraCommands>
 			</Target>
 			<Target title="Release">
@@ -45,6 +46,7 @@
 				<ExtraCommands>
 					<Add after="xcopy libs\release bin\Release /E /I /Y" />
 					<Add after="xcopy media bin\Release\media /E /I /Y" />
+					<Add after="xcopy configuration bin\Release\configuration /E /I /Y" />
 				</ExtraCommands>
 			</Target>
 		</Build>
@@ -58,8 +60,13 @@
 		<Unit filename="actors\Player.hpp" />
 		<Unit filename="actors\Sheep.cpp" />
 		<Unit filename="actors\Sheep.hpp" />
+		<Unit filename="configuration\levels\level_1.xml" />
 		<Unit filename="environment\Island.cpp" />
 		<Unit filename="environment\Island.hpp" />
+		<Unit filename="gameIO\ContentManager.cpp" />
+		<Unit filename="gameIO\ContentManager.hpp" />
+		<Unit filename="gameIO\LevelLoader.cpp" />
+		<Unit filename="gameIO\LevelLoader.hpp" />
 		<Unit filename="game\GameObject.cpp" />
 		<Unit filename="game\GameObject.hpp" />
 		<Unit filename="game\ID.hpp" />
@@ -77,6 +84,12 @@
 		<Unit filename="scene\Camera.hpp" />
 		<Unit filename="scene\SteadyCamera.cpp" />
 		<Unit filename="scene\SteadyCamera.hpp" />
+		<Unit filename="tinyxml\tinystr.cpp" />
+		<Unit filename="tinyxml\tinystr.h" />
+		<Unit filename="tinyxml\tinyxml.cpp" />
+		<Unit filename="tinyxml\tinyxml.h" />
+		<Unit filename="tinyxml\tinyxmlerror.cpp" />
+		<Unit filename="tinyxml\tinyxmlparser.cpp" />
 		<Unit filename="util\CoordinateUtil.cpp" />
 		<Unit filename="util\CoordinateUtil.hpp" />
 		<Unit filename="util\NumberUtil.cpp" />

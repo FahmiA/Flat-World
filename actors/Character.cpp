@@ -29,7 +29,8 @@ Character::Character(float x, float y, float width, float height, float speed, S
 
 Character::~Character()
 {
-    delete sprite;
+    if(sprite)
+        delete sprite;
 }
 
 void Character::landHop()

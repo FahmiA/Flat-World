@@ -1,10 +1,12 @@
 # depslib dependency file v1.0
-1310111533 source:c:\users\fahmi\documents\c++\flat_world\main.cpp
+1310272715 source:c:\users\fahmi\documents\c++\flat_world\main.cpp
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"scene/SteadyCamera.hpp"
 	"actors/Player.hpp"
 	"actors/Sheep.hpp"
+	"gameIO/ContentManager.hpp"
+	"gameIO/LevelLoader.hpp"
 	<SFML/Graphics.hpp>
 
 1309160888 
@@ -19,7 +21,7 @@
 1309316329 source:c:\users\fahmi\documents\c++\flat_world\actors\actor.cpp
 	"actor.hpp"
 
-1310112064 source:c:\users\fahmi\documents\c++\flat_world\actors\player.cpp
+1310258638 source:c:\users\fahmi\documents\c++\flat_world\actors\player.cpp
 	"Player.hpp"
 	"../game/ID.hpp"
 
@@ -88,7 +90,7 @@
 	"../environment/Island.hpp"
 	<SFML/Graphics.hpp>
 
-1310112621 source:c:\users\fahmi\documents\c++\flat_world\actors\character.cpp
+1310258633 source:c:\users\fahmi\documents\c++\flat_world\actors\character.cpp
 	"Character.hpp"
 	"../util/NumberUtil.hpp"
 	"../util/CoordinateUtil.hpp"
@@ -97,12 +99,69 @@
 	<math.h>
 	<list>
 
-1310112095 source:c:\users\fahmi\documents\c++\flat_world\actors\sheep.cpp
+1310112752 source:c:\users\fahmi\documents\c++\flat_world\actors\sheep.cpp
 	"Sheep.hpp"
 	"../game/ID.hpp"
+	<iostream>
 
 1310112295 c:\users\fahmi\documents\c++\flat_world\actors\sheep.hpp
 	"Character.hpp"
 
 1310112058 c:\users\fahmi\documents\c++\flat_world\game\id.hpp
+
+1310272594 source:c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.cpp
+	"LevelLoader.hpp"
+	<map>
+	<list>
+	<stdlib.h>
+	<iostream>
+	"../environment/Island.hpp"
+	"../actors/Player.hpp"
+
+1310272448 c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.hpp
+	"../tinyxml/tinyxml.h"
+	"../game/World.hpp"
+	"../gameIO/ContentManager.hpp"
+	<string>
+
+1310176288 c:\users\fahmi\documents\c++\flat_world\tinyxml\tinyxml.h
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
+
+1305357898 c:\users\fahmi\documents\c++\flat_world\tinyxml\tinystr.h
+	<assert.h>
+	<string.h>
+
+1305357898 source:c:\users\fahmi\documents\c++\flat_world\tinyxml\tinystr.cpp
+	"tinystr.h"
+
+1305357898 source:c:\users\fahmi\documents\c++\flat_world\tinyxml\tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
+
+1305357898 source:c:\users\fahmi\documents\c++\flat_world\tinyxml\tinyxmlerror.cpp
+	"tinyxml.h"
+
+1305357898 source:c:\users\fahmi\documents\c++\flat_world\tinyxml\tinyxmlparser.cpp
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
+
+1310272665 source:c:\users\fahmi\documents\c++\flat_world\gameio\contentmanager.cpp
+	"ContentManager.hpp"
+
+1310272623 c:\users\fahmi\documents\c++\flat_world\gameio\contentmanager.hpp
+	<SFML/Graphics.hpp>
+	<string>
+	<map>
 

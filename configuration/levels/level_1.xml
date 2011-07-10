@@ -1,0 +1,33 @@
+<level>
+    <description>
+        <name> Level 1: Sheep on the run </name>
+        <width> 1000 </width>
+        <height> 1000 </height>
+        <background> media/textures/background.png </background>
+        <playerStartID> 1 </playerStartID>
+    </description>
+
+    <island>
+        <id> 1 </id>
+        <image> media/textures/Asteroid1.png </image>
+        <x> 200 </x>
+        <y> 400 </y>
+        <width> 235 </width>
+        <height> 235 </height>
+    </island>
+
+    <island>
+        <id> 2 </id>
+        <image> media/textures/Asteroid2.png </image>
+        <x> 600 </x>
+        <y> 200 </y>
+        <width> 235 </width>
+        <height> 235 </height>
+    </island>
+
+    <sheep>
+        <image> media/textures/Sheep.png </image>
+        <locationID> 2 </locationID>
+    </sheep>
+
+</level>
