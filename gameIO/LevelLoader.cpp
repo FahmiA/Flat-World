@@ -6,6 +6,7 @@
 #include <iostream>
 
 #include "../environment/Island.hpp"
+#include "../actors/Sheep.hpp"
 #include "../actors/Player.hpp"
 
 #define TAG_LEVEL "level"
@@ -88,7 +89,7 @@ bool LevelLoader::loadWorld(World* world)
         if(!loadSprite(islandDesc->imagePath, *sprite))
         {
             // Error
-            cout << "Image for Island " << islandDesc->id << " could not be loaded: " << islandDesc->imagePath << endl;
+            cout << "Image for island " << islandDesc->id << " could not be loaded: " << islandDesc->imagePath << endl;
             cout << "\tIsland has not been loaded." << endl;
         }else{
             Island *island = new Island(islandDesc->x, islandDesc->y, islandDesc->width, islandDesc->height, sprite);
@@ -117,6 +118,22 @@ bool LevelLoader::loadWorld(World* world)
     }
 
     // Add the sheep
+    for(list<SheepDescription*>::iterator it = sheepList.begin(); it != sheepList.end(); it++)
+    {
+        SheepDescription *sheepDesc = (*it);
+        IslandDescription *islandDesc = islandMap[sheepDesc->locationID];
+
+        Sprite *sprite = new Sprite();
+        if(!loadSprite(sheepDesc->imagePath, *sprite))
+        {
+            // Error
+            cout << "Image for sheep could not be loaded: " << sheepDesc->imagePath << endl;
+            cout << "\tSheep has not been loaded." << endl;
+        }else{
+            Sheep *sheep = new Sheep(islandDesc->x, islandDesc->y, 103, 102, 200, sprite);
+            world->addLevelObject(sheep);
+        }
+    }
 
 
     delete level;
