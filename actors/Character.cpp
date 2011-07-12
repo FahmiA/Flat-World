@@ -35,10 +35,13 @@ Character::~Character()
 
 void Character::landHop()
 {
-    cout << "Island Jump" << endl;
-    prevGround = currentGround;
-    currentGround = 0;
-    inJump = true;
+    if(!inJump)
+    {
+        cout << "Island Jump" << endl;
+        prevGround = currentGround;
+        currentGround = 0;
+        inJump = true;
+    }
 }
 
 void Character::moveLeft()

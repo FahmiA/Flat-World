@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
-	<File name="actors\Character.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="205" topLine="0" />
+	<File name="actors\Character.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="2971" topLine="92" />
 	</File>
 	<File name="actors\Character.hpp" open="0" top="0" tabpos="4">
 		<Cursor position="1126" topLine="12" />
@@ -19,8 +19,8 @@
 	<File name="actors\Sheep.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="89" topLine="0" />
 	</File>
-	<File name="configuration\levels\level_1.xml" open="0" top="0" tabpos="0">
-		<Cursor position="350" topLine="1" />
+	<File name="configuration\levels\level_1.xml" open="1" top="1" tabpos="2">
+		<Cursor position="1336" topLine="29" />
 	</File>
 	<File name="environment\Island.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="303" topLine="0" />
@@ -34,11 +34,11 @@
 	<File name="gameIO\ContentManager.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="139" topLine="0" />
 	</File>
-	<File name="gameIO\LevelLoader.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="6421" topLine="190" />
+	<File name="gameIO\LevelLoader.cpp" open="0" top="0" tabpos="2">
+		<Cursor position="6872" topLine="192" />
 	</File>
-	<File name="gameIO\LevelLoader.hpp" open="1" top="0" tabpos="1">
-		<Cursor position="2172" topLine="0" />
+	<File name="gameIO\LevelLoader.hpp" open="0" top="0" tabpos="1">
+		<Cursor position="452" topLine="16" />
 	</File>
 	<File name="game\GameObject.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="101" topLine="0" />
@@ -92,7 +92,7 @@
 		<Cursor position="109" topLine="0" />
 	</File>
 	<File name="util\SpriteUtil.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="39" topLine="0" />
+		<Cursor position="58" topLine="16" />
 	</File>
 	<File name="util\SpriteUtil.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="95" topLine="0" />
