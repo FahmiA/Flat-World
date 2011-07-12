@@ -293,6 +293,7 @@ Vector2f* Character::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int
             fromY = fromY + slopeY;
         }
     }
+
     return collidePosition;
 }
 

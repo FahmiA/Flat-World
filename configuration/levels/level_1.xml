@@ -25,6 +25,15 @@
         <height> 235 </height>
     </island>
 
+    <island>
+        <id> 3 </id>
+        <image> media/textures/Asteroid1.png </image>
+        <x> 620 </x>
+        <y> 600 </y>
+        <width> 235 </width>
+        <height> 235 </height>
+    </island>
+
     <sheep>
         <image> media/textures/Sheep.png </image>
         <locationID> 2 </locationID>

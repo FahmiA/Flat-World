@@ -94,6 +94,8 @@
 		<Unit filename="util\CoordinateUtil.hpp" />
 		<Unit filename="util\NumberUtil.cpp" />
 		<Unit filename="util\NumberUtil.hpp" />
+		<Unit filename="util\SpriteUtil.cpp" />
+		<Unit filename="util\SpriteUtil.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

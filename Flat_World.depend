@@ -85,12 +85,12 @@
 1309938024 c:\users\fahmi\documents\c++\flat_world\scene\steadycamera.hpp
 	"Camera.hpp"
 
-1310112596 c:\users\fahmi\documents\c++\flat_world\actors\character.hpp
+1310333964 c:\users\fahmi\documents\c++\flat_world\actors\character.hpp
 	"../game/World.hpp"
 	"../environment/Island.hpp"
 	<SFML/Graphics.hpp>
 
-1310258633 source:c:\users\fahmi\documents\c++\flat_world\actors\character.cpp
+1310333932 source:c:\users\fahmi\documents\c++\flat_world\actors\character.cpp
 	"Character.hpp"
 	"../util/NumberUtil.hpp"
 	"../util/CoordinateUtil.hpp"
@@ -109,20 +109,22 @@
 
 1310112058 c:\users\fahmi\documents\c++\flat_world\game\id.hpp
 
-1310272594 source:c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.cpp
+1310505274 source:c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.cpp
 	"LevelLoader.hpp"
-	<map>
-	<list>
-	<stdlib.h>
-	<iostream>
-	"../environment/Island.hpp"
-	"../actors/Player.hpp"
+	"../util/SpriteUtil.hpp"
 
-1310272448 c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.hpp
+1310504644 c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.hpp
 	"../tinyxml/tinyxml.h"
 	"../game/World.hpp"
 	"../gameIO/ContentManager.hpp"
+	"../environment/Island.hpp"
+	"../actors/Sheep.hpp"
+	"../actors/Player.hpp"
+	<map>
+	<list>
+	<stdlib.h>
 	<string>
+	<iostream>
 
 1310176288 c:\users\fahmi\documents\c++\flat_world\tinyxml\tinyxml.h
 	<ctype.h>
@@ -164,4 +166,11 @@
 	<SFML/Graphics.hpp>
 	<string>
 	<map>
+
+1310334462 c:\users\fahmi\documents\c++\flat_world\util\spriteutil.hpp
+	<SFML/Graphics.hpp>
+
+1310334503 source:c:\users\fahmi\documents\c++\flat_world\util\spriteutil.cpp
+	"SpriteUtil.hpp"
+	"NumberUtil.hpp"
 

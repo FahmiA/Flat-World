@@ -4,8 +4,15 @@
 #include "../tinyxml/tinyxml.h"
 #include "../game/World.hpp"
 #include "../gameIO/ContentManager.hpp"
+#include "../environment/Island.hpp"
+#include "../actors/Sheep.hpp"
+#include "../actors/Player.hpp"
 
+#include <map>
+#include <list>
+#include <stdlib.h>
 #include <string>
+#include <iostream>
 using namespace std;
 
 struct LevelDescription;
@@ -27,11 +34,20 @@ class LevelLoader
         string xmlPath;
         ContentManager *content;
 
+        // Parseing helper methods
         LevelDescription* loadLevelDescription(TiXmlHandle &node);
         IslandDescription* loadIslandDescription(TiXmlHandle &node);
         SheepDescription* loadSheepDescription(TiXmlHandle &node);
+        /** Loads Islands into a world. */
+        void fillWorldWithIslands(World *world, map<int, IslandDescription*> &islandMap);
+        /** Loads Sheep into a world. */
+        void fillWorldWithSheep(World *world, list<SheepDescription*> &sheepList, map<int, IslandDescription*> &islandMap);
+        /** Loads a single Player into a world. */
+        void fillWorldWithPlayer(World *world, IslandDescription &playerStartIsland);
+        /** Determins the position of an object on an Island. */
+        void getPosition(Island *island, int characterWidth, int characterHeight, int *characterX, int *characterY);
 
-        // Helper methods
+        // XML helper methods
         string getString(TiXmlHandle &parent, char* tag);
         int getInt(TiXmlHandle &parent, char* tag);
 
@@ -62,7 +78,6 @@ struct SheepDescription
 {
     string imagePath;
     int locationID;
-    Sheep *sheep;
 };
 
 #endif // LEVELLOADER_H

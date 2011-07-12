@@ -2,19 +2,19 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="actors\Character.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="11379" topLine="302" />
+		<Cursor position="205" topLine="0" />
 	</File>
 	<File name="actors\Character.hpp" open="0" top="0" tabpos="4">
-		<Cursor position="942" topLine="21" />
+		<Cursor position="1126" topLine="12" />
 	</File>
 	<File name="actors\Player.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="248" topLine="0" />
+		<Cursor position="226" topLine="0" />
 	</File>
 	<File name="actors\Player.hpp" open="0" top="0" tabpos="3">
 		<Cursor position="223" topLine="0" />
 	</File>
 	<File name="actors\Sheep.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="503" topLine="0" />
+		<Cursor position="665" topLine="16" />
 	</File>
 	<File name="actors\Sheep.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="89" topLine="0" />
@@ -23,10 +23,10 @@
 		<Cursor position="350" topLine="1" />
 	</File>
 	<File name="environment\Island.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="134" topLine="0" />
+		<Cursor position="303" topLine="0" />
 	</File>
 	<File name="environment\Island.hpp" open="0" top="0" tabpos="7">
-		<Cursor position="505" topLine="0" />
+		<Cursor position="221" topLine="2" />
 	</File>
 	<File name="gameIO\ContentManager.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="601" topLine="5" />
@@ -35,13 +35,13 @@
 		<Cursor position="139" topLine="0" />
 	</File>
 	<File name="gameIO\LevelLoader.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="4100" topLine="112" />
+		<Cursor position="6421" topLine="190" />
 	</File>
 	<File name="gameIO\LevelLoader.hpp" open="1" top="0" tabpos="1">
-		<Cursor position="105" topLine="44" />
+		<Cursor position="2172" topLine="0" />
 	</File>
 	<File name="game\GameObject.cpp" open="0" top="0" tabpos="0">
-		<Cursor position="76" topLine="0" />
+		<Cursor position="101" topLine="0" />
 	</File>
 	<File name="game\GameObject.hpp" open="0" top="0" tabpos="4">
 		<Cursor position="62" topLine="0" />
@@ -80,15 +80,21 @@
 		<Cursor position="15905" topLine="522" />
 	</File>
 	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="192" topLine="9" />
+		<Cursor position="4241" topLine="112" />
 	</File>
 	<File name="util\CoordinateUtil.hpp" open="0" top="0" tabpos="3">
-		<Cursor position="515" topLine="0" />
+		<Cursor position="170" topLine="0" />
 	</File>
 	<File name="util\NumberUtil.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="199" topLine="0" />
 	</File>
 	<File name="util\NumberUtil.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="109" topLine="0" />
+	</File>
+	<File name="util\SpriteUtil.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="39" topLine="0" />
+	</File>
+	<File name="util\SpriteUtil.hpp" open="0" top="0" tabpos="0">
+		<Cursor position="95" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>
