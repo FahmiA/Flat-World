@@ -78,6 +78,7 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     }
 
     int lookDepth = 50; // Depth to ray-trace
+    //cout << sprite->GetSize().x << " " << sprite->GetSize().y << endl;
     int lookOffset = 50; // Distance between left and right ray-traces
 
     // Perform collision detection

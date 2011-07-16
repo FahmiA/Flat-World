@@ -9,18 +9,18 @@
 
     <island>
         <id> 1 </id>
-        <image> media/textures/Asteroid1.png </image>
+        <image> media/textures/island1.png </image>
         <x> 200 </x>
         <y> 400 </y>
-        <width> 235 </width>
-        <height> 235 </height>
+        <width> 1235 </width>
+        <height> 507 </height>
     </island>
 
     <island>
         <id> 2 </id>
         <image> media/textures/Asteroid2.png </image>
-        <x> 600 </x>
-        <y> 200 </y>
+        <x> 1000 </x>
+        <y> -100 </y>
         <width> 235 </width>
         <height> 235 </height>
     </island>
@@ -28,8 +28,8 @@
     <island>
         <id> 3 </id>
         <image> media/textures/Asteroid1.png </image>
-        <x> 620 </x>
-        <y> 600 </y>
+        <x> 1400 </x>
+        <y> 500 </y>
         <width> 235 </width>
         <height> 235 </height>
     </island>
@@ -37,8 +37,8 @@
      <island>
         <id> 4 </id>
         <image> media/textures/Asteroid1.png </image>
-        <x> 1000 </x>
-        <y> 570 </y>
+        <x> 1200 </x>
+        <y> 1000 </y>
         <width> 235 </width>
         <height> 235 </height>
     </island>

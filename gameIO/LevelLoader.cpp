@@ -68,7 +68,7 @@ bool LevelLoader::loadWorld(World* world)
         string tag = node->ValueStr();
         TiXmlHandle parent = TiXmlHandle(node);
 
-        cout << "Node: " << tag << endl;
+        //cout << "Node: " << tag << endl;
         if(tag == TAG_DESCRIPTION)
         {
             level = loadLevelDescription(parent);
@@ -215,7 +215,7 @@ void LevelLoader::getPosition(Island *island, int characterWidth, int characterH
     //*characterX = island->getPosition().x;
     //*characterY = island->getPosition().y;
     *characterX = island->getPosition().x + position->x/2;
-    *characterY = island->getPosition().y + position->y/2;
+    *characterY = island->getPosition().y + position->y/2 ;
 
     delete position;
 }
