@@ -50,7 +50,7 @@ class LevelLoader
         // XML helper methods
         string getString(TiXmlHandle &parent, char* tag);
         int getInt(TiXmlHandle &parent, char* tag);
-
+        /** Loads an aribitrary image into a Sprite. */
         bool loadSprite(string path, Sprite &sprite);
 };
 

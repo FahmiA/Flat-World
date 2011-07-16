@@ -4,14 +4,16 @@
 
 World::World()
 {
-    this->player = 0;
+    player = 0;
     levelObjects = new list<GameObject*>();
     camera = 0;
+    background = 0;
 }
 
 World::~World()
 {
     delete player;
+    delete background;
     delete levelObjects;
 }
 
@@ -40,6 +42,11 @@ void World::setCamera(Camera *camera)
     this->camera = camera;
 }
 
+void World::setBackground(Sprite *background)
+{
+    this->background = background;
+}
+
 void World::update(Clock *clock, RenderWindow *window)
 {
     for(list<GameObject*>::iterator it = levelObjects->begin(); it != levelObjects->end(); it++)
@@ -56,6 +63,9 @@ void World::update(Clock *clock, RenderWindow *window)
 
 void World::draw(RenderWindow *window)
 {
+    if(background != 0)
+        window->Draw(*background);
+
     for(list<GameObject*>::iterator it = levelObjects->begin(); it != levelObjects->end(); it++)
     {
         (*it)->draw(window);

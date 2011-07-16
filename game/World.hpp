@@ -23,11 +23,14 @@ class World
         list<GameObject*>* getObjects();
         void setCamera(Camera *camera);
 
+        void setBackground(Sprite *background);
+
         void update(Clock *clock, RenderWindow *window);
         void draw(RenderWindow *window);
 
     private:
         Player *player;
+        Sprite *background;
         list<GameObject*> *levelObjects;
 
         Camera *camera;

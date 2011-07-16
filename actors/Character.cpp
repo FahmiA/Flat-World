@@ -77,17 +77,6 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         doMoveLeft = false;
     }
 
-    /*if(window->GetInput().IsKeyDown(Key::Space) && currentGround != 0)     // Island Jump
-    {
-        cout << "Island Jump" << endl;
-        prevGround = currentGround;
-        currentGround = 0;
-        inJump = true;
-    }
-
-    if(window->GetInput().IsKeyDown(Key::R))        // Rotate (DEEBUG FEATURE)
-        sprite->Rotate(100 * elapsedTime);*/
-
     int lookDepth = 50; // Depth to ray-trace
     int lookOffset = 50; // Distance between left and right ray-traces
 
@@ -134,6 +123,7 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
         velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
         sprite->Move(velocityX, velocityY);
+
         return;
     }else{
         inJump = false;

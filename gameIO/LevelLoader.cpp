@@ -82,6 +82,13 @@ bool LevelLoader::loadWorld(World* world)
     }
 
     // Construct the level contents
+    // Add the background
+    Sprite *backgroundSprite = new Sprite();
+    Sprite *sprite = new Sprite();
+    if(loadSprite(level->backgroundPath, *sprite))
+    {
+        world->setBackground(sprite);
+    }
     // Add the islands
     fillWorldWithIslands(world, islandMap);
 
@@ -207,8 +214,8 @@ void LevelLoader::getPosition(Island *island, int characterWidth, int characterH
 
     //*characterX = island->getPosition().x;
     //*characterY = island->getPosition().y;
-    *characterX = island->getPosition().x + position->x;
-    *characterY = island->getPosition().y + position->y;
+    *characterX = island->getPosition().x + position->x/2;
+    *characterY = island->getPosition().y + position->y/2;
 
     delete position;
 }

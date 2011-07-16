@@ -26,55 +26,6 @@ int main()
     if(!worldLoaded)
         return EXIT_FAILURE;
 
-    /*
-    // Create the ground
-    Image groundImage1;
-    if(!groundImage1.LoadFromFile("media/textures/Asteroid1.png"))
-    {
-        // Error
-        return EXIT_FAILURE;
-    }
-    Sprite groundSprite1;
-    groundSprite1.SetImage(groundImage1);
-    Island island1(200, 400, 235, 235, &groundSprite1);
-
-    Image groundImage2;
-    if(!groundImage2.LoadFromFile("media/textures/Asteroid2.png"))
-    {
-        // Error
-        return EXIT_FAILURE;
-    }
-    Sprite groundSprite2;
-    groundSprite2.SetImage(groundImage2);
-    Island island2(600, 200, 235, 235, &groundSprite2);
-
-    // Create a Sheep
-    Image sheepImage;
-    if(!sheepImage.LoadFromFile("media/textures/Sheep.png"))
-    {
-        // Error
-        return EXIT_FAILURE;
-    }
-    Sprite sheepSprite;
-    sheepSprite.SetImage(sheepImage);
-    Sheep sheep(600, 50, 103, 102, 200, &sheepSprite);
-
-    // Create the player
-    Image playerImage;
-    if(!playerImage.LoadFromFile("media/textures/CharacterBoy.png"))
-        return EXIT_FAILURE;
-    Sprite playerSprite;
-    playerSprite.SetImage(playerImage);
-    Player player(150, 200, 68, 85, 500, &playerSprite);
-
-    // Create the world
-    World world;
-    world.setPlayer(&player);
-    world.addLevelObject(&island1);
-    world.addLevelObject(&island2);
-    world.addLevelObject(&sheep);
-    */
-
     // Create the camera
     Camera *camera = new SteadyCamera();
     world->setCamera(camera);
