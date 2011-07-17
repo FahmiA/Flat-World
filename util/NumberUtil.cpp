@@ -15,3 +15,8 @@ void clamp(int &value, int min, int max)
     else if(value > max)
         value = max;
 }
+
+bool valueInRange(int value, int min, int max)
+{
+    return (value >= min) && (value <= max);
+}

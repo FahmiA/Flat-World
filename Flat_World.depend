@@ -60,7 +60,7 @@
 
 1310111702 t.hpp"
 
-1310111978 c:\users\fahmi\documents\c++\flat_world\game\gameobject.hpp
+1310865496 c:\users\fahmi\documents\c++\flat_world\game\gameobject.hpp
 	<SFML/Graphics.hpp>
 
 1310111702 source:c:\users\fahmi\documents\c++\flat_world\game\gameobject.cpp
@@ -79,20 +79,21 @@
 
 1310793121 Camera.hpp"
 
-1310022314 source:c:\users\fahmi\documents\c++\flat_world\util\coordinateutil.cpp
+1310867026 source:c:\users\fahmi\documents\c++\flat_world\util\coordinateutil.cpp
 	"CoordinateUtil.hpp"
+	"NumberUtil.hpp"
 	<math.h>
 
 1310022130 c:\users\fahmi\documents\c++\flat_world\util\coordinateutil.hpp
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 
-1309852624 source:c:\users\fahmi\documents\c++\flat_world\util\numberutil.cpp
+1310866509 source:c:\users\fahmi\documents\c++\flat_world\util\numberutil.cpp
 	"NumberUtil.hpp"
 
 1310334503 l.hpp"
 
-1309852610 c:\users\fahmi\documents\c++\flat_world\util\numberutil.hpp
+1310866631 c:\users\fahmi\documents\c++\flat_world\util\numberutil.hpp
 
 1309939671 source:c:\users\fahmi\documents\c++\flat_world\scene\camera.cpp
 	"Camera.hpp"
@@ -102,7 +103,7 @@
 1309950789 c:\users\fahmi\documents\c++\flat_world\scene\camera.hpp
 	<SFML/Graphics.hpp>
 
-1310859794 source:c:\users\fahmi\documents\c++\flat_world\scene\steadycamera.cpp
+1310867539 source:c:\users\fahmi\documents\c++\flat_world\scene\steadycamera.cpp
 	"SteadyCamera.hpp"
 	"../game/World.hpp"
 	"../actors/Player.hpp"
@@ -116,7 +117,7 @@
 	"../environment/Island.hpp"
 	<SFML/Graphics.hpp>
 
-1310859490 source:c:\users\fahmi\documents\c++\flat_world\actors\character.cpp
+1310867494 source:c:\users\fahmi\documents\c++\flat_world\actors\character.cpp
 	"Character.hpp"
 	"../util/NumberUtil.hpp"
 	"../util/CoordinateUtil.hpp"
@@ -135,7 +136,7 @@
 
 1310112058 c:\users\fahmi\documents\c++\flat_world\game\id.hpp
 
-1310859673 source:c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.cpp
+1310867443 source:c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.cpp
 	"LevelLoader.hpp"
 	"../util/SpriteUtil.hpp"
 

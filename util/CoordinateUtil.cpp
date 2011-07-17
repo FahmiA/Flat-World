@@ -1,5 +1,7 @@
 #include "CoordinateUtil.hpp"
 
+#include "NumberUtil.hpp"
+
 #include<math.h>
 using namespace std;
 
@@ -50,14 +52,24 @@ float CoordinateUtil::distance(Vector2f &p1, Vector2f &p2)
 
 bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 {
-    // TODO: Implement collide method efficiently (collision between two sprites (rectangles)
-    Vector2f topLeft(object1->GetPosition().x, object1->GetPosition().y);
-    Vector2f topRight(object1->GetPosition().x + object1->GetSize().x, object1->GetPosition().y);
-    Vector2f bottomLeft(object1->GetPosition().x, object1->GetPosition().y + object1->GetSize().y);
-    Vector2f bottomRight(object1->GetPosition().x + object1->GetSize().x, object1->GetPosition().y + object1->GetSize().y);
+    // http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
 
-    return isGlobalPointInside(topLeft, *object2) || isGlobalPointInside(topRight, *object2) ||
-            isGlobalPointInside(bottomLeft, *object2) || isGlobalPointInside(bottomRight, *object2);
+    int ob1Width = object1->GetSize().x;
+    int ob1Height = object1->GetSize().y;
+    int ob1X = object1->GetPosition().x - (ob1Width/2);
+    int ob1Y = object1->GetPosition().y - (ob1Height/2);
+
+    int ob2Width = object2->GetSize().x;
+    int ob2Height = object2->GetSize().y;
+    int ob2X = object2->GetPosition().x - (ob2Width/2);
+    int ob2Y = object2->GetPosition().y - (ob2Height/2);
+
+    bool xOverlap = valueInRange(ob1X, ob2X, ob2X + ob2Width) ||
+                    valueInRange(ob2X, ob1X, ob1X + ob1Width);
+    bool yOverlap = valueInRange(ob1Y, ob2Y, ob2Y + ob2Height) ||
+                    valueInRange(ob2Y, ob1Y, ob1Y + ob1Height);
+
+    return xOverlap && yOverlap;
 }
 
 /*void CoordinateUtil::clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds)

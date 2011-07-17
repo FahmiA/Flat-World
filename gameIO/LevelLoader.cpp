@@ -204,18 +204,17 @@ void LevelLoader::getPosition(Island *island, int characterWidth, int characterH
 
     int angle = random.Random(0, 360);
     int raytraceDistance = max(island->getSize().x, island->getSize().y) * 2;
+    raytraceDistance -= characterHeight/2;
 
-    int fromX = island->getSize().x/2;
-    int fromY = island->getSize().y/2;
+    int fromX = island->getSize().x;
+    int fromY = island->getSize().y;
     int toX = fromX + (cos(angle) * raytraceDistance);
     int toY = fromY + (sin(angle) * raytraceDistance);
 
     Vector2f *position = spriteUtil.rayTrace(island->getSprite(), fromX, fromY, toX, toY);
 
-    //*characterX = island->getPosition().x;
-    //*characterY = island->getPosition().y;
     *characterX = island->getPosition().x + position->x/2;
-    *characterY = island->getPosition().y + position->y/2 ;
+    *characterY = island->getPosition().y + position->y/2;
 
     delete position;
 }

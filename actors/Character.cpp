@@ -97,6 +97,8 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
                     prevGround = currentGround;
                     currentGround = (Island*)(*it);
 
+                    //cout << currentGround->getPosition().x << " " << currentGround->getPosition().y << " - " << elapsedTime << endl;
+
                     // Rotate to the new ground
                     float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y, currentGround->getPosition().x - sprite->GetPosition().x);
                     angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
@@ -126,9 +128,9 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         sprite->Move(velocityX, velocityY);
 
         return;
-    }else{
+    }/*else{
         inJump = false;
-    }
+    }*/
 
     // Get the pixels directly under the player
     Sprite *groundSprite = currentGround->getSprite();
@@ -186,6 +188,7 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
         sprite->Move(velocityX, velocityY);
     }else{
+        inJump = false;
         // Draw the ground line for debugging purposes
         int groundTop = groundSprite->GetPosition().y - (groundSprite->GetSize().y/2);
         int groundLeft = groundSprite->GetPosition().x - (groundSprite->GetSize().x/2);
