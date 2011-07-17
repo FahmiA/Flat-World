@@ -213,6 +213,11 @@ void LevelLoader::getPosition(Island *island, int characterWidth, int characterH
 
     Vector2f *position = spriteUtil.rayTrace(island->getSprite(), fromX, fromY, toX, toY);
 
+    if(position == 0)
+    {
+        position = new Vector2f(toX/2, toY/2);
+    }
+
     *characterX = island->getPosition().x + position->x/2;
     *characterY = island->getPosition().y + position->y/2;
 
