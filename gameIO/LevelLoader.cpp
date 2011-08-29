@@ -5,10 +5,11 @@
 #define TAG_LEVEL "level"
 #define TAG_DESCRIPTION "description"
 #define TAG_ISLAND "island"
-#define TAG_SHEEP "sheep"
+#define TAG_UNIT "unit"
 #define TAG_NAME "name"
 #define TAG_WIDTH "width"
 #define TAG_HEIGHT "height"
+#define TAG_ANGLE "angle"
 #define TAG_BACKGROUND "background"
 #define TAG_PLAYER_START "playerStartID"
 #define TAG_LOCATION "locationID"
@@ -16,6 +17,10 @@
 #define TAG_IMAGE "image"
 #define TAG_X "x"
 #define TAG_Y "y"
+
+#define ATR_TYPE "type"
+#define ATR_SHEEP "sheep"
+#define ATR_PLAYER "player"
 
 #define SHEEP_WIDTH 103
 #define SHEEP_HEIGHT 102
@@ -58,8 +63,9 @@ bool LevelLoader::loadWorld(World* world)
 
     // Declare some storage variables for use later
     LevelDescription *level;
-    map<int, IslandDescription*> islandMap;
-    list<SheepDescription*> sheepList;
+    UnitDescription *player;
+    map<int, IslandDescription*> islandMap; // Island ID -> Island Description
+    list<UnitDescription*> unitList;
 
     // Load the level contents
     TiXmlElement* node = root.FirstChild().ToElement();
@@ -75,9 +81,17 @@ bool LevelLoader::loadWorld(World* world)
         }else if(tag == TAG_ISLAND){
             IslandDescription *island = loadIslandDescription(parent);
             islandMap[island->id] = island;
-        }else if(tag == TAG_SHEEP) {
-            SheepDescription *sheep = loadSheepDescription(parent);
-            sheepList.push_back(sheep);
+        }else if(tag == TAG_UNIT) {
+            UnitDescription *unit = loadUnitDescription(parent);
+            if(unit->type == ATR_PLAYER)
+            {
+                // Set the player
+                player = unit;
+            }else if(unit->type == ATR_SHEEP)
+            {
+                // Add the sheep
+                unitList.push_back(unit);
+            }
         }
     }
 
@@ -93,12 +107,13 @@ bool LevelLoader::loadWorld(World* world)
     fillWorldWithIslands(world, islandMap);
 
     // Add the player
-    fillWorldWithPlayer(world, *islandMap[level->playerStartIsland]);
+    fillWorldWithPlayer(world, *(islandMap[player->locationID]), player);
 
     // Add the sheep
-    fillWorldWithSheep(world, sheepList, islandMap);
+    fillWorldWithUnits(world, unitList, islandMap);
 
     delete level;
+    delete player;
 
     return true;
 }
@@ -110,7 +125,6 @@ LevelDescription* LevelLoader::loadLevelDescription(TiXmlHandle &node)
     level->width = getInt(node, TAG_WIDTH);
     level->height = getInt(node, TAG_HEIGHT);
     level->backgroundPath = getString(node, TAG_BACKGROUND);
-    level->playerStartIsland = getInt(node, TAG_PLAYER_START);
 
     return level;
 }
@@ -128,13 +142,19 @@ IslandDescription* LevelLoader::loadIslandDescription(TiXmlHandle &node)
     return island;
 }
 
-SheepDescription* LevelLoader::loadSheepDescription(TiXmlHandle &node)
+UnitDescription* LevelLoader::loadUnitDescription(TiXmlHandle &node)
 {
-    SheepDescription *sheep = new SheepDescription();
-    sheep->imagePath = getString(node, TAG_IMAGE);
-    sheep->locationID = getInt(node, TAG_LOCATION);
+    UnitDescription *unit = new UnitDescription();
+    unit->imagePath = getString(node, TAG_IMAGE);
+    unit->locationID = getInt(node, TAG_LOCATION);
 
-    return sheep;
+    TiXmlAttribute* typeAttribute = node.ToElement()->FirstAttribute();
+    unit->type = typeAttribute->ValueStr();
+    unit->startAngle = getFloat(node, TAG_ANGLE);
+    //cout << unit->startAngle << endl;
+    // TODO: If no start angle exists, give a random angle.
+
+    return unit;
 }
 
 void LevelLoader::fillWorldWithIslands(World *world, map<int, IslandDescription*> &islandMap)
@@ -158,32 +178,34 @@ void LevelLoader::fillWorldWithIslands(World *world, map<int, IslandDescription*
     }
 }
 
-void LevelLoader::fillWorldWithSheep(World *world, list<SheepDescription*> &sheepList, map<int, IslandDescription*> &islandMap)
+void LevelLoader::fillWorldWithUnits(World *world, list<UnitDescription*> &unitList, map<int, IslandDescription*> &islandMap)
 {
-    for(list<SheepDescription*>::iterator it = sheepList.begin(); it != sheepList.end(); it++)
+    for(list<UnitDescription*>::iterator it = unitList.begin(); it != unitList.end(); it++)
     {
-        SheepDescription *sheepDesc = (*it);
-        IslandDescription *islandDesc = islandMap[sheepDesc->locationID];
+        UnitDescription *unitDesc = (*it);
+        IslandDescription *islandDesc = islandMap[unitDesc->locationID];
 
         Sprite *sprite = new Sprite();
-        if(!loadSprite(sheepDesc->imagePath, *sprite))
+        if(!loadSprite(unitDesc->imagePath, *sprite))
         {
             // Error
-            cout << "Image for sheep could not be loaded: " << sheepDesc->imagePath << endl;
+            cout << "Image for sheep could not be loaded: " << unitDesc->imagePath << endl;
             cout << "\tSheep has not been loaded." << endl;
         }else{
             int x, y;
-            getPosition(islandDesc->island, SHEEP_WIDTH, SHEEP_HEIGHT, &x, &y);
+            getPosition(islandDesc->island, unitDesc->startAngle, SHEEP_WIDTH, SHEEP_HEIGHT, &x, &y);
             Sheep *sheep = new Sheep(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
             world->addLevelObject(sheep);
         }
     }
 }
 
-void LevelLoader::fillWorldWithPlayer(World *world, IslandDescription &playerStartIsland)
+void LevelLoader::fillWorldWithPlayer(World *world, IslandDescription &playerStartIsland, UnitDescription* player)
 {
     Sprite *playerSprite = new Sprite();
-    if(!loadSprite(string("media/textures/CharacterBoy.png"), *playerSprite))
+    //if(!loadSprite(string("media/textures/CharacterBoy.png"), *playerSprite))
+
+    if(!loadSprite(player->imagePath, *playerSprite))
     {
         // Error
         cout << "Image for player could not be loaded " << endl;
@@ -191,18 +213,23 @@ void LevelLoader::fillWorldWithPlayer(World *world, IslandDescription &playerSta
         exit(1);
     }else{
         int x, y;
-        getPosition(playerStartIsland.island, PLAYER_WIDTH, PLAYER_HEIGHT, &x, &y);
+        getPosition(playerStartIsland.island, player->startAngle, PLAYER_WIDTH, PLAYER_HEIGHT, &x, &y);
         Player *player = new Player(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_SPEED, playerSprite);
         world->setPlayer(player);
     }
 }
 
-void LevelLoader::getPosition(Island *island, int characterWidth, int characterHeight, int *characterX, int *characterY)
+void LevelLoader::getPosition(Island *island, float angle, int characterWidth, int characterHeight, int *characterX, int *characterY)
 {
     SpriteUtil spriteUtil;
-    Randomizer random;
 
-    int angle = random.Random(0, 360);
+    // Produce a random angle if one does not exist.
+    if(angle == -1)
+    {
+         Randomizer random;
+         angle = random.Random(0, M_2_PI);
+    }
+
     int raytraceDistance = max(island->getSize().x, island->getSize().y) * 2;
     raytraceDistance -= characterHeight/2;
 
@@ -226,13 +253,23 @@ void LevelLoader::getPosition(Island *island, int characterWidth, int characterH
 
 string LevelLoader::getString(TiXmlHandle &parent, char* tag)
 {
-    return parent.FirstChildElement(tag).ToElement()->GetText();
+    TiXmlElement* element = parent.FirstChildElement(tag).ToElement();
+    if(element)
+        return element->GetText();
+    else
+        return "-1\0";
 }
 
 int LevelLoader::getInt(TiXmlHandle &parent, char* tag)
 {
     string text = getString(parent, tag);
     return atoi(text.c_str());
+}
+
+float LevelLoader::getFloat(TiXmlHandle &parent, char* tag)
+{
+    string text = getString(parent, tag);
+    return atof(text.c_str());
 }
 
 bool LevelLoader::loadSprite(string path, Sprite &sprite)

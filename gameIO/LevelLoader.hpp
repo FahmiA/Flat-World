@@ -17,7 +17,7 @@ using namespace std;
 
 struct LevelDescription;
 struct IslandDescription;
-struct SheepDescription;
+struct UnitDescription;
 
 class Island;
 class Sheep;
@@ -37,19 +37,23 @@ class LevelLoader
         // Parseing helper methods
         LevelDescription* loadLevelDescription(TiXmlHandle &node);
         IslandDescription* loadIslandDescription(TiXmlHandle &node);
-        SheepDescription* loadSheepDescription(TiXmlHandle &node);
+        UnitDescription* loadUnitDescription(TiXmlHandle &node);
         /** Loads Islands into a world. */
         void fillWorldWithIslands(World *world, map<int, IslandDescription*> &islandMap);
         /** Loads Sheep into a world. */
-        void fillWorldWithSheep(World *world, list<SheepDescription*> &sheepList, map<int, IslandDescription*> &islandMap);
+        void fillWorldWithUnits(World *world, list<UnitDescription*> &unitList, map<int, IslandDescription*> &islandMap);
         /** Loads a single Player into a world. */
-        void fillWorldWithPlayer(World *world, IslandDescription &playerStartIsland);
-        /** Determins the position of an object on an Island. */
-        void getPosition(Island *island, int characterWidth, int characterHeight, int *characterX, int *characterY);
+        void fillWorldWithPlayer(World *world, IslandDescription &playerStartIsland, UnitDescription* player);
+        /** Determins the position of an object on an Island.
+         * Angle determins the desired start position of the object.
+         * If angle is -1, a random angle will be generated.
+        */
+        void getPosition(Island *island, float angle, int characterWidth, int characterHeight, int *characterX, int *characterY);
 
         // XML helper methods
         string getString(TiXmlHandle &parent, char* tag);
         int getInt(TiXmlHandle &parent, char* tag);
+        float getFloat(TiXmlHandle &parent, char* tag);
         /** Loads an aribitrary image into a Sprite. */
         bool loadSprite(string path, Sprite &sprite);
 };
@@ -60,7 +64,6 @@ struct LevelDescription
     int width;
     int height;
     string backgroundPath;
-    int playerStartIsland;
 };
 
 struct IslandDescription
@@ -74,10 +77,12 @@ struct IslandDescription
     Island *island;
 };
 
-struct SheepDescription
+struct UnitDescription
 {
+    string type;
     string imagePath;
     int locationID;
+    float startAngle;
 };
 
 #endif // LEVELLOADER_H

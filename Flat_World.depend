@@ -9,13 +9,21 @@
 	"gameIO/LevelLoader.hpp"
 	<SFML/Graphics.hpp>
 
-1310334462 hics.hpp>
+1310794288 hics.hpp>
 
 1305357898 
 
 1310793199 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/main.cpp
 	<SFML/System.hpp>
 	<iostream>
+	"game/World.hpp"
+	"environment/Island.hpp"
+	"scene/SteadyCamera.hpp"
+	"actors/Player.hpp"
+	"actors/Sheep.hpp"
+	"gameIO/ContentManager.hpp"
+	"gameIO/LevelLoader.hpp"
+	<SFML/Graphics.hpp>
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"scene/SteadyCamera.hpp"
@@ -98,12 +106,12 @@
 1309939671 source:c:\users\fahmi\documents\c++\flat_world\scene\camera.cpp
 	"Camera.hpp"
 
-1309938024 p"
+1309939671 p"
 
 1309950789 c:\users\fahmi\documents\c++\flat_world\scene\camera.hpp
 	<SFML/Graphics.hpp>
 
-1310867539 source:c:\users\fahmi\documents\c++\flat_world\scene\steadycamera.cpp
+1310868123 source:c:\users\fahmi\documents\c++\flat_world\scene\steadycamera.cpp
 	"SteadyCamera.hpp"
 	"../game/World.hpp"
 	"../actors/Player.hpp"
@@ -136,13 +144,13 @@
 
 1310112058 c:\users\fahmi\documents\c++\flat_world\game\id.hpp
 
-1310867443 source:c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.cpp
+1314584038 source:c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.cpp
 	"LevelLoader.hpp"
 	"../util/SpriteUtil.hpp"
 
 1310794079 priteUtil.hpp"
 
-1310792904 c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.hpp
+1314584084 c:\users\fahmi\documents\c++\flat_world\gameio\levelloader.hpp
 	"../tinyxml/tinyxml.h"
 	"../game/World.hpp"
 	"../gameIO/ContentManager.hpp"
@@ -207,7 +215,14 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1310793692 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/actors/Character.cpp
+1310867494 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/actors/Character.cpp
+	"Character.hpp"
+	"../util/NumberUtil.hpp"
+	"../util/CoordinateUtil.hpp"
+	"../game/ID.hpp"
+	<iostream>
+	<math.h>
+	<list>
 	"Character.hpp"
 	"../util/NumberUtil.hpp"
 	"../util/CoordinateUtil.hpp"
@@ -220,25 +235,37 @@
 	"../game/World.hpp"
 	"../environment/Island.hpp"
 	<SFML/Graphics.hpp>
+	"../game/World.hpp"
+	"../environment/Island.hpp"
+	<SFML/Graphics.hpp>
 
 1310793121 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/game/World.hpp
 	"../game/GameObject.hpp"
 	"../scene/Camera.hpp"
 	<list>
+	"../game/GameObject.hpp"
+	"../scene/Camera.hpp"
+	<list>
 
-1310111978 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/game/GameObject.hpp
+1310865496 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/game/GameObject.hpp
+	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
 1309950789 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/scene/Camera.hpp
+	<SFML/Graphics.hpp>
 	<SFML/Graphics.hpp>
 
 1310020835 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/environment/Island.hpp
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
+	"../game/GameObject.hpp"
+	<SFML/Graphics.hpp>
 
-1309852610 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/util/NumberUtil.hpp
+1310866631 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/util/NumberUtil.hpp
 
 1310022130 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/util/CoordinateUtil.hpp
+	"../game/GameObject.hpp"
+	<SFML/Graphics.hpp>
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 
@@ -247,42 +274,71 @@
 1310258638 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/actors/Player.cpp
 	"Player.hpp"
 	"../game/ID.hpp"
+	"Player.hpp"
+	"../game/ID.hpp"
 
 1310110893 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/actors/Player.hpp
+	"Character.hpp"
 	"Character.hpp"
 
 1310112752 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/actors/Sheep.cpp
 	"Sheep.hpp"
 	"../game/ID.hpp"
 	<iostream>
+	"Sheep.hpp"
+	"../game/ID.hpp"
+	<iostream>
 
 1310112295 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/actors/Sheep.hpp
+	"Character.hpp"
 	"Character.hpp"
 
 1310112107 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/environment/Island.cpp
 	"Island.hpp"
 	"../game/ID.hpp"
+	"Island.hpp"
+	"../game/ID.hpp"
 
 1310111702 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/game/GameObject.cpp
+	"GameObject.hpp"
 	"GameObject.hpp"
 
 1310793133 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/game/World.cpp
 	"World.hpp"
 	"../actors/Player.hpp"
+	"World.hpp"
+	"../actors/Player.hpp"
 
 1310272665 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/gameIO/ContentManager.cpp
+	"ContentManager.hpp"
 	"ContentManager.hpp"
 
 1310272623 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/gameIO/ContentManager.hpp
 	<SFML/Graphics.hpp>
 	<string>
 	<map>
+	<SFML/Graphics.hpp>
+	<string>
+	<map>
 
-1310794079 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/gameIO/LevelLoader.cpp
+1310868216 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/gameIO/LevelLoader.cpp
+	"LevelLoader.hpp"
+	"../util/SpriteUtil.hpp"
 	"LevelLoader.hpp"
 	"../util/SpriteUtil.hpp"
 
 1310792904 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/gameIO/LevelLoader.hpp
+	"../tinyxml/tinyxml.h"
+	"../game/World.hpp"
+	"../gameIO/ContentManager.hpp"
+	"../environment/Island.hpp"
+	"../actors/Sheep.hpp"
+	"../actors/Player.hpp"
+	<map>
+	<list>
+	<stdlib.h>
+	<string>
+	<iostream>
 	"../tinyxml/tinyxml.h"
 	"../game/World.hpp"
 	"../gameIO/ContentManager.hpp"
@@ -305,21 +361,39 @@
 	<iostream>
 	<sstream>
 	"tinystr.h"
+	<ctype.h>
+	<stdio.h>
+	<stdlib.h>
+	<string.h>
+	<assert.h>
+	<string>
+	<iostream>
+	<sstream>
+	"tinystr.h"
 
 1305357898 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/tinyxml/tinystr.h
+	<assert.h>
+	<string.h>
 	<assert.h>
 	<string.h>
 
 1310334462 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/util/SpriteUtil.hpp
 	<SFML/Graphics.hpp>
+	<SFML/Graphics.hpp>
 
 1309938024 /media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/scene/SteadyCamera.hpp
+	"Camera.hpp"
 	"Camera.hpp"
 
 1309939671 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/scene/Camera.cpp
 	"Camera.hpp"
+	"Camera.hpp"
 
-1310794288 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/scene/SteadyCamera.cpp
+1310868123 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/scene/SteadyCamera.cpp
+	"SteadyCamera.hpp"
+	"../game/World.hpp"
+	"../actors/Player.hpp"
+	<SFML/Graphics.hpp>
 	"SteadyCamera.hpp"
 	"../game/World.hpp"
 	"../actors/Player.hpp"
@@ -327,8 +401,13 @@
 
 1305357898 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/tinyxml/tinystr.cpp
 	"tinystr.h"
+	"tinystr.h"
 
 1305357898 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/tinyxml/tinyxml.cpp
+	<ctype.h>
+	<sstream>
+	<iostream>
+	"tinyxml.h"
 	<ctype.h>
 	<sstream>
 	<iostream>
@@ -336,21 +415,32 @@
 
 1305357898 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/tinyxml/tinyxmlerror.cpp
 	"tinyxml.h"
+	"tinyxml.h"
 
 1305357898 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/tinyxml/tinyxmlparser.cpp
 	<ctype.h>
 	<stddef.h>
 	"tinyxml.h"
 	<windows.h>
+	<ctype.h>
+	<stddef.h>
+	"tinyxml.h"
+	<windows.h>
 
-1310022314 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/util/CoordinateUtil.cpp
+1310867026 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/util/CoordinateUtil.cpp
 	"CoordinateUtil.hpp"
 	<math.h>
+	"CoordinateUtil.hpp"
+	"NumberUtil.hpp"
+	<math.h>
 
-1309852624 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/util/NumberUtil.cpp
+1310866509 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/util/NumberUtil.cpp
+	"NumberUtil.hpp"
 	"NumberUtil.hpp"
 
 1310334503 source:/media/78786F77786F32D4/Users/Fahmi/Documents/C++/Flat_World/util/SpriteUtil.cpp
+	"SpriteUtil.hpp"
+	"NumberUtil.hpp"
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 

@@ -4,7 +4,6 @@
         <width> 1000 </width>
         <height> 1000 </height>
         <background> media/textures/background.jpg </background>
-        <playerStartID> 1 </playerStartID>
     </description>
 
     <island>
@@ -43,14 +42,20 @@
         <height> 235 </height>
     </island>
 
-    <sheep>
+    <unit type="player">
+        <image> media/textures/CharacterBoy.png </image>
+        <locationID> 1 </locationID>
+        <angle> 11 </angle>
+    </unit>
+
+    <unit type="sheep">
         <image> media/textures/Sheep.png </image>
         <locationID> 2 </locationID>
-    </sheep>
+    </unit>
 
-    <sheep>
+    <unit type="sheep">
         <image> media/textures/Sheep.png </image>
         <locationID> 4 </locationID>
-    </sheep>
+    </unit>
 
 </level>
