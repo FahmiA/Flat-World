@@ -54,6 +54,8 @@
 			<Add option="-Wall" />
 			<Add option="-fexceptions" />
 		</Compiler>
+		<Unit filename="actors\ActorStates.cpp" />
+		<Unit filename="actors\ActorStates.hpp" />
 		<Unit filename="actors\Character.cpp" />
 		<Unit filename="actors\Character.hpp" />
 		<Unit filename="actors\Dog.cpp" />

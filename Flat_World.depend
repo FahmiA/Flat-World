@@ -453,7 +453,7 @@
 	<math.h>
 	<list>
 
-1310337564 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
+1321232883 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
 	"../game/World.hpp"
 	"../environment/Island.hpp"
 	<SFML/Graphics.hpp>
@@ -488,13 +488,14 @@
 1310114492 c:\users\fahmi\documents\game development\flat_world\actors\player.hpp
 	"Character.hpp"
 
-1310116352 source:c:\users\fahmi\documents\game development\flat_world\actors\sheep.cpp
+1321233410 source:c:\users\fahmi\documents\game development\flat_world\actors\sheep.cpp
 	"Sheep.hpp"
 	"../game/ID.hpp"
 	<iostream>
 
-1310115894 c:\users\fahmi\documents\game development\flat_world\actors\sheep.hpp
+1321232795 c:\users\fahmi\documents\game development\flat_world\actors\sheep.hpp
 	"Character.hpp"
+	"ActorStates.hpp"
 
 1310115706 source:c:\users\fahmi\documents\game development\flat_world\environment\island.cpp
 	"Island.hpp"
@@ -508,7 +509,7 @@
 	<string>
 	<map>
 
-1321219578 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
+1321230655 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
 	"LevelLoader.hpp"
 	"../util/SpriteUtil.hpp"
 
@@ -603,10 +604,17 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1321130899 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
+1321233425 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
 	"Dog.hpp"
 	"../game/ID.hpp"
 
-1321130989 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
+1321233420 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
 	"Character.hpp"
+	"ActorStates.hpp"
+
+1321233272 c:\users\fahmi\documents\game development\flat_world\actors\actorstates.hpp
+	"Character.hpp"
+
+1321233445 source:c:\users\fahmi\documents\game development\flat_world\actors\actorstates.cpp
+	"ActorStates.hpp"
 

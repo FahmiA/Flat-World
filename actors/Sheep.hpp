@@ -2,8 +2,7 @@
 #define SHEEP_H
 
 #include "Character.hpp"
-
-#define UPDATE_DELAY 0.5f
+#include "ActorStates.hpp"
 
 class Sheep: public Character
 {
@@ -14,10 +13,7 @@ class Sheep: public Character
          void subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow *window, World *world);
 
     private:
-        float timeSinceLastUpdate;
-
-        enum Action {idle, left, right};
-        Action action;
+        ActorState *state;
 };
 
 #endif // SHEEP_H

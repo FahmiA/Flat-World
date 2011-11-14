@@ -2,6 +2,7 @@
 #define DOG_H
 
 #include "Character.hpp"
+#include "ActorStates.hpp"
 
 class Dog: public Character
 {
@@ -14,6 +15,7 @@ class Dog: public Character
     protected:
 
     private:
+        ActorState *state;
 };
 
 /*class DogState

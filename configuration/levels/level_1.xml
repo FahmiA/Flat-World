@@ -60,7 +60,7 @@
 
     <unit type="sheepdog">
         <image> media/textures/SheepDog.jpg </image>
-        <locationID> 1 </locationID>
+        <locationID> 4 </locationID>
     </unit>
 
 </level>

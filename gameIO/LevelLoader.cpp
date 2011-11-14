@@ -27,6 +27,10 @@
 #define SHEEP_HEIGHT 102
 #define SHEEP_SPEED 200
 
+#define DOG_WIDTH 217
+#define DOG_HEIGHT 176
+#define DOG_SPEED 300
+
 #define PLAYER_WIDTH 68
 #define PLAYER_HEIGHT 85
 #define PLAYER_SPEED 500
@@ -202,7 +206,7 @@ void LevelLoader::fillWorldWithUnits(World *world, list<UnitDescription*> &unitL
                 unit = new Sheep(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
             }else if(unitDesc->type.compare(ATR_SHEEPDOG) == 0)
             {
-                unit = new Dog(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
+                unit = new Dog(x, y, DOG_WIDTH, DOG_HEIGHT, DOG_SPEED, sprite);
             }
 
             if(unit != 0)

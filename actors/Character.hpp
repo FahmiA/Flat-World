@@ -23,6 +23,11 @@ class Character: public GameObject
         const Vector2f& getSize();
         float getRotation();
 
+        void landHop();
+        void moveLeft();
+        void moveRight();
+        Sprite *getSprite();
+
     protected:
         /** Performs a raytrace on a Sprite.
             sprite = sprite to perform raytrace on.
@@ -30,10 +35,6 @@ class Character: public GameObject
             toX, toY = end position to raytrace to (clamped to sprite bounds).
             return = first position that is not transparent.*/
         Vector2f* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY);
-        void landHop();
-        void moveLeft();
-        void moveRight();
-        Sprite *getSprite();
 
     private:
         float speed;
