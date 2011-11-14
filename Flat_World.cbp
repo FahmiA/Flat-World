@@ -94,6 +94,8 @@
 		<Unit filename="tinyxml\tinyxml.h" />
 		<Unit filename="tinyxml\tinyxmlerror.cpp" />
 		<Unit filename="tinyxml\tinyxmlparser.cpp" />
+		<Unit filename="util\AnimatedSprite.cpp" />
+		<Unit filename="util\AnimatedSprite.hpp" />
 		<Unit filename="util\CoordinateUtil.cpp" />
 		<Unit filename="util\CoordinateUtil.hpp" />
 		<Unit filename="util\NumberUtil.cpp" />

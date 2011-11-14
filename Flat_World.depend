@@ -509,7 +509,7 @@
 	<string>
 	<map>
 
-1321230655 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
+1321233798 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
 	"LevelLoader.hpp"
 	"../util/SpriteUtil.hpp"
 
@@ -604,9 +604,11 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1321233425 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
+1321238998 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
 	"Dog.hpp"
 	"../game/ID.hpp"
+	"../util/CoordinateUtil.hpp"
+	"Player.hpp"
 
 1321233420 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
 	"Character.hpp"
