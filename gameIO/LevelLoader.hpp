@@ -6,6 +6,7 @@
 #include "../gameIO/ContentManager.hpp"
 #include "../environment/Island.hpp"
 #include "../actors/Sheep.hpp"
+#include "../actors/Dog.hpp"
 #include "../actors/Player.hpp"
 
 #include <map>

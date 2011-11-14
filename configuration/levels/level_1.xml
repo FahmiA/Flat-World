@@ -58,4 +58,9 @@
         <locationID> 4 </locationID>
     </unit>
 
+    <unit type="sheepdog">
+        <image> media/textures/SheepDog.jpg </image>
+        <locationID> 1 </locationID>
+    </unit>
+
 </level>

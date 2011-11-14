@@ -20,6 +20,7 @@
 
 #define ATR_TYPE "type"
 #define ATR_SHEEP "sheep"
+#define ATR_SHEEPDOG "sheepdog"
 #define ATR_PLAYER "player"
 
 #define SHEEP_WIDTH 103
@@ -87,9 +88,9 @@ bool LevelLoader::loadWorld(World* world)
             {
                 // Set the player
                 player = unit;
-            }else if(unit->type == ATR_SHEEP)
+            }else if(unit->type == ATR_SHEEP || unit->type == ATR_SHEEPDOG)
             {
-                // Add the sheep
+                // Add the sheep or sheepdog
                 unitList.push_back(unit);
             }
         }
@@ -189,13 +190,23 @@ void LevelLoader::fillWorldWithUnits(World *world, list<UnitDescription*> &unitL
         if(!loadSprite(unitDesc->imagePath, *sprite))
         {
             // Error
-            cout << "Image for sheep could not be loaded: " << unitDesc->imagePath << endl;
-            cout << "\tSheep has not been loaded." << endl;
+            cout << "Image for " << unitDesc->type << " could not be loaded: " << unitDesc->imagePath << endl;
+            cout << '\t' << unitDesc->type << " has not been loaded." << endl;
         }else{
+            Character *unit = 0;
             int x, y;
             getPosition(islandDesc->island, unitDesc->startAngle, SHEEP_WIDTH, SHEEP_HEIGHT, &x, &y);
-            Sheep *sheep = new Sheep(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
-            world->addLevelObject(sheep);
+
+            if(unitDesc->type.compare(ATR_SHEEP) == 0)
+            {
+                unit = new Sheep(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
+            }else if(unitDesc->type.compare(ATR_SHEEPDOG) == 0)
+            {
+                unit = new Dog(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
+            }
+
+            if(unit != 0)
+                world->addLevelObject(unit);
         }
     }
 }

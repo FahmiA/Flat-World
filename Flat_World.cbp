@@ -56,6 +56,8 @@
 		</Compiler>
 		<Unit filename="actors\Character.cpp" />
 		<Unit filename="actors\Character.hpp" />
+		<Unit filename="actors\Dog.cpp" />
+		<Unit filename="actors\Dog.hpp" />
 		<Unit filename="actors\Player.cpp" />
 		<Unit filename="actors\Player.hpp" />
 		<Unit filename="actors\Sheep.cpp" />
