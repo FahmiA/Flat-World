@@ -1,6 +1,7 @@
 #include "LevelLoader.hpp"
 
 #include "../util/SpriteUtil.hpp"
+#include "../util/AnimatedSprite.hpp"
 
 #define TAG_LEVEL "level"
 #define TAG_DESCRIPTION "description"
@@ -23,12 +24,12 @@
 #define ATR_SHEEPDOG "sheepdog"
 #define ATR_PLAYER "player"
 
-#define SHEEP_WIDTH 103
-#define SHEEP_HEIGHT 102
+#define SHEEP_WIDTH 40
+#define SHEEP_HEIGHT 40
 #define SHEEP_SPEED 200
 
-#define DOG_WIDTH 217
-#define DOG_HEIGHT 176
+#define DOG_WIDTH 70
+#define DOG_HEIGHT 45
 #define DOG_SPEED 300
 
 #define PLAYER_WIDTH 68
@@ -190,7 +191,7 @@ void LevelLoader::fillWorldWithUnits(World *world, list<UnitDescription*> &unitL
         UnitDescription *unitDesc = (*it);
         IslandDescription *islandDesc = islandMap[unitDesc->locationID];
 
-        Sprite *sprite = new Sprite();
+        AnimatedSprite *sprite = new AnimatedSprite();
         if(!loadSprite(unitDesc->imagePath, *sprite))
         {
             // Error
@@ -203,9 +204,17 @@ void LevelLoader::fillWorldWithUnits(World *world, list<UnitDescription*> &unitL
 
             if(unitDesc->type.compare(ATR_SHEEP) == 0)
             {
+                sprite->setSpriteSheet(9, SHEEP_WIDTH, SHEEP_HEIGHT, 1, 0, 40);
+                // Walk animation
+                sprite->addAnimation(ANIMATE_WALK, 0, 0, 9);
+                sprite->play(ANIMATE_WALK);
                 unit = new Sheep(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
             }else if(unitDesc->type.compare(ATR_SHEEPDOG) == 0)
             {
+                sprite->setSpriteSheet(5, DOG_WIDTH, DOG_HEIGHT, 10, 0, 0);
+                // Run animation
+                sprite->addAnimation(ANIMATE_RUN, 0, 1, 5);
+                sprite->play(ANIMATE_RUN);
                 unit = new Dog(x, y, DOG_WIDTH, DOG_HEIGHT, DOG_SPEED, sprite);
             }
 
@@ -246,22 +255,23 @@ void LevelLoader::getPosition(Island *island, float angle, int characterWidth, i
     }
 
     int raytraceDistance = max(island->getSize().x, island->getSize().y) * 2;
-    raytraceDistance -= characterHeight/2;
+    //raytraceDistance -= characterHeight/2;
 
-    int fromX = island->getSize().x;
-    int fromY = island->getSize().y;
-    int toX = fromX + (cos(angle) * raytraceDistance);
-    int toY = fromY + (sin(angle) * raytraceDistance);
+    int toX = island->getSize().x/2;
+    int toY = island->getSize().y/2;
+    int fromX = toX + (cos(angle) * raytraceDistance);
+    int fromY = toY + (sin(angle) * raytraceDistance);
 
     Vector2f *position = spriteUtil.rayTrace(island->getSprite(), fromX, fromY, toX, toY);
-
+    cout << "Island: " << angle << endl;
     if(position == 0)
     {
+        cout << "\tPosition not set, using default" << endl;
         position = new Vector2f(toX/2, toY/2);
     }
 
-    *characterX = island->getPosition().x + position->x/2;
-    *characterY = island->getPosition().y + position->y/2;
+    *characterX = island->getPosition().x + position->x;
+    *characterY = island->getPosition().y + position->y;
 
     delete position;
 }

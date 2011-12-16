@@ -5,7 +5,7 @@
 #include<iostream>
 using namespace std;
 
-Sheep::Sheep(float x, float y, float width, float height, float speed, Sprite *sprite)
+Sheep::Sheep(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
     : Character(x, y, width, height, speed, sprite)
 {
     setID(ID_SHEEP);
@@ -21,4 +21,6 @@ Sheep::~Sheep()
 void Sheep::subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow *window, World *world)
 {
     state->performAction(this, clock);
+
+    ((AnimatedSprite*)getSprite())->update(clock);
 }

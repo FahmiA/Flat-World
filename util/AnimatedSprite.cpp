@@ -1,13 +1,16 @@
 #include "AnimatedSprite.hpp"
 
-AnimatedSprite::AnimatedSprite(Sprite *spriteSheet, int framesPerSecond,
-                                int frameHeight, int frameWidth, int frameGap,
-                                int startOffsetX, int startOffsetY)
+#include <iostream>
+using namespace std;
+
+AnimatedSprite::AnimatedSprite() : Sprite() {}
+
+void AnimatedSprite::setSpriteSheet(int framesPerSecond,
+                                    int frameHeight, int frameWidth, int frameGap,
+                                    int startOffsetX, int startOffsetY)
 {
     // Remember arguments
-    this->spriteSheet = spriteSheet;
-    //this->framesPerSecond = framesPerSecond;
-    frameDelay = (float)(framesPerSecond) / 100.0f; // Take as a fraction of one seccond
+    frameDelay = 1.0f / (float)(framesPerSecond); // Take as a fraction of one seccond
     this->frameHeight = frameHeight;
     this->frameWidth = frameWidth;
     this->frameGap = frameGap;
@@ -16,6 +19,8 @@ AnimatedSprite::AnimatedSprite(Sprite *spriteSheet, int framesPerSecond,
 
     // Setup extra state
     animations = new map<int, AnimationDetail*>();
+    timeSinceLastFrame = 0;
+    paused = false;
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -39,35 +44,51 @@ void AnimatedSprite::addAnimation(int id, int startFrameX, int startFrameY, int 
     (*animations)[id] = animationDetail;
 }
 
-void AnimatedSprite::update(RenderWindow *window, Clock *clock)
+void AnimatedSprite::update(Clock *clock)
 {
-    //TODO: finish AnimatedSprite update method
-    float currentTime = clock->GetElapsedTime();
+    if(paused)
+        return;
 
+    if(clock == 0)
+    {
+        timeSinceLastFrame = frameDelay;
+    }else{
+        timeSinceLastFrame += clock->GetElapsedTime();
+    }
+
+    //cout << timeSinceLastFrame << ' ' << frameDelay << endl;
     // Check whether the next frame should be displayed
-    if(currentTime - lastFrameTime >= frameDelay)
+    if(timeSinceLastFrame >= frameDelay)
     {
         // Progress to the next frame
-        currentFrame++;
         if(currentFrame > currentAnimation->noOfFrames)
             currentFrame = 0; // Loop the animation
 
-        Vector2f spriteSheetSize = spriteSheet->GetSize();
+        int imageWidth = GetImage()->GetWidth();
 
         int framePosX = currentAnimation->startFrameX + (currentFrame * frameWidth);
-        framePosX = framePosX % (int)spriteSheetSize.x;
+        framePosX = framePosX % imageWidth;
 
-        int framePosY = framePosX / spriteSheetSize.x;
+        int framePosY = startOffsetY + (framePosX / imageWidth);
 
-        spriteSheet->SetSubRect(IntRect(framePosX, framePosY, framePosY + frameWidth,
+        SetSubRect(IntRect(framePosX, framePosY, framePosX + frameWidth,
                                         framePosY + frameHeight));
+        //cout << "New SubRect: from = (" << framePosX << ", " << framePosY << ")" << endl;
+        //cout << '\t' << currentFrame << endl;
 
-        // Reset the last frame time
-        lastFrameTime = currentTime;
+        currentFrame++;
+
+        // Update the center
+        /*float xPercent = GetCenter().x/GetSize().x;
+        float yPercent = GetCenter().y/GetSize().y;
+        int newCenterX = framePosX + (frameWidth * xPercent);
+        int newCenterY = framePosY + (frameHeight * yPercent);
+        SetCenter(newCenterX, newCenterY);*/
+
+
+        // Reset the timer
+        timeSinceLastFrame = 0;
     }
-
-    // Render the current frame
-    window->Draw(*spriteSheet);
 }
 
 bool AnimatedSprite::play(int animationId)
@@ -81,10 +102,36 @@ bool AnimatedSprite::play(int animationId)
         return false; // The animation does not exist
 
     currentAnimation = (*animations)[animationId];
+
+    // Set the subrect to the first frame in the animation.
+    update(0);
 }
 
-bool AnimatedSprite::stop()
+void AnimatedSprite::pause()
+{
+    paused = true;
+}
+
+void AnimatedSprite::resume()
+{
+    paused = false;
+}
+
+void AnimatedSprite::stop()
 {
     currentAnimation = 0;
     currentFrame = 0;
+    timeSinceLastFrame = 0;
+    paused = false;
 }
+
+int AnimatedSprite::getFrameHeight()
+{
+    return frameHeight;
+}
+
+int AnimatedSprite::getFrameWidth()
+{
+    return frameWidth;
+}
+

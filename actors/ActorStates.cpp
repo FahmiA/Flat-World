@@ -1,5 +1,8 @@
 #include "ActorStates.hpp"
 
+#include "Character.hpp"
+#include "../util/AnimatedSprite.hpp"
+
 ActorState::~ActorState() {}
 
 void WonderState::performAction(Character *character, Clock *clock)
@@ -21,9 +24,18 @@ void WonderState::performAction(Character *character, Clock *clock)
     {
         sprite->FlipX(false);
         character->moveLeft();
+        // Update the animation
+        ((AnimatedSprite*)character->getSprite())->resume();
     }else if(action == right){
         sprite->FlipX(true);
         character->moveRight();
+        // Update the animation
+        ((AnimatedSprite*)character->getSprite())->resume();
+    }else{
+        // Update the animation
+        //TODO: Causes crash
+        //((AnimatedSprite*)character->getSprite())->play(ANIMATE_WALK);
+        //((AnimatedSprite*)character->getSprite())->pause();
     }
 }
 

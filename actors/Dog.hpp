@@ -4,6 +4,8 @@
 #include "Character.hpp"
 #include "ActorStates.hpp"
 
+#include "../util/AnimatedSprite.hpp"
+
 class Dog: public Character
 {
     public:

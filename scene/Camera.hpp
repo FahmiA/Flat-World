@@ -9,7 +9,7 @@ using namespace sf;
 class Camera
 {
     public:
-        Camera();
+        Camera(View *view);
         virtual ~Camera();
 
         virtual void update(Clock *clock, RenderWindow *window, World *world) = 0;

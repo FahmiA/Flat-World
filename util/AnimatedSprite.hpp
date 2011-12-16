@@ -14,12 +14,15 @@ struct AnimationDetail;
         * Play, pause, and stop current animation.
         * Set predefined animation actions (eg: "Run" animation from frames x - y)
 */
-class AnimatedSprite
+class AnimatedSprite: public Sprite
 {
     public:
-        AnimatedSprite(Sprite *spriteSheet, int framesPerSecond,
-                       int frameHeight, int frameWidth, int frameGap,
-                       int startOffsetX = 0, int startOffsetY = 0);
+
+        AnimatedSprite();
+
+        void setSpriteSheet(int framesPerSecond,
+                            int frameHeight, int frameWidth, int frameGap,
+                            int startOffsetX, int startOffsetY);
         virtual ~AnimatedSprite();
 
         /** Add a new animation from the sprite sheet.
@@ -30,13 +33,16 @@ class AnimatedSprite
         */
         void addAnimation(int id, int startFrameX, int startFrameY, int noOfFrames);
 
-        void update(RenderWindow *window, Clock *clock);
+        void update(Clock *clock);
         bool play(int animationId);
-        bool stop();
+        void pause();
+        void resume();
+        void stop();
+
+        int getFrameHeight();
+        int getFrameWidth();
 
     private:
-        // Sprite Sheet
-        Sprite* spriteSheet;
 
         // Sprite Sheet configuration
         float frameDelay;
@@ -52,7 +58,8 @@ class AnimatedSprite
         // Active animation state
         AnimationDetail *currentAnimation;
         int currentFrame;
-        float lastFrameTime;
+        float timeSinceLastFrame;
+        bool paused;
 
 };
 

@@ -86,6 +86,8 @@
 		<Unit filename="media\textures\Key.png" />
 		<Unit filename="scene\Camera.cpp" />
 		<Unit filename="scene\Camera.hpp" />
+		<Unit filename="scene\ManualCamera.cpp" />
+		<Unit filename="scene\ManualCamera.hpp" />
 		<Unit filename="scene\SteadyCamera.cpp" />
 		<Unit filename="scene\SteadyCamera.hpp" />
 		<Unit filename="tinyxml\tinystr.cpp" />

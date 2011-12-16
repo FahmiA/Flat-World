@@ -21,12 +21,23 @@ void Dog::subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow
 {
     state->performAction(this, clock);
 
-    CoordinateUtil coordUtil;
+    ((AnimatedSprite*)getSprite())->update(clock);
+
+    /*CoordinateUtil coordUtil;
     Player &player = *(world->getPlayer());
 
-    if(coordUtil.distance(player.getPosition(), getPosition()) < 100)
+    // Change to a chassing state when the player is in the field of view (FOV)
+    int fovDepth = 200;
+    Vector2f targetPosition(getPosition().x + fovDepth, getPosition().y + fovDepth);
+    getSprite()->TransformToLocal(targetPosition);
+    Vector2f *collidePos = rayTrace(world->getPlayer()->getSprite(), getPosition().x,
+                                   getPosition().y, targetPosition.x, targetPosition.y);
+
+    //if(coordUtil.distance(player.getPosition(), getPosition()) < 100)
+    if(collidePos != 0)
     {
+        cout << "Dog ANGRY!" << endl;
         delete state;
         state = new ChaseState;
-    }
+    }*/
 }

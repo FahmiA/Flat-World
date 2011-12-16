@@ -6,11 +6,7 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
-SteadyCamera::SteadyCamera()
-{
-    View *view = getView();
-    //view->Zoom(2);
-}
+SteadyCamera::SteadyCamera(View *view) : Camera(view) { }
 
 SteadyCamera::~SteadyCamera() { }
 

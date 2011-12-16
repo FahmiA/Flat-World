@@ -13,7 +13,7 @@ Character::Character(float x, float y, float width, float height, float speed, S
 {
     this->speed = speed;
 
-    sprite->SetCenter(sprite->GetImage()->GetWidth()/2, sprite->GetImage()->GetHeight()/2);
+    sprite->SetCenter(sprite->GetSize().x/2, sprite->GetSize().y/2);
     sprite->SetX(x);
     sprite->SetY(y);
     sprite->Resize(width, height);
@@ -56,6 +56,7 @@ void Character::moveRight()
 
 void Character::update(Clock *clock, RenderWindow *window, World *world)
 {
+    return;
     float elapsedTime = clock->GetElapsedTime();
     CoordinateUtil coordUtil;
 
@@ -208,6 +209,7 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
             // Only move up or down if the distance is not acceptable
             //cout << distance << endl;
             if(distance > 2 || distance < 1.5)
+            //if(distance > 2)
             {
                 Color pixel;
 

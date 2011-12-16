@@ -1,14 +1,11 @@
 #include "Camera.hpp"
 
-Camera::Camera()
+Camera::Camera(View *view)
 {
-    view = new View();
+    this->view = view;
 }
 
-Camera::~Camera()
-{
-    delete view;
-}
+Camera::~Camera() { }
 
 void Camera::draw(RenderWindow *window) { /* Sub-classes can implement draw only if they need it. */}
 

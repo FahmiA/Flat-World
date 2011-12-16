@@ -6,7 +6,7 @@
 class SteadyCamera: public Camera
 {
     public:
-        SteadyCamera();
+        SteadyCamera(View *view);
         virtual ~SteadyCamera();
 
         virtual void update(Clock *clock, RenderWindow *window, World *world);

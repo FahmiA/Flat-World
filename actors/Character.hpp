@@ -48,4 +48,8 @@ class Character: public GameObject
         bool doMoveRight;
 };
 
+// Define common animation states
+#define ANIMATE_WALK 0
+#define ANIMATE_RUN 1
+
 #endif // CHARACTER_H

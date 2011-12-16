@@ -2,6 +2,8 @@
 #include "environment/Island.hpp"
 
 #include "scene/SteadyCamera.hpp"
+#include "scene/ManualCamera.hpp"
+
 #include "actors/Player.hpp"
 #include "actors/Sheep.hpp"
 
@@ -11,9 +13,15 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+#include <iostream>
+using namespace std;
+
+#define MAX_FPS 60
+
 int main()
 {
     RenderWindow app(VideoMode(800, 600, 32), "SFML Graphics");
+    app.SetFramerateLimit(MAX_FPS);
     Clock clock;
 
     ContentManager content;
@@ -27,7 +35,8 @@ int main()
         return EXIT_FAILURE;
 
     // Create the camera
-    Camera *camera = new SteadyCamera();
+    View *view = new View();
+    Camera *camera = new SteadyCamera(view);
     world->setCamera(camera);
 
     while(app.IsOpened())
@@ -50,6 +59,21 @@ int main()
                 Image Screen = app.Capture();
                 Screen.SaveToFile("screenshot.jpg");
             }
+
+            if (event.Key.Code == sf::Key::Num1)
+            {
+                // Switch to steady camera
+                cout << "Switching to Steady Camera" << endl;
+                delete camera;
+                camera = new SteadyCamera(view);
+                world->setCamera(camera);
+            }else if(event.Key.Code == sf::Key::Num2){
+                // Switch to debug manual camera
+                cout << "Switching to Manual Camera" << endl;
+                delete camera;
+                camera = new ManualCamera(view);
+                world->setCamera(camera);
+            }
         }
 
         world->update(&clock, &app);
@@ -65,6 +89,7 @@ int main()
     }
 
     delete camera;
+    delete view;
     delete world;
     return EXIT_SUCCESS;
 }
