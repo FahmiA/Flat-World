@@ -254,24 +254,28 @@ void LevelLoader::getPosition(Island *island, float angle, int characterWidth, i
          angle = random.Random(0, M_2_PI);
     }
 
-    int raytraceDistance = max(island->getSize().x, island->getSize().y) * 2;
-    //raytraceDistance -= characterHeight/2;
+    // Want to ray-trace beyond the border of the island
+    int raytraceDistance = max(island->getSize().x, island->getSize().y);
 
-    int toX = island->getSize().x/2;
-    int toY = island->getSize().y/2;
+    // Get the ray-trace 'beam' coordinates
+    int toX = island->getSize().x / 2;
+    int toY = island->getSize().y / 2;
     int fromX = toX + (cos(angle) * raytraceDistance);
     int fromY = toY + (sin(angle) * raytraceDistance);
 
+    // Ray-trace
     Vector2f *position = spriteUtil.rayTrace(island->getSprite(), fromX, fromY, toX, toY);
-    cout << "Island: " << angle << endl;
+    //cout << "Adding unit to island at angle: " << angle << endl;
     if(position == 0)
     {
         cout << "\tPosition not set, using default" << endl;
         position = new Vector2f(toX/2, toY/2);
     }
 
-    *characterX = island->getPosition().x + position->x;
-    *characterY = island->getPosition().y + position->y;
+    // Update the charcter position
+    *characterX = island->getPosition().x + position->x/2;
+    *characterY = island->getPosition().y + position->y/2;
+    //cout << "\tAdded at position (" << position->x << ", " << position->y << ")" << endl;
 
     delete position;
 }

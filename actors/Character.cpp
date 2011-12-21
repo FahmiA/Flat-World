@@ -56,7 +56,7 @@ void Character::moveRight()
 
 void Character::update(Clock *clock, RenderWindow *window, World *world)
 {
-    return;
+    //return;
     float elapsedTime = clock->GetElapsedTime();
     CoordinateUtil coordUtil;
 

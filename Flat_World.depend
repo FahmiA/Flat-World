@@ -510,7 +510,7 @@
 	<string>
 	<map>
 
-1322372927 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
+1324449136 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
 	"LevelLoader.hpp"
 	"../util/SpriteUtil.hpp"
 	"../util/AnimatedSprite.hpp"
@@ -554,7 +554,7 @@
 	"World.hpp"
 	"../actors/Player.hpp"
 
-1324063365 source:c:\users\fahmi\documents\game development\flat_world\main.cpp
+1324099777 source:c:\users\fahmi\documents\game development\flat_world\main.cpp
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"scene/SteadyCamera.hpp"
@@ -638,6 +638,6 @@
 1324062477 c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.hpp
 	"Camera.hpp"
 
-1324063021 source:c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.cpp
+1324099324 source:c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.cpp
 	"ManualCamera.hpp"
 

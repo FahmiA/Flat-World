@@ -9,10 +9,12 @@ ManualCamera::~ManualCamera() { }
 
 void ManualCamera::update(Clock *clock, RenderWindow *window, World *world)
 {
+    // Get the properties
     const Input &input = window->GetInput();
     View *view = getView();
     float moveDistance = speed * clock->GetElapsedTime();
 
+    // Respond to user control
     if(input.IsKeyDown(Key::Left))
         view->Move(-moveDistance, 0);
 
@@ -25,5 +27,6 @@ void ManualCamera::update(Clock *clock, RenderWindow *window, World *world)
      if(input.IsKeyDown(Key::Down))
         view->Move(0, moveDistance);
 
+    // Update the view
     window->SetView(*view);
 }

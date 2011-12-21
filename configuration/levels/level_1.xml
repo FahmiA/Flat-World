@@ -50,6 +50,7 @@
 
     <unit type="sheep">
         <image> media/textures/Sheep.png </image>
+         <angle> -90 </angle>
         <locationID> 2 </locationID>
     </unit>
 
