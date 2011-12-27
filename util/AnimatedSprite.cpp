@@ -6,7 +6,7 @@ using namespace std;
 AnimatedSprite::AnimatedSprite() : Sprite() {}
 
 void AnimatedSprite::setSpriteSheet(int framesPerSecond,
-                                    int frameHeight, int frameWidth, int frameGap,
+                                    int frameWidth, int frameHeight, int frameGap,
                                     int startOffsetX, int startOffsetY)
 {
     // Remember arguments

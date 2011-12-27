@@ -141,10 +141,12 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     Vector2f bottomLeft = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) - lookOffset, sprite->GetSize().y));
     Vector2f bottomMiddle = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y));
     Vector2f bottomRight = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) + lookOffset, sprite->GetSize().y));
+    Vector2f bottomMiddleUp = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y - 5)); // 5 pixels up from base
     // Local positions to ground
     bottomLeft = groundSprite->TransformToLocal(bottomLeft);
     bottomMiddle = groundSprite->TransformToLocal(bottomMiddle);
     bottomRight = groundSprite->TransformToLocal(bottomRight);
+    bottomMiddleUp = groundSprite->TransformToLocal(bottomMiddleUp);
 
     // Get the position at the ray-trace distance
     // Global Positions
@@ -207,9 +209,18 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
             float distance = coordUtil.distance(bottomMiddle, *middleCollide);
 
             // Only move up or down if the distance is not acceptable
-            //cout << distance << endl;
-            if(distance > 2 || distance < 1.5)
-            //if(distance > 2)
+            bool adjustPosition = false;
+
+            if(bottomMiddleUp.x >= groundSprite->GetSize().x || bottomMiddleUp.y >= groundSprite->GetSize().y)
+            {
+                adjustPosition = true;
+            }else{
+                Color groundAbovePixel = groundSprite->GetPixel(bottomMiddleUp.x, bottomMiddleUp.y);
+                if(groundAbovePixel.a > 0)
+                    adjustPosition = true;
+            }
+
+            if(adjustPosition)
             {
                 Color pixel;
 
