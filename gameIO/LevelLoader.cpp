@@ -22,7 +22,7 @@
 #define ATR_PLAYER "player"
 
 
-LevelLoader::LevelLoader(LevelBuilderXML *levelBuilder, ContentManager *content)
+LevelLoader::LevelLoader(LevelBuilder *levelBuilder, ContentManager *content)
 {
     this->levelBuilder = levelBuilder;
     this->content = content;

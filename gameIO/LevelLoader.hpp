@@ -19,7 +19,7 @@ class Sheep;
 class LevelLoader
 {
     public:
-        LevelLoader(LevelBuilderXML *levelBuilder, ContentManager *content);
+        LevelLoader(LevelBuilder *levelBuilder, ContentManager *content);
         virtual ~LevelLoader();
 
         bool loadWorld(string &xmlPath);
@@ -27,7 +27,7 @@ class LevelLoader
     private:
         // Constant variables
         ContentManager *content;
-        LevelBuilderXML *levelBuilder;
+        LevelBuilder *levelBuilder;
 
         // Temporary variables
         LevelDescription *level;

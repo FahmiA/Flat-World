@@ -32,7 +32,7 @@
 		<Cursor position="92" topLine="0" />
 	</File>
 	<File name="configuration\levels\level_1.xml" open="0" top="0" tabpos="4">
-		<Cursor position="107" topLine="12" />
+		<Cursor position="9" topLine="0" />
 	</File>
 	<File name="environment\Island.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="620" topLine="0" />
@@ -46,11 +46,23 @@
 	<File name="gameIO\ContentManager.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="103" topLine="0" />
 	</File>
-	<File name="gameIO\LevelLoader.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="3741" topLine="120" />
+	<File name="gameIO\LevelBuilder.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="86" topLine="0" />
 	</File>
-	<File name="gameIO\LevelLoader.hpp" open="1" top="0" tabpos="1">
-		<Cursor position="841" topLine="5" />
+	<File name="gameIO\LevelBuilder.hpp" open="0" top="0" tabpos="0">
+		<Cursor position="2824" topLine="43" />
+	</File>
+	<File name="gameIO\LevelBuilderXML.cpp" open="0" top="0" tabpos="0">
+		<Cursor position="162" topLine="0" />
+	</File>
+	<File name="gameIO\LevelBuilderXML.hpp" open="0" top="0" tabpos="0">
+		<Cursor position="85" topLine="0" />
+	</File>
+	<File name="gameIO\LevelLoader.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="660" topLine="1" />
+	</File>
+	<File name="gameIO\LevelLoader.hpp" open="1" top="1" tabpos="1">
+		<Cursor position="623" topLine="5" />
 	</File>
 	<File name="game\GameObject.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="71" topLine="0" />
@@ -67,8 +79,8 @@
 	<File name="game\World.hpp" open="0" top="0" tabpos="4">
 		<Cursor position="198" topLine="0" />
 	</File>
-	<File name="main.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="1203" topLine="36" />
+	<File name="main.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="426" topLine="0" />
 	</File>
 	<File name="scene\Camera.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="105" topLine="0" />
