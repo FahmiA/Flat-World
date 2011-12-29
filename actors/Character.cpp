@@ -56,7 +56,9 @@ void Character::moveRight()
 
 void Character::update(Clock *clock, RenderWindow *window, World *world)
 {
+    // Un-comment the line below to pause the game on the first frame
     //return;
+
     float elapsedTime = clock->GetElapsedTime();
     CoordinateUtil coordUtil;
 

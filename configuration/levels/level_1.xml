@@ -1,4 +1,5 @@
 <level>
+
     <description>
         <name> Level 1: Sheep on the run </name>
         <width> 1000 </width>
@@ -45,7 +46,7 @@
     <unit type="player">
         <image> media/textures/CharacterBoy.png </image>
         <locationID> 1 </locationID>
-        <angle> 0 </angle>
+        <angle> 4.7 </angle>
     </unit>
 
     <unit type="sheep">
@@ -58,5 +59,13 @@
         <image> media/textures/SheepDog.png </image>
         <locationID> 4 </locationID>
     </unit>
+
+    <pickup type="star">
+        <image> media/textures/Star.png </image>
+        <locationID> 1 </locationID>
+        <startAngle> 3.9 </startAngle>
+        <endAngle> 5.5 </endAngle>
+        <starCount> 5 </starCount>
+    </pickup>
 
 </level>

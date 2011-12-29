@@ -1,8 +1,5 @@
 #include "LevelLoader.hpp"
 
-#include "../util/SpriteUtil.hpp"
-#include "../util/AnimatedSprite.hpp"
-
 #define TAG_LEVEL "level"
 #define TAG_DESCRIPTION "description"
 #define TAG_ISLAND "island"
@@ -24,31 +21,59 @@
 #define ATR_SHEEPDOG "sheepdog"
 #define ATR_PLAYER "player"
 
-#define SHEEP_WIDTH 40
-#define SHEEP_HEIGHT 40
-#define SHEEP_SPEED 200
 
-#define DOG_WIDTH 60
-#define DOG_HEIGHT 42
-#define DOG_SPEED 300
-
-#define PLAYER_WIDTH 68
-#define PLAYER_HEIGHT 85
-#define PLAYER_SPEED 500
-
-
-LevelLoader::LevelLoader(string &xmlPath, ContentManager *content)
+LevelLoader::LevelLoader(LevelBuilderXML *levelBuilder, ContentManager *content)
 {
-    this->xmlPath = xmlPath;
+    this->levelBuilder = levelBuilder;
     this->content = content;
+
+    level = 0;
+    player = 0;
 }
 
 LevelLoader::~LevelLoader()
 {
-    //dtor
+    clear();
 }
 
-bool LevelLoader::loadWorld(World* world)
+bool LevelLoader::loadWorld(string &xmlPath)
+{
+    // Clear temporary variables
+    clear();
+
+    // Load descriptions from the XML file
+    bool xmlLoaded = loadXML(xmlPath);
+
+    // Build the world
+    bool worldBuilt =  buildWorld();
+    cout << "xmlLoaded: " << xmlLoaded  << endl;
+    cout << "worldBuilt: " << worldBuilt << endl;
+    if(xmlLoaded && worldBuilt)
+        return true;
+
+    return false;
+}
+
+void LevelLoader::clear()
+{
+    if(level != 0)
+    {
+        delete level;
+        level = 0;
+    }
+
+    if(player != 0)
+    {
+        delete player;
+        player = 0;
+    }
+
+    islandMap.clear();
+
+    unitList.clear();
+}
+
+bool LevelLoader::loadXML(string &xmlPath)
 {
     // Open the xml file for reading
     TiXmlDocument levelDoc(xmlPath);
@@ -66,12 +91,6 @@ bool LevelLoader::loadWorld(World* world)
     if(!element)
         return false;
     root = TiXmlHandle(element);
-
-    // Declare some storage variables for use later
-    LevelDescription *level;
-    UnitDescription *player;
-    map<int, IslandDescription*> islandMap; // Island ID -> Island Description
-    list<UnitDescription*> unitList;
 
     // Load the level contents
     TiXmlElement* node = root.FirstChild().ToElement();
@@ -101,25 +120,43 @@ bool LevelLoader::loadWorld(World* world)
         }
     }
 
-    // Construct the level contents
-    // Add the background
-    Sprite *backgroundSprite = new Sprite();
-    Sprite *sprite = new Sprite();
-    if(loadSprite(level->backgroundPath, *sprite))
-    {
-        world->setBackground(sprite);
-    }
+    return true;
+}
+
+bool LevelLoader::buildWorld()
+{
+    if(player == 0 || level == 0)
+        return false;
+
+    IslandDescription *islandDesc;
+
+    // Set the background
+    levelBuilder->setBackground(level);
+
     // Add the islands
-    fillWorldWithIslands(world, islandMap);
+    for(map<int,IslandDescription*>::iterator it = islandMap.begin(); it != islandMap.end(); it++)
+    {
+        islandDesc = (*it).second;
+        levelBuilder->addIsland(islandDesc);
+    }
 
-    // Add the player
-    fillWorldWithPlayer(world, *(islandMap[player->locationID]), player);
+    // Set the player
+    islandDesc = islandMap[player->locationID];
+    levelBuilder->setPlayer(player, islandDesc);
 
-    // Add the sheep
-    fillWorldWithUnits(world, unitList, islandMap);
+    // Add the NPC units
+    for(list<UnitDescription*>::iterator it = unitList.begin(); it != unitList.end(); it++)
+    {
+        UnitDescription *unitDesc = (*it);
+        islandDesc = islandMap[unitDesc->locationID];
 
-    delete level;
-    delete player;
+        if(unitDesc->type.compare(ATR_SHEEP) == 0)
+        {
+           levelBuilder->addSheep(unitDesc, islandDesc);
+        }else if(unitDesc->type.compare(ATR_SHEEPDOG) == 0){
+             levelBuilder->addSheepdog(unitDesc, islandDesc);
+        }
+    }
 
     return true;
 }
@@ -162,7 +199,7 @@ UnitDescription* LevelLoader::loadUnitDescription(TiXmlHandle &node)
 
     return unit;
 }
-
+/*
 void LevelLoader::fillWorldWithIslands(World *world, map<int, IslandDescription*> &islandMap)
 {
     for(map<int,IslandDescription*>::iterator it = islandMap.begin(); it != islandMap.end(); it++)
@@ -243,42 +280,48 @@ void LevelLoader::fillWorldWithPlayer(World *world, IslandDescription &playerSta
     }
 }
 
-void LevelLoader::getPosition(Island *island, float angle, int characterWidth, int characterHeight, int *characterX, int *characterY)
+void LevelLoader::getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY)
 {
     SpriteUtil spriteUtil;
 
     // Produce a random angle if one does not exist.
-    if(angle == -1)
+    if(angleRadians == -1)
     {
          Randomizer random;
-         angle = random.Random(0, M_2_PI);
+         angleRadians = random.Random(0, M_2_PI);
     }
 
+    // Convert the angle from degrees to radians
+    //float angleRadians = DEGREES_TO_RADIANS(angleDegrees);
+
     // Want to ray-trace beyond the border of the island
-    int raytraceDistance = max(island->getSize().x, island->getSize().y);
+    float raytraceDistance = max(island->getSize().x, island->getSize().y);
 
     // Get the ray-trace 'beam' coordinates
-    int toX = island->getSize().x / 2;
-    int toY = island->getSize().y / 2;
-    int fromX = toX + (cos(angle) * raytraceDistance);
-    int fromY = toY + (sin(angle) * raytraceDistance);
+    float toX = island->getSize().x / 2;
+    float toY = island->getSize().y / 2;
+    float fromX = toX + (cos(angleRadians) * raytraceDistance);
+    float fromY = toY + (sin(angleRadians) * raytraceDistance);
 
+    //cout << cos(angleRadians) << endl;
     // Ray-trace
-    Vector2f *position = spriteUtil.rayTrace(island->getSprite(), fromX, fromY, toX, toY);
-    //cout << "Adding unit to island at angle: " << angle << endl;
-    if(position == 0)
+    Vector2f *localSpawnPos = spriteUtil.rayTrace(island->getSprite(), (int)fromX, (int)fromY, (int)toX, (int)toY);
+    cout << "Adding unit to island at angle: " << angleRadians << endl;
+    printf("  Raytrace: (x, y): (%.3f, %0.3f) -> (%.3f, %.3f)\n", fromX, fromY, toX, toY);
+    printf("  Spawn:    (x, y): (%.3f, %0.3f)\n",  localSpawnPos->x,  localSpawnPos->y);
+    if(localSpawnPos == 0)
     {
         cout << "\tPosition not set, using default" << endl;
-        position = new Vector2f(toX/2, toY/2);
+        localSpawnPos = new Vector2f(toX/2, toY/2);
     }
 
     // Update the charcter position
-    *characterX = island->getPosition().x + position->x/2;
-    *characterY = island->getPosition().y + position->y/2;
-    //cout << "\tAdded at position (" << position->x << ", " << position->y << ")" << endl;
+    Vector2f globalSpawnPos = island->getSprite()->TransformToGlobal(*localSpawnPos);
+    *characterX = globalSpawnPos.x;
+    *characterY = globalSpawnPos.y;
 
-    delete position;
-}
+    delete localSpawnPos;
+}*/
 
 string LevelLoader::getString(TiXmlHandle &parent, char* tag)
 {
@@ -299,15 +342,4 @@ float LevelLoader::getFloat(TiXmlHandle &parent, char* tag)
 {
     string text = getString(parent, tag);
     return atof(text.c_str());
-}
-
-bool LevelLoader::loadSprite(string path, Sprite &sprite)
-{
-    Image *image = content->loadImage(path);
-    if(image == 0)
-        return false;
-
-    sprite.SetImage(*image);
-
-    return true;
 }

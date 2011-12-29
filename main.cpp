@@ -9,6 +9,7 @@
 
 #include "gameIO/ContentManager.hpp"
 #include "gameIO/LevelLoader.hpp"
+#include "gameIO/LevelBuilderXML.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
@@ -27,9 +28,12 @@ int main()
     ContentManager content;
     // Load the level
     World *world = new World();
+
+    LevelBuilderXML levelBuilder(world, &content);
+    LevelLoader levelLoader(&levelBuilder, &content);
+
     string xmlPath = "configuration\\levels\\level_1.xml";
-    LevelLoader levelLoader(xmlPath, &content);
-    bool worldLoaded = levelLoader.loadWorld(world);
+    bool worldLoaded = levelLoader.loadWorld(xmlPath);
 
     if(!worldLoaded)
         return EXIT_FAILURE;
