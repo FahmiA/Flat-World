@@ -479,7 +479,7 @@
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 
-1321131038 c:\users\fahmi\documents\game development\flat_world\game\id.hpp
+1325308871 c:\users\fahmi\documents\game development\flat_world\game\id.hpp
 
 1310262238 source:c:\users\fahmi\documents\game development\flat_world\actors\player.cpp
 	"Player.hpp"
@@ -510,17 +510,17 @@
 	<string>
 	<map>
 
-1325201404 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
+1325360263 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
 	"LevelLoader.hpp"
 
-1325202189 c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.hpp
+1325358563 c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.hpp
 	"../tinyxml/tinyxml.h"
-	"../game/World.hpp"
 	"../gameIO/ContentManager.hpp"
-	"LevelBuilderXML.hpp"
+	"LevelBuilder.hpp"
 	<map>
 	<list>
 	<stdlib.h>
+	<cmath>
 	<string>
 	<iostream>
 
@@ -637,16 +637,17 @@
 1324099324 source:c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.cpp
 	"ManualCamera.hpp"
 
-1325202161 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderxml.hpp
+1325358116 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderxml.hpp
 	"LevelBuilder.hpp"
 
-1325202099 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderxml.cpp
+1325360224 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderxml.cpp
 	"LevelBuilderXML.hpp"
 	"../util/AnimatedSprite.hpp"
+	"../pickups/Star.hpp"
 	<stdio.h>
 	<iostream>
 
-1325201866 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
+1325358107 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
 	"../game/World.hpp"
 	"../gameIO/ContentManager.hpp"
 	"../environment/Island.hpp"
@@ -654,9 +655,17 @@
 	"../actors/Dog.hpp"
 	"../actors/Player.hpp"
 
-1325202111 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
+1325360031 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
 	"LevelBuilder.hpp"
 	"../util/SpriteUtil.hpp"
 	<stdio.h>
 	<iostream>
+
+1325318441 source:c:\users\fahmi\documents\game development\flat_world\pickups\star.cpp
+	"Star.hpp"
+	"../game/ID.hpp"
+
+1325318472 c:\users\fahmi\documents\game development\flat_world\pickups\star.hpp
+	"../game/GameObject.hpp"
+	<SFML/Graphics.hpp>
 

@@ -88,6 +88,8 @@
 		</Unit>
 		<Unit filename="main.cpp" />
 		<Unit filename="media\textures\Key.png" />
+		<Unit filename="pickups\Star.cpp" />
+		<Unit filename="pickups\Star.hpp" />
 		<Unit filename="scene\Camera.cpp" />
 		<Unit filename="scene\Camera.hpp" />
 		<Unit filename="scene\ManualCamera.cpp" />

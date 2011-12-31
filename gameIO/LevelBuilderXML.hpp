@@ -17,6 +17,7 @@ class LevelBuilderXML : public LevelBuilder
         bool setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc);
         bool addSheep(UnitDescription *sheepDesc, IslandDescription *islandDesc);
         bool addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc);
+        bool addStar(PickupDescription *pickupDesc, IslandDescription *islandDesc, float angle);
 };
 
 #endif // LEVELBUILDERXML_H

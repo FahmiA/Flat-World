@@ -1,6 +1,7 @@
 #include "LevelBuilderXML.hpp"
 
 #include "../util/AnimatedSprite.hpp"
+#include "../pickups/Star.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -13,6 +14,9 @@ using namespace std;
 #define DOG_WIDTH 60
 #define DOG_HEIGHT 42
 #define DOG_SPEED 300
+
+#define STAR_WIDTH 40
+#define STAR_HEIGHT 40
 
 #define PLAYER_WIDTH 68
 #define PLAYER_HEIGHT 85
@@ -124,7 +128,7 @@ bool LevelBuilderXML::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
     }else{
         Dog *sheepdog;
         int x, y;
-        getPosition(islandDesc->island, sheepdogDesc->startAngle, SHEEP_WIDTH, SHEEP_HEIGHT, &x, &y);
+        getPosition(islandDesc->island, sheepdogDesc->startAngle, DOG_WIDTH, DOG_HEIGHT, &x, &y);
 
         sprite->setSpriteSheet(5, DOG_WIDTH, DOG_HEIGHT, 0, 5, 42);
         // Run animation
@@ -133,6 +137,30 @@ bool LevelBuilderXML::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
         sheepdog = new Dog(x, y, DOG_WIDTH, DOG_HEIGHT, DOG_SPEED, sprite);
 
         getWorld()->addLevelObject(sheepdog);
+        addSuccess = true;
+    }
+
+    return addSuccess;
+}
+
+bool LevelBuilderXML::addStar(PickupDescription *pickupDesc, IslandDescription *islandDesc, float angle)
+{
+    bool addSuccess = false;
+    Sprite *sprite = new Sprite();
+
+    if(!loadSprite(pickupDesc->imagePath, *sprite))
+    {
+        // Error
+        cout << "Image for " << pickupDesc->type << " could not be loaded: " << pickupDesc->imagePath << endl;
+        cout << '\t' << pickupDesc->type << " has not been loaded." << endl;
+    }else{
+        Star *star;
+        int x, y;
+        getPosition(islandDesc->island, angle, STAR_WIDTH, STAR_HEIGHT, &x, &y);
+
+        star = new Star(x, y, STAR_WIDTH, STAR_HEIGHT, sprite);
+
+        getWorld()->addLevelObject(star);
         addSuccess = true;
     }
 

@@ -2,19 +2,16 @@
 #define LEVELLOADER_H
 
 #include "../tinyxml/tinyxml.h"
-#include "../game/World.hpp"
 #include "../gameIO/ContentManager.hpp"
-#include "LevelBuilderXML.hpp"
+#include "LevelBuilder.hpp"
 
 #include <map>
 #include <list>
 #include <stdlib.h>
+#include <cmath>
 #include <string>
 #include <iostream>
 using namespace std;
-
-class Island;
-class Sheep;
 
 class LevelLoader
 {
@@ -34,6 +31,7 @@ class LevelLoader
         UnitDescription *player;
         map<int, IslandDescription*> islandMap; // Island ID -> Island Description
         list<UnitDescription*> unitList;
+        list<PickupDescription*> pickupList;
 
         // Steps for loading a world
         void clear();
@@ -44,6 +42,7 @@ class LevelLoader
         LevelDescription* loadLevelDescription(TiXmlHandle &node);
         IslandDescription* loadIslandDescription(TiXmlHandle &node);
         UnitDescription* loadUnitDescription(TiXmlHandle &node);
+        PickupDescription* loadPickupDescription(TiXmlHandle &node);
 
         // XML helper methods
         string getString(TiXmlHandle &parent, char* tag);

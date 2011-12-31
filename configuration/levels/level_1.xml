@@ -51,7 +51,7 @@
 
     <unit type="sheep">
         <image> media/textures/Sheep.png </image>
-         <angle> -90 </angle>
+        <angle> -90 </angle>
         <locationID> 2 </locationID>
     </unit>
 
@@ -61,11 +61,11 @@
     </unit>
 
     <pickup type="star">
-        <image> media/textures/Star.png </image>
+        <image> media/textures/Star.jpg </image>
         <locationID> 1 </locationID>
-        <startAngle> 3.9 </startAngle>
-        <endAngle> 5.5 </endAngle>
-        <starCount> 5 </starCount>
+        <startAngle> 5.5 </startAngle>
+        <endAngle> 3.9 </endAngle>
+        <count> 5 </count>
     </pickup>
 
 </level>
