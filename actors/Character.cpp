@@ -165,26 +165,6 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     Vector2f *middleCollide = rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, targetMiddle.x, targetMiddle.y);
     Vector2f *rightCollide = rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
 
-    // Resolve the problem of only one ray-trace finding land
-    /*if(rightCollide == 0 && leftCollide != 0)
-    {
-        //rightCollide = new Vector2f(bottomRight.x, leftCollide->y + 5);
-        rightCollide = &groundSprite->TransformToGlobal(Vector2f(bottomRight.x, leftCollide->y));
-        rightCollide = &sprite->TransformToLocal(*rightCollide);
-        rightCollide->y += 10;
-        rightCollide = &sprite->TransformToGlobal(*rightCollide);
-        rightCollide = &groundSprite->TransformToLocal(*rightCollide);
-        cout << "Right Collide missing" << endl;
-    }else if(rightCollide != 0 && leftCollide == 0){
-        //leftCollide = new Vector2f(bottomLeft.x, rightCollide->y + 5);
-        leftCollide = &groundSprite->TransformToGlobal(Vector2f(bottomLeft.x, rightCollide->y));
-        leftCollide = &sprite->TransformToLocal(*leftCollide);
-        leftCollide->y += 10;
-        leftCollide = &sprite->TransformToGlobal(*leftCollide);
-        leftCollide = &groundSprite->TransformToLocal(*leftCollide);
-        cout << "Left Collide missing" << endl;
-    }*/
-
     if(leftCollide == 0 || rightCollide == 0)
     {
         // No land below. Move with relative gravity
@@ -208,32 +188,27 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         if(middleCollide != 0)
         {
             // Get the distance to the ground
-            float distance = coordUtil.distance(bottomMiddle, *middleCollide);
+            //float distance = coordUtil.distance(bottomMiddle, *middleCollide);
 
             // Only move up or down if the distance is not acceptable
-            bool adjustPosition = false;
+            Color groundPixel(0, 0, 0, 0);
+            Color groundAbovePixel(0, 0, 0, 0);
 
-            if(bottomMiddleUp.x >= groundSprite->GetSize().x || bottomMiddleUp.y >= groundSprite->GetSize().y)
+            // Get the pixel of the ground
+            if(coordUtil.isLocalPointInside(bottomMiddle, *groundSprite)) // Ground exists, get the pixel.
+                groundPixel = groundSprite->GetPixel(bottomMiddle.x, bottomMiddle.y);
+            // Else ground does not exist, assume transparent.
+
+            // Get the pixel of the position above ground
+            if(coordUtil.isLocalPointInside(bottomMiddleUp, *groundSprite)) // Ground exists, get the pixel.
+                groundAbovePixel = groundSprite->GetPixel(bottomMiddleUp.x, bottomMiddleUp.y);
+            // Else ground does not exist, assume transparent.
+
+            //cout << (groundPixel.a == 0) << " - " << (groundAbovePixel.a > 0) << endl;
+            if(groundPixel.a == 0 || groundAbovePixel.a > 0)
             {
-                adjustPosition = true;
-            }else{
-                Color groundAbovePixel = groundSprite->GetPixel(bottomMiddleUp.x, bottomMiddleUp.y);
-                if(groundAbovePixel.a > 0)
-                    adjustPosition = true;
-            }
-
-            if(adjustPosition)
-            {
-                Color pixel;
-
-                // Get the pixel of the ground
-                if(coordUtil.isLocalPointInside(bottomMiddle, *groundSprite)) // Ground exists, get the pixel.
-                    pixel = groundSprite->GetPixel(bottomMiddle.x, bottomMiddle.y);
-                else // Ground does not exist, assume transparent.
-                    pixel = Color(0, 0, 0, 0);
-
                 float reverseAngle = angle;
-                if(pixel.a == 0) // Transparent
+                if(groundPixel.a == 0) // Transparent
                 {
                     // Move down
                     reverseAngle += 90;
@@ -243,9 +218,11 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
                 }
 
                 // Move the charcter approprietly
-                velocityX = cos((reverseAngle * M_PI) / 180) * (speed * elapsedTime);
-                velocityY = sin((reverseAngle * M_PI) / 180) * (speed * elapsedTime);
+                float adjustSpeed = speed/3; // The Speed to adjust the charcter automaticly must be small to avoid jerkiness
+                velocityX = cos((reverseAngle * M_PI) / 180) * (adjustSpeed* elapsedTime);
+                velocityY = sin((reverseAngle * M_PI) / 180) * (adjustSpeed * elapsedTime);
                 sprite->Move(velocityX, velocityY);
+                //cout <<  "Move: (" << velocityX << ", " << velocityY << ")" << endl;
             }
         }
     }
