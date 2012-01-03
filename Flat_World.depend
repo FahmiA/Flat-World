@@ -444,7 +444,7 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1325542578 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
+1325543012 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
 	"Character.hpp"
 	"../util/NumberUtil.hpp"
 	"../util/CoordinateUtil.hpp"
@@ -463,7 +463,7 @@
 	"../scene/Camera.hpp"
 	<list>
 
-1310869096 c:\users\fahmi\documents\game development\flat_world\game\gameobject.hpp
+1325567357 c:\users\fahmi\documents\game development\flat_world\game\gameobject.hpp
 	<SFML/Graphics.hpp>
 
 1324062148 c:\users\fahmi\documents\game development\flat_world\scene\camera.hpp
@@ -473,7 +473,7 @@
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 
-1310870230 c:\users\fahmi\documents\game development\flat_world\util\numberutil.hpp
+1325567429 c:\users\fahmi\documents\game development\flat_world\util\numberutil.hpp
 
 1310025730 c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.hpp
 	"../game/GameObject.hpp"
@@ -597,7 +597,7 @@
 	"NumberUtil.hpp"
 	<math.h>
 
-1310870108 source:c:\users\fahmi\documents\game development\flat_world\util\numberutil.cpp
+1325567425 source:c:\users\fahmi\documents\game development\flat_world\util\numberutil.cpp
 	"NumberUtil.hpp"
 
 1325057169 source:c:\users\fahmi\documents\game development\flat_world\util\spriteutil.cpp
@@ -668,4 +668,16 @@
 1325318472 c:\users\fahmi\documents\game development\flat_world\pickups\star.hpp
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
+
+1325567336 source:c:\users\fahmi\documents\game development\flat_world\gui\hud.cpp
+	"HUD.hpp"
+	"../util/NumberUtil.cpp"
+	<math.h>
+
+1325567101 c:\users\fahmi\documents\game development\flat_world\gui\hud.hpp
+	"../game/World.hpp"
+	<SFML/Graphics.hpp>
+
+1325567425 c:\users\fahmi\documents\game development\flat_world\util\numberutil.cpp
+	"NumberUtil.hpp"
 
