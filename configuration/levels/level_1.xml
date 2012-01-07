@@ -61,7 +61,7 @@
     </unit>
 
     <pickup type="star">
-        <image> media/textures/Star.jpg </image>
+        <image> media/textures/star.png </image>
         <locationID> 1 </locationID>
         <startAngle> 5.5 </startAngle>
         <endAngle> 3.9 </endAngle>

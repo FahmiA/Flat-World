@@ -65,6 +65,15 @@ class LevelBuilder
          */
         virtual bool addStar(PickupDescription *pickupDesc, IslandDescription *islandDesc, float angle) = 0;
 
+        /** Creates a HUD and assigns the HUD to the world.
+         * @param sheepCornerPath The path to the sheep corner image.
+         * @param starCornerPath The path to the star corner image.
+         * @param sheepIconPath The path to the sheep icon image.
+         * @param starIconPath The path to the star icon image.
+         */
+        virtual bool setHUD(string &sheepCornerPath, string &starCornerPath,
+                            string &sheepIconPath, string &starIconPath) = 0;
+
         // Retrieve result
         virtual World* getWorld();
 
@@ -72,7 +81,7 @@ class LevelBuilder
 
     protected:
         // Helper methods
-        virtual bool loadSprite(string path, Sprite &sprite);
+        virtual bool loadSprite(string &path, Sprite &sprite);
         virtual void getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY);
 
     private:

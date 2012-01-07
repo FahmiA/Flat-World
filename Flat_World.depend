@@ -458,7 +458,7 @@
 	"../environment/Island.hpp"
 	<SFML/Graphics.hpp>
 
-1310796720 c:\users\fahmi\documents\game development\flat_world\game\world.hpp
+1325916894 c:\users\fahmi\documents\game development\flat_world\game\world.hpp
 	"../game/GameObject.hpp"
 	"../scene/Camera.hpp"
 	<list>
@@ -466,7 +466,7 @@
 1325567357 c:\users\fahmi\documents\game development\flat_world\game\gameobject.hpp
 	<SFML/Graphics.hpp>
 
-1324062148 c:\users\fahmi\documents\game development\flat_world\scene\camera.hpp
+1325917593 c:\users\fahmi\documents\game development\flat_world\scene\camera.hpp
 	<SFML/Graphics.hpp>
 
 1310024434 c:\users\fahmi\documents\game development\flat_world\environment\island.hpp
@@ -545,15 +545,18 @@
 1310115302 source:c:\users\fahmi\documents\game development\flat_world\game\gameobject.cpp
 	"GameObject.hpp"
 
-1310796732 source:c:\users\fahmi\documents\game development\flat_world\game\world.cpp
+1325917824 source:c:\users\fahmi\documents\game development\flat_world\game\world.cpp
 	"World.hpp"
 	"../actors/Player.hpp"
+	"../GUI/HUD.hpp"
+	"../scene/StaticCamera.hpp"
 
-1325200782 source:c:\users\fahmi\documents\game development\flat_world\main.cpp
+1325917956 source:c:\users\fahmi\documents\game development\flat_world\main.cpp
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"scene/SteadyCamera.hpp"
 	"scene/ManualCamera.hpp"
+	"GUI/HUD.hpp"
 	"actors/Player.hpp"
 	"actors/Sheep.hpp"
 	"gameIO/ContentManager.hpp"
@@ -565,10 +568,10 @@
 1324062228 c:\users\fahmi\documents\game development\flat_world\scene\steadycamera.hpp
 	"Camera.hpp"
 
-1324063221 source:c:\users\fahmi\documents\game development\flat_world\scene\camera.cpp
+1325917627 source:c:\users\fahmi\documents\game development\flat_world\scene\camera.cpp
 	"Camera.hpp"
 
-1324062274 source:c:\users\fahmi\documents\game development\flat_world\scene\steadycamera.cpp
+1325917660 source:c:\users\fahmi\documents\game development\flat_world\scene\steadycamera.cpp
 	"SteadyCamera.hpp"
 	"../game/World.hpp"
 	"../actors/Player.hpp"
@@ -604,11 +607,10 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1321503943 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
+1325901742 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
 	"Dog.hpp"
 	"../game/ID.hpp"
 	"../util/CoordinateUtil.hpp"
-	"Player.hpp"
 
 1321426384 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
 	"Character.hpp"
@@ -634,20 +636,21 @@
 1324062477 c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.hpp
 	"Camera.hpp"
 
-1324099324 source:c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.cpp
+1325917695 source:c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.cpp
 	"ManualCamera.hpp"
 
-1325358116 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderxml.hpp
+1325918725 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderxml.hpp
 	"LevelBuilder.hpp"
 
-1325360224 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderxml.cpp
+1325918874 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderxml.cpp
 	"LevelBuilderXML.hpp"
 	"../util/AnimatedSprite.hpp"
 	"../pickups/Star.hpp"
+	"../GUI/HUD.hpp"
 	<stdio.h>
 	<iostream>
 
-1325358107 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
+1325918668 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
 	"../game/World.hpp"
 	"../gameIO/ContentManager.hpp"
 	"../environment/Island.hpp"
@@ -655,7 +658,7 @@
 	"../actors/Dog.hpp"
 	"../actors/Player.hpp"
 
-1325360031 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
+1325907997 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
 	"LevelBuilder.hpp"
 	"../util/SpriteUtil.hpp"
 	<stdio.h>
@@ -669,15 +672,21 @@
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 
-1325567336 source:c:\users\fahmi\documents\game development\flat_world\gui\hud.cpp
+1325918354 source:c:\users\fahmi\documents\game development\flat_world\gui\hud.cpp
 	"HUD.hpp"
-	"../util/NumberUtil.cpp"
-	<math.h>
+	"../util/NumberUtil.hpp"
+	<algorithm>
 
-1325567101 c:\users\fahmi\documents\game development\flat_world\gui\hud.hpp
+1325916149 c:\users\fahmi\documents\game development\flat_world\gui\hud.hpp
 	"../game/World.hpp"
 	<SFML/Graphics.hpp>
 
 1325567425 c:\users\fahmi\documents\game development\flat_world\util\numberutil.cpp
 	"NumberUtil.hpp"
+
+1325917349 c:\users\fahmi\documents\game development\flat_world\scene\staticcamera.hpp
+	"Camera.hpp"
+
+1325917678 source:c:\users\fahmi\documents\game development\flat_world\scene\staticcamera.cpp
+	"StaticCamera.hpp"
 

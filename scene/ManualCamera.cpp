@@ -24,9 +24,6 @@ void ManualCamera::update(Clock *clock, RenderWindow *window, World *world)
     if(input.IsKeyDown(Key::Up))
         view->Move(0, -moveDistance);
 
-     if(input.IsKeyDown(Key::Down))
+    if(input.IsKeyDown(Key::Down))
         view->Move(0, moveDistance);
-
-    // Update the view
-    window->SetView(*view);
 }

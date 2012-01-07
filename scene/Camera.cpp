@@ -9,6 +9,12 @@ Camera::~Camera() { }
 
 void Camera::draw(RenderWindow *window) { /* Sub-classes can implement draw only if they need it. */}
 
+
+void Camera::activate(RenderWindow *window)
+{
+    window->SetView(*getView());
+}
+
 View* Camera::getView()
 {
     return view;

@@ -20,6 +20,8 @@ class HUD : public GameObject
             int sheepTotal, int starTotal);
         virtual ~HUD();
 
+        void setSize(int width, int height);
+
         void addSheep(int amount);
         void addStars(int amount);
 

@@ -17,7 +17,7 @@ LevelBuilder::~LevelBuilder()
     //dtor
 }
 
-bool LevelBuilder::loadSprite(string path, Sprite &sprite)
+bool LevelBuilder::loadSprite(string &path, Sprite &sprite)
 {
     Image *image = content->loadImage(path);
     if(image == 0)

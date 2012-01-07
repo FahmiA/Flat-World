@@ -26,9 +26,11 @@ int main()
     Clock clock;
 
     ContentManager content;
-    // Load the level
+
+    // Create the world
     World *world = new World();
 
+    // Load the level
     LevelBuilderXML levelBuilder(world, &content);
     LevelLoader levelLoader(&levelBuilder, &content);
 
@@ -42,6 +44,8 @@ int main()
     View *view = new View();
     Camera *camera = new SteadyCamera(view);
     world->setCamera(camera);
+
+    // Create the hud
 
     while(app.IsOpened())
     {

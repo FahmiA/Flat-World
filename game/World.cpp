@@ -1,17 +1,22 @@
 #include "World.hpp"
 
 #include "../actors/Player.hpp"
+#include "../GUI/HUD.hpp"
+#include "../scene/StaticCamera.hpp"
 
 World::World()
 {
+    hud = 0;
     player = 0;
     levelObjects = new list<GameObject*>();
-    camera = 0;
+    gameCamera = 0;
+    hudCamera = new StaticCamera();
     background = 0;
 }
 
 World::~World()
 {
+    delete hud;
     delete player;
     delete background;
     delete levelObjects;
@@ -39,7 +44,17 @@ list<GameObject*>* World::getObjects()
 
 void World::setCamera(Camera *camera)
 {
-    this->camera = camera;
+    gameCamera = camera;
+}
+
+HUD* World::getHud()
+{
+    return hud;
+}
+
+void World::setHud(HUD *hud)
+{
+    this->hud = hud;
 }
 
 void World::setBackground(Sprite *background)
@@ -57,12 +72,18 @@ void World::update(Clock *clock, RenderWindow *window)
     if(player != 0)
         player->update(clock, window, this);
 
-    if(camera != 0)
-        camera->update(clock, window, this);
+    if(gameCamera != 0)
+        gameCamera->update(clock, window, this);
+
+    if(hud != 0)
+        hud->update(clock, window, this);
 }
 
 void World::draw(RenderWindow *window)
 {
+    // Render game content with the game camera
+    gameCamera->activate(window);
+
     if(background != 0)
         window->Draw(*background);
 
@@ -74,6 +95,9 @@ void World::draw(RenderWindow *window)
     if(player != 0)
         player->draw(window);
 
-    if(camera != 0)
-        camera->draw(window);
+    // Render HUD content with the HUD camera
+    hudCamera->activate(window);
+
+    if(hud != 0)
+        hud->draw(window);
 }

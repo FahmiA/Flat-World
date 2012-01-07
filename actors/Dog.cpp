@@ -2,7 +2,7 @@
 
 #include "../game/ID.hpp"
 #include "../util/CoordinateUtil.hpp"
-#include "Player.hpp"
+//#include "Player.hpp"
 
 Dog::Dog(float x, float y, float width, float height, float speed, Sprite *sprite)
     : Character(x, y, width, height, speed, sprite)

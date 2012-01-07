@@ -2,6 +2,7 @@
 
 #include "../util/AnimatedSprite.hpp"
 #include "../pickups/Star.hpp"
+#include "../GUI/HUD.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -26,7 +27,11 @@ using namespace std;
 //#define DEGREES_TO_RADIANS(degreeAngle) (degreeAngle * (M_PI / 180.0f))
 
 LevelBuilderXML::LevelBuilderXML(World *world, ContentManager *content)
-    : LevelBuilder(world, content) { }
+    : LevelBuilder(world, content)
+{
+    sheepCount = 0;
+    starCount = 0;
+}
 
 LevelBuilderXML::~LevelBuilderXML() { }
 
@@ -109,6 +114,7 @@ bool LevelBuilderXML::addSheep(UnitDescription *sheepDesc, IslandDescription *is
         sheep = new Sheep(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
 
         getWorld()->addLevelObject(sheep);
+        sheepCount++;
         addSuccess = true;
     }
 
@@ -161,8 +167,38 @@ bool LevelBuilderXML::addStar(PickupDescription *pickupDesc, IslandDescription *
         star = new Star(x, y, STAR_WIDTH, STAR_HEIGHT, sprite);
 
         getWorld()->addLevelObject(star);
+        starCount++;
         addSuccess = true;
     }
 
     return addSuccess;
+}
+
+bool LevelBuilderXML::setHUD(string &sheepCornerPath, string &starCornerPath,
+                             string &sheepIconPath, string &starIconPath)
+{
+    bool success = true;
+
+    Sprite *sheepCorner = new Sprite();
+    Sprite *starCorner = new Sprite();
+    Sprite *sheepIcon = new Sprite();
+    Sprite *starIcon = new Sprite();
+
+    if(!loadSprite(sheepCornerPath, *sheepCorner))
+        success = false;
+    if(success  && !loadSprite(starCornerPath, *starCorner))
+        success = false;
+    if(success  && !loadSprite(sheepIconPath, *sheepIcon))
+        success = false;
+    if(success  && !loadSprite(starIconPath, *starIcon))
+        success = false;
+
+    if(success)
+    {
+        HUD *hud = new HUD(sheepCorner, starCorner, sheepIcon,
+                           starIcon, sheepCount, starCount);
+        getWorld()->setHud(hud);
+    }
+
+    return success;
 }

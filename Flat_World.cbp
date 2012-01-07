@@ -96,6 +96,8 @@
 		<Unit filename="scene\Camera.hpp" />
 		<Unit filename="scene\ManualCamera.cpp" />
 		<Unit filename="scene\ManualCamera.hpp" />
+		<Unit filename="scene\StaticCamera.cpp" />
+		<Unit filename="scene\StaticCamera.hpp" />
 		<Unit filename="scene\SteadyCamera.cpp" />
 		<Unit filename="scene\SteadyCamera.hpp" />
 		<Unit filename="tinyxml\tinystr.cpp" />

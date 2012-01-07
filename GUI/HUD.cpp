@@ -2,7 +2,8 @@
 
 #include "../util/NumberUtil.hpp"
 
-#include <math.h>
+#include <algorithm>
+using namespace std;
 
 HUD::HUD(Sprite *sheepCorner, Sprite *starCorner,
             Sprite *sheepIcon, Sprite *starIcon,
@@ -22,12 +23,27 @@ HUD::HUD(Sprite *sheepCorner, Sprite *starCorner,
     int maxHeight = max(sheepCorner->GetPosition().y + sheepCorner->GetSize().y,
                        starCorner->GetPosition().y + starCorner->GetSize().y);
     size = new Vector2f(maxWidth, maxHeight);
+
+    setSize(800, 600);
 }
 
 HUD::~HUD()
 {
     delete position;
     delete size;
+}
+
+void HUD::setSize(int width, int height)
+{
+    // Set the size and position of the sheep corner
+    sheepCorner->Resize(width/3, height/3);
+    sheepCorner->SetX(-sheepCorner->GetSize().x/4);
+    sheepCorner->SetY(-sheepCorner->GetSize().y/4);
+
+    // Set the size and position of the star corner
+    starCorner->Resize(width/3, width/3);
+    starCorner->SetX(width);
+    starCorner->SetY(-starCorner->GetSize().y/4);
 }
 
 void HUD::addSheep(int amount)
@@ -50,6 +66,7 @@ void HUD::addStars(int amount)
 
 void HUD::update(Clock *clock, RenderWindow *window, World *world)
 {
+    // Nothing needs to be updated
 }
 
 void HUD::draw(RenderWindow *window)

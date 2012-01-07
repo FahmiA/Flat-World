@@ -16,6 +16,4 @@ void SteadyCamera::update(Clock *clock, RenderWindow *window, World *world)
     Player *player = world->getPlayer();
 
     view->SetCenter(player->getPosition());
-
-    window->SetView(*view);
 }
