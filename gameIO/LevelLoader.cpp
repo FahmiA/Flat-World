@@ -198,8 +198,10 @@ bool LevelLoader::buildWorld()
     string starCornerPath = "media\\textures\\HUD\\moon.png";
     string sheepIconPath = "media\\textures\\HUD\\sheep_icon.png";
     string starIconPath = "media\\textures\\HUD\\star_icon.png";
+    string fontPath = "media\\fonts\\Jura-Bold.ttf";
     levelBuilder->setHUD(sheepCornerPath, starCornerPath,
-                         sheepIconPath, starIconPath);
+                         sheepIconPath, starIconPath,
+                         fontPath);
 
     return true;
 }

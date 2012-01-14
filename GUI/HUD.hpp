@@ -17,7 +17,8 @@ class HUD : public GameObject
     public:
         HUD(Sprite *sheepCorner, Sprite *starCorner,
             Sprite *sheepIcon, Sprite *starIcon,
-            int sheepTotal, int starTotal);
+            int sheepTotal, int starTotal,
+            Font *textFont);
         virtual ~HUD();
 
         void setSize(int width, int height);
@@ -49,8 +50,22 @@ class HUD : public GameObject
         Sprite *sheepIcon;
         Sprite *starIcon;
 
+        sf::String *sheepText;
+        sf::String *starText;
+        Font *textFont;
+
         Vector2f *position;
         Vector2f *size;
+
+        /** Creates a ration string in the form of
+         * "count / total.
+         * @param count The "count part of the string.
+         * @param total The "total" part of the string.
+         * @return A string in the form of "count / total"
+         */
+        string get_ratio_string(int count, int total);
+
+
 };
 
 #endif // HUD_H

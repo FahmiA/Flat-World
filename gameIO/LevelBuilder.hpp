@@ -70,9 +70,11 @@ class LevelBuilder
          * @param starCornerPath The path to the star corner image.
          * @param sheepIconPath The path to the sheep icon image.
          * @param starIconPath The path to the star icon image.
+         * @param fontPath The path to the font that HUD text will appear in.
          */
         virtual bool setHUD(string &sheepCornerPath, string &starCornerPath,
-                            string &sheepIconPath, string &starIconPath) = 0;
+                            string &sheepIconPath, string &starIconPath,
+                            string &fontPath) = 0;
 
         // Retrieve result
         virtual World* getWorld();
@@ -82,6 +84,7 @@ class LevelBuilder
     protected:
         // Helper methods
         virtual bool loadSprite(string &path, Sprite &sprite);
+        virtual bool loadFont(string &path, Font &font);
         virtual void getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY);
 
     private:

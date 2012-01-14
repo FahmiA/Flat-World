@@ -28,6 +28,14 @@ bool LevelBuilder::loadSprite(string &path, Sprite &sprite)
     return true;
 }
 
+bool LevelBuilder::loadFont(string &path, Font &font)
+{
+    if(!font.LoadFromFile(path))
+        return false;
+
+    return true;
+}
+
 void LevelBuilder::getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY)
 {
     SpriteUtil spriteUtil;

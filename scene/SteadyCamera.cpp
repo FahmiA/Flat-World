@@ -6,7 +6,9 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
-SteadyCamera::SteadyCamera(View *view) : Camera(view) { }
+SteadyCamera::SteadyCamera(View *view) : Camera(view)
+{
+}
 
 SteadyCamera::~SteadyCamera() { }
 

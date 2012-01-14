@@ -4,6 +4,7 @@ StaticCamera::StaticCamera()
     : Camera(new View())
 {
     //ctor
+    getView()->SetFromRect(FloatRect(0, 0, 800, 600));
 }
 
 StaticCamera::~StaticCamera()

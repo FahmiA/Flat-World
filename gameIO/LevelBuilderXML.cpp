@@ -175,7 +175,8 @@ bool LevelBuilderXML::addStar(PickupDescription *pickupDesc, IslandDescription *
 }
 
 bool LevelBuilderXML::setHUD(string &sheepCornerPath, string &starCornerPath,
-                             string &sheepIconPath, string &starIconPath)
+                             string &sheepIconPath, string &starIconPath,
+                             string &fontPath)
 {
     bool success = true;
 
@@ -183,6 +184,7 @@ bool LevelBuilderXML::setHUD(string &sheepCornerPath, string &starCornerPath,
     Sprite *starCorner = new Sprite();
     Sprite *sheepIcon = new Sprite();
     Sprite *starIcon = new Sprite();
+    Font *textFont = new Font();
 
     if(!loadSprite(sheepCornerPath, *sheepCorner))
         success = false;
@@ -192,11 +194,14 @@ bool LevelBuilderXML::setHUD(string &sheepCornerPath, string &starCornerPath,
         success = false;
     if(success  && !loadSprite(starIconPath, *starIcon))
         success = false;
+    if(success && !loadFont(fontPath, *textFont))
+        success = false;
 
     if(success)
     {
         HUD *hud = new HUD(sheepCorner, starCorner, sheepIcon,
-                           starIcon, sheepCount, starCount);
+                           starIcon, sheepCount, starCount,
+                           textFont);
         getWorld()->setHud(hud);
     }
 

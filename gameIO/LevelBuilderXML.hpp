@@ -20,7 +20,8 @@ class LevelBuilderXML : public LevelBuilder
         bool addStar(PickupDescription *pickupDesc, IslandDescription *islandDesc,
                      float angle);
         bool setHUD(string &sheepCornerPath, string &starCornerPath,
-                    string &sheepIconPath, string &starIconPath);
+                    string &sheepIconPath, string &starIconPath,
+                    string &fontPath);
 
     private:
         int sheepCount;
