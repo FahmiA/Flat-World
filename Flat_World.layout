@@ -2,7 +2,7 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="UnitTest" />
 	<File name="GUI\HUD.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="704" topLine="45" />
+		<Cursor position="1724" topLine="41" />
 	</File>
 	<File name="GUI\HUD.hpp" open="0" top="0" tabpos="6">
 		<Cursor position="719" topLine="11" />
@@ -86,7 +86,7 @@
 		<Cursor position="105" topLine="0" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="334" topLine="0" />
+		<Cursor position="309" topLine="0" />
 	</File>
 	<File name="pickups\Star.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="323" topLine="0" />
@@ -127,14 +127,11 @@
 	<File name="tinyxml\tinyxml.h" open="0" top="0" tabpos="0">
 		<Cursor position="59314" topLine="1640" />
 	</File>
-	<File name="unit_test\main.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="24" topLine="0" />
-	</File>
-	<File name="unit_test\util\CoordinateUtil_test.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="1070" topLine="0" />
+	<File name="unit_test\util\CoordinateUtil_test.cpp" open="1" top="1" tabpos="0">
+		<Cursor position="186" topLine="0" />
 	</File>
 	<File name="util\AnimatedSprite.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="1554" topLine="32" />
+		<Cursor position="3312" topLine="85" />
 	</File>
 	<File name="util\AnimatedSprite.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="832" topLine="0" />
