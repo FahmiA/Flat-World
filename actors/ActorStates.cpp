@@ -31,11 +31,10 @@ void WonderState::performAction(Character *character, Clock *clock)
         character->moveRight();
         // Update the animation
         ((AnimatedSprite*)character->getSprite())->resume();
-    }else{
+    }else{ //Idle
         // Update the animation
-        //TODO: Causes crash
-        //((AnimatedSprite*)character->getSprite())->play(ANIMATE_WALK);
-        //((AnimatedSprite*)character->getSprite())->pause();
+        ((AnimatedSprite*)character->getSprite())->play(ANIMATE_WALK);
+        ((AnimatedSprite*)character->getSprite())->pause();
     }
 }
 

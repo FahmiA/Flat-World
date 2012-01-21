@@ -137,8 +137,9 @@ bool LevelBuilderXML::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
         getPosition(islandDesc->island, sheepdogDesc->startAngle, DOG_WIDTH, DOG_HEIGHT, &x, &y);
 
         sprite->setSpriteSheet(5, DOG_WIDTH, DOG_HEIGHT, 0, 5, 42);
-        // Run animation
-        sprite->addAnimation(ANIMATE_RUN, 0, 1, 4);
+        // Add animations
+        sprite->addAnimation(ANIMATE_WALK, 0, 1, 4); // Walk animation
+        sprite->addAnimation(ANIMATE_RUN, 0, 1, 4); // Run animation
         sprite->play(ANIMATE_RUN);
         sheepdog = new Dog(x, y, DOG_WIDTH, DOG_HEIGHT, DOG_SPEED, sprite);
 
