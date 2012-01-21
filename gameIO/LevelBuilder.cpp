@@ -17,20 +17,22 @@ LevelBuilder::~LevelBuilder()
     //dtor
 }
 
-bool LevelBuilder::loadSprite(string &path, Sprite &sprite)
+bool LevelBuilder::loadSprite(string &path, Sprite *sprite)
 {
     Image *image = content->loadImage(path);
     if(image == 0)
         return false;
 
-    sprite.SetImage(*image);
+    sprite->SetImage(*image);
 
     return true;
 }
 
-bool LevelBuilder::loadFont(string &path, Font &font)
+bool LevelBuilder::loadFont(string &path, Font *&font)
 {
-    if(!font.LoadFromFile(path))
+    font = content->loadFont(path);
+
+    if(font == 0)
         return false;
 
     return true;

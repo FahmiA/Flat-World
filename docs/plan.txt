@@ -1,6 +1,6 @@
 Planned:
 	* As a user, I want to see my level progress in a HUD so I can understand how well I have done.
-		- Implement HUD display
+		- Implement HUD display - DONE
 			- Ensure ContentManager is updated to manage fonts as well as sprites.
 		- Syncronise HUD with game state
 

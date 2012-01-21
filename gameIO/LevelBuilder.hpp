@@ -83,8 +83,8 @@ class LevelBuilder
 
     protected:
         // Helper methods
-        virtual bool loadSprite(string &path, Sprite &sprite);
-        virtual bool loadFont(string &path, Font &font);
+        virtual bool loadSprite(string &path, Sprite *sprite);
+        virtual bool loadFont(string &path, Font *&font);
         virtual void getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY);
 
     private:

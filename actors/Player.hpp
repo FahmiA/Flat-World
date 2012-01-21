@@ -10,6 +10,9 @@ class Player: public Character
         ~Player();
 
         void subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow *window, World *world);
+
+    private:
+        Character* check_unit_collide(World *world);
 };
 
 #endif // PLAYER_H

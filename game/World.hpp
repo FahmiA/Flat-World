@@ -17,6 +17,7 @@ class World
         virtual ~World();
 
         void addLevelObject(GameObject *gameObject);
+        void removeLevelObject(GameObject *gameObject);
         Player* getPlayer();
         void setPlayer(Player *player);
 

@@ -40,7 +40,7 @@ bool LevelBuilderXML::setBackground(LevelDescription *levelDesc)
     bool addSuccess = false;
 
     Sprite *sprite = new Sprite();
-    addSuccess = loadSprite(levelDesc->backgroundPath, *sprite);
+    addSuccess = loadSprite(levelDesc->backgroundPath, sprite);
 
     if(addSuccess)
     {
@@ -55,7 +55,7 @@ bool LevelBuilderXML::addIsland(IslandDescription *islandDesc)
 {
     bool addSuccess = false;
     Sprite *sprite = new Sprite();
-    if(!loadSprite(islandDesc->imagePath, *sprite))
+    if(!loadSprite(islandDesc->imagePath, sprite))
     {
         // Error
         cout << "Image for island " << islandDesc->id << " could not be loaded: " << islandDesc->imagePath << endl;
@@ -75,7 +75,7 @@ bool LevelBuilderXML::setPlayer(UnitDescription* playerDesc, IslandDescription *
     bool addSuccess = false;
     Sprite *playerSprite = new Sprite();
 
-    if(!loadSprite(playerDesc->imagePath, *playerSprite))
+    if(!loadSprite(playerDesc->imagePath, playerSprite))
     {
         // Error
         cout << "Image for player could not be loaded " << endl;
@@ -97,7 +97,7 @@ bool LevelBuilderXML::addSheep(UnitDescription *sheepDesc, IslandDescription *is
     bool addSuccess = false;
     AnimatedSprite *sprite = new AnimatedSprite();
 
-    if(!loadSprite(sheepDesc->imagePath, *sprite))
+    if(!loadSprite(sheepDesc->imagePath, sprite))
     {
         // Error
         cout << "Image for " << sheepDesc->type << " could not be loaded: " << sheepDesc->imagePath << endl;
@@ -126,7 +126,7 @@ bool LevelBuilderXML::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
     bool addSuccess = false;
     AnimatedSprite *sprite = new AnimatedSprite();
 
-    if(!loadSprite(sheepdogDesc->imagePath, *sprite))
+    if(!loadSprite(sheepdogDesc->imagePath, sprite))
     {
         // Error
         cout << "Image for " << sheepdogDesc->type << " could not be loaded: " << sheepdogDesc->imagePath << endl;
@@ -154,7 +154,7 @@ bool LevelBuilderXML::addStar(PickupDescription *pickupDesc, IslandDescription *
     bool addSuccess = false;
     Sprite *sprite = new Sprite();
 
-    if(!loadSprite(pickupDesc->imagePath, *sprite))
+    if(!loadSprite(pickupDesc->imagePath, sprite))
     {
         // Error
         cout << "Image for " << pickupDesc->type << " could not be loaded: " << pickupDesc->imagePath << endl;
@@ -184,17 +184,17 @@ bool LevelBuilderXML::setHUD(string &sheepCornerPath, string &starCornerPath,
     Sprite *starCorner = new Sprite();
     Sprite *sheepIcon = new Sprite();
     Sprite *starIcon = new Sprite();
-    Font *textFont = new Font();
+    Font *textFont = 0;
 
-    if(!loadSprite(sheepCornerPath, *sheepCorner))
+    if(!loadSprite(sheepCornerPath, sheepCorner))
         success = false;
-    if(success  && !loadSprite(starCornerPath, *starCorner))
+    if(success  && !loadSprite(starCornerPath, starCorner))
         success = false;
-    if(success  && !loadSprite(sheepIconPath, *sheepIcon))
+    if(success  && !loadSprite(sheepIconPath, sheepIcon))
         success = false;
-    if(success  && !loadSprite(starIconPath, *starIcon))
+    if(success  && !loadSprite(starIconPath, starIcon))
         success = false;
-    if(success && !loadFont(fontPath, *textFont))
+    if(success && !loadFont(fontPath, textFont))
         success = false;
 
     if(success)

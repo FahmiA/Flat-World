@@ -27,6 +27,11 @@ void World::addLevelObject(GameObject *gameObject)
     levelObjects->push_back(gameObject);
 }
 
+void World::removeLevelObject(GameObject *gameObject)
+{
+    levelObjects->remove(gameObject);
+}
+
 Player* World::getPlayer()
 {
     return player;

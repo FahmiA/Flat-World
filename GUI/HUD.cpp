@@ -94,6 +94,9 @@ void HUD::addSheep(int amount)
 
     // Ensure that sheepCount does not exceed the maximum number of sheep
     clamp(sheepCount, 0, sheepTotal);
+
+    // Update the visible text
+    sheepText->SetText(get_ratio_string(sheepCount, sheepTotal));
 }
 
 void HUD::addStars(int amount)
@@ -103,6 +106,9 @@ void HUD::addStars(int amount)
 
     // Ensure that starCount does not exceed the maximum number of stars
     clamp(starCount, 0, starTotal);
+
+    // Update the visible text
+    starText->SetText(get_ratio_string(starCount, starTotal));
 }
 
 void HUD::update(Clock *clock, RenderWindow *window, World *world)

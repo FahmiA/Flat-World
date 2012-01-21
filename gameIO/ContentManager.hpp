@@ -9,10 +9,10 @@ using namespace sf;
 using namespace std;
 
 /** A class for managing the creation and destruction of external resources.
-    If a resource is requested that has not been loaded before, the new resource will be loaded and sent.
-    If a resource is requested which has been loaded before, an ALIASED (duplicate) pointer will be sent.
-
-    All resources loaded will be destroyed when the destructor is called.
+ * If a resource is requested that has not been loaded before, the new resource will be loaded and sent.
+ * If a resource is requested which has been loaded before, an ALIASED (duplicate) pointer will be sent.
+ *
+ * All resources loaded will be destroyed when the destructor is called.
 */
 class ContentManager
 {
@@ -20,13 +20,23 @@ class ContentManager
         ContentManager();
         virtual ~ContentManager();
 
-        /** Loads or retrieves an external resource.
-            NULL is returned if the resource could not be loaded.
+        /** Loads or retrieves an image.
+         * NULL is returned if the image could not be loaded.
+         * @param path The path to the image to load.
+         * @return The loaded image or NULL if the image could not be loaded.
         */
-        Image* loadImage(string path);
+        Image* loadImage(string &path);
+
+        /** Loads or retrieves a font.
+         * NULL is returned if the font could not be loaded.
+         * @param path The path to the font to load.
+         * @return The loaded font or NULL if the font could not be loaded.
+        */
+        Font* loadFont(string &path);
 
     private:
         map<string, Image*> *imageMap;
+        map<string, Font*> *fontMap;
 
 };
 
