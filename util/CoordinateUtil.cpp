@@ -72,6 +72,11 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
     return xOverlap && yOverlap;
 }
 
+bool CoordinateUtil::isInFOV(Vector2f &source, Vector2f &target, int lookDistance, int fovAngle)
+{
+    return false;
+}
+
 /*void CoordinateUtil::clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds)
 {
     // Check if the points are inside the bounds

@@ -1,0 +1,11 @@
+About Includes:
+
+SFML (v1.6):
+	An OpenGL based 2D graphics library
+	Cross-platform
+	http://sfml-dev.org/
+	
+gtest (v1.6.0):
+	A unit testing framework built and used by Google
+	Cross-platform
+	http://code.google.com/p/googletest/

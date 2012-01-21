@@ -15,16 +15,19 @@
 				<Compiler>
 					<Add option="-g" />
 					<Add option="-DSFML_DYNAMIC" />
+					<Add directory="libraries\debug\include" />
 				</Compiler>
 				<Linker>
 					<Add option="-lsfml-graphics-d" />
 					<Add option="-lsfml-window-d" />
 					<Add option="-lsfml-system-d" />
+					<Add directory="libraries\debug\lib" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="xcopy libs\debug bin\Debug /E /I /Y" />
-					<Add after="xcopy media bin\Debug\media /E /I /Y" />
-					<Add after="xcopy configuration bin\Debug\configuration /E /I /Y" />
+					<Add after="cp -u libraries/debug/lib/*.dll bin/Debug" />
+					<Add after="cp -ru media  bin/Debug/media" />
+					<Add after="cp -ru configuration bin\Debug\configuration" />
+					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
 			<Target title="Release">
@@ -47,6 +50,27 @@
 					<Add after="xcopy libs\release bin\Release /E /I /Y" />
 					<Add after="xcopy media bin\Release\media /E /I /Y" />
 					<Add after="xcopy configuration bin\Release\configuration /E /I /Y" />
+				</ExtraCommands>
+			</Target>
+			<Target title="UnitTest">
+				<Option output="Flat_World" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DSFML_DYNAMIC" />
+					<Add directory="libraries\debug\include" />
+				</Compiler>
+				<Linker>
+					<Add option="-lsfml-graphics-d" />
+					<Add option="-lsfml-window-d" />
+					<Add option="-lsfml-system-d" />
+					<Add directory="libraries\debug\lib" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="cp -u libraries/debug/lib/*.dll bin/Debug" />
+					<Add after="cp -ru media  bin/Debug/media" />
+					<Add after="cp -ru configuration bin\Debug\configuration" />
+					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
 		</Build>
@@ -84,11 +108,16 @@
 		<Unit filename="game\World.hpp" />
 		<Unit filename="libs\debug\sfml-system-d.dll">
 			<Option target="Debug" />
+			<Option target="UnitTest" />
 		</Unit>
 		<Unit filename="libs\debug\sfml-window-d.dll">
 			<Option target="Debug" />
+			<Option target="UnitTest" />
 		</Unit>
-		<Unit filename="main.cpp" />
+		<Unit filename="main.cpp">
+			<Option target="Debug" />
+			<Option target="Release" />
+		</Unit>
 		<Unit filename="media\textures\Key.png" />
 		<Unit filename="pickups\Star.cpp" />
 		<Unit filename="pickups\Star.hpp" />
@@ -106,6 +135,12 @@
 		<Unit filename="tinyxml\tinyxml.h" />
 		<Unit filename="tinyxml\tinyxmlerror.cpp" />
 		<Unit filename="tinyxml\tinyxmlparser.cpp" />
+		<Unit filename="unit_test\main.cpp">
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="unit_test\util\CoordinateUtil_test.cpp">
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="util\AnimatedSprite.cpp" />
 		<Unit filename="util\AnimatedSprite.hpp" />
 		<Unit filename="util\CoordinateUtil.cpp" />

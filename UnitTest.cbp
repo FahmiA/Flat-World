@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6" />
+	<Project>
+		<Option title="UnitTest" />
+		<Option pch_mode="2" />
+		<Option compiler="gcc" />
+		<Build>
+			<Target title="UnitTest">
+				<Option output="Flat_World" prefix_auto="1" extension_auto="1" />
+				<Option type="0" />
+				<Option compiler="gcc" />
+				<Compiler>
+					<Add option="-DSFML_DYNAMIC" />
+					<Add directory="libraries\debug\include" />
+				</Compiler>
+				<Linker>
+					<Add option="-lsfml-graphics-d" />
+					<Add option="-lsfml-window-d" />
+					<Add option="-lsfml-system-d" />
+					<Add directory="libraries\debug\lib" />
+				</Linker>
+				<ExtraCommands>
+					<Add after="cp -u libraries/debug/lib/*.dll bin/Debug" />
+					<Add after="cp -ru media  bin/Debug/media" />
+					<Add after="cp -ru configuration bin\Debug\configuration" />
+					<Mode after="always" />
+				</ExtraCommands>
+			</Target>
+		</Build>
+		<Compiler>
+			<Add option="-Wall" />
+			<Add option="-fexceptions" />
+		</Compiler>
+		<Unit filename="GUI\HUD.cpp" />
+		<Unit filename="GUI\HUD.hpp" />
+		<Unit filename="actors\ActorStates.cpp" />
+		<Unit filename="actors\ActorStates.hpp" />
+		<Unit filename="actors\Character.cpp" />
+		<Unit filename="actors\Character.hpp" />
+		<Unit filename="actors\Dog.cpp" />
+		<Unit filename="actors\Dog.hpp" />
+		<Unit filename="actors\Player.cpp" />
+		<Unit filename="actors\Player.hpp" />
+		<Unit filename="actors\Sheep.cpp" />
+		<Unit filename="actors\Sheep.hpp" />
+		<Unit filename="configuration\levels\level_1.xml" />
+		<Unit filename="environment\Island.cpp" />
+		<Unit filename="environment\Island.hpp" />
+		<Unit filename="gameIO\ContentManager.cpp" />
+		<Unit filename="gameIO\ContentManager.hpp" />
+		<Unit filename="gameIO\LevelBuilder.cpp" />
+		<Unit filename="gameIO\LevelBuilder.hpp" />
+		<Unit filename="gameIO\LevelBuilderXML.cpp" />
+		<Unit filename="gameIO\LevelBuilderXML.hpp" />
+		<Unit filename="gameIO\LevelLoader.cpp" />
+		<Unit filename="gameIO\LevelLoader.hpp" />
+		<Unit filename="game\GameObject.cpp" />
+		<Unit filename="game\GameObject.hpp" />
+		<Unit filename="game\ID.hpp" />
+		<Unit filename="game\World.cpp" />
+		<Unit filename="game\World.hpp" />
+		<Unit filename="libs\debug\sfml-system-d.dll">
+			<Option target="Debug" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="libs\debug\sfml-window-d.dll">
+			<Option target="Debug" />
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="main.cpp" />
+		<Unit filename="media\textures\Key.png" />
+		<Unit filename="pickups\Star.cpp" />
+		<Unit filename="pickups\Star.hpp" />
+		<Unit filename="scene\Camera.cpp" />
+		<Unit filename="scene\Camera.hpp" />
+		<Unit filename="scene\ManualCamera.cpp" />
+		<Unit filename="scene\ManualCamera.hpp" />
+		<Unit filename="scene\StaticCamera.cpp" />
+		<Unit filename="scene\StaticCamera.hpp" />
+		<Unit filename="scene\SteadyCamera.cpp" />
+		<Unit filename="scene\SteadyCamera.hpp" />
+		<Unit filename="tinyxml\tinystr.cpp" />
+		<Unit filename="tinyxml\tinystr.h" />
+		<Unit filename="tinyxml\tinyxml.cpp" />
+		<Unit filename="tinyxml\tinyxml.h" />
+		<Unit filename="tinyxml\tinyxmlerror.cpp" />
+		<Unit filename="tinyxml\tinyxmlparser.cpp" />
+		<Unit filename="util\AnimatedSprite.cpp" />
+		<Unit filename="util\AnimatedSprite.hpp" />
+		<Unit filename="util\CoordinateUtil.cpp" />
+		<Unit filename="util\CoordinateUtil.hpp" />
+		<Unit filename="util\NumberUtil.cpp" />
+		<Unit filename="util\NumberUtil.hpp" />
+		<Unit filename="util\SpriteUtil.cpp" />
+		<Unit filename="util\SpriteUtil.hpp" />
+		<Extensions>
+			<code_completion />
+			<debugger />
+		</Extensions>
+	</Project>
+</CodeBlocks_project_file>
