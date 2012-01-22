@@ -15,5 +15,4 @@ int Factorial(int n) {
 
 TEST(FactorialTest, Zero) {
   EXPECT_EQ(1, Factorial(0));
-  system("pause");
 }
