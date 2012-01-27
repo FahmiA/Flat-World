@@ -18,6 +18,9 @@ class Dog: public Character
 
     private:
         ActorState *state;
+        float timeSincePlayerSeen;
+
+        void seekPlayer(float elapsedTime, Player &player);
 };
 
 /*class DogState

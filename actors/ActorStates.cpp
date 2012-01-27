@@ -22,12 +22,10 @@ void WonderState::performAction(Character *character, Clock *clock)
     Sprite *sprite = character->getSprite();
     if(action == left)
     {
-        sprite->FlipX(false);
         character->moveLeft();
         // Update the animation
         ((AnimatedSprite*)character->getSprite())->resume();
     }else if(action == right){
-        sprite->FlipX(true);
         character->moveRight();
         // Update the animation
         ((AnimatedSprite*)character->getSprite())->resume();
@@ -40,6 +38,6 @@ void WonderState::performAction(Character *character, Clock *clock)
 
 void ChaseState::performAction(Character *character, Clock *clock)
 {
-    //character->getSprite()->FlipX(false);
+    character->getSprite()->FlipX(false);
     character->moveLeft();
 }

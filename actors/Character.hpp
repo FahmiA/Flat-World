@@ -7,6 +7,8 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+enum FacingDirection{ Left, Right };
+
 class Character: public GameObject
 {
     public:
@@ -26,6 +28,7 @@ class Character: public GameObject
         void landHop();
         void moveLeft();
         void moveRight();
+        FacingDirection getFacingDirection();
         Sprite *getSprite();
 
     protected:
@@ -46,6 +49,7 @@ class Character: public GameObject
 
         bool doMoveLeft;
         bool doMoveRight;
+        FacingDirection facingDirection;
 };
 
 // Define common animation states

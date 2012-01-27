@@ -25,6 +25,7 @@ Character::Character(float x, float y, float width, float height, float speed, S
 
     doMoveLeft = false;
     doMoveRight = false;
+    facingDirection = Left;
 }
 
 Character::~Character()
@@ -46,12 +47,21 @@ void Character::landHop()
 
 void Character::moveLeft()
 {
+    facingDirection = Left;
     doMoveLeft = true;
+    sprite->FlipX(false);
 }
 
 void Character::moveRight()
 {
+    facingDirection = Right;
     doMoveRight = true;
+    sprite->FlipX(true);
+}
+
+FacingDirection Character::getFacingDirection()
+{
+    return facingDirection;
 }
 
 void Character::update(Clock *clock, RenderWindow *window, World *world)
@@ -218,11 +228,10 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
                 }
 
                 // Move the charcter approprietly
-                float adjustSpeed = speed/3; // The Speed to adjust the charcter automaticly must be small to avoid jerkiness
+                float adjustSpeed = speed/3; // The Speed to adjust the character automaticly must be small to avoid jerkiness
                 velocityX = cos((reverseAngle * M_PI) / 180) * (adjustSpeed* elapsedTime);
                 velocityY = sin((reverseAngle * M_PI) / 180) * (adjustSpeed * elapsedTime);
                 sprite->Move(velocityX, velocityY);
-                //cout <<  "Move: (" << velocityX << ", " << velocityY << ")" << endl;
             }
         }
     }
