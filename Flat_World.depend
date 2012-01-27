@@ -475,7 +475,7 @@
 
 1325567429 c:\users\fahmi\documents\game development\flat_world\util\numberutil.hpp
 
-1327123967 c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.hpp
+1327389526 c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.hpp
 	"../game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 
@@ -597,7 +597,7 @@
 	"tinyxml.h"
 	<windows.h>
 
-1327124005 source:c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.cpp
+1327389536 source:c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.cpp
 	"CoordinateUtil.hpp"
 	"NumberUtil.hpp"
 	<math.h>
@@ -1079,8 +1079,8 @@
 	<limits.h>
 	"gtest/gtest.h"
 
-1327211210 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
+1327378030 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
 	<limits.h>
 	"gtest/gtest.h"
-	<iostream>
+	"../../util/CoordinateUtil.hpp"
 

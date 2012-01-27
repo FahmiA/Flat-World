@@ -15,7 +15,6 @@ class CoordinateUtil
         bool isLocalPointInside(Vector2f &point, Sprite &bounds);
 
         float distance(const Vector2f &p1, const Vector2f &p2);
-        float distance(Vector2f &p1, Vector2f &p2);
 
         bool collide(Sprite *object1, Sprite *object2);
 
@@ -26,7 +25,7 @@ class CoordinateUtil
          * @param fovAngle The angle of the source's FOV (in radians)
          * @return True if target isn in source's FOV. False otherwise
          */
-        bool isInFOV(Vector2f &source, Vector2f &target, int lookDistance, int fovAngle);
+        bool isInFOV(const Vector2f &source, const Vector2f &target, int lookDistance, float fovAngle);
 
         //void clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds);
 

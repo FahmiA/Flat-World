@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
 	<ActiveTarget name="UnitTest" />
-	<File name="GUI\HUD.cpp" open="1" top="0" tabpos="2">
+	<File name="GUI\HUD.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="747" topLine="0" />
 	</File>
 	<File name="GUI\HUD.hpp" open="0" top="0" tabpos="6">
@@ -128,7 +128,7 @@
 		<Cursor position="59314" topLine="1640" />
 	</File>
 	<File name="unit_test\util\CoordinateUtil_test.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="276" topLine="0" />
+		<Cursor position="3706" topLine="47" />
 	</File>
 	<File name="util\AnimatedSprite.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="3312" topLine="85" />
@@ -136,11 +136,11 @@
 	<File name="util\AnimatedSprite.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="832" topLine="0" />
 	</File>
-	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="8">
-		<Cursor position="1639" topLine="48" />
+	<File name="util\CoordinateUtil.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="640" topLine="30" />
 	</File>
-	<File name="util\CoordinateUtil.hpp" open="0" top="0" tabpos="3">
-		<Cursor position="207" topLine="0" />
+	<File name="util\CoordinateUtil.hpp" open="1" top="0" tabpos="2">
+		<Cursor position="359" topLine="0" />
 	</File>
 	<File name="util\NumberUtil.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="71" topLine="0" />

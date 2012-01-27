@@ -40,16 +40,6 @@ float CoordinateUtil::distance(const Vector2f &p1, const Vector2f &p2)
     return distance;
 }
 
-float CoordinateUtil::distance(Vector2f &p1, Vector2f &p2)
-{
-    float dx = p2.x - p1.x;
-    float dy = p2.y - p1.y;
-    float distance = (dx * dx) + (dy * dy);
-    distance = sqrt(distance);
-
-    return distance;
-}
-
 bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 {
     // http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
@@ -72,7 +62,7 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
     return xOverlap && yOverlap;
 }
 
-bool CoordinateUtil::isInFOV(Vector2f &source, Vector2f &target, int lookDistance, int fovAngle)
+bool CoordinateUtil::isInFOV(const Vector2f &source, const Vector2f &target, int lookDistance, float fovAngle)
 {
     return false;
 }
