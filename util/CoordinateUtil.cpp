@@ -30,7 +30,7 @@ bool CoordinateUtil::isLocalPointInside(Vector2f &point, Sprite &bounds)
     return false;
 }
 
-float CoordinateUtil::distance(const Vector2f &p1, const Vector2f &p2)
+float CoordinateUtil::getDistance(const Vector2f &p1, const Vector2f &p2)
 {
     float dx = p2.x - p1.x;
     float dy = p2.y - p1.y;
@@ -38,6 +38,15 @@ float CoordinateUtil::distance(const Vector2f &p1, const Vector2f &p2)
     distance = sqrt(distance);
 
     return distance;
+}
+
+float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, const Vector2f &targetPos)
+{
+    // Get the angle relative to the horizontal axis
+    float angle = atan2(targetPos.y - sourcePos.y, targetPos.x - sourcePos.x);
+    // Augment the angle based on the source's angle
+    angle += sourceAngle;
+    return angle;
 }
 
 bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
@@ -62,9 +71,23 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
     return xOverlap && yOverlap;
 }
 
-bool CoordinateUtil::isInFOV(const Vector2f &source, const Vector2f &target, int lookDistance, float fovAngle)
+bool CoordinateUtil::isInFOV(const Vector2f &source, float sourceAngle, const Vector2f &target,
+                             int lookDistance, float fovAngle)
 {
-    return false;
+    float distance = getDistance(source, target);
+    bool insideFOV = false;
+
+    // Check that target is within 'seeing distance' of source
+    if(distance < lookDistance)
+    {
+        float angle = getAngle(source, sourceAngle, target);
+        if(angle <= fovAngle && angle >= -fovAngle)
+        {
+             insideFOV = true;
+        }
+    }
+
+    return insideFOV;
 }
 
 /*void CoordinateUtil::clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds)
