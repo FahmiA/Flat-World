@@ -4,6 +4,7 @@
 #include "Character.hpp"
 #include "ActorStates.hpp"
 
+#include "../util/CoordinateUtil.hpp"
 #include "../util/AnimatedSprite.hpp"
 
 class Dog: public Character
@@ -19,14 +20,9 @@ class Dog: public Character
     private:
         ActorState *state;
         float timeSincePlayerSeen;
+        CoordinateUtil coordUtil;
 
         void seekPlayer(float elapsedTime, Player &player);
 };
-
-/*class DogState
-{
-    public:
-
-};*/
 
 #endif // DOG_H

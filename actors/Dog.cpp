@@ -1,7 +1,6 @@
 #include "Dog.hpp"
 
 #include "../game/ID.hpp"
-#include "../util/CoordinateUtil.hpp"
 #include "Player.hpp"
 
 #include <iostream>
@@ -28,6 +27,16 @@ void Dog::subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow
     // Execute AI
     seekPlayer(clock->GetElapsedTime(), *(world->getPlayer()));
 
+    // Dog attack behaviour
+    /*if(coordUtil.collide(getSprite(), world->getPlayer()->getSprite()))
+    {
+        // Push player back
+
+        // Remove one Sheep from player
+
+        // Spawn one sheep into world
+    }*/
+
     // Update the state
     state->performAction(this, clock);
 
@@ -46,10 +55,9 @@ void Dog::seekPlayer(float elapsedTime, Player &player)
     // Reverse the angle if looking to the left
     if(getFacingDirection() == Left)
         currentAngle = currentAngle - M_PI;
-
     const Vector2f playerPosition = player.getSprite()->TransformToGlobal(player.getSprite()->GetCenter());
+
     // Check if the player is in the FOV
-    CoordinateUtil coordUtil;
     bool canSeePlayer = coordUtil.isInFOV(currentPosition, currentAngle, playerPosition,
                                           fovDepth, fovAngle);
 

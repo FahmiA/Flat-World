@@ -1,17 +1,18 @@
 Planned:
 	* As a user, I want to see my level progress in a HUD so I can understand how well I have done.
 		- Implement HUD display - DONE
-			- Ensure ContentManager is updated to manage fonts as well as sprites.
+			- Ensure ContentManager is updated to manage fonts as well as sprites.- DONE
 		- Syncronise HUD with game state
 
 	* As a user, I want to be able to catch sheep.
-		- Player can catch sheep
-		- Sheep capture updates HUD.
-		- Dog chases player
+		- Player can catch sheep - DONE
+		- Sheep capture updates HUD. - DONE
 
 	* As a user, I want sheepdogs to attack me so the game is more challenging and promotes more strategy.
-		- Sheepdogs can attack player.
-			- Result: Player gets pushed/thrown backwards
+		- Dog chases player - DONE
+		- Player gets pushed/thrown backwards by dog attack.
+		- Dog forgets player after attack.
+		- Player loses one Sheep from dog attack.
 
 	* As a user, I want to collect stars to ensure I am constantly rewarded for navigating a level.
 		- Spawn stars into levels
