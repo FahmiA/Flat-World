@@ -30,7 +30,12 @@ class WonderState: public ActorState
 class ChaseState: public ActorState
 {
     public:
+        ChaseState(GameObject *target);
+
         void performAction(Character *character, Clock *clock);
+
+    private:
+        GameObject *target;
 };
 
 #endif // ACTORSTATES_H

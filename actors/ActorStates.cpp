@@ -36,8 +36,15 @@ void WonderState::performAction(Character *character, Clock *clock)
     }
 }
 
+ChaseState::ChaseState(GameObject *target)
+{
+    this->target = target;
+}
+
 void ChaseState::performAction(Character *character, Clock *clock)
 {
-    character->getSprite()->FlipX(false);
-    character->moveLeft();
+    if(target->getPosition().x < character->getPosition().x)
+        character->moveLeft();
+    else
+        character->moveRight();
 }

@@ -609,19 +609,19 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1327651036 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
+1327726114 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
 	"Dog.hpp"
 	"../game/ID.hpp"
 	"../util/CoordinateUtil.hpp"
 	"Player.hpp"
 	<iostream>
 
-1327651799 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
+1327724829 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
 	"Character.hpp"
 	"ActorStates.hpp"
 	"../util/AnimatedSprite.hpp"
 
-1321233272 c:\users\fahmi\documents\game development\flat_world\actors\actorstates.hpp
+1327726128 c:\users\fahmi\documents\game development\flat_world\actors\actorstates.hpp
 	"Character.hpp"
 
 1327650942 source:c:\users\fahmi\documents\game development\flat_world\actors\actorstates.cpp

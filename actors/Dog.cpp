@@ -37,10 +37,6 @@ void Dog::subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow
 
 void Dog::seekPlayer(float elapsedTime, Player &player)
 {
-    timeSincePlayerSeen += elapsedTime;
-
-    CoordinateUtil coordUtil;
-
     // Change to a chassing state when the player is in the field of view (FOV)
     float fovAngle = 0.5;
     int fovDepth = 200;
@@ -53,25 +49,33 @@ void Dog::seekPlayer(float elapsedTime, Player &player)
 
     const Vector2f playerPosition = player.getSprite()->TransformToGlobal(player.getSprite()->GetCenter());
     // Check if the player is in the FOV
+    CoordinateUtil coordUtil;
     bool canSeePlayer = coordUtil.isInFOV(currentPosition, currentAngle, playerPosition,
                                           fovDepth, fovAngle);
+
+    // If the dog has been seen recently (last seen time is not invalid), update the last seen time.
+    if(timeSincePlayerSeen >= 0)
+        timeSincePlayerSeen += elapsedTime;
 
     if(canSeePlayer)
     {
         // Player is sighted! Chase the player
-        cout << "DOG ANGREY!" << endl;
+        if(timeSincePlayerSeen < 0)
+        {
+            cout << "DOG ANGREY!" << endl;
 
-       delete state;
-       state = new ChaseState;
+            delete state;
+            state = new ChaseState(&player);
 
-        timeSincePlayerSeen = 0;
-    }else if(timeSincePlayerSeen > 0 && timeSincePlayerSeen > DOG_MEMORY_S){
+            timeSincePlayerSeen = 0;
+        }
+    }else if(timeSincePlayerSeen > DOG_MEMORY_S){
         // Player has been lost. Resume normal behaviour.
         cout << "DOG SAD" << endl;
 
         delete state;
         state = new WonderState();
 
-        timeSincePlayerSeen = 0;
+        timeSincePlayerSeen = -1;
     }
 }
