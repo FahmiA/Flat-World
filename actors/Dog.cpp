@@ -22,7 +22,7 @@ Dog::~Dog()
     delete state;
 }
 
-void Dog::subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow *window, World *world)
+void Dog::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
     // Execute AI
     seekPlayer(clock->GetElapsedTime(), *(world->getPlayer()));
@@ -58,7 +58,7 @@ void Dog::seekPlayer(float elapsedTime, Player &player)
     const Vector2f playerPosition = player.getSprite()->TransformToGlobal(player.getSprite()->GetCenter());
 
     // Check if the player is in the FOV
-    bool canSeePlayer = coordUtil.isInFOV(currentPosition, currentAngle, playerPosition,
+    bool canSeePlayer = getCoordinateUtil().isInFOV(currentPosition, currentAngle, playerPosition,
                                           fovDepth, fovAngle);
 
     // If the dog has been seen recently (last seen time is not invalid), update the last seen time.

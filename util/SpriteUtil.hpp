@@ -9,11 +9,14 @@ class SpriteUtil
     public:
         SpriteUtil();
 
-         /** Performs a raytrace on a Sprite.
-            sprite = sprite to perform raytrace on.
-            fromX, fromY =  start position to raytrace from (clamped to sprite bounds).
-            toX, toY = end position to raytrace to (clamped to sprite bounds).
-            return = first position that is not transparent.*/
+        /** Performs a raytrace on a Sprite.
+         * @param sprite Sprite to perform raytrace on.
+         * @param fromX Start x-position to raytrace from (clamped to sprite bounds).
+         * @param fromY Start y-position to raytrace from (clamped to sprite bounds).
+         * @param toX End x-position to raytrace to (clamped to sprite bounds).
+         * @param toY End y-position to raytrace to (clamped to sprite bounds).
+         * @return First position that is not transparent (is solid).
+         */
         Vector2f* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY);
 };
 

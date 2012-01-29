@@ -1,7 +1,6 @@
 #include "Character.hpp"
 
 #include "../util/NumberUtil.hpp"
-#include "../util/CoordinateUtil.hpp"
 #include "../game/ID.hpp"
 
 #include<iostream>
@@ -69,13 +68,58 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     // Un-comment the line below to pause the game on the first frame
     //return;
 
+    // Get the elapsed time since the last frame
     float elapsedTime = clock->GetElapsedTime();
-    CoordinateUtil coordUtil;
 
+    // Allow sub-classes to invoke specific behaviour
+    subUpdate(clock, window, world);
+
+    // Find the nearest island and assign it as the island the Character is on
+    findCurrentIsland(world);
+
+    // Move in responce to user input
+    steer(elapsedTime);
+
+    // Stick tthe Character to the current island.
+    lockToIsland(elapsedTime);
+}
+
+void Character::findCurrentIsland(World *world)
+{
+    // Get the nearest island if no current island exists
+    if(currentGround == 0)
+    {
+        // Loop through all islands
+        list<GameObject*>* objects = world->getObjects();
+        for(list<GameObject*>::iterator it = objects->begin(); it != objects->end(); it++)
+        {
+            if((*it)->getID() == ID_ISLAND && prevGround != *it) // Ignore the previous ground
+            {
+                // Check if the charcter is close to the island
+                if(coordUtil.collide(sprite, ((Island*)(*it))->getSprite()))
+                {
+                    // Mark the new ground as the current ground
+                    prevGround = currentGround;
+                    currentGround = (Island*)(*it);
+
+                    // Rotate to the new ground
+                    float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y, currentGround->getPosition().x - sprite->GetPosition().x);
+                    angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
+                    sprite->SetRotation(-angle + 90); // Rotate to the correct angle
+
+                    cout << "found new ground" << endl;
+                    break;
+                }
+            }
+        }
+    }
+}
+
+void Character::steer(float elapsedTime)
+{
+     // Get the x and y movement velocity
     float velocityX = cos(sprite->GetRotation() * M_PI / 180) * (speed * elapsedTime);
     float velocityY = sin(sprite->GetRotation() * M_PI / 180) * (speed * elapsedTime);
-
-    subUpdate(velocityX, velocityY, clock, window, world);
 
     // Respond to user input events
     if(doMoveRight) // Move right
@@ -90,60 +134,34 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         doMoveLeft = false;
     }
 
-    int lookDepth = 50; // Depth to ray-trace
-    //cout << sprite->GetSize().x << " " << sprite->GetSize().y << endl;
-    int lookOffset = 50; // Distance between left and right ray-traces
-
-    // Perform collision detection
-    if(currentGround == 0)
-    {
-        // Get the nearest island
-        list<GameObject*>* objects = world->getObjects();
-        for(list<GameObject*>::iterator it = objects->begin(); it != objects->end(); it++)
-        {
-            if((*it)->getID() == ID_ISLAND && prevGround != *it) // Ignore the previous ground
-            {
-                //float distance = coordUtil.distance(sprite->GetPosition(), (*it)->getPosition());
-                if(coordUtil.collide(sprite, ((Island*)(*it))->getSprite()))
-                {
-                    // Mark the new ground as the current ground
-                    prevGround = currentGround;
-                    currentGround = (Island*)(*it);
-
-                    //cout << currentGround->getPosition().x << " " << currentGround->getPosition().y << " - " << elapsedTime << endl;
-
-                    // Rotate to the new ground
-                    float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y, currentGround->getPosition().x - sprite->GetPosition().x);
-                    angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
-                    sprite->SetRotation(-angle + 90); // Rotate to the correct angle
-
-                    cout << "found new ground" << endl;
-                    break;
-                }
-            }
-        }
-    }
-
+    // If no current island exists, keep jumping
     if(currentGround == 0)
     {
         float angle = -sprite->GetRotation();
         if(inJump)
         {
             angle -= 90; // Up (jump)
-            //cout << "up"  << endl;
         } else {
             angle += 90; // Down (gravity)
-            //cout << "down" << endl;
         }
 
+        // Get the new movement velocity
         velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
         velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
-        sprite->Move(velocityX, velocityY);
 
+        // Move the character
+        sprite->Move(velocityX, velocityY);
+    }
+}
+
+void Character::lockToIsland(float elapsedTime)
+{
+    // Can't lock to island if no island currently exists (eg: in jump)
+    if(currentGround == 0)
         return;
-    }/*else{
-        inJump = false;
-    }*/
+
+    int lookDepth = 50; // Depth to ray-trace
+    int lookOffset = 50; // Distance between left and right ray-traces
 
     // Get the pixels directly under the player
     Sprite *groundSprite = currentGround->getSprite();
@@ -171,16 +189,16 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     targetRight = groundSprite->TransformToLocal(targetRight);
 
     // Land directly below
-    Vector2f *leftCollide = rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, targetLeft.x, targetLeft.y);
-    Vector2f *middleCollide = rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, targetMiddle.x, targetMiddle.y);
-    Vector2f *rightCollide = rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
+    Vector2f *leftCollide = spriteUtil.rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, targetLeft.x, targetLeft.y);
+    Vector2f *middleCollide = spriteUtil.rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, targetMiddle.x, targetMiddle.y);
+    Vector2f *rightCollide = spriteUtil.rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
 
     if(leftCollide == 0 || rightCollide == 0)
     {
         // No land below. Move with relative gravity
         float angle = -sprite->GetRotation() + 90;
-        velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
-        velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
+        float velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
+        float velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
         sprite->Move(velocityX, velocityY);
     }else{
         inJump = false;
@@ -198,7 +216,6 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         if(middleCollide != 0)
         {
             // Get the distance to the ground
-            //float distance = coordUtil.distance(bottomMiddle, *middleCollide);
 
             // Only move up or down if the distance is not acceptable
             Color groundPixel(0, 0, 0, 0);
@@ -229,8 +246,8 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
 
                 // Move the charcter approprietly
                 float adjustSpeed = speed/3; // The Speed to adjust the character automaticly must be small to avoid jerkiness
-                velocityX = cos((reverseAngle * M_PI) / 180) * (adjustSpeed* elapsedTime);
-                velocityY = sin((reverseAngle * M_PI) / 180) * (adjustSpeed * elapsedTime);
+                float velocityX = cos((reverseAngle * M_PI) / 180) * (adjustSpeed* elapsedTime);
+                float velocityY = sin((reverseAngle * M_PI) / 180) * (adjustSpeed * elapsedTime);
                 sprite->Move(velocityX, velocityY);
             }
         }
@@ -242,57 +259,14 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     delete rightCollide;
 }
 
-Vector2f* Character::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY)
+CoordinateUtil& Character::getCoordinateUtil()
 {
-    //printf("fromX: %d\tfromY: %d\ttoX: %d\ttoY: %d\n", fromX, fromY, toX, toY);
-    // Simplified Bresenham line algorithm
-    // http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
+    return coordUtil;
+}
 
-    // x0 = fromX   y0 = fromY  x1 = toX    y1 = toY
-
-    // Clamp positions to within the bounds of the sprite
-    clamp(fromX, 0, sprite->GetSize().x - 1);
-    clamp(fromY, 0, sprite->GetSize().y - 1);
-    clamp(toX, 0, sprite->GetSize().x - 1);
-    clamp(toY, 0, sprite->GetSize().y - 1);
-
-    // Declare the required variables
-    Vector2f *collidePosition = 0;
-    int differenceX = abs(toX - fromX);
-    int differenceY = abs(toY - fromY);
-    int error = differenceX - differenceY;
-    int slopeX = (fromX < toX) ? 1 : -1;
-    int slopeY = (fromY < toY) ? 1 : -1;
-    int error2 = 0;
-
-    while(true)
-    {
-        // Check pixel (fromX, fromY)
-        Color pixel = sprite->GetPixel(fromX, fromY);
-
-        if(pixel.a > 0) // Not transparent
-        {
-            collidePosition = new Vector2f(fromX, fromY);
-            break;
-        }
-
-        if(fromX == toX && fromY == toY)
-            break;
-
-        error2 = 2 * error;
-        if(error2 > -differenceY)
-        {
-            error = error - differenceY;
-            fromX = fromX + slopeX;
-        }
-
-        if(error2 < differenceX){
-            error = error + differenceX;
-            fromY = fromY + slopeY;
-        }
-    }
-
-    return collidePosition;
+SpriteUtil& Character::getSpriteUtil()
+{
+    return spriteUtil;
 }
 
 void Character::draw(RenderWindow *window)

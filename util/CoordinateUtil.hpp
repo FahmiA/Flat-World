@@ -1,7 +1,5 @@
 #ifndef COORDINATE_UTIL_H
-#define COORDINATES_UTIL_H
-
-#include "../game/GameObject.hpp"
+#define COORDINATE_UTIL_H
 
 #include <SFML/Graphics.hpp>
 using namespace sf;

@@ -6,10 +6,8 @@ SpriteUtil::SpriteUtil() {}
 
 Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY)
 {
-    //printf("fromX: %d\tfromY: %d\ttoX: %d\ttoY: %d\n", fromX, fromY, toX, toY);
     // Simplified Bresenham line algorithm
     // http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
-
     // x0 = fromX   y0 = fromY  x1 = toX    y1 = toY
 
     // Clamp positions to within the bounds of the sprite

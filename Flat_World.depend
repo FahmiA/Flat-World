@@ -444,18 +444,19 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1327651047 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
+1327805177 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
 	"Character.hpp"
 	"../util/NumberUtil.hpp"
-	"../util/CoordinateUtil.hpp"
 	"../game/ID.hpp"
 	<iostream>
 	<math.h>
 	<list>
 
-1327650854 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
+1327805086 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
 	"../game/World.hpp"
 	"../environment/Island.hpp"
+	"../util/CoordinateUtil.hpp"
+	"../util/SpriteUtil.hpp"
 	<SFML/Graphics.hpp>
 
 1326782163 c:\users\fahmi\documents\game development\flat_world\game\world.hpp
@@ -475,28 +476,27 @@
 
 1325567429 c:\users\fahmi\documents\game development\flat_world\util\numberutil.hpp
 
-1327779414 c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.hpp
-	"../game/GameObject.hpp"
+1327802827 c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.hpp
 	<SFML/Graphics.hpp>
 
 1325308871 c:\users\fahmi\documents\game development\flat_world\game\id.hpp
 
-1326782339 source:c:\users\fahmi\documents\game development\flat_world\actors\player.cpp
+1327803055 source:c:\users\fahmi\documents\game development\flat_world\actors\player.cpp
 	"Player.hpp"
 	"../game/ID.hpp"
 	"../util/CoordinateUtil.hpp"
 	"../GUI/HUD.hpp"
 	<iostream>
 
-1326781112 c:\users\fahmi\documents\game development\flat_world\actors\player.hpp
+1327803049 c:\users\fahmi\documents\game development\flat_world\actors\player.hpp
 	"Character.hpp"
 
-1321313956 source:c:\users\fahmi\documents\game development\flat_world\actors\sheep.cpp
+1327803074 source:c:\users\fahmi\documents\game development\flat_world\actors\sheep.cpp
 	"Sheep.hpp"
 	"../game/ID.hpp"
 	<iostream>
 
-1321313757 c:\users\fahmi\documents\game development\flat_world\actors\sheep.hpp
+1327803068 c:\users\fahmi\documents\game development\flat_world\actors\sheep.hpp
 	"Character.hpp"
 	"ActorStates.hpp"
 	"../util/AnimatedSprite.hpp"
@@ -542,7 +542,7 @@
 	<assert.h>
 	<string.h>
 
-1310338062 c:\users\fahmi\documents\game development\flat_world\util\spriteutil.hpp
+1327805335 c:\users\fahmi\documents\game development\flat_world\util\spriteutil.hpp
 	<SFML/Graphics.hpp>
 
 1310115302 source:c:\users\fahmi\documents\game development\flat_world\game\gameobject.cpp
@@ -605,21 +605,19 @@
 1325567425 source:c:\users\fahmi\documents\game development\flat_world\util\numberutil.cpp
 	"NumberUtil.hpp"
 
-1325057169 source:c:\users\fahmi\documents\game development\flat_world\util\spriteutil.cpp
+1327805131 source:c:\users\fahmi\documents\game development\flat_world\util\spriteutil.cpp
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1327726114 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
+1327803642 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
 	"Dog.hpp"
 	"../game/ID.hpp"
-	"../util/CoordinateUtil.hpp"
 	"Player.hpp"
 	<iostream>
 
-1327779881 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
+1327802990 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
 	"Character.hpp"
 	"ActorStates.hpp"
-	"../util/CoordinateUtil.hpp"
 	"../util/AnimatedSprite.hpp"
 
 1327726128 c:\users\fahmi\documents\game development\flat_world\actors\actorstates.hpp

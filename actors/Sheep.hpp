@@ -12,7 +12,7 @@ class Sheep: public Character
         Sheep(float x, float y, float width, float height, float speed, AnimatedSprite *sprite);
         ~Sheep();
 
-         void subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow *window, World *world);
+         void subUpdate(Clock *clock, RenderWindow *window, World *world);
 
     private:
         ActorState *state;

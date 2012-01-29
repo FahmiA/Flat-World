@@ -18,7 +18,7 @@ Sheep::~Sheep()
     delete state;
 }
 
-void Sheep::subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow *window, World *world)
+void Sheep::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
     state->performAction(this, clock);
 

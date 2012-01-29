@@ -9,7 +9,7 @@ class Player: public Character
         Player(float x, float y, float width, float height, float speed, Sprite *sprite);
         ~Player();
 
-        void subUpdate(float velocityX, float velocityY, Clock *clock, RenderWindow *window, World *world);
+        void subUpdate(Clock *clock, RenderWindow *window, World *world);
 
     private:
         Character* check_unit_collide(World *world);
