@@ -27,22 +27,22 @@ TEST_F(CoordinateUtilTest, getDistance)
     float result;
 
     result = coordUtil->getDistance(Vector2f(5, 1), Vector2f(10, 1));
-    EXPECT_FLOAT_EQ(result, 5) << "Distance between x positions not correct";
+    EXPECT_FLOAT_EQ(5, result) << "Distance between x positions not correct";
 
     result = coordUtil->getDistance(Vector2f(5, 245), Vector2f(5, 246));
-    EXPECT_FLOAT_EQ(result, 1) << "Distance between y positions not correct";
+    EXPECT_FLOAT_EQ(1, result) << "Distance between y positions not correct";
 
     result = coordUtil->getDistance(Vector2f(-5, 1), Vector2f(5, -1));
-    EXPECT_NEAR(result, 10.198, 0.001) << "Distance with some negative values not correct";
+    EXPECT_NEAR(10.198, result, 0.001) << "Distance with some negative values not correct";
 
     result = coordUtil->getDistance(Vector2f(5, 5), Vector2f(-10, -10));
-    EXPECT_NEAR(result, 21.21, 0.005) << "Should recieve absolute value of distance";
+    EXPECT_NEAR(21.21, result, 0.005) << "Should recieve absolute value of distance";
 
     result = coordUtil->getDistance(Vector2f(5, 5), Vector2f(5, 5));
-    EXPECT_FLOAT_EQ(result, 0) << "Distance of 0 expected with two identical coordinates";
+    EXPECT_FLOAT_EQ(0, result) << "Distance of 0 expected with two identical coordinates";
 
     result = coordUtil->getDistance(Vector2f(0, 0), Vector2f(0, 0));
-    EXPECT_FLOAT_EQ(result, 0) << "Should handle origin coordinates correctly.";
+    EXPECT_FLOAT_EQ(0, result) << "Should handle origin coordinates correctly.";
 }
 
 TEST_F(CoordinateUtilTest, getAngle)
@@ -50,16 +50,16 @@ TEST_F(CoordinateUtilTest, getAngle)
     float angle;
 
     angle = coordUtil->getAngle(Vector2f(0, 0), 0, Vector2f(10, 0));
-    EXPECT_FLOAT_EQ(angle, 0);
+    EXPECT_FLOAT_EQ(0, angle);
 
     angle = coordUtil->getAngle(Vector2f(10, 10), 0, Vector2f(75, 2));
-    EXPECT_NEAR(angle, -0.122f, 0.001);
+    EXPECT_NEAR(-0.122f, angle, 0.001);
 
     angle = coordUtil->getAngle(Vector2f(10, 10), 0.5, Vector2f(75, 2));
-    EXPECT_NEAR(angle, 0.378f, 0.001);
+    EXPECT_NEAR(0.378f, angle, 0.001);
 
      angle = coordUtil->getAngle(Vector2f(10, 10), -1.2, Vector2f(75, 2));
-    EXPECT_NEAR(angle, -1.322f, 0.001);
+    EXPECT_NEAR(-1.322f, angle, 0.001);
 }
 
 TEST_F(CoordinateUtilTest, isInFOVAcute)

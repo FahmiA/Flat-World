@@ -54,7 +54,6 @@
 			</Target>
 			<Target title="UnitTest">
 				<Option output="bin\UnitTest\Flat_World" prefix_auto="1" extension_auto="1" />
-				<Option working_dir="bin\UnitTest\" />
 				<Option object_output="obj\UnitTest\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
@@ -142,6 +141,9 @@
 		<Unit filename="tinyxml\tinyxmlerror.cpp" />
 		<Unit filename="tinyxml\tinyxmlparser.cpp" />
 		<Unit filename="unit_test\util\CoordinateUtil_test.cpp">
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="unit_test\util\SpriteUtil_test.cpp">
 			<Option target="UnitTest" />
 		</Unit>
 		<Unit filename="util\AnimatedSprite.cpp" />

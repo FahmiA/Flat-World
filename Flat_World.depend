@@ -1080,9 +1080,16 @@
 	<limits.h>
 	"gtest/gtest.h"
 
-1327644517 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
+1328299164 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
 	<limits.h>
 	<math.h>
 	"gtest/gtest.h"
 	"../../util/CoordinateUtil.hpp"
+
+1328299585 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\spriteutil_test.cpp
+	<limits.h>
+	<math.h>
+	"gtest/gtest.h"
+	"../../util/SpriteUtil.hpp"
+	<iostream>
 
