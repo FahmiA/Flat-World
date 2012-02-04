@@ -1,8 +1,8 @@
 #ifndef LEVELLOADER_H
 #define LEVELLOADER_H
 
-#include "../tinyxml/tinyxml.h"
-#include "../gameIO/ContentManager.hpp"
+#include "tinyxml/tinyxml.h"
+#include "gameIO/ContentManager.hpp"
 #include "LevelBuilder.hpp"
 
 #include <map>

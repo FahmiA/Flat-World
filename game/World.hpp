@@ -1,8 +1,8 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-#include "../game/GameObject.hpp"
-#include "../scene/Camera.hpp"
+#include "game/GameObject.hpp"
+#include "scene/Camera.hpp"
 
 class Player;
 class HUD;

@@ -1,7 +1,7 @@
 #ifndef STAR_H
 #define STAR_H
 
-#include "../game/GameObject.hpp"
+#include "game/GameObject.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;

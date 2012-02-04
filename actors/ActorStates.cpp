@@ -1,7 +1,7 @@
 #include "ActorStates.hpp"
 
 #include "Character.hpp"
-#include "../util/AnimatedSprite.hpp"
+#include "util/AnimatedSprite.hpp"
 
 ActorState::~ActorState() {}
 

@@ -1,7 +1,7 @@
 #ifndef ISLAND_H
 #define ISLAND_H
 
-#include "../game/GameObject.hpp"
+#include "game/GameObject.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;

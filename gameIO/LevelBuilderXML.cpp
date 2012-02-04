@@ -1,8 +1,8 @@
 #include "LevelBuilderXML.hpp"
 
-#include "../util/AnimatedSprite.hpp"
-#include "../pickups/Star.hpp"
-#include "../GUI/HUD.hpp"
+#include "util/AnimatedSprite.hpp"
+#include "pickups/Star.hpp"
+#include "GUI/HUD.hpp"
 
 #include <stdio.h>
 #include <iostream>

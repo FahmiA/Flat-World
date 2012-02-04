@@ -1,8 +1,8 @@
 #include "World.hpp"
 
-#include "../actors/Player.hpp"
-#include "../GUI/HUD.hpp"
-#include "../scene/StaticCamera.hpp"
+#include "actors/Player.hpp"
+#include "GUI/HUD.hpp"
+#include "scene/StaticCamera.hpp"
 
 World::World()
 {

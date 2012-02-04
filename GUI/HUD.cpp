@@ -1,6 +1,6 @@
 #include "HUD.hpp"
 
-#include "../util/NumberUtil.hpp"
+#include "util/NumberUtil.hpp"
 
 #include <algorithm>
 #include <sstream>

@@ -4,7 +4,7 @@
 #include "Character.hpp"
 #include "ActorStates.hpp"
 
-#include "../util/AnimatedSprite.hpp"
+#include "util/AnimatedSprite.hpp"
 
 class Dog: public Character
 {
@@ -21,6 +21,7 @@ class Dog: public Character
         float timeSincePlayerSeen;
 
         void seekPlayer(float elapsedTime, Player &player);
+        void checkPlayerCollide(Player &player);
 };
 
 #endif // DOG_H

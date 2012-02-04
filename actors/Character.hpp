@@ -1,15 +1,14 @@
 #ifndef CHARACTER_H
 #define CHARACTER_H
 
-#include "../game/World.hpp"
-#include "../environment/Island.hpp"
-#include "../util/CoordinateUtil.hpp"
-#include "../util/SpriteUtil.hpp"
+#include "game/World.hpp"
+#include "environment/Island.hpp"
+#include "util/CoordinateUtil.hpp"
+#include "util/SpriteUtil.hpp"
+#include "util/Commons.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
-
-enum FacingDirection{ Left, Right };
 
 class Character: public GameObject
 {
@@ -30,7 +29,7 @@ class Character: public GameObject
         void landHop();
         void moveLeft();
         void moveRight();
-        FacingDirection getFacingDirection();
+        Direction getFacingDirection();
         Sprite *getSprite();
 
     protected:
@@ -44,6 +43,11 @@ class Character: public GameObject
          */
         SpriteUtil& getSpriteUtil();
 
+        /** Sets the distance the charcter should be from the ground.
+         * @param distance Distance between the character and the ground.
+         */
+        void setDistanceFromGround(float distance);
+
     private:
         // State variables
         float speed;
@@ -52,11 +56,12 @@ class Character: public GameObject
         Island *currentGround;
         Island *prevGround;
         bool inJump;
+        float distanceFromGround;
 
         // Actions-to-perform variables
         bool doMoveLeft;
         bool doMoveRight;
-        FacingDirection facingDirection;
+        Direction facingDirection;
 
         // Helper-operations variables
         CoordinateUtil coordUtil;
@@ -68,10 +73,12 @@ class Character: public GameObject
          * @param world The world containing the islands to search,
          */
         void findCurrentIsland(World *world);
+
         /** Steers the Character based on assigned movement commands.
          * @param elapsedTime The time since the previous frame.
          */
         void steer(float elapsedTime);
+
         /** Sticks the Character to the border of the current island.
          * The Character's position and angle are set to match the conditions of the
          * current position of the Character on the island.

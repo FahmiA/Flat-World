@@ -1,12 +1,12 @@
 #ifndef LEVELBUILDER_H
 #define LEVELBUILDER_H
 
-#include "../game/World.hpp"
-#include "../gameIO/ContentManager.hpp"
-#include "../environment/Island.hpp"
-#include "../actors/Sheep.hpp"
-#include "../actors/Dog.hpp"
-#include "../actors/Player.hpp"
+#include "game/World.hpp"
+#include "gameIO/ContentManager.hpp"
+#include "environment/Island.hpp"
+#include "actors/Sheep.hpp"
+#include "actors/Dog.hpp"
+#include "actors/Player.hpp"
 
 // Prototypes for description structs
 struct LevelDescription;

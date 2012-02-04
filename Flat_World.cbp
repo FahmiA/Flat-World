@@ -16,6 +16,7 @@
 					<Add option="-g" />
 					<Add option="-DSFML_DYNAMIC" />
 					<Add directory="libraries\debug\include" />
+					<Add directory="." />
 				</Compiler>
 				<Linker>
 					<Add option="-lsfml-graphics-d" />
@@ -39,6 +40,8 @@
 				<Compiler>
 					<Add option="-O2" />
 					<Add option="-DSFML_DYNAMIC" />
+					<Add directory="libraries\debug\include" />
+					<Add directory="." />
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
@@ -63,6 +66,7 @@
 					<Add option="-g" />
 					<Add option="-DSFML_DYNAMIC" />
 					<Add directory="libraries\debug\include" />
+					<Add directory="." />
 				</Compiler>
 				<Linker>
 					<Add option="-lsfml-graphics-d" />
@@ -148,6 +152,7 @@
 		</Unit>
 		<Unit filename="util\AnimatedSprite.cpp" />
 		<Unit filename="util\AnimatedSprite.hpp" />
+		<Unit filename="util\Commons.hpp" />
 		<Unit filename="util\CoordinateUtil.cpp" />
 		<Unit filename="util\CoordinateUtil.hpp" />
 		<Unit filename="util\NumberUtil.cpp" />

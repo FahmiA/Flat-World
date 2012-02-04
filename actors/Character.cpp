@@ -1,7 +1,7 @@
 #include "Character.hpp"
 
-#include "../util/NumberUtil.hpp"
-#include "../game/ID.hpp"
+#include "util/NumberUtil.hpp"
+#include "game/ID.hpp"
 
 #include<iostream>
 #include<math.h>
@@ -21,6 +21,7 @@ Character::Character(float x, float y, float width, float height, float speed, S
     currentGround = 0;
     prevGround = 0;
     inJump = false;
+    distanceFromGround = 0;
 
     doMoveLeft = false;
     doMoveRight = false;
@@ -58,7 +59,7 @@ void Character::moveRight()
     sprite->FlipX(true);
 }
 
-FacingDirection Character::getFacingDirection()
+Direction Character::getFacingDirection()
 {
     return facingDirection;
 }
@@ -169,9 +170,9 @@ void Character::lockToIsland(float elapsedTime)
     // Get the position at the bottom of the charcter
     // Global Positions
     Vector2f bottomLeft = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) - lookOffset, sprite->GetSize().y));
-    Vector2f bottomMiddle = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y));
+    Vector2f bottomMiddle = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + distanceFromGround));
     Vector2f bottomRight = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) + lookOffset, sprite->GetSize().y));
-    Vector2f bottomMiddleUp = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y - 5)); // 5 pixels up from base
+    Vector2f bottomMiddleUp = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y - 5 + distanceFromGround)); // 5 pixels up from base
     // Local positions to ground
     bottomLeft = groundSprite->TransformToLocal(bottomLeft);
     bottomMiddle = groundSprite->TransformToLocal(bottomMiddle);
@@ -212,11 +213,9 @@ void Character::lockToIsland(float elapsedTime)
         angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
         sprite->SetRotation(-angle); // Rotate to the correct angle
 
-        // Move up or down depending on distance with ground.
+        // Move up or down depending on distance with ground
         if(middleCollide != 0)
         {
-            // Get the distance to the ground
-
             // Only move up or down if the distance is not acceptable
             Color groundPixel(0, 0, 0, 0);
             Color groundAbovePixel(0, 0, 0, 0);
@@ -231,7 +230,6 @@ void Character::lockToIsland(float elapsedTime)
                 groundAbovePixel = groundSprite->GetPixel(bottomMiddleUp.x, bottomMiddleUp.y);
             // Else ground does not exist, assume transparent.
 
-            //cout << (groundPixel.a == 0) << " - " << (groundAbovePixel.a > 0) << endl;
             if(groundPixel.a == 0 || groundAbovePixel.a > 0)
             {
                 float reverseAngle = angle;
@@ -246,7 +244,7 @@ void Character::lockToIsland(float elapsedTime)
 
                 // Move the charcter approprietly
                 float adjustSpeed = speed/3; // The Speed to adjust the character automaticly must be small to avoid jerkiness
-                float velocityX = cos((reverseAngle * M_PI) / 180) * (adjustSpeed* elapsedTime);
+                float velocityX = cos((reverseAngle * M_PI) / 180) * (adjustSpeed * elapsedTime);
                 float velocityY = sin((reverseAngle * M_PI) / 180) * (adjustSpeed * elapsedTime);
                 sprite->Move(velocityX, velocityY);
             }
@@ -267,6 +265,11 @@ CoordinateUtil& Character::getCoordinateUtil()
 SpriteUtil& Character::getSpriteUtil()
 {
     return spriteUtil;
+}
+
+void Character::setDistanceFromGround(float distance)
+{
+    distanceFromGround = distance;
 }
 
 void Character::draw(RenderWindow *window)

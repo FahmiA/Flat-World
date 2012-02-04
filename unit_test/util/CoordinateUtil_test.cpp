@@ -2,7 +2,7 @@
 #include <math.h>
 #include "gtest/gtest.h"
 
-#include "../../util/CoordinateUtil.hpp"
+#include "util/CoordinateUtil.hpp"
 
 class CoordinateUtilTest : public ::testing::Test
 {

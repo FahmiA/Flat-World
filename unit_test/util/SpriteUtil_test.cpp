@@ -2,7 +2,7 @@
 #include <math.h>
 #include "gtest/gtest.h"
 
-#include "../../util/SpriteUtil.hpp"
+#include "util/SpriteUtil.hpp"
 
 #include <iostream>
 using namespace std;

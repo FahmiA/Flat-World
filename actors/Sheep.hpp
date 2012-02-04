@@ -4,7 +4,7 @@
 #include "Character.hpp"
 #include "ActorStates.hpp"
 
-#include "../util/AnimatedSprite.hpp"
+#include "util/AnimatedSprite.hpp"
 
 class Sheep: public Character
 {

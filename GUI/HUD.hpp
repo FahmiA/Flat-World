@@ -1,7 +1,7 @@
 #ifndef HUD_H
 #define HUD_H
 
-#include "../game/World.hpp"
+#include "game/World.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;

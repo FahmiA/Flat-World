@@ -1,6 +1,6 @@
 #include "LevelBuilder.hpp"
 
-#include "../util/SpriteUtil.hpp"
+#include "util/SpriteUtil.hpp"
 
 #include <stdio.h>
 #include <iostream>

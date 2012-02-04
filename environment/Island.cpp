@@ -1,6 +1,6 @@
 #include "Island.hpp"
 
-#include "../game/ID.hpp"
+#include "game/ID.hpp"
 
 Island::Island(float x, float y, float width, float height, Sprite *sprite)
 {

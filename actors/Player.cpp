@@ -1,21 +1,51 @@
 #include "Player.hpp"
 
-#include "../game/ID.hpp"
-#include "../util/CoordinateUtil.hpp"
-#include "../GUI/HUD.hpp"
+#include "game/ID.hpp"
+#include "util/CoordinateUtil.hpp"
+#include "GUI/HUD.hpp"
 
 #include <iostream>
 using namespace std;
 
 Player::Player(float x, float y, float width, float height, float speed, Sprite *sprite)
-    : Character(x, y, width, height, speed, sprite)
+    : Character(x, y, width, height, speed, sprite),
+    PUSH_BACK_DURATION_SECS(1), PUSH_BACK_MAX_HEIGHT(40)
 {
     setID(ID_PLAYER);
+
+    beingPushedBack = false;
+    pushBackTimeSecs = 0;
 }
 
 Player::~Player() {}
 
 void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
+{
+    // DEBUG: Invoke or cancel an attack from a sheepdog
+    if(window->GetInput().IsKeyDown(Key::A))
+    {
+        /*if(beingPushedBack)
+            beingPushedBack = false;
+        else*/
+        pushBack();
+    }
+
+    if(beingPushedBack)
+    {
+        doActionPushBack(clock->GetElapsedTime());
+    }else{
+        doActionNormal(window);
+    }
+
+    check_unit_collide(world);
+}
+
+void Player::pushBack()
+{
+    beingPushedBack = true;
+}
+
+void Player::doActionNormal(RenderWindow *window)
 {
     const Input &input = window->GetInput();
     if(input.IsKeyDown(Key::Left))
@@ -26,8 +56,25 @@ void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
 
     if(input.IsKeyDown(Key::Space))
         landHop();
+}
 
-    check_unit_collide(world);
+void Player::doActionPushBack(float elapsedTime)
+{
+    // Update the time that has been spent so far being pushed back
+    pushBackTimeSecs += elapsedTime;
+
+    // Check if the push back action is completed
+    if(pushBackTimeSecs > PUSH_BACK_DURATION_SECS)
+    {
+        beingPushedBack = false;
+        pushBackTimeSecs = 0;
+        setDistanceFromGround(0);
+    }else{
+        // Still being pushed back
+        float groundDistance = PUSH_BACK_MAX_HEIGHT * (pushBackTimeSecs / PUSH_BACK_DURATION_SECS);
+        setDistanceFromGround(groundDistance);
+        moveLeft(); //TODO: This should be in the opposite direction of the sheepdog attack
+    }
 }
 
 Character* Player::check_unit_collide(World *world)

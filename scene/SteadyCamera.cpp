@@ -1,7 +1,7 @@
 #include "SteadyCamera.hpp"
 
-#include "../game/World.hpp"
-#include "../actors/Player.hpp"
+#include "game/World.hpp"
+#include "actors/Player.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;

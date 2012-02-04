@@ -1,6 +1,6 @@
 #include "Sheep.hpp"
 
-#include "../game/ID.hpp"
+#include "game/ID.hpp"
 
 #include<iostream>
 using namespace std;

@@ -1,6 +1,6 @@
 #include "Star.hpp"
 
-#include "../game/ID.hpp"
+#include "game/ID.hpp"
 
 
 Star::Star(float x, float y, float width, float height, Sprite *sprite)

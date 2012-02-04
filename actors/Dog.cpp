@@ -1,7 +1,8 @@
 #include "Dog.hpp"
 
-#include "../game/ID.hpp"
+#include "game/ID.hpp"
 #include "Player.hpp"
+#include "util/CoordinateUtil.hpp"
 
 #include <iostream>
 using namespace std;
@@ -24,8 +25,12 @@ Dog::~Dog()
 
 void Dog::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
+    Player &player = *(world->getPlayer());
     // Execute AI
-    seekPlayer(clock->GetElapsedTime(), *(world->getPlayer()));
+    seekPlayer(clock->GetElapsedTime(), player);
+
+    // Perform collision
+    checkPlayerCollide(player);
 
     // Dog attack behaviour
     /*if(coordUtil.collide(getSprite(), world->getPlayer()->getSprite()))
@@ -85,5 +90,19 @@ void Dog::seekPlayer(float elapsedTime, Player &player)
         state = new WonderState();
 
         timeSincePlayerSeen = -1;
+    }
+}
+
+void Dog::checkPlayerCollide(Player &player)
+{
+    // For perfromance, only check if we are in the atack state.
+    if(timeSincePlayerSeen >= 0)
+    {
+        CoordinateUtil coordUtil;
+
+        if(coordUtil.collide(getSprite(), player.getSprite()))
+        {
+            player.pushBack();
+        }
     }
 }
