@@ -31,8 +31,8 @@ void WonderState::performAction(Character *character, Clock *clock)
         ((AnimatedSprite*)character->getSprite())->resume();
     }else{ //Idle
         // Update the animation
-        ((AnimatedSprite*)character->getSprite())->play(ANIMATE_WALK);
-        ((AnimatedSprite*)character->getSprite())->pause();
+        ((AnimatedSprite*)character->getSprite())->play(ANIMATE_WALK); // Set first frame of animation
+        ((AnimatedSprite*)character->getSprite())->pause(); // Pause the first frame
     }
 }
 

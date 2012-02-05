@@ -99,10 +99,9 @@ void Dog::checkPlayerCollide(Player &player)
     if(timeSincePlayerSeen >= 0)
     {
         CoordinateUtil coordUtil;
-
         if(coordUtil.collide(getSprite(), player.getSprite()))
         {
-            player.pushBack();
+            player.pushBack(getFacingDirection());
         }
     }
 }

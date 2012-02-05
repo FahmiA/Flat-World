@@ -13,7 +13,7 @@ Player::Player(float x, float y, float width, float height, float speed, Sprite 
 {
     setID(ID_PLAYER);
 
-    beingPushedBack = false;
+    pushedBackDirection = None;
     pushBackTimeSecs = 0;
 }
 
@@ -24,13 +24,15 @@ void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
     // DEBUG: Invoke or cancel an attack from a sheepdog
     if(window->GetInput().IsKeyDown(Key::A))
     {
-        /*if(beingPushedBack)
-            beingPushedBack = false;
-        else*/
-        pushBack();
+        pushBack(Left);
+    }
+    // DEBUG: Invoke or cancel an attack from a sheepdog
+    if(window->GetInput().IsKeyDown(Key::S))
+    {
+        pushBack(Right);
     }
 
-    if(beingPushedBack)
+    if(pushedBackDirection != None)
     {
         doActionPushBack(clock->GetElapsedTime());
     }else{
@@ -40,9 +42,9 @@ void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
     check_unit_collide(world);
 }
 
-void Player::pushBack()
+void Player::pushBack(Direction pushDirection)
 {
-    beingPushedBack = true;
+    pushedBackDirection = pushDirection;
 }
 
 void Player::doActionNormal(RenderWindow *window)
@@ -66,14 +68,19 @@ void Player::doActionPushBack(float elapsedTime)
     // Check if the push back action is completed
     if(pushBackTimeSecs > PUSH_BACK_DURATION_SECS)
     {
-        beingPushedBack = false;
+        pushedBackDirection = None;
         pushBackTimeSecs = 0;
         setDistanceFromGround(0);
     }else{
         // Still being pushed back
         float groundDistance = PUSH_BACK_MAX_HEIGHT * (pushBackTimeSecs / PUSH_BACK_DURATION_SECS);
         setDistanceFromGround(groundDistance);
-        moveLeft(); //TODO: This should be in the opposite direction of the sheepdog attack
+
+        // Move in the direction of the push
+        if(pushedBackDirection == Left)
+            moveLeft();
+        else
+            moveRight();
     }
 }
 

@@ -452,7 +452,7 @@
 	<math.h>
 	<list>
 
-1328392584 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
+1328408940 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"util/CoordinateUtil.hpp"
@@ -489,8 +489,9 @@
 	"GUI/HUD.hpp"
 	<iostream>
 
-1328339503 c:\users\fahmi\documents\game development\flat_world\actors\player.hpp
+1328408764 c:\users\fahmi\documents\game development\flat_world\actors\player.hpp
 	"Character.hpp"
+	"util/Commons.hpp"
 
 1328392585 source:c:\users\fahmi\documents\game development\flat_world\actors\sheep.cpp
 	"Sheep.hpp"
@@ -625,7 +626,7 @@
 1327726128 c:\users\fahmi\documents\game development\flat_world\actors\actorstates.hpp
 	"Character.hpp"
 
-1328392500 source:c:\users\fahmi\documents\game development\flat_world\actors\actorstates.cpp
+1328408266 source:c:\users\fahmi\documents\game development\flat_world\actors\actorstates.cpp
 	"ActorStates.hpp"
 	"Character.hpp"
 	"util/AnimatedSprite.hpp"
@@ -1082,18 +1083,18 @@
 	<limits.h>
 	"gtest/gtest.h"
 
-1328299164 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
+1328392718 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
 	<limits.h>
 	<math.h>
 	"gtest/gtest.h"
-	"../../util/CoordinateUtil.hpp"
+	"util/CoordinateUtil.hpp"
 
-1328299764 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\spriteutil_test.cpp
+1328392735 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\spriteutil_test.cpp
 	<limits.h>
 	<math.h>
 	"gtest/gtest.h"
-	"../../util/SpriteUtil.hpp"
+	"util/SpriteUtil.hpp"
 	<iostream>
 
-1328390583 c:\users\fahmi\documents\game development\flat_world\util\commons.hpp
+1328408327 c:\users\fahmi\documents\game development\flat_world\util\commons.hpp
 

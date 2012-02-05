@@ -2,6 +2,7 @@
 #define PLAYER_H
 
 #include "Character.hpp"
+#include "util/Commons.hpp"
 
 class Player: public Character
 {
@@ -11,11 +12,14 @@ class Player: public Character
 
         void subUpdate(Clock *clock, RenderWindow *window, World *world);
 
-        /** Pushes the player back. Commonly when attacked. */
-        void pushBack();
+        /** Pushes the player back. Commonly when attacked.
+         * Can be pushed left or right, but not up or down.
+         * @param pushDirection The direction which the player is being pushed in.
+         */
+        void pushBack(Direction pushDirection);
 
     private:
-        bool beingPushedBack;
+        Direction pushedBackDirection;
         float pushBackTimeSecs;
         const float PUSH_BACK_DURATION_SECS;
         const float PUSH_BACK_MAX_HEIGHT;
