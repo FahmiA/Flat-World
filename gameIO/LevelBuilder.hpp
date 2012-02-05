@@ -8,6 +8,9 @@
 #include "actors/Dog.hpp"
 #include "actors/Player.hpp"
 
+#include <set>
+using namespace std;
+
 // Prototypes for description structs
 struct LevelDescription;
 struct IslandDescription;
@@ -45,16 +48,22 @@ class LevelBuilder
 
         /** Adds a new Sheep unit to the world,
          * @param sheepDesc A description of the sheep to add.
-         * @param islandDesc A description of the island the sheep will appear on.
+         * @param island The island the sheep will appear on.
          * @return True if the sheep was successfully added to the island. False otherwise.
          */
-        virtual bool addSheep(UnitDescription *sheepDesc, IslandDescription *islandDesc) = 0;
+        virtual bool addSheep(UnitDescription *sheepDesc, Island *island) = 0;
+
+         /** Adds a completely random sheep to the world.
+          * Picks a random style and a random spawn location.
+          * @return True if a random sheep was successfully added to the world. False otherwise.
+          */
+        virtual bool addRandomSheep() = 0;
 
          /** Adds a new Sheepdog unit to the world,
-         * @param sheepdogDesc A description of the sheepdog to add.
-         * @param islandDesc A description of the island the sheepdog will appear on.
-         * @return True if the sheepdog was successfully added to the island. False otherwise.
-         */
+          * @param sheepdogDesc A description of the sheepdog to add.
+          * @param islandDesc A description of the island the sheepdog will appear on.
+          * @return True if the sheepdog was successfully added to the island. False otherwise.
+          */
         virtual bool addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc) = 0;
 
         /** Adds a new Star pickup to the world,
@@ -76,10 +85,16 @@ class LevelBuilder
                             string &sheepIconPath, string &starIconPath,
                             string &fontPath) = 0;
 
-        // Retrieve result
-        virtual World* getWorld();
-
+        /** Gets the ContentManager that is being used,
+         * @return the used ContentManager.
+         */
         virtual ContentManager* getContentManager();
+
+
+        /** Retrieves the constructed world.
+         * @return Constructed world.
+         */
+        virtual World* getWorld();
 
     protected:
         // Helper methods
@@ -87,9 +102,14 @@ class LevelBuilder
         virtual bool loadFont(string &path, Font *&font);
         virtual void getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY);
 
+        void addSheepPath(string sheepPath);
+        string getSheepPath(int index);
+        int getSheepPathCount();
+
     private:
         World *world;
         ContentManager *content;
+        set<string> sheepPaths;
 };
 
 struct LevelDescription

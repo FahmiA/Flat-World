@@ -3,19 +3,20 @@
 
 #include "LevelBuilder.hpp"
 
-class LevelBuilderXML : public LevelBuilder
+class LevelBuilderStd : public LevelBuilder
 {
     public:
         // Construct and Destruct
-        LevelBuilderXML(World *world, ContentManager *content);
-        virtual ~LevelBuilderXML();
+        LevelBuilderStd(World *world, ContentManager *content);
+        virtual ~LevelBuilderStd();
 
         // Buider methods
 
         bool setBackground(LevelDescription *levelDesc);
         bool addIsland(IslandDescription *islandDesc);
         bool setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc);
-        bool addSheep(UnitDescription *sheepDesc, IslandDescription *islandDesc);
+        bool addSheep(UnitDescription *sheepDesc, Island *island);
+        bool addRandomSheep();
         bool addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc);
         bool addStar(PickupDescription *pickupDesc, IslandDescription *islandDesc,
                      float angle);

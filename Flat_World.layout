@@ -14,16 +14,16 @@
 		<Cursor position="617" topLine="0" />
 	</File>
 	<File name="actors\Character.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="694" topLine="7" />
+		<Cursor position="2197" topLine="76" />
 	</File>
 	<File name="actors\Character.hpp" open="0" top="0" tabpos="3">
-		<Cursor position="1827" topLine="45" />
+		<Cursor position="1827" topLine="0" />
 	</File>
 	<File name="actors\Dog.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1705" topLine="58" />
+		<Cursor position="2411" topLine="76" />
 	</File>
 	<File name="actors\Dog.hpp" open="1" top="0" tabpos="2">
-		<Cursor position="98" topLine="0" />
+		<Cursor position="56" topLine="0" />
 	</File>
 	<File name="actors\Player.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="2026" topLine="51" />
@@ -52,23 +52,23 @@
 	<File name="gameIO\ContentManager.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="1299" topLine="0" />
 	</File>
-	<File name="gameIO\LevelBuilder.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="41" topLine="2" />
+	<File name="gameIO\LevelBuilder.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="2835" topLine="83" />
 	</File>
-	<File name="gameIO\LevelBuilder.hpp" open="0" top="0" tabpos="5">
-		<Cursor position="216" topLine="3" />
+	<File name="gameIO\LevelBuilder.hpp" open="1" top="0" tabpos="3">
+		<Cursor position="4233" topLine="81" />
 	</File>
-	<File name="gameIO\LevelBuilderXML.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="109" topLine="2" />
+	<File name="gameIO\LevelBuilderStd.cpp" open="1" top="0" tabpos="6">
+		<Cursor position="4409" topLine="116" />
 	</File>
-	<File name="gameIO\LevelBuilderXML.hpp" open="0" top="0" tabpos="4">
-		<Cursor position="181" topLine="0" />
+	<File name="gameIO\LevelBuilderStd.hpp" open="0" top="0" tabpos="4">
+		<Cursor position="228" topLine="0" />
 	</File>
-	<File name="gameIO\LevelLoader.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="5246" topLine="179" />
+	<File name="gameIO\LevelLoader.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="4083" topLine="138" />
 	</File>
 	<File name="gameIO\LevelLoader.hpp" open="0" top="0" tabpos="1">
-		<Cursor position="88" topLine="0" />
+		<Cursor position="988" topLine="17" />
 	</File>
 	<File name="game\GameObject.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="131" topLine="0" />
@@ -79,14 +79,14 @@
 	<File name="game\ID.hpp" open="0" top="0" tabpos="6">
 		<Cursor position="145" topLine="0" />
 	</File>
-	<File name="game\World.cpp" open="0" top="0" tabpos="7">
-		<Cursor position="88" topLine="2" />
+	<File name="game\World.cpp" open="1" top="0" tabpos="7">
+		<Cursor position="1873" topLine="61" />
 	</File>
 	<File name="game\World.hpp" open="0" top="0" tabpos="5">
-		<Cursor position="78" topLine="0" />
+		<Cursor position="437" topLine="5" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="309" topLine="0" />
+		<Cursor position="597" topLine="0" />
 	</File>
 	<File name="pickups\Star.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="33" topLine="0" />

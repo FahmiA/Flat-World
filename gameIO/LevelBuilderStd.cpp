@@ -1,8 +1,9 @@
-#include "LevelBuilderXML.hpp"
+#include "LevelBuilderStd.hpp"
 
 #include "util/AnimatedSprite.hpp"
 #include "pickups/Star.hpp"
 #include "GUI/HUD.hpp"
+#include "game/ID.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -23,19 +24,16 @@ using namespace std;
 #define PLAYER_HEIGHT 85
 #define PLAYER_SPEED 500
 
-//#define RADIANS_TO_DEGREES(radianAngle) (radianAngle * (180.0f / M_PI))
-//#define DEGREES_TO_RADIANS(degreeAngle) (degreeAngle * (M_PI / 180.0f))
-
-LevelBuilderXML::LevelBuilderXML(World *world, ContentManager *content)
+LevelBuilderStd::LevelBuilderStd(World *world, ContentManager *content)
     : LevelBuilder(world, content)
 {
     sheepCount = 0;
     starCount = 0;
 }
 
-LevelBuilderXML::~LevelBuilderXML() { }
+LevelBuilderStd::~LevelBuilderStd() { }
 
-bool LevelBuilderXML::setBackground(LevelDescription *levelDesc)
+bool LevelBuilderStd::setBackground(LevelDescription *levelDesc)
 {
     bool addSuccess = false;
 
@@ -51,7 +49,7 @@ bool LevelBuilderXML::setBackground(LevelDescription *levelDesc)
     return addSuccess;
 }
 
-bool LevelBuilderXML::addIsland(IslandDescription *islandDesc)
+bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 {
     bool addSuccess = false;
     Sprite *sprite = new Sprite();
@@ -63,14 +61,14 @@ bool LevelBuilderXML::addIsland(IslandDescription *islandDesc)
     }else{
         Island *island = new Island(islandDesc->x, islandDesc->y, islandDesc->width, islandDesc->height, sprite);
         islandDesc->island = island; // Remember the island in the description
-        getWorld()->addLevelObject(island);
+        getWorld()->addIsland(island);
         addSuccess = true;
     }
 
     return addSuccess;
 }
 
-bool LevelBuilderXML::setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc)
+bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
     Sprite *playerSprite = new Sprite();
@@ -92,7 +90,7 @@ bool LevelBuilderXML::setPlayer(UnitDescription* playerDesc, IslandDescription *
     return addSuccess;
 }
 
-bool LevelBuilderXML::addSheep(UnitDescription *sheepDesc, IslandDescription *islandDesc)
+bool LevelBuilderStd::addSheep(UnitDescription *sheepDesc, Island *island)
 {
     bool addSuccess = false;
     AnimatedSprite *sprite = new AnimatedSprite();
@@ -105,7 +103,7 @@ bool LevelBuilderXML::addSheep(UnitDescription *sheepDesc, IslandDescription *is
     }else{
         Sheep *sheep;
         int x, y;
-        getPosition(islandDesc->island, sheepDesc->startAngle, SHEEP_WIDTH, SHEEP_HEIGHT, &x, &y);
+        getPosition(island, sheepDesc->startAngle, SHEEP_WIDTH, SHEEP_HEIGHT, &x, &y);
 
         sprite->setSpriteSheet(9, SHEEP_WIDTH, SHEEP_HEIGHT, 1, 0, 40);
         // Walk animation
@@ -114,6 +112,7 @@ bool LevelBuilderXML::addSheep(UnitDescription *sheepDesc, IslandDescription *is
         sheep = new Sheep(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
 
         getWorld()->addLevelObject(sheep);
+        addSheepPath(sheepDesc->imagePath);
         sheepCount++;
         addSuccess = true;
     }
@@ -121,7 +120,34 @@ bool LevelBuilderXML::addSheep(UnitDescription *sheepDesc, IslandDescription *is
     return addSuccess;
 }
 
-bool LevelBuilderXML::addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc)
+bool LevelBuilderStd::addRandomSheep()
+{
+    // Create the sheep description
+    UnitDescription sheepDesc;
+    sheepDesc.type = "sheep";
+    int imagePathIndex = sf::Randomizer::Random(0, getSheepPathCount() - 1);
+    sheepDesc.imagePath = getSheepPath(imagePathIndex);
+
+    // Find a random island to spawn the sheep on
+    list<Island*> &islands = *(getWorld()->getIslands());
+    Island *sheepIsland = 0;
+    int index = sf::Randomizer::Random(0, islands.size() - 1);
+    int count = 0;
+    for(list<Island*>::iterator it = islands.begin(); it != islands.end(); it++)
+    {
+        if(count == index)
+        {
+            sheepIsland = (Island*)(*it);
+            break;
+        }
+        count++;
+    }
+
+    // Add the sheep
+    addSheep(&sheepDesc, sheepIsland);
+}
+
+bool LevelBuilderStd::addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
     AnimatedSprite *sprite = new AnimatedSprite();
@@ -141,7 +167,7 @@ bool LevelBuilderXML::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
         sprite->addAnimation(ANIMATE_WALK, 0, 1, 4); // Walk animation
         sprite->addAnimation(ANIMATE_RUN, 0, 1, 4); // Run animation
         sprite->play(ANIMATE_RUN);
-        sheepdog = new Dog(x, y, DOG_WIDTH, DOG_HEIGHT, DOG_SPEED, sprite);
+        sheepdog = new Dog(x, y, DOG_WIDTH, DOG_HEIGHT, DOG_SPEED, sprite, this);
 
         getWorld()->addLevelObject(sheepdog);
         addSuccess = true;
@@ -150,7 +176,7 @@ bool LevelBuilderXML::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
     return addSuccess;
 }
 
-bool LevelBuilderXML::addStar(PickupDescription *pickupDesc, IslandDescription *islandDesc, float angle)
+bool LevelBuilderStd::addStar(PickupDescription *pickupDesc, IslandDescription *islandDesc, float angle)
 {
     bool addSuccess = false;
     Sprite *sprite = new Sprite();
@@ -175,7 +201,7 @@ bool LevelBuilderXML::addStar(PickupDescription *pickupDesc, IslandDescription *
     return addSuccess;
 }
 
-bool LevelBuilderXML::setHUD(string &sheepCornerPath, string &starCornerPath,
+bool LevelBuilderStd::setHUD(string &sheepCornerPath, string &starCornerPath,
                              string &sheepIconPath, string &starIconPath,
                              string &fontPath)
 {

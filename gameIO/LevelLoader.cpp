@@ -167,7 +167,7 @@ bool LevelLoader::buildWorld()
 
         if(unitDesc->type.compare(ATR_SHEEP) == 0)
         {
-            levelBuilder->addSheep(unitDesc, islandDesc);
+            levelBuilder->addSheep(unitDesc, islandDesc->island);
         }else if(unitDesc->type.compare(ATR_SHEEPDOG) == 0){
             levelBuilder->addSheepdog(unitDesc, islandDesc);
         }

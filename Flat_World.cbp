@@ -106,8 +106,8 @@
 		<Unit filename="gameIO\ContentManager.hpp" />
 		<Unit filename="gameIO\LevelBuilder.cpp" />
 		<Unit filename="gameIO\LevelBuilder.hpp" />
-		<Unit filename="gameIO\LevelBuilderXML.cpp" />
-		<Unit filename="gameIO\LevelBuilderXML.hpp" />
+		<Unit filename="gameIO\LevelBuilderStd.cpp" />
+		<Unit filename="gameIO\LevelBuilderStd.hpp" />
 		<Unit filename="gameIO\LevelLoader.cpp" />
 		<Unit filename="gameIO\LevelLoader.hpp" />
 		<Unit filename="game\GameObject.cpp" />

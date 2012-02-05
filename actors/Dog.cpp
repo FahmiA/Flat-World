@@ -3,16 +3,20 @@
 #include "game/ID.hpp"
 #include "Player.hpp"
 #include "util/CoordinateUtil.hpp"
+#include "gameIO/LevelBuilder.hpp"
 
 #include <iostream>
 using namespace std;
 
 #define DOG_MEMORY_S 3
 
-Dog::Dog(float x, float y, float width, float height, float speed, Sprite *sprite)
+Dog::Dog(float x, float y, float width, float height,
+         float speed, Sprite *sprite, LevelBuilder *levelBuilder)
     : Character(x, y, width, height, speed, sprite)
 {
     setID(ID_DOG);
+
+    this->levelBuilder = levelBuilder;
 
     state = new WonderState;
     timeSincePlayerSeen = -1;
@@ -30,7 +34,7 @@ void Dog::subUpdate(Clock *clock, RenderWindow *window, World *world)
     seekPlayer(clock->GetElapsedTime(), player);
 
     // Perform collision
-    checkPlayerCollide(player);
+    checkPlayerCollide(*world);
 
     // Dog attack behaviour
     /*if(coordUtil.collide(getSprite(), world->getPlayer()->getSprite()))
@@ -76,7 +80,7 @@ void Dog::seekPlayer(float elapsedTime, Player &player)
         if(timeSincePlayerSeen < 0)
         {
             cout << "DOG ANGREY!" << endl;
-
+            // TODO: Crash on DOG ANGREY!!
             delete state;
             state = new ChaseState(&player);
 
@@ -93,15 +97,20 @@ void Dog::seekPlayer(float elapsedTime, Player &player)
     }
 }
 
-void Dog::checkPlayerCollide(Player &player)
+void Dog::checkPlayerCollide(World &world)
 {
     // For perfromance, only check if we are in the atack state.
     if(timeSincePlayerSeen >= 0)
     {
         CoordinateUtil coordUtil;
+        Player &player = *(world.getPlayer());
         if(coordUtil.collide(getSprite(), player.getSprite()))
         {
+            // Indicate that an attack was made
             player.pushBack(getFacingDirection());
+
+            // Penalise the player by one sheep
+            levelBuilder->addRandomSheep();
         }
     }
 }

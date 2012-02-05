@@ -9,7 +9,7 @@
 
 #include "gameIO/ContentManager.hpp"
 #include "gameIO/LevelLoader.hpp"
-#include "gameIO/LevelBuilderXML.hpp"
+#include "gameIO/LevelBuilderStd.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
@@ -31,7 +31,7 @@ int main()
     World *world = new World();
 
     // Load the level
-    LevelBuilderXML levelBuilder(world, &content);
+    LevelBuilderStd levelBuilder(world, &content);
     LevelLoader levelLoader(&levelBuilder, &content);
 
     string xmlPath = "configuration\\levels\\level_1.xml";

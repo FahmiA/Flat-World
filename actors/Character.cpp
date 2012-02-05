@@ -91,17 +91,19 @@ void Character::findCurrentIsland(World *world)
     if(currentGround == 0)
     {
         // Loop through all islands
-        list<GameObject*>* objects = world->getObjects();
-        for(list<GameObject*>::iterator it = objects->begin(); it != objects->end(); it++)
+        list<Island*>* islands = world->getIslands();
+        Island *island;
+        for(list<Island*>::iterator it = islands->begin(); it != islands->end(); it++)
         {
-            if((*it)->getID() == ID_ISLAND && prevGround != *it) // Ignore the previous ground
+            island = *it;
+            if(prevGround != island) // Ignore the previous ground
             {
                 // Check if the charcter is close to the island
-                if(coordUtil.collide(sprite, ((Island*)(*it))->getSprite()))
+                if(coordUtil.collide(sprite, island->getSprite()))
                 {
                     // Mark the new ground as the current ground
                     prevGround = currentGround;
-                    currentGround = (Island*)(*it);
+                    currentGround = island;
 
                     // Rotate to the new ground
                     float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y, currentGround->getPosition().x - sprite->GetPosition().x);

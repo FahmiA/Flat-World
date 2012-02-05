@@ -9,6 +9,7 @@ World::World()
     hud = 0;
     player = 0;
     levelObjects = new list<GameObject*>();
+    islands = new list<Island*>();
     gameCamera = 0;
     hudCamera = new StaticCamera();
     background = 0;
@@ -20,6 +21,7 @@ World::~World()
     delete player;
     delete background;
     delete levelObjects;
+    delete islands;
 }
 
 void World::addLevelObject(GameObject *gameObject)
@@ -30,6 +32,16 @@ void World::addLevelObject(GameObject *gameObject)
 void World::removeLevelObject(GameObject *gameObject)
 {
     levelObjects->remove(gameObject);
+}
+
+void World::addIsland(Island *island)
+{
+    islands->push_back(island);
+}
+
+void World::removeIsland(Island *island)
+{
+    islands->remove(island);
 }
 
 Player* World::getPlayer()
@@ -45,6 +57,11 @@ void World::setPlayer(Player *player)
 list<GameObject*>* World::getObjects()
 {
     return levelObjects;
+}
+
+list<Island*>* World::getIslands()
+{
+    return islands;
 }
 
 void World::setCamera(Camera *camera)
@@ -69,6 +86,11 @@ void World::setBackground(Sprite *background)
 
 void World::update(Clock *clock, RenderWindow *window)
 {
+    for(list<Island*>::iterator it = islands->begin(); it != islands->end(); it++)
+    {
+        (*it)->update(clock, window, this);
+    }
+
     for(list<GameObject*>::iterator it = levelObjects->begin(); it != levelObjects->end(); it++)
     {
         (*it)->update(clock, window, this);
@@ -89,20 +111,30 @@ void World::draw(RenderWindow *window)
     // Render game content with the game camera
     gameCamera->activate(window);
 
+    // Draw the backround
     if(background != 0)
         window->Draw(*background);
 
+    // Draw the islands
+    for(list<Island*>::iterator it = islands->begin(); it != islands->end(); it++)
+    {
+        (*it)->draw(window);
+    }
+
+    // Draw the game objects
     for(list<GameObject*>::iterator it = levelObjects->begin(); it != levelObjects->end(); it++)
     {
         (*it)->draw(window);
     }
 
+    // Draw the player
     if(player != 0)
         player->draw(window);
 
     // Render HUD content with the HUD camera
     hudCamera->activate(window);
 
+    // Draw the HUD
     if(hud != 0)
         hud->draw(window);
 }

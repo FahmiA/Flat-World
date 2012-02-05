@@ -444,7 +444,7 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1328392511 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
+1328471612 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
 	"Character.hpp"
 	"util/NumberUtil.hpp"
 	"game/ID.hpp"
@@ -460,7 +460,7 @@
 	"util/Commons.hpp"
 	<SFML/Graphics.hpp>
 
-1328392587 c:\users\fahmi\documents\game development\flat_world\game\world.hpp
+1328469584 c:\users\fahmi\documents\game development\flat_world\game\world.hpp
 	"game/GameObject.hpp"
 	"scene/Camera.hpp"
 	<list>
@@ -482,7 +482,7 @@
 
 1325308871 c:\users\fahmi\documents\game development\flat_world\game\id.hpp
 
-1328392585 source:c:\users\fahmi\documents\game development\flat_world\actors\player.cpp
+1328408989 source:c:\users\fahmi\documents\game development\flat_world\actors\player.cpp
 	"Player.hpp"
 	"game/ID.hpp"
 	"util/CoordinateUtil.hpp"
@@ -515,7 +515,7 @@
 	<string>
 	<map>
 
-1326577409 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
+1328415910 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
 	"LevelLoader.hpp"
 
 1328392587 c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.hpp
@@ -550,13 +550,13 @@
 1310115302 source:c:\users\fahmi\documents\game development\flat_world\game\gameobject.cpp
 	"GameObject.hpp"
 
-1328392587 source:c:\users\fahmi\documents\game development\flat_world\game\world.cpp
+1328469638 source:c:\users\fahmi\documents\game development\flat_world\game\world.cpp
 	"World.hpp"
 	"actors/Player.hpp"
 	"GUI/HUD.hpp"
 	"scene/StaticCamera.hpp"
 
-1325918942 source:c:\users\fahmi\documents\game development\flat_world\main.cpp
+1328412442 source:c:\users\fahmi\documents\game development\flat_world\main.cpp
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"scene/SteadyCamera.hpp"
@@ -565,7 +565,7 @@
 	"actors/Sheep.hpp"
 	"gameIO/ContentManager.hpp"
 	"gameIO/LevelLoader.hpp"
-	"gameIO/LevelBuilderXML.hpp"
+	"gameIO/LevelBuilderStd.hpp"
 	<SFML/Graphics.hpp>
 	<iostream>
 
@@ -611,16 +611,17 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1328392583 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
+1328468881 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
 	"Dog.hpp"
 	"game/ID.hpp"
 	"Player.hpp"
 	"util/CoordinateUtil.hpp"
+	"gameIO/LevelBuilder.hpp"
 	<iostream>
 
-1328392585 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
-	"Character.hpp"
-	"ActorStates.hpp"
+1328413380 c:\users\fahmi\documents\game development\flat_world\actors\dog.hpp
+	"actors/Character.hpp"
+	"actors/ActorStates.hpp"
 	"util/AnimatedSprite.hpp"
 
 1327726128 c:\users\fahmi\documents\game development\flat_world\actors\actorstates.hpp
@@ -656,17 +657,19 @@
 	<stdio.h>
 	<iostream>
 
-1328392586 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
+1328416124 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
 	"game/World.hpp"
 	"gameIO/ContentManager.hpp"
 	"environment/Island.hpp"
 	"actors/Sheep.hpp"
 	"actors/Dog.hpp"
 	"actors/Player.hpp"
+	<set>
 
-1328392586 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
+1328416096 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
 	"LevelBuilder.hpp"
 	"util/SpriteUtil.hpp"
+	"util/NumberUtil.hpp"
 	<stdio.h>
 	<iostream>
 
@@ -1097,4 +1100,16 @@
 	<iostream>
 
 1328408327 c:\users\fahmi\documents\game development\flat_world\util\commons.hpp
+
+1328469427 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.cpp
+	"LevelBuilderStd.hpp"
+	"util/AnimatedSprite.hpp"
+	"pickups/Star.hpp"
+	"GUI/HUD.hpp"
+	"game/ID.hpp"
+	<stdio.h>
+	<iostream>
+
+1328415865 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.hpp
+	"LevelBuilder.hpp"
 

@@ -1,6 +1,7 @@
 #include "LevelBuilder.hpp"
 
 #include "util/SpriteUtil.hpp"
+#include "util/NumberUtil.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -91,3 +92,31 @@ ContentManager* LevelBuilder::getContentManager()
     return content;
 }
 
+void LevelBuilder::addSheepPath(string sheepPath)
+{
+    sheepPaths.insert(sheepPath);
+}
+
+string LevelBuilder::getSheepPath(int index)
+{
+    clamp(index, 0, sheepPaths.size() - 1);
+
+    int count = 0;
+    string sheepPath = "";
+    for(set<string>::iterator it = sheepPaths.begin(); it != sheepPaths.end(); it++)
+    {
+        if(count == index)
+        {
+            sheepPath = *it;
+            break;
+        }else{
+            count++;
+        }
+    }
+    return sheepPath;
+}
+
+int LevelBuilder::getSheepPathCount()
+{
+    return sheepPaths.size();
+}

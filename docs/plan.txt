@@ -11,7 +11,7 @@ Planned:
 	* As a user, I want sheepdogs to attack me so the game is more challenging and promotes more strategy.
 		- Dog chases player - DONE
 		- Player gets pushed/thrown backwards by dog attack - DONE
-		- Dog forgets player after attack (no needed)
+		- Dog forgets player after attack (not needed)
 		- Player loses one Sheep from dog attack.
 
 	* As a user, I want to collect stars to ensure I am constantly rewarded for navigating a level.
