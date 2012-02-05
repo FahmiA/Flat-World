@@ -30,6 +30,7 @@ class World
 
         HUD* getHud();
         void setHud(HUD *hud);
+        int getSheepCaptured();
 
         void setBackground(Sprite *background);
 

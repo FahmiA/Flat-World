@@ -2,6 +2,7 @@
 
 #include "game/ID.hpp"
 #include "Player.hpp"
+#include "GUI/HUD.hpp"
 #include "util/CoordinateUtil.hpp"
 #include "gameIO/LevelBuilder.hpp"
 
@@ -35,16 +36,6 @@ void Dog::subUpdate(Clock *clock, RenderWindow *window, World *world)
 
     // Perform collision
     checkPlayerCollide(*world);
-
-    // Dog attack behaviour
-    /*if(coordUtil.collide(getSprite(), world->getPlayer()->getSprite()))
-    {
-        // Push player back
-
-        // Remove one Sheep from player
-
-        // Spawn one sheep into world
-    }*/
 
     // Update the state
     state->performAction(this, clock);
@@ -110,7 +101,11 @@ void Dog::checkPlayerCollide(World &world)
             player.pushBack(getFacingDirection());
 
             // Penalise the player by one sheep
-            levelBuilder->addRandomSheep();
+            if(world.getSheepCaptured() > 0)
+            {
+                levelBuilder->addRandomSheep();
+                world.getHud()->removeSheep(1);
+            }
         }
     }
 }

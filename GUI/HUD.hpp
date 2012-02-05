@@ -25,11 +25,13 @@ class HUD : public GameObject
 
         void addSheep(int amount);
         void addStars(int amount);
+        void removeSheep(int amount);
+        void removeStars(int amount);
 
         int getSheepTotal();
         int getSheepCount();
 
-        int getStarTotoal();
+        int getStarTotal();
         int getStarCount();
 
         void update(Clock *clock, RenderWindow *window, World *world);

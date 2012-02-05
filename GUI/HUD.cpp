@@ -111,6 +111,50 @@ void HUD::addStars(int amount)
     starText->SetText(get_ratio_string(starCount, starTotal));
 }
 
+void HUD::removeSheep(int amount)
+{
+    // Increment the sheep count
+    sheepCount -= abs(amount);
+
+    // Ensure that sheepCount does not fall below the minimum number of sheep
+    clamp(sheepCount, 0, sheepTotal);
+
+    // Update the visible text
+    sheepText->SetText(get_ratio_string(sheepCount, sheepTotal));
+}
+
+void HUD::removeStars(int amount)
+{
+    // Increment the star count
+    starCount -= abs(amount);
+
+    // Ensure that starCount does not fall below the minimum number of stars
+    clamp(starCount, 0, starTotal);
+
+    // Update the visible text
+    starText->SetText(get_ratio_string(starCount, starTotal));
+}
+
+int HUD::getSheepTotal()
+{
+    return sheepTotal;
+}
+
+int HUD::getSheepCount()
+{
+    return sheepCount;
+}
+
+int HUD::getStarTotal()
+{
+    return starTotal;
+}
+
+int HUD::getStarCount()
+{
+    return starCount;
+}
+
 void HUD::update(Clock *clock, RenderWindow *window, World *world)
 {
     // Nothing needs to be updated

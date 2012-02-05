@@ -79,6 +79,15 @@ void World::setHud(HUD *hud)
     this->hud = hud;
 }
 
+int World::getSheepCaptured()
+{
+    int count = -1;
+    if(hud != 0)
+        count = hud->getSheepCount();
+
+    return count;
+}
+
 void World::setBackground(Sprite *background)
 {
     this->background = background;
