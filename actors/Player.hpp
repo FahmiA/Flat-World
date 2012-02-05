@@ -18,6 +18,13 @@ class Player: public Character
          */
         void pushBack(Direction pushDirection);
 
+        /** Gets the direction the player is being pushed back.
+         * "Left" or "Right" if the player is being pushed back.
+         * "None" if the player is not being pushed back.
+         * @return Direction of push or "None" if not being pushed.
+         */
+        Direction getPushDirection();
+
     private:
         Direction pushedBackDirection;
         float pushBackTimeSecs;

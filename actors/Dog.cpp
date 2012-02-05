@@ -97,14 +97,18 @@ void Dog::checkPlayerCollide(World &world)
         Player &player = *(world.getPlayer());
         if(coordUtil.collide(getSprite(), player.getSprite()))
         {
-            // Indicate that an attack was made
-            player.pushBack(getFacingDirection());
-
-            // Penalise the player by one sheep
-            if(world.getSheepCaptured() > 0)
+            // Only push the Player back if the player is not already being pushed back
+            if(player.getPushDirection() == None)
             {
-                levelBuilder->addRandomSheep();
-                world.getHud()->removeSheep(1);
+                 // Indicate that an attack was made
+                player.pushBack(getFacingDirection());
+
+                // Penalise the player by one sheep
+                if(world.getSheepCaptured() > 0)
+                {
+                    levelBuilder->addRandomSheep();
+                    world.getHud()->removeSheep(1);
+                }
             }
         }
     }

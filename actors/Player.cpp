@@ -47,6 +47,11 @@ void Player::pushBack(Direction pushDirection)
     pushedBackDirection = pushDirection;
 }
 
+Direction Player::getPushDirection()
+{
+    return pushedBackDirection;
+}
+
 void Player::doActionNormal(RenderWindow *window)
 {
     const Input &input = window->GetInput();

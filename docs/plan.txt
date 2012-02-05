@@ -12,7 +12,7 @@ Planned:
 		- Dog chases player - DONE
 		- Player gets pushed/thrown backwards by dog attack - DONE
 		- Dog forgets player after attack (not needed)
-		- Player loses one Sheep from dog attack.
+		- Player loses one Sheep from dog attack. - DONE
 
 	* As a user, I want to collect stars to ensure I am constantly rewarded for navigating a level.
 		- Spawn stars into levels
