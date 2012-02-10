@@ -2,10 +2,10 @@
 <CodeBlocks_layout_file>
 	<ActiveTarget name="Debug" />
 	<File name="GUI\HUD.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="4139" topLine="128" />
+		<Cursor position="4077" topLine="128" />
 	</File>
-	<File name="GUI\HUD.hpp" open="0" top="0" tabpos="5">
-		<Cursor position="954" topLine="15" />
+	<File name="GUI\HUD.hpp" open="1" top="0" tabpos="2">
+		<Cursor position="775" topLine="15" />
 	</File>
 	<File name="actors\ActorStates.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="391" topLine="0" />
@@ -25,8 +25,8 @@
 	<File name="actors\Dog.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="56" topLine="0" />
 	</File>
-	<File name="actors\Player.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="987" topLine="3" />
+	<File name="actors\Player.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="3182" topLine="90" />
 	</File>
 	<File name="actors\Player.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="909" topLine="0" />
@@ -58,7 +58,7 @@
 	<File name="gameIO\LevelBuilder.hpp" open="0" top="0" tabpos="3">
 		<Cursor position="2336" topLine="40" />
 	</File>
-	<File name="gameIO\LevelBuilderStd.cpp" open="1" top="0" tabpos="1">
+	<File name="gameIO\LevelBuilderStd.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="381" topLine="0" />
 	</File>
 	<File name="gameIO\LevelBuilderStd.hpp" open="0" top="0" tabpos="2">
@@ -80,7 +80,7 @@
 		<Cursor position="125" topLine="0" />
 	</File>
 	<File name="game\World.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="1384" topLine="66" />
+		<Cursor position="1273" topLine="66" />
 	</File>
 	<File name="game\World.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="114" topLine="0" />
@@ -88,7 +88,7 @@
 	<File name="main.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="597" topLine="0" />
 	</File>
-	<File name="pickups\Star.cpp" open="1" top="1" tabpos="2">
+	<File name="pickups\Star.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="306" topLine="0" />
 	</File>
 	<File name="pickups\Star.hpp" open="0" top="0" tabpos="2">

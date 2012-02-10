@@ -2,7 +2,7 @@ Planned:
 	* As a user, I want to see my level progress in a HUD so I can understand how well I have done.
 		- Implement HUD display - DONE
 			- Ensure ContentManager is updated to manage fonts as well as sprites.- DONE
-		- Syncronise HUD with game state
+		- Syncronise HUD with game state - DONE
 
 	* As a user, I want to be able to catch sheep.
 		- Player can catch sheep - DONE
@@ -15,6 +15,6 @@ Planned:
 		- Player loses one Sheep from dog attack. - DONE
 
 	* As a user, I want to collect stars to ensure I am constantly rewarded for navigating a level.
-		- Spawn stars into levels
-		- Allow player to capture stars on touch.
-		- Update HUD on star capture
+		- Spawn stars into levels - DONE
+		- Allow player to capture stars on touch - DONE
+		- Update HUD on star capture - DONE

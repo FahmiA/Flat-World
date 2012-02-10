@@ -3,6 +3,7 @@
 #include "game/ID.hpp"
 #include "util/CoordinateUtil.hpp"
 #include "GUI/HUD.hpp"
+#include "pickups/Star.hpp"
 
 #include <iostream>
 using namespace std;
@@ -21,17 +22,6 @@ Player::~Player() {}
 
 void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
-    // DEBUG: Invoke or cancel an attack from a sheepdog
-    if(window->GetInput().IsKeyDown(Key::A))
-    {
-        pushBack(Left);
-    }
-    // DEBUG: Invoke or cancel an attack from a sheepdog
-    if(window->GetInput().IsKeyDown(Key::S))
-    {
-        pushBack(Right);
-    }
-
     if(pushedBackDirection != None)
     {
         doActionPushBack(clock->GetElapsedTime());
@@ -100,20 +90,35 @@ Character* Player::check_unit_collide(World *world)
         GameObject *gameObject = (*it);
         int id = gameObject->getID();
 
-        if(id == ID_SHEEP || id == ID_DOG)
+        // Check for sheep to capture
+        if(id == ID_SHEEP)
         {
-            Character* character = (Character*)gameObject;
+            Character *character = (Character*)gameObject;
             if(cordUtil.collide(getSprite(), character->getSprite()))
             {
-                if(id == ID_SHEEP)
-                {
-                    // Remove the item
-                    world->removeLevelObject(character);
+                // Remove the item
+                world->removeLevelObject(character);
 
-                    // Update the HUD
-                    HUD* hud = world->getHud();
-                    hud->addSheep(1);
-                }
+                // Update the HUD
+                HUD* hud = world->getHud();
+                hud->addSheep(1);
+
+                break;
+            }
+        }
+
+        // Check for star to capture
+        if(id == ID_STAR)
+        {
+            Star *star = (Star*)gameObject;
+            if(cordUtil.collide(getSprite(), star->getSprite()))
+            {
+                // Remove the item
+                world->removeLevelObject(star);
+
+                // Update the HUD
+                HUD* hud = world->getHud();
+                hud->addStars(1);
 
                 break;
             }
