@@ -27,7 +27,7 @@
 				<ExtraCommands>
 					<Add after="cp -u libraries/debug/lib/*.dll bin/Debug" />
 					<Add after="cp -ru media  bin/Debug/media" />
-					<Add after="cp -ru configuration bin\Debug\configuration" />
+					<Add after="cp -ru configuration bin/Debug" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
@@ -50,9 +50,10 @@
 					<Add option="-lsfml-system" />
 				</Linker>
 				<ExtraCommands>
-					<Add after="xcopy libs\release bin\Release /E /I /Y" />
-					<Add after="xcopy media bin\Release\media /E /I /Y" />
-					<Add after="xcopy configuration bin\Release\configuration /E /I /Y" />
+					<Add after="cp -u libraries/release/lib/*.dll bin/Release" />
+					<Add after="cp -ru media  bin/Release/media" />
+					<Add after="cp -ru configuration bin/Release" />
+					<Mode after="always" />
 				</ExtraCommands>
 			</Target>
 			<Target title="UnitTest">
@@ -78,7 +79,7 @@
 				<ExtraCommands>
 					<Add after="cp -u libraries/debug/lib/*.dll bin/UnitTest" />
 					<Add after="cp -ru media  bin/UnitTest/media" />
-					<Add after="cp -ru configuration bin\UnitTest\configuration" />
+					<Add after="cp -ru configuration bin/UnitTest" />
 					<Mode after="always" />
 				</ExtraCommands>
 			</Target>

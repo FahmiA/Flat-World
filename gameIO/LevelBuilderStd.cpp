@@ -17,7 +17,7 @@ using namespace std;
 #define DOG_HEIGHT 42
 #define DOG_SPEED 300
 
-#define STAR_WIDTH 40
+#define STAR_WIDTH 39
 #define STAR_HEIGHT 40
 
 #define PLAYER_WIDTH 68
@@ -178,6 +178,7 @@ bool LevelBuilderStd::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
 
 bool LevelBuilderStd::addStar(PickupDescription *pickupDesc, IslandDescription *islandDesc, float angle)
 {
+    cout << pickupDesc->imagePath <<  endl;
     bool addSuccess = false;
     Sprite *sprite = new Sprite();
 

@@ -444,7 +444,7 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1328471612 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
+1328900445 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
 	"Character.hpp"
 	"util/NumberUtil.hpp"
 	"game/ID.hpp"
@@ -452,7 +452,7 @@
 	<math.h>
 	<list>
 
-1328408940 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
+1328480218 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"util/CoordinateUtil.hpp"
@@ -611,7 +611,7 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1328472899 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
+1328479909 source:c:\users\fahmi\documents\game development\flat_world\actors\dog.cpp
 	"Dog.hpp"
 	"game/ID.hpp"
 	"Player.hpp"
@@ -674,12 +674,12 @@
 	<stdio.h>
 	<iostream>
 
-1328392587 source:c:\users\fahmi\documents\game development\flat_world\pickups\star.cpp
+1328900649 source:c:\users\fahmi\documents\game development\flat_world\pickups\star.cpp
 	"Star.hpp"
 	"game/ID.hpp"
 
-1328392588 c:\users\fahmi\documents\game development\flat_world\pickups\star.hpp
-	"game/GameObject.hpp"
+1328480354 c:\users\fahmi\documents\game development\flat_world\pickups\star.hpp
+	"actors/Character.hpp"
 	<SFML/Graphics.hpp>
 
 1328473023 source:c:\users\fahmi\documents\game development\flat_world\gui\hud.cpp
@@ -1102,7 +1102,7 @@
 
 1328408327 c:\users\fahmi\documents\game development\flat_world\util\commons.hpp
 
-1328471748 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.cpp
+1328901435 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.cpp
 	"LevelBuilderStd.hpp"
 	"util/AnimatedSprite.hpp"
 	"pickups/Star.hpp"

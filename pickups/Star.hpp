@@ -1,26 +1,18 @@
 #ifndef STAR_H
 #define STAR_H
 
-#include "game/GameObject.hpp"
+#include "actors/Character.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
-class Star : public GameObject
+class Star : public Character
 {
     public:
         Star(float x, float y, float width, float height, Sprite *sprite);
         virtual ~Star();
 
-        void update(Clock *clock, RenderWindow *window, World *world);
-        void draw(RenderWindow *window);
-
-        const Vector2f& getPosition();
-        const Vector2f& getSize();
-        float getRotation();
-        Sprite* getSprite();
-
-    protected:
+        void subUpdate(Clock *clock, RenderWindow *window, World *world);
 
     private:
         Sprite *sprite;

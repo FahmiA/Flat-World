@@ -12,10 +12,12 @@ Character::Character(float x, float y, float width, float height, float speed, S
 {
     this->speed = speed;
 
-    sprite->SetCenter(sprite->GetSize().x/2, sprite->GetSize().y/2);
+    sprite->Resize(width, height);
+    //sprite->SetCenter(sprite->GetSize().x/2, sprite->GetSize().y/2);
+    sprite->SetCenter(width/2, height/2);
     sprite->SetX(x);
     sprite->SetY(y);
-    sprite->Resize(width, height);
+
     this->sprite = sprite;
 
     currentGround = 0;

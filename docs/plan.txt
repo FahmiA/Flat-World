@@ -16,5 +16,5 @@ Planned:
 
 	* As a user, I want to collect stars to ensure I am constantly rewarded for navigating a level.
 		- Spawn stars into levels
-		- Allow player to capture star on touch.
+		- Allow player to capture stars on touch.
 		- Update HUD on star capture
