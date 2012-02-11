@@ -3,10 +3,16 @@
 
 #include "LevelBuilder.hpp"
 
+/** Constructs a standard game world.
+ * Concrete Builder in the Builder design pattern.
+ */
 class LevelBuilderStd : public LevelBuilder
 {
     public:
-        // Construct and Destruct
+        /** Creates a new LevelBuilderStd.
+         * @param world A reference to the game world to build.
+         * @param content The ContentManager to use for loading external assets.
+         */
         LevelBuilderStd(World *world, ContentManager *content);
         virtual ~LevelBuilderStd();
 

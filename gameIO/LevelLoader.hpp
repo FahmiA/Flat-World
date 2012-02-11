@@ -13,12 +13,20 @@
 #include <iostream>
 using namespace std;
 
+/** Constructs a game world based on an XML document.
+ * Director in the Builder design pattern.
+ */
 class LevelLoader
 {
     public:
+        /** Creates a new LevelLoader.
+         * @param levelBuilder The LevelBuilder to use to construct the desired type of world.
+         * @param content The ContentManager to use for loading external assets.
+         */
         LevelLoader(LevelBuilder *levelBuilder, ContentManager *content);
         virtual ~LevelLoader();
 
+        /** Constructs a game world as described by an XML document. */
         bool loadWorld(string &xmlPath);
 
     private:

@@ -3,6 +3,9 @@
 
 #include "Camera.hpp"
 
+/** A camera that does not move from its current position.
+ * Useful for displaying static images such as the HUD.
+ */
 class StaticCamera : public Camera
 {
     public:

@@ -1,4 +1,4 @@
-#include "Dog.hpp"
+#include "Sheepdog.hpp"
 
 #include "game/ID.hpp"
 #include "Player.hpp"
@@ -11,7 +11,7 @@ using namespace std;
 
 #define DOG_MEMORY_S 3
 
-Dog::Dog(float x, float y, float width, float height,
+Sheepdog::Sheepdog(float x, float y, float width, float height,
          float speed, Sprite *sprite, LevelBuilder *levelBuilder)
     : Character(x, y, width, height, speed, sprite)
 {
@@ -23,12 +23,12 @@ Dog::Dog(float x, float y, float width, float height,
     timeSincePlayerSeen = -1;
 }
 
-Dog::~Dog()
+Sheepdog::~Sheepdog()
 {
     delete state;
 }
 
-void Dog::subUpdate(Clock *clock, RenderWindow *window, World *world)
+void Sheepdog::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
     Player &player = *(world->getPlayer());
     // Execute AI
@@ -44,7 +44,7 @@ void Dog::subUpdate(Clock *clock, RenderWindow *window, World *world)
     ((AnimatedSprite*)getSprite())->update(clock);
 }
 
-void Dog::seekPlayer(float elapsedTime, Player &player)
+void Sheepdog::seekPlayer(float elapsedTime, Player &player)
 {
     // Change to a chassing state when the player is in the field of view (FOV)
     float fovAngle = 0.5;
@@ -88,7 +88,7 @@ void Dog::seekPlayer(float elapsedTime, Player &player)
     }
 }
 
-void Dog::checkPlayerCollide(World &world)
+void Sheepdog::checkPlayerCollide(World &world)
 {
     // For perfromance, only check if we are in the atack state.
     if(timeSincePlayerSeen >= 0)

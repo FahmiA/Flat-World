@@ -297,7 +297,9 @@ const Vector2f& Character::getSize()
 
 float Character::getRotation()
 {
-    return sprite->GetRotation();
+    float rotation = sprite->GetRotation();
+    rotation *= M_PI / 180.0f;
+    return rotation;
 }
 
 Sprite* Character::getSprite()

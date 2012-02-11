@@ -3,6 +3,9 @@
 
 #include "Camera.hpp"
 
+/** A camera that follows the player.
+ * Steady because it does not rotate with the player.
+ */
 class SteadyCamera: public Camera
 {
     public:

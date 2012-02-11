@@ -4,38 +4,38 @@
 	<File name="GUI\HUD.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="4077" topLine="128" />
 	</File>
-	<File name="GUI\HUD.hpp" open="1" top="0" tabpos="2">
-		<Cursor position="775" topLine="15" />
+	<File name="GUI\HUD.hpp" open="0" top="0" tabpos="2">
+		<Cursor position="3682" topLine="79" />
 	</File>
 	<File name="actors\ActorStates.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="391" topLine="0" />
+		<Cursor position="745" topLine="11" />
 	</File>
 	<File name="actors\ActorStates.hpp" open="0" top="0" tabpos="5">
-		<Cursor position="617" topLine="0" />
+		<Cursor position="952" topLine="0" />
 	</File>
 	<File name="actors\Character.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="436" topLine="162" />
+		<Cursor position="10366" topLine="269" />
 	</File>
 	<File name="actors\Character.hpp" open="0" top="0" tabpos="3">
-		<Cursor position="337" topLine="0" />
+		<Cursor position="3991" topLine="0" />
 	</File>
-	<File name="actors\Dog.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="414" topLine="0" />
-	</File>
-	<File name="actors\Dog.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="56" topLine="0" />
-	</File>
-	<File name="actors\Player.cpp" open="1" top="1" tabpos="1">
+	<File name="actors\Player.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="3182" topLine="90" />
 	</File>
 	<File name="actors\Player.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="909" topLine="0" />
+		<Cursor position="143" topLine="1" />
 	</File>
 	<File name="actors\Sheep.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="244" topLine="0" />
 	</File>
 	<File name="actors\Sheep.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="102" topLine="0" />
+		<Cursor position="145" topLine="0" />
+	</File>
+	<File name="actors\Sheepdog.cpp" open="0" top="0" tabpos="1">
+		<Cursor position="2557" topLine="76" />
+	</File>
+	<File name="actors\Sheepdog.hpp" open="0" top="0" tabpos="2">
+		<Cursor position="365" topLine="6" />
 	</File>
 	<File name="configuration\levels\level_1.xml" open="0" top="0" tabpos="3">
 		<Cursor position="1012" topLine="17" />
@@ -44,46 +44,46 @@
 		<Cursor position="35" topLine="0" />
 	</File>
 	<File name="environment\Island.hpp" open="0" top="0" tabpos="7">
-		<Cursor position="48" topLine="0" />
+		<Cursor position="202" topLine="0" />
 	</File>
 	<File name="gameIO\ContentManager.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="305" topLine="0" />
 	</File>
 	<File name="gameIO\ContentManager.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="1299" topLine="0" />
+		<Cursor position="618" topLine="4" />
 	</File>
 	<File name="gameIO\LevelBuilder.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="2544" topLine="0" />
+		<Cursor position="2781" topLine="83" />
 	</File>
-	<File name="gameIO\LevelBuilder.hpp" open="0" top="0" tabpos="3">
-		<Cursor position="2336" topLine="40" />
+	<File name="gameIO\LevelBuilder.hpp" open="1" top="1" tabpos="0">
+		<Cursor position="5039" topLine="96" />
 	</File>
 	<File name="gameIO\LevelBuilderStd.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="381" topLine="0" />
+		<Cursor position="5251" topLine="141" />
 	</File>
 	<File name="gameIO\LevelBuilderStd.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="601" topLine="0" />
+		<Cursor position="446" topLine="0" />
 	</File>
 	<File name="gameIO\LevelLoader.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="4807" topLine="162" />
 	</File>
 	<File name="gameIO\LevelLoader.hpp" open="0" top="0" tabpos="1">
-		<Cursor position="988" topLine="17" />
+		<Cursor position="651" topLine="0" />
 	</File>
 	<File name="game\GameObject.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="131" topLine="0" />
 	</File>
-	<File name="game\GameObject.hpp" open="0" top="0" tabpos="3">
-		<Cursor position="1345" topLine="0" />
+	<File name="game\GameObject.hpp" open="0" top="0" tabpos="0">
+		<Cursor position="1429" topLine="0" />
 	</File>
 	<File name="game\ID.hpp" open="0" top="0" tabpos="6">
 		<Cursor position="125" topLine="0" />
 	</File>
 	<File name="game\World.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="1273" topLine="66" />
+		<Cursor position="1440" topLine="57" />
 	</File>
 	<File name="game\World.hpp" open="0" top="0" tabpos="5">
-		<Cursor position="114" topLine="0" />
+		<Cursor position="2990" topLine="71" />
 	</File>
 	<File name="main.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="597" topLine="0" />
@@ -92,31 +92,31 @@
 		<Cursor position="306" topLine="0" />
 	</File>
 	<File name="pickups\Star.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="346" topLine="0" />
+		<Cursor position="197" topLine="0" />
 	</File>
 	<File name="scene\Camera.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="286" topLine="0" />
 	</File>
 	<File name="scene\Camera.hpp" open="0" top="0" tabpos="8">
-		<Cursor position="382" topLine="0" />
+		<Cursor position="167" topLine="0" />
 	</File>
 	<File name="scene\ManualCamera.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="105" topLine="0" />
+		<Cursor position="358" topLine="0" />
 	</File>
 	<File name="scene\ManualCamera.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="71" topLine="0" />
+		<Cursor position="221" topLine="0" />
 	</File>
 	<File name="scene\StaticCamera.cpp" open="0" top="0" tabpos="5">
 		<Cursor position="88" topLine="0" />
 	</File>
 	<File name="scene\StaticCamera.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="148" topLine="0" />
+		<Cursor position="144" topLine="0" />
 	</File>
 	<File name="scene\SteadyCamera.cpp" open="0" top="0" tabpos="6">
 		<Cursor position="68" topLine="0" />
 	</File>
 	<File name="scene\SteadyCamera.hpp" open="0" top="0" tabpos="9">
-		<Cursor position="157" topLine="0" />
+		<Cursor position="223" topLine="0" />
 	</File>
 	<File name="tinyxml\tinystr.h" open="0" top="0" tabpos="0">
 		<Cursor position="875" topLine="4" />
@@ -134,19 +134,19 @@
 		<Cursor position="77" topLine="0" />
 	</File>
 	<File name="util\AnimatedSprite.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="3312" topLine="85" />
+		<Cursor position="2976" topLine="100" />
 	</File>
 	<File name="util\AnimatedSprite.hpp" open="0" top="0" tabpos="5">
-		<Cursor position="832" topLine="0" />
+		<Cursor position="2892" topLine="8" />
 	</File>
 	<File name="util\Commons.hpp" open="0" top="0" tabpos="0">
-		<Cursor position="68" topLine="0" />
+		<Cursor position="53" topLine="0" />
 	</File>
 	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="3">
 		<Cursor position="1417" topLine="0" />
 	</File>
 	<File name="util\CoordinateUtil.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="2057" topLine="21" />
+		<Cursor position="161" topLine="31" />
 	</File>
 	<File name="util\NumberUtil.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="71" topLine="0" />
@@ -158,6 +158,6 @@
 		<Cursor position="542" topLine="12" />
 	</File>
 	<File name="util\SpriteUtil.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="95" topLine="0" />
+		<Cursor position="142" topLine="0" />
 	</File>
 </CodeBlocks_layout_file>

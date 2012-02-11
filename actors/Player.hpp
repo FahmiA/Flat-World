@@ -4,6 +4,7 @@
 #include "Character.hpp"
 #include "util/Commons.hpp"
 
+/** The Player that is controled by the user. */
 class Player: public Character
 {
     public:

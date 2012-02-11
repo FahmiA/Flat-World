@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+/** A star that is found somewhere in a level for the player to capture. */
 class Star : public Character
 {
     public:

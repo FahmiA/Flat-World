@@ -6,6 +6,7 @@
 
 #include "util/AnimatedSprite.hpp"
 
+/** Defines a sheep to be captured by the player. */
 class Sheep: public Character
 {
     public:

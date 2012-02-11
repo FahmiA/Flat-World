@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+/** Utility methods for working with Sprite objects. */
 class SpriteUtil
 {
     public:

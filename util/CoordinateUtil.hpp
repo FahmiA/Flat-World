@@ -4,6 +4,7 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+/** Utility methods for working with coordinates. */
 class CoordinateUtil
 {
     public:

@@ -22,7 +22,7 @@ class WonderState: public ActorState
     private:
         float timeSinceLastUpdate;
 
-        enum Action {idle, left, right};
+        enum Action {Idle, Left, Right};
         Action action;
 };
 
@@ -30,6 +30,9 @@ class WonderState: public ActorState
 class ChaseState: public ActorState
 {
     public:
+        /** Creates a new ChaseState with the target to chase.
+         * @param target The target to chase.
+         */
         ChaseState(GameObject *target);
 
         void performAction(Character *character, Clock *clock);

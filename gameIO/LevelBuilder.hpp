@@ -5,7 +5,7 @@
 #include "gameIO/ContentManager.hpp"
 #include "environment/Island.hpp"
 #include "actors/Sheep.hpp"
-#include "actors/Dog.hpp"
+#include "actors/Sheepdog.hpp"
 #include "actors/Player.hpp"
 
 #include <set>
@@ -17,9 +17,16 @@ struct IslandDescription;
 struct UnitDescription;
 struct PickupDescription;
 
+/** Defines an interface for classes that can build a game world.
+ * Abstract Builder in the Builder design pattern.
+ */
 class LevelBuilder
 {
     public:
+        /** Creates a new LevelBuilder.
+         * @param world A reference to the game world to build.
+         * @param content The ContentManager to use for loading external assets.
+         */
         LevelBuilder(World *world, ContentManager *content);
         virtual ~LevelBuilder();
 
@@ -102,8 +109,21 @@ class LevelBuilder
         virtual bool loadFont(string &path, Font *&font);
         virtual void getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY);
 
+        /** Stores the path to a sheep image.
+         * Duplicates will be removed.
+         * @param sheepPath The path to the sheep image
+         */
         void addSheepPath(string sheepPath);
+
+        /** Gets the ith sheep image path added.
+         * @param index The index of the sheep image to get.
+         * @return The sheep image path at index or "" if index is not valid.
+         */
         string getSheepPath(int index);
+
+        /** Gets the number of sheep image paths added.
+         * @return Number of sheep image paths.
+         */
         int getSheepPathCount();
 
     private:
@@ -112,6 +132,9 @@ class LevelBuilder
         set<string> sheepPaths;
 };
 
+/** Describes the information needed to create a level
+ * Excludes information on level contents.
+ */
 struct LevelDescription
 {
     string name;
@@ -120,6 +143,7 @@ struct LevelDescription
     string backgroundPath;
 };
 
+/** Describes the information needed to create an Island. */
 struct IslandDescription
 {
     int id;
@@ -131,6 +155,7 @@ struct IslandDescription
     Island *island;
 };
 
+/** Describes the information needed to create an NPC unit. */
 struct UnitDescription
 {
     string type;

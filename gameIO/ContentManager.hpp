@@ -17,6 +17,7 @@ using namespace std;
 class ContentManager
 {
     public:
+        /** Creates a new ContentManager. */
         ContentManager();
         virtual ~ContentManager();
 

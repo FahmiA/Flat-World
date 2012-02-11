@@ -3,6 +3,9 @@
 
 #include "Camera.hpp"
 
+/** A camera that is controlled by the user.
+ * Controls: Up, Down, Left, and Right keys.
+ */
 class ManualCamera: public Camera
 {
     public:

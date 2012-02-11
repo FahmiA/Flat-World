@@ -6,6 +6,7 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+/** Defines an island that Characters can move around on and jump between. */
 class Island: public GameObject
 {
     public:
@@ -16,6 +17,7 @@ class Island: public GameObject
 
         void update(Clock *clock, RenderWindow *window, World *world);
         void draw(RenderWindow *window);
+
         const Vector2f& getPosition();
         const Vector2f& getSize();
 

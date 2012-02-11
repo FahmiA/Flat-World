@@ -6,6 +6,7 @@ class World;
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+/** Describes a camea that displays the game to the user. */
 class Camera
 {
     public:

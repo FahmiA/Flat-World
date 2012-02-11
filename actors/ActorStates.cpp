@@ -20,12 +20,12 @@ void WonderState::performAction(Character *character, Clock *clock)
 
     // Perform the active action
     Sprite *sprite = character->getSprite();
-    if(action == left)
+    if(action == Left)
     {
         character->moveLeft();
         // Update the animation
         ((AnimatedSprite*)character->getSprite())->resume();
-    }else if(action == right){
+    }else if(action == Right){
         character->moveRight();
         // Update the animation
         ((AnimatedSprite*)character->getSprite())->resume();
