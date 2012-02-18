@@ -1,11 +1,6 @@
-#include <limits.h>
-#include <math.h>
 #include "gtest/gtest.h"
 
 #include "util/SpriteUtil.hpp"
-
-#include <iostream>
-using namespace std;
 
 #define SQUARE_IMAGE_PATH "unit_test/util/filesForTests/square.png"
 

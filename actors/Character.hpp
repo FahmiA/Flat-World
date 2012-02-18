@@ -77,6 +77,24 @@ class Character: public GameObject
         Sprite *getSprite();
 
     protected:
+        /** Finds the nearest island and assigns it as the island the Character is on.
+         * Also remembers the previous island.
+         * @param islands A list of islands to search.
+         */
+        void findCurrentIsland(list<Island*>* islands);
+
+        /** Steers the Character based on assigned movement commands.
+         * @param elapsedTime The time since the previous frame.
+         */
+        void steer(float elapsedTime);
+
+        /** Sticks the Character to the border of the current island.
+         * The Character's position and angle are set to match the conditions of the
+         * current position of the Character on the island.
+         * @param elapsedTime The time since the previous frame.
+         */
+        void lockToIsland(float elapsedTime);
+
         /** Gets the CoordinateUtil object.
          * Used for performing various coordinate-bases procedures.
          */
@@ -110,26 +128,6 @@ class Character: public GameObject
         // Helper-operations variables
         CoordinateUtil coordUtil;
         SpriteUtil spriteUtil;
-
-        // Methods
-        /** Finds the nearest island and assigns it as the island the Character is on.
-         * Also remembers the previous island.
-         * @param world The world containing the islands to search,
-         */
-        void findCurrentIsland(World *world);
-
-        /** Steers the Character based on assigned movement commands.
-         * @param elapsedTime The time since the previous frame.
-         */
-        void steer(float elapsedTime);
-
-        /** Sticks the Character to the border of the current island.
-         * The Character's position and angle are set to match the conditions of the
-         * current position of the Character on the island.
-         * @param elapsedTime The time since the previous frame.
-         */
-        void lockToIsland(float elapsedTime);
-
 };
 
 // Define common animation states

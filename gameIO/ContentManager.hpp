@@ -28,12 +28,24 @@ class ContentManager
         */
         Image* loadImage(string &path);
 
+         /** Loads or retrieves an image.
+         * NULL is returned if the image could not be loaded.
+         * @param path The path to the image to load.
+         * @return The loaded image or NULL if the image could not be loaded.
+        */
+        Image* loadImage(char *path);
+
         /** Loads or retrieves a font.
          * NULL is returned if the font could not be loaded.
          * @param path The path to the font to load.
          * @return The loaded font or NULL if the font could not be loaded.
         */
         Font* loadFont(string &path);
+
+        /** Frees all loaded resources from memory.
+         * Is always called by the destructor.
+         */
+        void clear();
 
     private:
         map<string, Image*> *imageMap;

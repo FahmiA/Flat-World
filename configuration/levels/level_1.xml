@@ -9,38 +9,11 @@
 
     <island>
         <id> 1 </id>
-        <image> media/textures/island1.png </image>
-        <x> 200 </x>
-        <y> 400 </y>
+        <image> media/textures/Level_1_Island_1.png </image>
+        <x> 864 </x>
+        <y> 486 </y>
         <width> 1240 </width>
         <height> 515 </height>
-    </island>
-
-    <island>
-        <id> 2 </id>
-        <image> media/textures/Asteroid2.png </image>
-        <x> 1000 </x>
-        <y> -100 </y>
-        <width> 235 </width>
-        <height> 235 </height>
-    </island>
-
-    <island>
-        <id> 3 </id>
-        <image> media/textures/Asteroid1.png </image>
-        <x> 1400 </x>
-        <y> 500 </y>
-        <width> 235 </width>
-        <height> 235 </height>
-    </island>
-
-     <island>
-        <id> 4 </id>
-        <image> media/textures/Asteroid1.png </image>
-        <x> 1200 </x>
-        <y> 1000 </y>
-        <width> 235 </width>
-        <height> 235 </height>
     </island>
 
     <unit type="player">
@@ -48,24 +21,5 @@
         <locationID> 1 </locationID>
         <angle> 4.7 </angle>
     </unit>
-
-    <unit type="sheep">
-        <image> media/textures/Sheep.png </image>
-        <angle> -90 </angle>
-        <locationID> 2 </locationID>
-    </unit>
-
-    <unit type="sheepdog">
-        <image> media/textures/SheepDog.png </image>
-        <locationID> 4 </locationID>
-    </unit>
-
-    <pickup type="star">
-        <image> media/textures/star.png </image>
-        <locationID> 1 </locationID>
-        <startAngle> 5.5 </startAngle>
-        <endAngle> 3.9 </endAngle>
-        <count> 5 </count>
-    </pickup>
 
 </level>

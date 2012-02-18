@@ -207,7 +207,6 @@ bool LevelBuilderStd::setHUD(string &sheepCornerPath, string &starCornerPath,
                              string &fontPath)
 {
     bool success = true;
-
     Sprite *sheepCorner = new Sprite();
     Sprite *starCorner = new Sprite();
     Sprite *sheepIcon = new Sprite();

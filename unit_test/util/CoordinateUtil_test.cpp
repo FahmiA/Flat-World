@@ -1,5 +1,3 @@
-#include <limits.h>
-#include <math.h>
 #include "gtest/gtest.h"
 
 #include "util/CoordinateUtil.hpp"

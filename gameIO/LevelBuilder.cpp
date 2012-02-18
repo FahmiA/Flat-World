@@ -18,27 +18,6 @@ LevelBuilder::~LevelBuilder()
     //dtor
 }
 
-bool LevelBuilder::loadSprite(string &path, Sprite *sprite)
-{
-    Image *image = content->loadImage(path);
-    if(image == 0)
-        return false;
-
-    sprite->SetImage(*image);
-
-    return true;
-}
-
-bool LevelBuilder::loadFont(string &path, Font *&font)
-{
-    font = content->loadFont(path);
-
-    if(font == 0)
-        return false;
-
-    return true;
-}
-
 void LevelBuilder::getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY)
 {
     SpriteUtil spriteUtil;
@@ -81,6 +60,21 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
 
     delete localSpawnPos;
 }
+
+bool LevelBuilder::loadSprite(string &path, Sprite *sprite)
+{
+    return spriteUtil.loadSprite(path, sprite, content);
+}
+
+bool LevelBuilder::loadFont(string &path, Font *&font)
+{
+    return spriteUtil.loadFont(path, font, content);
+}
+
+/*SpriteUtil& LevelBuilder::getSpriteUtil()
+{
+    return spriteUtil;
+}*/
 
 World* LevelBuilder::getWorld()
 {

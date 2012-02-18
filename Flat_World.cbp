@@ -26,7 +26,7 @@
 				</Linker>
 				<ExtraCommands>
 					<Add after="cp -u libraries/debug/lib/*.dll bin/Debug" />
-					<Add after="cp -ru media  bin/Debug/media" />
+					<Add after="cp -ru media  bin/Debug" />
 					<Add after="cp -ru configuration bin/Debug" />
 					<Mode after="always" />
 				</ExtraCommands>
@@ -51,7 +51,7 @@
 				</Linker>
 				<ExtraCommands>
 					<Add after="cp -u libraries/release/lib/*.dll bin/Release" />
-					<Add after="cp -ru media  bin/Release/media" />
+					<Add after="cp -ru media  bin/Release" />
 					<Add after="cp -ru configuration bin/Release" />
 					<Mode after="always" />
 				</ExtraCommands>
@@ -78,7 +78,7 @@
 				</Linker>
 				<ExtraCommands>
 					<Add after="cp -u libraries/debug/lib/*.dll bin/UnitTest" />
-					<Add after="cp -ru media  bin/UnitTest/media" />
+					<Add after="cp -ru media  bin/UnitTest" />
 					<Add after="cp -ru configuration bin/UnitTest" />
 					<Mode after="always" />
 				</ExtraCommands>
@@ -145,6 +145,9 @@
 		<Unit filename="tinyxml\tinyxml.h" />
 		<Unit filename="tinyxml\tinyxmlerror.cpp" />
 		<Unit filename="tinyxml\tinyxmlparser.cpp" />
+		<Unit filename="unit_test\actors\CharacterTest.cpp">
+			<Option target="UnitTest" />
+		</Unit>
 		<Unit filename="unit_test\util\CoordinateUtil_test.cpp">
 			<Option target="UnitTest" />
 		</Unit>

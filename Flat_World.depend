@@ -444,7 +444,7 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1328914011 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
+1329542325 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
 	"Character.hpp"
 	"util/NumberUtil.hpp"
 	"game/ID.hpp"
@@ -452,7 +452,7 @@
 	<math.h>
 	<list>
 
-1328913643 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
+1329542320 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"util/CoordinateUtil.hpp"
@@ -508,10 +508,10 @@
 	"Island.hpp"
 	"game/ID.hpp"
 
-1327089162 source:c:\users\fahmi\documents\game development\flat_world\gameio\contentmanager.cpp
+1329544284 source:c:\users\fahmi\documents\game development\flat_world\gameio\contentmanager.cpp
 	"ContentManager.hpp"
 
-1328993157 c:\users\fahmi\documents\game development\flat_world\gameio\contentmanager.hpp
+1329541112 c:\users\fahmi\documents\game development\flat_world\gameio\contentmanager.hpp
 	<SFML/Graphics.hpp>
 	<string>
 	<map>
@@ -545,8 +545,10 @@
 	<assert.h>
 	<string.h>
 
-1328994786 c:\users\fahmi\documents\game development\flat_world\util\spriteutil.hpp
+1329542375 c:\users\fahmi\documents\game development\flat_world\util\spriteutil.hpp
+	"gameIO/ContentManager.hpp"
 	<SFML/Graphics.hpp>
+	<string>
 
 1310115302 source:c:\users\fahmi\documents\game development\flat_world\game\gameobject.cpp
 	"GameObject.hpp"
@@ -608,7 +610,7 @@
 1325567425 source:c:\users\fahmi\documents\game development\flat_world\util\numberutil.cpp
 	"NumberUtil.hpp"
 
-1327805131 source:c:\users\fahmi\documents\game development\flat_world\util\spriteutil.cpp
+1329542711 source:c:\users\fahmi\documents\game development\flat_world\util\spriteutil.cpp
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
@@ -659,7 +661,7 @@
 	<stdio.h>
 	<iostream>
 
-1328994798 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
+1329542598 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
 	"game/World.hpp"
 	"gameIO/ContentManager.hpp"
 	"environment/Island.hpp"
@@ -668,7 +670,7 @@
 	"actors/Player.hpp"
 	<set>
 
-1328416096 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
+1329542636 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
 	"LevelBuilder.hpp"
 	"util/SpriteUtil.hpp"
 	"util/NumberUtil.hpp"
@@ -1088,22 +1090,17 @@
 	<limits.h>
 	"gtest/gtest.h"
 
-1328392718 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
-	<limits.h>
-	<math.h>
+1329517523 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
 	"gtest/gtest.h"
 	"util/CoordinateUtil.hpp"
 
-1328392735 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\spriteutil_test.cpp
-	<limits.h>
-	<math.h>
+1329517579 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\spriteutil_test.cpp
 	"gtest/gtest.h"
 	"util/SpriteUtil.hpp"
-	<iostream>
 
 1328994707 c:\users\fahmi\documents\game development\flat_world\util\commons.hpp
 
-1328914030 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.cpp
+1329542698 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.cpp
 	"LevelBuilderStd.hpp"
 	"util/AnimatedSprite.hpp"
 	"pickups/Star.hpp"
@@ -1128,4 +1125,12 @@
 	"util/CoordinateUtil.hpp"
 	"gameIO/LevelBuilder.hpp"
 	<iostream>
+
+1329544610 source:c:\users\fahmi\documents\game development\flat_world\unit_test\actors\charactertest.cpp
+	"gtest/gtest.h"
+	"gameIO/ContentManager.hpp"
+	"util/SpriteUtil.hpp"
+	"actors/Character.hpp"
+	<iostream>
+	<stdlib.h>
 

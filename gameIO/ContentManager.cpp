@@ -8,9 +8,7 @@ ContentManager::ContentManager()
 
 ContentManager::~ContentManager()
 {
-    // Deleting a map will also delete all of the map's contents.
-    delete imageMap;
-    delete fontMap;
+    clear();
 }
 
 Image* ContentManager::loadImage(string &path)
@@ -30,6 +28,12 @@ Image* ContentManager::loadImage(string &path)
     }
 }
 
+Image* ContentManager::loadImage(char *path)
+{
+    string *pathString = new string(path);
+    loadImage(*pathString);
+}
+
 Font* ContentManager::loadFont(string &path)
 {
     if(fontMap->count(path) > 0)
@@ -45,4 +49,11 @@ Font* ContentManager::loadFont(string &path)
         (*fontMap)[path] = font;
         return font;
     }
+}
+
+void ContentManager::clear()
+{
+    // Deleting a map will also delete all of the map's contents.
+    delete imageMap;
+    delete fontMap;
 }

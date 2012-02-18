@@ -54,3 +54,24 @@ Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, in
 
     return collidePosition;
 }
+
+bool SpriteUtil::loadSprite(string &path, Sprite *sprite, ContentManager *content)
+{
+    Image *image = content->loadImage(path);
+    if(image == 0)
+        return false;
+
+    sprite->SetImage(*image);
+
+    return true;
+}
+
+bool SpriteUtil::loadFont(string &path, Font *&font, ContentManager *content)
+{
+    font = content->loadFont(path);
+
+    if(font == 0)
+        return false;
+
+    return true;
+}

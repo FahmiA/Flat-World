@@ -78,7 +78,7 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     subUpdate(clock, window, world);
 
     // Find the nearest island and assign it as the island the Character is on
-    findCurrentIsland(world);
+    findCurrentIsland(world->getIslands());
 
     // Move in responce to user input
     steer(elapsedTime);
@@ -87,13 +87,12 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     lockToIsland(elapsedTime);
 }
 
-void Character::findCurrentIsland(World *world)
+void Character::findCurrentIsland(list<Island*>* islands)
 {
     // Get the nearest island if no current island exists
     if(currentGround == 0)
     {
         // Loop through all islands
-        list<Island*>* islands = world->getIslands();
         Island *island;
         for(list<Island*>::iterator it = islands->begin(); it != islands->end(); it++)
         {
@@ -168,7 +167,7 @@ void Character::lockToIsland(float elapsedTime)
     int lookDepth = 50; // Depth to ray-trace
     int lookOffset = 50; // Distance between left and right ray-traces
 
-    // Get the pixels directly under the player
+    // Get the Sprite directly under the player
     Sprite *groundSprite = currentGround->getSprite();
 
     // Get the position at the bottom of the charcter
@@ -177,7 +176,7 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f bottomMiddle = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + distanceFromGround));
     Vector2f bottomRight = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) + lookOffset, sprite->GetSize().y));
     Vector2f bottomMiddleUp = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y - 5 + distanceFromGround)); // 5 pixels up from base
-    // Local positions to ground
+    // Transform global positions to local ground positions
     bottomLeft = groundSprite->TransformToLocal(bottomLeft);
     bottomMiddle = groundSprite->TransformToLocal(bottomMiddle);
     bottomRight = groundSprite->TransformToLocal(bottomRight);
@@ -188,7 +187,7 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f targetLeft = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + lookDepth));
     Vector2f targetMiddle = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + lookDepth));
     Vector2f targetRight = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + lookDepth));
-    // Local positions to ground
+    // Transform global positions to local ground positions
     targetLeft = groundSprite->TransformToLocal(targetLeft);
     targetMiddle = groundSprite->TransformToLocal(targetMiddle);
     targetRight = groundSprite->TransformToLocal(targetRight);
@@ -208,9 +207,9 @@ void Character::lockToIsland(float elapsedTime)
     }else{
         inJump = false;
         // Draw the ground line for debugging purposes
-        int groundTop = groundSprite->GetPosition().y - (groundSprite->GetSize().y/2);
-        int groundLeft = groundSprite->GetPosition().x - (groundSprite->GetSize().x/2);
-        line = Shape::Line(leftCollide->x + groundLeft, leftCollide->y + groundTop, rightCollide->x + groundLeft, rightCollide->y + groundTop, 1, Color::White);
+        Vector2f lineLeftPoint = groundSprite->TransformToGlobal(*leftCollide);
+        Vector2f lineRightPoint = groundSprite->TransformToGlobal(*rightCollide);
+        line = Shape::Line(lineLeftPoint, lineRightPoint, 1, Color::White);
 
         // Rotate to the correct angle
         float angle = atan2(rightCollide->y - leftCollide->y, rightCollide->x - leftCollide->x);
