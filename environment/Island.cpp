@@ -4,10 +4,11 @@
 
 Island::Island(float x, float y, float width, float height, Sprite *sprite)
 {
-    sprite->SetCenter(sprite->GetImage()->GetWidth()/2, sprite->GetImage()->GetHeight()/2);
+    sprite->Resize(width, height);
+    sprite->SetCenter(width/2, height/2);
     sprite->SetX(x);
     sprite->SetY(y);
-    sprite->Resize(width, height);
+
     this->sprite = sprite;
 
     setID(ID_ISLAND);
@@ -36,6 +37,11 @@ void Island::draw(RenderWindow *window)
 const Vector2f& Island::getPosition()
 {
     return sprite->GetPosition();
+}
+
+void Island::setPosition(float x, float y)
+{
+    sprite->SetPosition(x, y);
 }
 
 const Vector2f& Island::getSize()

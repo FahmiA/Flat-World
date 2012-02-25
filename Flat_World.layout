@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="UnitTest" />
 	<File name="GUI\HUD.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="4077" topLine="128" />
 	</File>
@@ -13,11 +13,11 @@
 	<File name="actors\ActorStates.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="952" topLine="0" />
 	</File>
-	<File name="actors\Character.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="3744" topLine="120" />
+	<File name="actors\Character.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="3740" topLine="123" />
 	</File>
-	<File name="actors\Character.hpp" open="1" top="0" tabpos="3">
-		<Cursor position="3509" topLine="88" />
+	<File name="actors\Character.hpp" open="1" top="0" tabpos="2">
+		<Cursor position="2473" topLine="60" />
 	</File>
 	<File name="actors\Player.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="3182" topLine="90" />
@@ -40,26 +40,26 @@
 	<File name="configuration\levels\level_1.xml" open="0" top="0" tabpos="2">
 		<Cursor position="328" topLine="0" />
 	</File>
-	<File name="environment\Island.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="35" topLine="0" />
+	<File name="environment\Island.cpp" open="0" top="0" tabpos="6">
+		<Cursor position="411" topLine="11" />
 	</File>
 	<File name="environment\Island.hpp" open="0" top="0" tabpos="7">
-		<Cursor position="202" topLine="0" />
+		<Cursor position="562" topLine="0" />
 	</File>
-	<File name="gameIO\ContentManager.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="555" topLine="0" />
+	<File name="gameIO\ContentManager.cpp" open="0" top="0" tabpos="7">
+		<Cursor position="354" topLine="0" />
 	</File>
-	<File name="gameIO\ContentManager.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="618" topLine="4" />
+	<File name="gameIO\ContentManager.hpp" open="0" top="0" tabpos="6">
+		<Cursor position="1022" topLine="17" />
 	</File>
 	<File name="gameIO\LevelBuilder.cpp" open="0" top="0" tabpos="4">
-		<Cursor position="445" topLine="0" />
+		<Cursor position="2355" topLine="54" />
 	</File>
 	<File name="gameIO\LevelBuilder.hpp" open="0" top="0" tabpos="1">
-		<Cursor position="4611" topLine="96" />
+		<Cursor position="4811" topLine="89" />
 	</File>
 	<File name="gameIO\LevelBuilderStd.cpp" open="0" top="0" tabpos="1">
-		<Cursor position="5251" topLine="141" />
+		<Cursor position="6670" topLine="197" />
 	</File>
 	<File name="gameIO\LevelBuilderStd.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="446" topLine="0" />
@@ -128,13 +128,13 @@
 		<Cursor position="4722" topLine="132" />
 	</File>
 	<File name="unit_test\actors\CharacterTest.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="1406" topLine="28" />
+		<Cursor position="6841" topLine="215" />
 	</File>
 	<File name="unit_test\util\CoordinateUtil_test.cpp" open="0" top="0" tabpos="2">
-		<Cursor position="56" topLine="0" />
+		<Cursor position="118" topLine="0" />
 	</File>
-	<File name="unit_test\util\SpriteUtil_test.cpp" open="1" top="0" tabpos="2">
-		<Cursor position="544" topLine="0" />
+	<File name="unit_test\util\SpriteUtil_test.cpp" open="0" top="0" tabpos="4">
+		<Cursor position="1044" topLine="0" />
 	</File>
 	<File name="util\AnimatedSprite.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="2976" topLine="100" />
@@ -145,8 +145,8 @@
 	<File name="util\Commons.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="53" topLine="0" />
 	</File>
-	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1417" topLine="0" />
+	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="1956" topLine="36" />
 	</File>
 	<File name="util\CoordinateUtil.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="161" topLine="31" />
@@ -158,9 +158,9 @@
 		<Cursor position="564" topLine="0" />
 	</File>
 	<File name="util\SpriteUtil.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1051" topLine="12" />
+		<Cursor position="85" topLine="0" />
 	</File>
 	<File name="util\SpriteUtil.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="142" topLine="0" />
+		<Cursor position="1522" topLine="7" />
 	</File>
 </CodeBlocks_layout_file>

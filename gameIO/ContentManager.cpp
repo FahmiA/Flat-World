@@ -8,7 +8,12 @@ ContentManager::ContentManager()
 
 ContentManager::~ContentManager()
 {
+    // CLear the contents
     clear();
+
+    //Delete the data structures
+    delete imageMap;
+    delete fontMap;
 }
 
 Image* ContentManager::loadImage(string &path)
@@ -53,7 +58,7 @@ Font* ContentManager::loadFont(string &path)
 
 void ContentManager::clear()
 {
-    // Deleting a map will also delete all of the map's contents.
-    delete imageMap;
-    delete fontMap;
+    // Clearing a map will also delete all of the map's contents.
+    imageMap->clear();
+    fontMap->clear();
 }

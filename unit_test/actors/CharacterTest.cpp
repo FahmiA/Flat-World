@@ -8,6 +8,7 @@
 #include <stdlib.h>
 using namespace std;
 
+// http://code.google.com/p/googletest/
 
 /** A Character that has no behaviour (therefor, static).
  * This Character is used for testing the Character class.
@@ -60,6 +61,8 @@ class CharacterTest : public ::testing::Test
     protected:
         StaticCharacter *character;
         list<Island*> *islands;
+        Island *island1;
+        Island *island2;
 
         ContentManager content;
         SpriteUtil spriteUtil;
@@ -89,11 +92,11 @@ class CharacterTest : public ::testing::Test
             height = 60;
 
             string islandPath = "unit_test/actors/filesForTests/Island1.png";
-            Sprite *islandSprite = new Sprite();
-            loadSuccess = spriteUtil.loadSprite(islandPath, islandSprite, &content);
+            Sprite *island1Sprite = new Sprite();
+            loadSuccess = spriteUtil.loadSprite(islandPath, island1Sprite, &content);
             if(!loadSuccess)
                 cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
-            Island *island1 = new Island(x, y, width, height, islandSprite);
+            island1 = new Island(x, y, width, height, island1Sprite);
             islands->push_back(island1);
 
             // Load island 2
@@ -102,15 +105,16 @@ class CharacterTest : public ::testing::Test
             width = 185;
             height = 60;
 
-            Island *island2 = new Island(x, y, width, height, islandSprite);
+            Sprite *island2Sprite = new Sprite();
+            loadSuccess = spriteUtil.loadSprite(islandPath, island1Sprite, &content);
+            if(!loadSuccess)
+                cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
+            island2 = new Island(x, y, width, height, island2Sprite);
             islands->push_back(island2);
-
-
         }
 
         virtual void TearDown()
         {
-
             if(character != 0)
                 delete character;
 
@@ -123,22 +127,105 @@ class CharacterTest : public ::testing::Test
 
 TEST_F(CharacterTest, locatesNearbyIsland)
 {
-    FAIL() << "Not yet implemented";
+    // Check with no current ground
+    character->findCurrentIsland(islands);
+    Island *currentGround = character->getCurrentGround();
+    Island *previousGround = character->getPreviousGround();
+
+    EXPECT_EQ(island1, currentGround) << "New ground should be found.";
+    EXPECT_EQ(NULL, previousGround) << "No previous ground should exist.";
+
+    // Check with closest ground as current ground
+    character->findCurrentIsland(islands);
+    EXPECT_EQ(island1, currentGround) << "Current ground should not change.";
+    EXPECT_EQ(NULL, previousGround) << "No previous ground should exist.";
+
+    // Check with island2 as the new closest ground
+    island1->setPosition(1000, 1000);
+    island2->setPosition(160, 202);
+
+    character->landHop(); // Detach from current ground
+    character->findCurrentIsland(islands);
+
+    currentGround = character->getCurrentGround();
+    previousGround = character->getPreviousGround();
+    EXPECT_EQ(island2, currentGround) << "New ground should be found.";
+    EXPECT_EQ(island1, previousGround) << "Previous ground should be old current ground.";
 }
 
 TEST_F(CharacterTest, doesntLocateDistantIsland)
 {
-    FAIL() << "Not yet implemented";
+    island1->setPosition(1000, 1000);
+    island2->setPosition(500, 500);
+
+    character->findCurrentIsland(islands);
+
+    Island *currentGround = character->getCurrentGround();
+    Island *previousGround = character->getPreviousGround();
+
+    EXPECT_EQ(NULL, currentGround) << "Distant island should not be found.";
+    EXPECT_EQ(NULL, previousGround) << "No previous ground should exist.";
 }
 
 TEST_F(CharacterTest, jumpsAgainstGravity)
 {
-    FAIL() << "Not yet implemented";
+    // Locate the current island
+    character->findCurrentIsland(islands);
+
+    // Jump away from the current island
+    character->landHop();
+
+    // Test that the Character is jumping
+    EXPECT_TRUE(character->isJumping()) << "Character should be jumping";
+
+    // Test for island properties
+    Island *currentGround = character->getCurrentGround();
+    Island *previousGround = character->getPreviousGround();
+    EXPECT_EQ(NULL, currentGround) << "Should be no current ground during an island hop.";
+    EXPECT_EQ(island1, previousGround) << "No previous ground should be set to mold current ground.";
+
+    // Test that position changes while in jump
+    Vector2f oldPosition = character->getPosition();
+    character->steer(50);
+    Vector2f newPosition = character->getPosition();
+
+    EXPECT_NE(oldPosition.x, newPosition.x) << "X-position should have changed.";
+    EXPECT_NE(oldPosition.y, newPosition.y) << "Y-position should have changed.";
 }
 
 TEST_F(CharacterTest, movesLeftAndRight)
 {
-    FAIL() << "Not yet implemented";
+    character->findCurrentIsland(islands);
+
+    // Move left
+    character->moveLeft();
+    EXPECT_EQ(character->getFacingDirection(), Left) << "Sould be facing left.";
+
+    Vector2f oldPosition = character->getPosition();
+    character->steer(50);
+    Vector2f newPosition = character->getPosition();
+    EXPECT_LT(newPosition.x, oldPosition.x) << "Should move left.";
+
+    // Move right
+    character->moveRight();
+    EXPECT_EQ(character->getFacingDirection(), Right) << "Sould be facing right.";
+
+    oldPosition = newPosition;
+    character->steer(50);
+    newPosition = character->getPosition();
+    EXPECT_GT(newPosition.x, oldPosition.x) << "Should move right.";
+
+    // Repeat to check state change
+
+    // Move left
+    character->moveLeft();
+    character->moveLeft(); // Moving left twice should not toggle direction
+    EXPECT_EQ(character->getFacingDirection(), Left) << "Sould be facing left.";
+
+     // Move right
+    character->moveRight();
+    character->moveRight(); // Moving right twice should not toggle direction
+    EXPECT_EQ(character->getFacingDirection(), Right) << "Sould be facing right.";
 }
 
 TEST_F(CharacterTest, pulledWithGravity)

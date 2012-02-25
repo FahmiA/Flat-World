@@ -65,6 +65,11 @@ class Character: public GameObject
          */
         void moveRight();
 
+        /** Checks if the Character is currently jumping between islands.
+         * @return True if the Character is island jumping. False otherwise.
+         */
+        bool isJumping();
+
         /**Gets the direction that the Character is currently facing.
          * Left and Right are the only two valid directions to face.
          * @return The direction that the Character currently facing.
@@ -75,6 +80,16 @@ class Character: public GameObject
          * @return The Character's Sprite.
          */
         Sprite *getSprite();
+
+        /** Gets the current ground the Character is on.
+         * @return Current ground of NULL if no current ground exists (eg: in jump).
+         */
+        Island* getCurrentGround();
+
+        /** Gets the previous ground the Character was on.
+         * @return Previous ground of NULL if no previous ground exists.
+         */
+        Island* getPreviousGround();
 
     protected:
         /** Finds the nearest island and assigns it as the island the Character is on.

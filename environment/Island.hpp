@@ -19,6 +19,7 @@ class Island: public GameObject
         void draw(RenderWindow *window);
 
         const Vector2f& getPosition();
+        void setPosition(float x, float y);
         const Vector2f& getSize();
 
     private:

@@ -61,6 +61,11 @@ void Character::moveRight()
     sprite->FlipX(true);
 }
 
+bool Character::isJumping()
+{
+    return inJump;
+}
+
 Direction Character::getFacingDirection()
 {
     return facingDirection;
@@ -103,7 +108,8 @@ void Character::findCurrentIsland(list<Island*>* islands)
                 if(coordUtil.collide(sprite, island->getSprite()))
                 {
                     // Mark the new ground as the current ground
-                    prevGround = currentGround;
+                    if(currentGround != 0) // Only set the previous ground if a current ground exists
+                        prevGround = currentGround;
                     currentGround = island;
 
                     // Rotate to the new ground
@@ -304,4 +310,14 @@ float Character::getRotation()
 Sprite* Character::getSprite()
 {
     return sprite;
+}
+
+Island* Character::getCurrentGround()
+{
+    return currentGround;
+}
+
+Island* Character::getPreviousGround()
+{
+    return prevGround;
 }
