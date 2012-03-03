@@ -115,7 +115,7 @@ void Character::findCurrentIsland(list<Island*>* islands)
                     // Rotate to the new ground
                     float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y, currentGround->getPosition().x - sprite->GetPosition().x);
                     angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
-                    sprite->SetRotation(-angle + 90); // Rotate to the correct angle
+                    //sprite->SetRotation(-angle + 90); // Rotate to the correct angle
 
                     cout << "found new ground" << endl;
                     break;
@@ -171,7 +171,7 @@ void Character::lockToIsland(float elapsedTime)
         return;
 
     int lookDepth = 50; // Depth to ray-trace
-    int lookOffset = 50; // Distance between left and right ray-traces
+    int lookOffset = 10; // Distance between left and right ray-traces
 
     // Get the Sprite directly under the player
     Sprite *groundSprite = currentGround->getSprite();
@@ -179,14 +179,27 @@ void Character::lockToIsland(float elapsedTime)
     // Get the position at the bottom of the charcter
     // Global Positions
     Vector2f bottomLeft = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) - lookOffset, sprite->GetSize().y));
-    Vector2f bottomMiddle = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + distanceFromGround));
+    Vector2f bottomMiddle = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2), sprite->GetSize().y + distanceFromGround));
     Vector2f bottomRight = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) + lookOffset, sprite->GetSize().y));
-    Vector2f bottomMiddleUp = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y - 5 + distanceFromGround)); // 5 pixels up from base
+    Vector2f bottomMiddleUp = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x, sprite->GetSize().y - 5 + distanceFromGround)); // 5 pixels up from base
+
+    cout << "-- Global coordinates -----------" << endl;
+    cout << "spritePos:\t(" << sprite->GetPosition().x << ", " << sprite->GetPosition().y << ')' << endl;
+    cout << "islandPos:\t(" << groundSprite->GetPosition().x << ", " << groundSprite->GetPosition().y << ')' << endl;
+    cout << "bottomLeft:\t(" << bottomLeft.x << ", " << bottomLeft.y << ')' << endl;
+    cout << "bottomRight:\t(" << bottomRight.x << ", " << bottomRight.y << ')' << endl;
+    cout << "bottomMiddle:\t(" << bottomMiddle.x << ", " << bottomMiddle.y << ')' << endl;
+
     // Transform global positions to local ground positions
     bottomLeft = groundSprite->TransformToLocal(bottomLeft);
     bottomMiddle = groundSprite->TransformToLocal(bottomMiddle);
     bottomRight = groundSprite->TransformToLocal(bottomRight);
     bottomMiddleUp = groundSprite->TransformToLocal(bottomMiddleUp);
+
+    cout << "-- Local coordinates -----------" << endl;
+    cout << "bottomLeft:\t(" << bottomLeft.x << ", " << bottomLeft.y << ')' << endl;
+    cout << "bottomRight:\t(" << bottomRight.x << ", " << bottomRight.y << ')' << endl;
+    cout << "bottomMiddle:\t(" << bottomMiddle.x << ", " << bottomMiddle.y << ')' << endl;
 
     // Get the position at the ray-trace distance
     // Global Positions
@@ -202,6 +215,11 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f *leftCollide = spriteUtil.rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, targetLeft.x, targetLeft.y);
     Vector2f *middleCollide = spriteUtil.rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, targetMiddle.x, targetMiddle.y);
     Vector2f *rightCollide = spriteUtil.rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
+
+    cout << "-- Local coordinates (collide) -----------" << endl;
+    cout << "leftCollide:\t(" << leftCollide->x << ", " << leftCollide->y << ')' << endl;
+    cout << "rightCollide:\t(" << rightCollide->x << ", " << rightCollide->y << ')' << endl;
+    cout << "middleCollide:\t(" << middleCollide->x << ", " << middleCollide->y << ')' << endl;
 
     if(leftCollide == 0 || rightCollide == 0)
     {

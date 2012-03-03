@@ -14,10 +14,10 @@
 		<Cursor position="952" topLine="0" />
 	</File>
 	<File name="actors\Character.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="3740" topLine="123" />
+		<Cursor position="3362" topLine="86" />
 	</File>
 	<File name="actors\Character.hpp" open="1" top="0" tabpos="2">
-		<Cursor position="2473" topLine="60" />
+		<Cursor position="1818" topLine="96" />
 	</File>
 	<File name="actors\Player.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="3182" topLine="90" />
@@ -40,8 +40,8 @@
 	<File name="configuration\levels\level_1.xml" open="0" top="0" tabpos="2">
 		<Cursor position="328" topLine="0" />
 	</File>
-	<File name="environment\Island.cpp" open="0" top="0" tabpos="6">
-		<Cursor position="411" topLine="11" />
+	<File name="environment\Island.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="171" topLine="11" />
 	</File>
 	<File name="environment\Island.hpp" open="0" top="0" tabpos="7">
 		<Cursor position="562" topLine="0" />
@@ -128,7 +128,7 @@
 		<Cursor position="4722" topLine="132" />
 	</File>
 	<File name="unit_test\actors\CharacterTest.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="6841" topLine="215" />
+		<Cursor position="9674" topLine="262" />
 	</File>
 	<File name="unit_test\util\CoordinateUtil_test.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="118" topLine="0" />
@@ -145,8 +145,8 @@
 	<File name="util\Commons.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="53" topLine="0" />
 	</File>
-	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="1956" topLine="36" />
+	<File name="util\CoordinateUtil.cpp" open="1" top="0" tabpos="5">
+		<Cursor position="1952" topLine="38" />
 	</File>
 	<File name="util\CoordinateUtil.hpp" open="0" top="0" tabpos="2">
 		<Cursor position="161" topLine="31" />

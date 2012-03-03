@@ -70,7 +70,7 @@ class CharacterTest : public ::testing::Test
         virtual void SetUp()
         {
             // Load the test character
-            float x = 200;
+            float x = 205;
             float y = 200;
             float width = 10;
             float height = 20;
@@ -86,8 +86,8 @@ class CharacterTest : public ::testing::Test
 
             // Load island 1
             islands = new list<Island*>();
-            x = 160;
-            y = 202;
+            x = 248.5;
+            y = 232;
             width = 185;
             height = 60;
 
@@ -186,10 +186,10 @@ TEST_F(CharacterTest, jumpsAgainstGravity)
 
     // Test that position changes while in jump
     Vector2f oldPosition = character->getPosition();
-    character->steer(50);
+    character->steer(0.03f);
     Vector2f newPosition = character->getPosition();
 
-    EXPECT_NE(oldPosition.x, newPosition.x) << "X-position should have changed.";
+    EXPECT_FLOAT_EQ(oldPosition.x, newPosition.x) << "X-position should not change (vertical jump)";
     EXPECT_NE(oldPosition.y, newPosition.y) << "Y-position should have changed.";
 }
 
@@ -199,19 +199,19 @@ TEST_F(CharacterTest, movesLeftAndRight)
 
     // Move left
     character->moveLeft();
-    EXPECT_EQ(character->getFacingDirection(), Left) << "Sould be facing left.";
+    EXPECT_EQ(Left, character->getFacingDirection()) << "Sould be facing left.";
 
     Vector2f oldPosition = character->getPosition();
-    character->steer(50);
+    character->steer(0.03f);
     Vector2f newPosition = character->getPosition();
     EXPECT_LT(newPosition.x, oldPosition.x) << "Should move left.";
 
     // Move right
     character->moveRight();
-    EXPECT_EQ(character->getFacingDirection(), Right) << "Sould be facing right.";
+    EXPECT_EQ(Right, character->getFacingDirection()) << "Sould be facing right.";
 
     oldPosition = newPosition;
-    character->steer(50);
+    character->steer(0.03f);
     newPosition = character->getPosition();
     EXPECT_GT(newPosition.x, oldPosition.x) << "Should move right.";
 
@@ -220,35 +220,82 @@ TEST_F(CharacterTest, movesLeftAndRight)
     // Move left
     character->moveLeft();
     character->moveLeft(); // Moving left twice should not toggle direction
-    EXPECT_EQ(character->getFacingDirection(), Left) << "Sould be facing left.";
+    EXPECT_EQ(Left, character->getFacingDirection()) << "Sould be facing left.";
 
      // Move right
     character->moveRight();
     character->moveRight(); // Moving right twice should not toggle direction
-    EXPECT_EQ(character->getFacingDirection(), Right) << "Sould be facing right.";
+    EXPECT_EQ(Right, character->getFacingDirection()) << "Sould be facing right.";
 }
 
 TEST_F(CharacterTest, pulledWithGravity)
 {
-    FAIL() << "Not yet implemented";
+    character->findCurrentIsland(islands);
+
+    Vector2f oldPosition = character->getPosition();
+    character->lockToIsland(0.03);
+    Vector2f newPosition = character->getPosition();
+
+    EXPECT_GT(newPosition.y, oldPosition.y) << "Character should be pulled down with gravity";
 }
 
 TEST_F(CharacterTest, attachesToStraitLand)
 {
-    FAIL() << "Not yet implemented";
+    character->findCurrentIsland(islands);
+    character->lockToIsland(0.05f);
+
+    Vector2f position = character->getPosition();
+
+    // At close range, the character should snap to the island's surface
+    EXPECT_EQ(205, position.x) << "X-position should be on ground";
+    EXPECT_EQ(205, position.y) << "Y-position should be on ground";
+    EXPECT_EQ(0, character->getRotation()) << "Should not be rotated";
 }
 
 TEST_F(CharacterTest, attachesToGentleAngledLand)
 {
-    FAIL() << "Not yet implemented";
+    // Move the island so the player lands on a hill
+    island1->setPosition(230, 235);
+
+    character->findCurrentIsland(islands);
+    character->lockToIsland(0.0f); // The player is already close enough
+
+    Vector2f position = character->getPosition();
+
+    // At close range, the character should snap to the island's surface
+    EXPECT_EQ(205, position.x) << "X-position should be on ground";
+    EXPECT_EQ(203, position.y) << "Y-position should be on ground";
+    EXPECT_NEAR(0.3, character->getRotation(), 0.05) << "Should be rotated to angle of hill";
 }
 
 TEST_F(CharacterTest, attachesToSteepAngledLand)
 {
-    FAIL() << "Not yet implemented";
+    // Move the island so the player lands on a hill
+    island1->setPosition(169, 239);
+
+    character->findCurrentIsland(islands);
+    character->lockToIsland(0.0f); // The player is already close enough
+
+    Vector2f position = character->getPosition();
+
+    // At close range, the character should snap to the island's surface
+    EXPECT_EQ(209, position.x) << "X-position should be on ground";
+    EXPECT_EQ(209, position.y) << "Y-position should be on ground";
+    EXPECT_NEAR(5.7, character->getRotation(), 0.05) << "Should be rotated to angle of hill";
 }
 
 TEST_F(CharacterTest, movesAboveGroundWhenUnderground)
 {
-    FAIL() << "Not yet implemented";
+    // Move the island so the player lands on a hill
+    island1->setPosition(228, 225);
+
+    character->findCurrentIsland(islands);
+    character->lockToIsland(0.0f); // The player is already close enough
+
+    Vector2f position = character->getPosition();
+
+    // At close range, the character should snap to the island's surface
+    EXPECT_EQ(209, position.x) << "X-position should be on ground";
+    EXPECT_EQ(197, position.y) << "Y-position should be on ground";
+    EXPECT_NEAR(0.3, character->getRotation(), 0.05) << "Should be rotated to angle of hill";
 }

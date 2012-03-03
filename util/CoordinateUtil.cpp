@@ -55,13 +55,13 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 
     int ob1Width = object1->GetSize().x;
     int ob1Height = object1->GetSize().y;
-    int ob1X = object1->GetPosition().x;// - (ob1Width/2);
-    int ob1Y = object1->GetPosition().y;// - (ob1Height/2);
+    int ob1X = object1->GetPosition().x - object1->GetCenter().x;
+    int ob1Y = object1->GetPosition().y - object1->GetCenter().y;
 
     int ob2Width = object2->GetSize().x;
     int ob2Height = object2->GetSize().y;
-    int ob2X = object2->GetPosition().x;// - (ob2Width/2);
-    int ob2Y = object2->GetPosition().y;// - (ob2Height/2);
+    int ob2X = object2->GetPosition().x - object2->GetCenter().x;
+    int ob2Y = object2->GetPosition().y - object2->GetCenter().y;
 
     bool xOverlap = valueInRange(ob1X, ob2X, ob2X + ob2Width) ||
                     valueInRange(ob2X, ob1X, ob1X + ob1Width);
