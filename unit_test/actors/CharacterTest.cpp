@@ -248,7 +248,7 @@ TEST_F(CharacterTest, attachesToStraitLand)
 
     // At close range, the character should snap to the island's surface
     EXPECT_EQ(205, position.x) << "X-position should be on ground";
-    EXPECT_EQ(205, position.y) << "Y-position should be on ground";
+    EXPECT_EQ(204, position.y) << "Y-position should be on ground";
     EXPECT_EQ(0, character->getRotation()) << "Should not be rotated";
 }
 

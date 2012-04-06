@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="Debug" />
+	<ActiveTarget name="UnitTest" />
 	<File name="GUI\HUD.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="4077" topLine="128" />
 	</File>
@@ -13,8 +13,8 @@
 	<File name="actors\ActorStates.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="952" topLine="0" />
 	</File>
-	<File name="actors\Character.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="7032" topLine="197" />
+	<File name="actors\Character.cpp" open="1" top="0" tabpos="2">
+		<Cursor position="6475" topLine="203" />
 	</File>
 	<File name="actors\Character.hpp" open="1" top="0" tabpos="4">
 		<Cursor position="5456" topLine="113" />
@@ -127,8 +127,8 @@
 	<File name="tinyxml\tinyxml.h" open="0" top="0" tabpos="0">
 		<Cursor position="4722" topLine="132" />
 	</File>
-	<File name="unit_test\actors\CharacterTest.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="5618" topLine="159" />
+	<File name="unit_test\actors\CharacterTest.cpp" open="1" top="1" tabpos="1">
+		<Cursor position="7858" topLine="222" />
 	</File>
 	<File name="unit_test\util\CoordinateUtil_test.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="118" topLine="0" />

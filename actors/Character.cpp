@@ -204,24 +204,45 @@ void Character::lockToIsland(float elapsedTime)
     // Both points find ground
     if(leftCollide != 0 && rightCollide != 0)
     {
-         inJump = false;
+        inJump = false;
         // Draw the ground line for debugging purposes
-        Vector2f lineLeftPoint = groundSprite->TransformToGlobal(*leftCollide);
-        Vector2f lineRightPoint = groundSprite->TransformToGlobal(*rightCollide);
-        line = Shape::Line(lineLeftPoint, lineRightPoint, 1, Color::White);
+        Vector2f globalLeftCollide = groundSprite->TransformToGlobal(*leftCollide);
+        Vector2f globalRightCollide = groundSprite->TransformToGlobal(*rightCollide);
+        line = Shape::Line(globalLeftCollide, globalLeftCollide, 1, Color::White);
 
-        float groundAngleRad = coordUtil.getAngle(*leftCollide, 0, *rightCollide);
+        float groundAngleRad = -coordUtil.getAngle(*leftCollide, 0, *rightCollide);
         float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
+        cout << "Distance to ground: " << coordUtil.getDistance(*middleCollide, bottomMiddle) << endl;
 
         // If close enough to the land, clamp the position to the land
         if(coordUtil.getDistance(*middleCollide, bottomMiddle) < clampThreshold)
         {
-            sprite->SetCenter(0, myBottomY);
-            sprite->SetRotation(-groundAngleDeg);
-            sprite->SetCenter(myCenterX, myCenterY);
+            //cout << "Before:\t" << sprite->GetPosition().x << " * " << sprite->GetPosition().y << endl;
+            // Points defined in: http://www.clarku.edu/~djoyce/trig/right.html
+            Vector2f pointA(globalLeftCollide);
+
+            Vector2f pointC (
+                            (globalLeftCollide.x + globalRightCollide.x) / 2.0f,
+                            (globalLeftCollide.y + globalRightCollide.y) / 2.0f
+                            );
+
+            float distanceAC = coordUtil.getDistance(pointA, pointC);
+            float distanceCB = sprite->GetSize().y / 2.0f;
+            float angleAB = atan2(distanceCB, distanceAC);
+            float distanceAB = hypotf(distanceCB, distanceAC);
+            //cout << "angleAB: " << angleAB << endl;
+            //cout << "distanceAB: " << distanceAB << endl;
+            Vector2f newPosition(
+                                 pointA.x + (cos(angleAB) * distanceAB),
+                                 pointA.y - (sin(angleAB) * distanceAB)
+                                 );
+            sprite->SetPosition(newPosition);
         }else{
             // Not close enough to land, fall with gravity
-
+            float gravityAngle = groundAngleRad + M_PI_2;
+            float velocityX = cos(gravityAngle) * (speed * elapsedTime);
+            float velocityY = sin(gravityAngle) * (speed * elapsedTime);
+            sprite->Move(velocityX, velocityY);
         }
     }
 
