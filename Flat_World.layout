@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <CodeBlocks_layout_file>
-	<ActiveTarget name="UnitTest" />
+	<ActiveTarget name="Debug" />
 	<File name="GUI\HUD.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="4077" topLine="128" />
 	</File>
@@ -13,11 +13,11 @@
 	<File name="actors\ActorStates.hpp" open="0" top="0" tabpos="5">
 		<Cursor position="952" topLine="0" />
 	</File>
-	<File name="actors\Character.cpp" open="1" top="0" tabpos="3">
-		<Cursor position="3362" topLine="86" />
+	<File name="actors\Character.cpp" open="1" top="1" tabpos="2">
+		<Cursor position="7032" topLine="197" />
 	</File>
-	<File name="actors\Character.hpp" open="1" top="0" tabpos="2">
-		<Cursor position="1818" topLine="96" />
+	<File name="actors\Character.hpp" open="1" top="0" tabpos="4">
+		<Cursor position="5456" topLine="113" />
 	</File>
 	<File name="actors\Player.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="3182" topLine="90" />
@@ -40,7 +40,7 @@
 	<File name="configuration\levels\level_1.xml" open="0" top="0" tabpos="2">
 		<Cursor position="328" topLine="0" />
 	</File>
-	<File name="environment\Island.cpp" open="1" top="0" tabpos="4">
+	<File name="environment\Island.cpp" open="0" top="0" tabpos="4">
 		<Cursor position="171" topLine="11" />
 	</File>
 	<File name="environment\Island.hpp" open="0" top="0" tabpos="7">
@@ -127,8 +127,8 @@
 	<File name="tinyxml\tinyxml.h" open="0" top="0" tabpos="0">
 		<Cursor position="4722" topLine="132" />
 	</File>
-	<File name="unit_test\actors\CharacterTest.cpp" open="1" top="1" tabpos="1">
-		<Cursor position="9674" topLine="262" />
+	<File name="unit_test\actors\CharacterTest.cpp" open="1" top="0" tabpos="1">
+		<Cursor position="5618" topLine="159" />
 	</File>
 	<File name="unit_test\util\CoordinateUtil_test.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="118" topLine="0" />
@@ -145,11 +145,11 @@
 	<File name="util\Commons.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="53" topLine="0" />
 	</File>
-	<File name="util\CoordinateUtil.cpp" open="1" top="0" tabpos="5">
-		<Cursor position="1952" topLine="38" />
+	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="5">
+		<Cursor position="1102" topLine="38" />
 	</File>
-	<File name="util\CoordinateUtil.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="161" topLine="31" />
+	<File name="util\CoordinateUtil.hpp" open="1" top="0" tabpos="3">
+		<Cursor position="1795" topLine="23" />
 	</File>
 	<File name="util\NumberUtil.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="71" topLine="0" />

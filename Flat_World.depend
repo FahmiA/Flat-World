@@ -444,7 +444,7 @@
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
-1330230260 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
+1330226660 source:c:\users\fahmi\documents\game development\flat_world\actors\character.cpp
 	"Character.hpp"
 	"util/NumberUtil.hpp"
 	"game/ID.hpp"
@@ -452,7 +452,7 @@
 	<math.h>
 	<list>
 
-1330199080 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
+1330195480 c:\users\fahmi\documents\game development\flat_world\actors\character.hpp
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"util/CoordinateUtil.hpp"
@@ -460,29 +460,29 @@
 	"util/Commons.hpp"
 	<SFML/Graphics.hpp>
 
-1328914833 c:\users\fahmi\documents\game development\flat_world\game\world.hpp
+1328911233 c:\users\fahmi\documents\game development\flat_world\game\world.hpp
 	"game/GameObject.hpp"
 	"scene/Camera.hpp"
 	<list>
 
-1325567357 c:\users\fahmi\documents\game development\flat_world\game\gameobject.hpp
+1325563757 c:\users\fahmi\documents\game development\flat_world\game\gameobject.hpp
 	<SFML/Graphics.hpp>
 
-1328993829 c:\users\fahmi\documents\game development\flat_world\scene\camera.hpp
+1328990229 c:\users\fahmi\documents\game development\flat_world\scene\camera.hpp
 	<SFML/Graphics.hpp>
 
-1330158223 c:\users\fahmi\documents\game development\flat_world\environment\island.hpp
+1330154623 c:\users\fahmi\documents\game development\flat_world\environment\island.hpp
 	"game/GameObject.hpp"
 	<SFML/Graphics.hpp>
 
-1325567429 c:\users\fahmi\documents\game development\flat_world\util\numberutil.hpp
+1325563829 c:\users\fahmi\documents\game development\flat_world\util\numberutil.hpp
 
-1328994738 c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.hpp
+1328991138 c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.hpp
 	<SFML/Graphics.hpp>
 
-1325308871 c:\users\fahmi\documents\game development\flat_world\game\id.hpp
+1325305271 c:\users\fahmi\documents\game development\flat_world\game\id.hpp
 
-1328901887 source:c:\users\fahmi\documents\game development\flat_world\actors\player.cpp
+1328898287 source:c:\users\fahmi\documents\game development\flat_world\actors\player.cpp
 	"Player.hpp"
 	"game/ID.hpp"
 	"util/CoordinateUtil.hpp"
@@ -490,36 +490,36 @@
 	"pickups/Star.hpp"
 	<iostream>
 
-1328914118 c:\users\fahmi\documents\game development\flat_world\actors\player.hpp
+1328910518 c:\users\fahmi\documents\game development\flat_world\actors\player.hpp
 	"Character.hpp"
 	"util/Commons.hpp"
 
-1328392585 source:c:\users\fahmi\documents\game development\flat_world\actors\sheep.cpp
+1328388985 source:c:\users\fahmi\documents\game development\flat_world\actors\sheep.cpp
 	"Sheep.hpp"
 	"game/ID.hpp"
 	<iostream>
 
-1328914175 c:\users\fahmi\documents\game development\flat_world\actors\sheep.hpp
+1328910575 c:\users\fahmi\documents\game development\flat_world\actors\sheep.hpp
 	"Character.hpp"
 	"ActorStates.hpp"
 	"util/AnimatedSprite.hpp"
 
-1330229330 source:c:\users\fahmi\documents\game development\flat_world\environment\island.cpp
+1330225730 source:c:\users\fahmi\documents\game development\flat_world\environment\island.cpp
 	"Island.hpp"
 	"game/ID.hpp"
 
-1329594591 source:c:\users\fahmi\documents\game development\flat_world\gameio\contentmanager.cpp
+1329590991 source:c:\users\fahmi\documents\game development\flat_world\gameio\contentmanager.cpp
 	"ContentManager.hpp"
 
-1329541112 c:\users\fahmi\documents\game development\flat_world\gameio\contentmanager.hpp
+1329537512 c:\users\fahmi\documents\game development\flat_world\gameio\contentmanager.hpp
 	<SFML/Graphics.hpp>
 	<string>
 	<map>
 
-1328415910 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
+1328412310 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.cpp
 	"LevelLoader.hpp"
 
-1328993136 c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.hpp
+1328989536 c:\users\fahmi\documents\game development\flat_world\gameio\levelloader.hpp
 	"tinyxml/tinyxml.h"
 	"gameIO/ContentManager.hpp"
 	"LevelBuilder.hpp"
@@ -530,7 +530,7 @@
 	<string>
 	<iostream>
 
-1310179888 c:\users\fahmi\documents\game development\flat_world\tinyxml\tinyxml.h
+1310176288 c:\users\fahmi\documents\game development\flat_world\tinyxml\tinyxml.h
 	<ctype.h>
 	<stdio.h>
 	<stdlib.h>
@@ -541,25 +541,25 @@
 	<sstream>
 	"tinystr.h"
 
-1305361498 c:\users\fahmi\documents\game development\flat_world\tinyxml\tinystr.h
+1305357898 c:\users\fahmi\documents\game development\flat_world\tinyxml\tinystr.h
 	<assert.h>
 	<string.h>
 
-1329542375 c:\users\fahmi\documents\game development\flat_world\util\spriteutil.hpp
+1329538775 c:\users\fahmi\documents\game development\flat_world\util\spriteutil.hpp
 	"gameIO/ContentManager.hpp"
 	<SFML/Graphics.hpp>
 	<string>
 
-1310115302 source:c:\users\fahmi\documents\game development\flat_world\game\gameobject.cpp
+1310111702 source:c:\users\fahmi\documents\game development\flat_world\game\gameobject.cpp
 	"GameObject.hpp"
 
-1328472948 source:c:\users\fahmi\documents\game development\flat_world\game\world.cpp
+1328469348 source:c:\users\fahmi\documents\game development\flat_world\game\world.cpp
 	"World.hpp"
 	"actors/Player.hpp"
 	"GUI/HUD.hpp"
 	"scene/StaticCamera.hpp"
 
-1328412442 source:c:\users\fahmi\documents\game development\flat_world\main.cpp
+1328408842 source:c:\users\fahmi\documents\game development\flat_world\main.cpp
 	"game/World.hpp"
 	"environment/Island.hpp"
 	"scene/SteadyCamera.hpp"
@@ -572,45 +572,45 @@
 	<SFML/Graphics.hpp>
 	<iostream>
 
-1328994022 c:\users\fahmi\documents\game development\flat_world\scene\steadycamera.hpp
+1328990422 c:\users\fahmi\documents\game development\flat_world\scene\steadycamera.hpp
 	"Camera.hpp"
 
-1325917627 source:c:\users\fahmi\documents\game development\flat_world\scene\camera.cpp
+1325914027 source:c:\users\fahmi\documents\game development\flat_world\scene\camera.cpp
 	"Camera.hpp"
 
-1328392588 source:c:\users\fahmi\documents\game development\flat_world\scene\steadycamera.cpp
+1328388988 source:c:\users\fahmi\documents\game development\flat_world\scene\steadycamera.cpp
 	"SteadyCamera.hpp"
 	"game/World.hpp"
 	"actors/Player.hpp"
 	<SFML/Graphics.hpp>
 
-1305361498 source:c:\users\fahmi\documents\game development\flat_world\tinyxml\tinystr.cpp
+1305357898 source:c:\users\fahmi\documents\game development\flat_world\tinyxml\tinystr.cpp
 	"tinystr.h"
 
-1305361498 source:c:\users\fahmi\documents\game development\flat_world\tinyxml\tinyxml.cpp
+1305357898 source:c:\users\fahmi\documents\game development\flat_world\tinyxml\tinyxml.cpp
 	<ctype.h>
 	<sstream>
 	<iostream>
 	"tinyxml.h"
 
-1305361498 source:c:\users\fahmi\documents\game development\flat_world\tinyxml\tinyxmlerror.cpp
+1305357898 source:c:\users\fahmi\documents\game development\flat_world\tinyxml\tinyxmlerror.cpp
 	"tinyxml.h"
 
-1305361498 source:c:\users\fahmi\documents\game development\flat_world\tinyxml\tinyxmlparser.cpp
+1305357898 source:c:\users\fahmi\documents\game development\flat_world\tinyxml\tinyxmlparser.cpp
 	<ctype.h>
 	<stddef.h>
 	"tinyxml.h"
 	<windows.h>
 
-1330230597 source:c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.cpp
+1330226997 source:c:\users\fahmi\documents\game development\flat_world\util\coordinateutil.cpp
 	"CoordinateUtil.hpp"
 	"NumberUtil.hpp"
 	<math.h>
 
-1325567425 source:c:\users\fahmi\documents\game development\flat_world\util\numberutil.cpp
+1325563825 source:c:\users\fahmi\documents\game development\flat_world\util\numberutil.cpp
 	"NumberUtil.hpp"
 
-1329542711 source:c:\users\fahmi\documents\game development\flat_world\util\spriteutil.cpp
+1329539111 source:c:\users\fahmi\documents\game development\flat_world\util\spriteutil.cpp
 	"SpriteUtil.hpp"
 	"NumberUtil.hpp"
 
@@ -628,26 +628,26 @@
 	"actors/ActorStates.hpp"
 	"util/AnimatedSprite.hpp"
 
-1328912306 c:\users\fahmi\documents\game development\flat_world\actors\actorstates.hpp
+1328908706 c:\users\fahmi\documents\game development\flat_world\actors\actorstates.hpp
 	"Character.hpp"
 
-1328912223 source:c:\users\fahmi\documents\game development\flat_world\actors\actorstates.cpp
+1328908623 source:c:\users\fahmi\documents\game development\flat_world\actors\actorstates.cpp
 	"ActorStates.hpp"
 	"Character.hpp"
 	"util/AnimatedSprite.hpp"
 
-1328994682 c:\users\fahmi\documents\game development\flat_world\util\animatedsprite.hpp
+1328991082 c:\users\fahmi\documents\game development\flat_world\util\animatedsprite.hpp
 	<SFML/Graphics.hpp>
 	<map>
 
-1327123346 source:c:\users\fahmi\documents\game development\flat_world\util\animatedsprite.cpp
+1327119746 source:c:\users\fahmi\documents\game development\flat_world\util\animatedsprite.cpp
 	"AnimatedSprite.hpp"
 	<iostream>
 
-1328993915 c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.hpp
+1328990315 c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.hpp
 	"Camera.hpp"
 
-1326530148 source:c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.cpp
+1326526548 source:c:\users\fahmi\documents\game development\flat_world\scene\manualcamera.cpp
 	"ManualCamera.hpp"
 
 1326577323 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderxml.hpp
@@ -661,7 +661,7 @@
 	<stdio.h>
 	<iostream>
 
-1329542598 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
+1329538998 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.hpp
 	"game/World.hpp"
 	"gameIO/ContentManager.hpp"
 	"environment/Island.hpp"
@@ -670,41 +670,41 @@
 	"actors/Player.hpp"
 	<set>
 
-1329542636 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
+1329539036 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilder.cpp
 	"LevelBuilder.hpp"
 	"util/SpriteUtil.hpp"
 	"util/NumberUtil.hpp"
 	<stdio.h>
 	<iostream>
 
-1328901502 source:c:\users\fahmi\documents\game development\flat_world\pickups\star.cpp
+1328897902 source:c:\users\fahmi\documents\game development\flat_world\pickups\star.cpp
 	"Star.hpp"
 	"game/ID.hpp"
 
-1328993783 c:\users\fahmi\documents\game development\flat_world\pickups\star.hpp
+1328990183 c:\users\fahmi\documents\game development\flat_world\pickups\star.hpp
 	"actors/Character.hpp"
 	<SFML/Graphics.hpp>
 
-1328473023 source:c:\users\fahmi\documents\game development\flat_world\gui\hud.cpp
+1328469423 source:c:\users\fahmi\documents\game development\flat_world\gui\hud.cpp
 	"HUD.hpp"
 	"util/NumberUtil.hpp"
 	<algorithm>
 	<sstream>
 
-1328993749 c:\users\fahmi\documents\game development\flat_world\gui\hud.hpp
+1328990149 c:\users\fahmi\documents\game development\flat_world\gui\hud.hpp
 	"game/World.hpp"
 	<SFML/Graphics.hpp>
 
 1325567425 c:\users\fahmi\documents\game development\flat_world\util\numberutil.cpp
 	"NumberUtil.hpp"
 
-1328993978 c:\users\fahmi\documents\game development\flat_world\scene\staticcamera.hpp
+1328990378 c:\users\fahmi\documents\game development\flat_world\scene\staticcamera.hpp
 	"Camera.hpp"
 
-1326261310 source:c:\users\fahmi\documents\game development\flat_world\scene\staticcamera.cpp
+1326257710 source:c:\users\fahmi\documents\game development\flat_world\scene\staticcamera.cpp
 	"StaticCamera.hpp"
 
-1264560842 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics.hpp
+1264557242 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics.hpp
 	<SFML/Window.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Font.hpp>
@@ -717,7 +717,7 @@
 	<SFML/Graphics/String.hpp>
 	<SFML/Graphics/View.hpp>
 
-1264560842 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window.hpp
+1264557242 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window.hpp
 	<SFML/System.hpp>
 	<SFML/Window/Context.hpp>
 	<SFML/Window/Event.hpp>
@@ -728,7 +728,7 @@
 	<SFML/Window/WindowStyle.hpp>
 	<SFML/Window/OpenGL.hpp>
 
-1264560842 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system.hpp
+1264557242 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Clock.hpp>
 	<SFML/System/Lock.hpp>
@@ -740,51 +740,51 @@
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Vector3.hpp>
 
-1264560842 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\config.hpp
+1264557242 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\config.hpp
 	<climits>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\clock.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\clock.hpp
 	<SFML/Config.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\lock.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\lock.hpp
 	<SFML/System/NonCopyable.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\noncopyable.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\noncopyable.hpp
 	<SFML/Config.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\mutex.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\mutex.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Win32/Mutex.hpp>
 	<SFML/System/Unix/Mutex.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\win32\mutex.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\win32\mutex.hpp
 	<SFML/System/NonCopyable.hpp>
 	<windows.h>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\unix\mutex.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\unix\mutex.hpp
 	<SFML/System/NonCopyable.hpp>
 	<pthread.h>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\randomizer.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\randomizer.hpp
 	<SFML/Config.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\sleep.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\sleep.hpp
 	<SFML/Config.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\thread.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\thread.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Win32/Thread.hpp>
 	<SFML/System/Unix/Thread.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\win32\thread.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\win32\thread.hpp
 	<SFML/System/NonCopyable.hpp>
 	<windows.h>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\unix\thread.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\unix\thread.hpp
 	<SFML/System/NonCopyable.hpp>
 	<pthread.h>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\unicode.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\unicode.hpp
 	<SFML/Config.hpp>
 	<iterator>
 	<locale>
@@ -792,39 +792,39 @@
 	<stdlib.h>
 	<SFML/System/Unicode.inl>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\unicode.inl
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\unicode.inl
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\vector2.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\vector2.hpp
 	<SFML/System/Vector2.inl>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\vector2.inl
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\vector2.inl
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\vector3.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\vector3.hpp
 	<SFML/System/Vector3.inl>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\vector3.inl
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\vector3.inl
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\context.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\context.hpp
 	<SFML/Config.hpp>
 	<SFML/System/NonCopyable.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\event.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\event.hpp
 	<SFML/Config.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\input.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\input.hpp
 	<SFML/Config.hpp>
 	<SFML/System/NonCopyable.hpp>
 	<SFML/Window/Event.hpp>
 	<SFML/Window/WindowListener.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\windowlistener.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\windowlistener.hpp
 	<SFML/Config.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\videomode.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\videomode.hpp
 	<SFML/Config.hpp>
 	<cstdlib>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\window.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\window.hpp
 	<SFML/Window/Event.hpp>
 	<SFML/Window/Input.hpp>
 	<SFML/Window/VideoMode.hpp>
@@ -837,14 +837,14 @@
 	<queue>
 	<string>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\windowhandle.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\windowhandle.hpp
 	<SFML/Config.hpp>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\windowsettings.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\windowsettings.hpp
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\windowstyle.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\windowstyle.hpp
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\opengl.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\window\opengl.hpp
 	<SFML/Config.hpp>
 	<windows.h>
 	<GL/gl.h>
@@ -854,10 +854,10 @@
 	<OpenGL/gl.h>
 	<OpenGL/glu.h>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\color.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\color.hpp
 	<SFML/Config.hpp>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\font.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\font.hpp
 	<SFML/System/Resource.hpp>
 	<SFML/System/Vector2.hpp>
 	<SFML/System/Unicode.hpp>
@@ -867,80 +867,80 @@
 	<map>
 	<string>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\resource.hpp
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\resource.hpp
 	<set>
 	<SFML/System/Resource.inl>
 	<SFML/System/ResourcePtr.inl>
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\resource.inl
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\resource.inl
 
-1264560836 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\resourceptr.inl
+1264557236 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\system\resourceptr.inl
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\glyph.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\glyph.hpp
 	<SFML/Config.hpp>
 	<SFML/Graphics/Rect.hpp>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\rect.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\rect.hpp
 	<algorithm>
 	<SFML/Graphics/Rect.inl>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\rect.inl
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\rect.inl
 
-1268878454 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\image.hpp
+1268874854 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\image.hpp
 	<SFML/System/Resource.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<string>
 	<vector>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\postfx.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\postfx.hpp
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Image.hpp>
 	<istream>
 	<map>
 	<string>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\drawable.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\drawable.hpp
 	<SFML/System/Vector2.hpp>
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/Matrix3.hpp>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\matrix3.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\matrix3.hpp
 	<SFML/Config.hpp>
 	<SFML/System/Vector2.hpp>
 	<math.h>
 	<SFML/Graphics/Matrix3.inl>
 
-1268878456 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\matrix3.inl
+1268874856 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\matrix3.inl
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\renderwindow.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\renderwindow.hpp
 	<SFML/Graphics/Image.hpp>
 	<SFML/Graphics/RenderTarget.hpp>
 	<SFML/Window/Window.hpp>
 	<string>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\rendertarget.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\rendertarget.hpp
 	<SFML/Graphics/Color.hpp>
 	<SFML/Graphics/View.hpp>
 	<SFML/Graphics/Rect.hpp>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\view.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\view.hpp
 	<SFML/Config.hpp>
 	<SFML/Graphics/Rect.hpp>
 	<SFML/Graphics/Matrix3.hpp>
 	<SFML/System/Vector2.hpp>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\shape.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\shape.hpp
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/System/Vector2.hpp>
 	<vector>
 
-1268878452 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\sprite.hpp
+1268874852 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\sprite.hpp
 	<SFML/System/Resource.hpp>
 	<SFML/Graphics/Drawable.hpp>
 	<SFML/Graphics/Rect.hpp>
 
-1264560834 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\string.hpp
+1264557234 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\sfml\graphics\string.hpp
 	<SFML/System/Resource.hpp>
 	<SFML/System/Unicode.hpp>
 	<SFML/Graphics/Drawable.hpp>
@@ -953,7 +953,7 @@
 	"util/CoordinateUtil_test.cpp"
 	<iostream>
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest.h
 	<limits>
 	<vector>
 	"gtest/internal/gtest-internal.h"
@@ -967,7 +967,7 @@
 	"gtest/gtest-typed-test.h"
 	"gtest/gtest_pred_impl.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-internal.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-internal.h
 	"gtest/internal/gtest-port.h"
 	<stdlib.h>
 	<sys/types.h>
@@ -982,7 +982,7 @@
 	"gtest/internal/gtest-filepath.h"
 	"gtest/internal/gtest-type-util.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-port.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-port.h
 	<ctype.h>
 	<stddef.h>
 	<stdlib.h>
@@ -1008,44 +1008,44 @@
 	<tuple>
 	<vector>
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-tuple.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-tuple.h
 	<utility>
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-string.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-string.h
 	<mem.h>
 	<string.h>
 	"gtest/internal/gtest-port.h"
 	<string>
 
-1302900549 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-filepath.h
+1302896949 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-filepath.h
 	"gtest/internal/gtest-string.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-type-util.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-type-util.h
 	"gtest/internal/gtest-port.h"
 	"gtest/internal/gtest-string.h"
 	<cxxabi.h>
 	<acxx_demangle.h>
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-death-test.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-death-test.h
 	"gtest/internal/gtest-death-test-internal.h"
 
-1302900549 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-death-test-internal.h
+1302896949 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-death-test-internal.h
 	"gtest/internal/gtest-internal.h"
 	<stdio.h>
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-message.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-message.h
 	<limits>
 	"gtest/internal/gtest-string.h"
 	"gtest/internal/gtest-internal.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-param-test.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-param-test.h
 	"gtest/internal/gtest-port.h"
 	<utility>
 	"gtest/internal/gtest-internal.h"
 	"gtest/internal/gtest-param-util.h"
 	"gtest/internal/gtest-param-util-generated.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-param-util.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-param-util.h
 	<iterator>
 	<utility>
 	<vector>
@@ -1054,12 +1054,12 @@
 	"gtest/internal/gtest-port.h"
 	"gtest/gtest-printers.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-linked_ptr.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-linked_ptr.h
 	<stdlib.h>
 	<assert.h>
 	"gtest/internal/gtest-port.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-printers.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-printers.h
 	<ostream>
 	<sstream>
 	<string>
@@ -1068,39 +1068,39 @@
 	"gtest/internal/gtest-port.h"
 	"gtest/internal/gtest-internal.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-param-util-generated.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\internal\gtest-param-util-generated.h
 	"gtest/internal/gtest-param-util.h"
 	"gtest/internal/gtest-port.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest_prod.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest_prod.h
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-test-part.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-test-part.h
 	<iosfwd>
 	<vector>
 	"gtest/internal/gtest-internal.h"
 	"gtest/internal/gtest-string.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-typed-test.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest-typed-test.h
 	"gtest/internal/gtest-port.h"
 	"gtest/internal/gtest-type-util.h"
 
-1302900550 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest_pred_impl.h
+1302896950 c:\users\fahmi\documents\game development\flat_world\libraries\debug\include\gtest\gtest_pred_impl.h
 
 1327173773 c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
 	<limits.h>
 	"gtest/gtest.h"
 
-1329517523 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
+1329513923 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\coordinateutil_test.cpp
 	"gtest/gtest.h"
 	"util/CoordinateUtil.hpp"
 
-1329593210 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\spriteutil_test.cpp
+1329589610 source:c:\users\fahmi\documents\game development\flat_world\unit_test\util\spriteutil_test.cpp
 	"gtest/gtest.h"
 	"util/SpriteUtil.hpp"
 
-1328994707 c:\users\fahmi\documents\game development\flat_world\util\commons.hpp
+1328991107 c:\users\fahmi\documents\game development\flat_world\util\commons.hpp
 
-1329542698 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.cpp
+1329539098 source:c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.cpp
 	"LevelBuilderStd.hpp"
 	"util/AnimatedSprite.hpp"
 	"pickups/Star.hpp"
@@ -1109,15 +1109,15 @@
 	<stdio.h>
 	<iostream>
 
-1328993203 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.hpp
+1328989603 c:\users\fahmi\documents\game development\flat_world\gameio\levelbuilderstd.hpp
 	"LevelBuilder.hpp"
 
-1328914183 c:\users\fahmi\documents\game development\flat_world\actors\sheepdog.hpp
+1328910583 c:\users\fahmi\documents\game development\flat_world\actors\sheepdog.hpp
 	"actors/Character.hpp"
 	"actors/ActorStates.hpp"
 	"util/AnimatedSprite.hpp"
 
-1328914001 source:c:\users\fahmi\documents\game development\flat_world\actors\sheepdog.cpp
+1328910401 source:c:\users\fahmi\documents\game development\flat_world\actors\sheepdog.cpp
 	"Sheepdog.hpp"
 	"game/ID.hpp"
 	"Player.hpp"
@@ -1126,7 +1126,7 @@
 	"gameIO/LevelBuilder.hpp"
 	<iostream>
 
-1330809700 source:c:\users\fahmi\documents\game development\flat_world\unit_test\actors\charactertest.cpp
+1330809375 source:c:\users\fahmi\documents\game development\flat_world\unit_test\actors\charactertest.cpp
 	"gtest/gtest.h"
 	"gameIO/ContentManager.hpp"
 	"util/SpriteUtil.hpp"

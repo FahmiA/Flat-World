@@ -88,7 +88,7 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     // Move in responce to user input
     steer(elapsedTime);
 
-    // Stick tthe Character to the current island.
+    // Stick the Character to the current island.
     lockToIsland(elapsedTime);
 }
 
@@ -170,115 +170,63 @@ void Character::lockToIsland(float elapsedTime)
     if(currentGround == 0)
         return;
 
+    // Variables to configure ground collision
     int lookDepth = 50; // Depth to ray-trace
     int lookOffset = 10; // Distance between left and right ray-traces
+    float clampThreshold = 10;
 
     // Get the Sprite directly under the player
     Sprite *groundSprite = currentGround->getSprite();
 
     // Get the position at the bottom of the charcter
     // Global Positions
-    Vector2f bottomLeft = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) - lookOffset, sprite->GetSize().y));
-    Vector2f bottomMiddle = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2), sprite->GetSize().y + distanceFromGround));
-    Vector2f bottomRight = sprite->TransformToGlobal(Vector2f((sprite->GetSize().x/2) + lookOffset, sprite->GetSize().y));
-    Vector2f bottomMiddleUp = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x, sprite->GetSize().y - 5 + distanceFromGround)); // 5 pixels up from base
-
-    cout << "-- Global coordinates -----------" << endl;
-    cout << "spritePos:\t(" << sprite->GetPosition().x << ", " << sprite->GetPosition().y << ')' << endl;
-    cout << "islandPos:\t(" << groundSprite->GetPosition().x << ", " << groundSprite->GetPosition().y << ')' << endl;
-    cout << "bottomLeft:\t(" << bottomLeft.x << ", " << bottomLeft.y << ')' << endl;
-    cout << "bottomRight:\t(" << bottomRight.x << ", " << bottomRight.y << ')' << endl;
-    cout << "bottomMiddle:\t(" << bottomMiddle.x << ", " << bottomMiddle.y << ')' << endl;
+    float myCenterX = sprite->GetSize().x / 2.0f;
+    float myCenterY = sprite->GetSize().y / 2.0f;
+    float myBottomY = sprite->GetSize().y;
+    Vector2f bottomLeft = sprite->TransformToGlobal(Vector2f(myCenterX - lookOffset, myBottomY));
+    Vector2f bottomMiddle = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY + distanceFromGround));
+    Vector2f bottomRight = sprite->TransformToGlobal(Vector2f(myCenterX + lookOffset, myBottomY));
 
     // Transform global positions to local ground positions
     bottomLeft = groundSprite->TransformToLocal(bottomLeft);
     bottomMiddle = groundSprite->TransformToLocal(bottomMiddle);
     bottomRight = groundSprite->TransformToLocal(bottomRight);
-    bottomMiddleUp = groundSprite->TransformToLocal(bottomMiddleUp);
 
-    cout << "-- Local coordinates -----------" << endl;
-    cout << "bottomLeft:\t(" << bottomLeft.x << ", " << bottomLeft.y << ')' << endl;
-    cout << "bottomRight:\t(" << bottomRight.x << ", " << bottomRight.y << ')' << endl;
-    cout << "bottomMiddle:\t(" << bottomMiddle.x << ", " << bottomMiddle.y << ')' << endl;
+    // Get the position of the ray-trace destination
+    Vector2f target = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY+ lookDepth));
+    target = groundSprite->TransformToLocal(target);
 
-    // Get the position at the ray-trace distance
-    // Global Positions
-    Vector2f targetLeft = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + lookDepth));
-    Vector2f targetMiddle = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + lookDepth));
-    Vector2f targetRight = sprite->TransformToGlobal(Vector2f(sprite->GetSize().x/2, sprite->GetSize().y + lookDepth));
-    // Transform global positions to local ground positions
-    targetLeft = groundSprite->TransformToLocal(targetLeft);
-    targetMiddle = groundSprite->TransformToLocal(targetMiddle);
-    targetRight = groundSprite->TransformToLocal(targetRight);
+    // Ray-trace to get position of land below character
+    Vector2f *leftCollide = spriteUtil.rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, target.x, target.y);
+    Vector2f *middleCollide = spriteUtil.rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, target.x, target.y);
+    Vector2f *rightCollide = spriteUtil.rayTrace(groundSprite, bottomRight.x, bottomRight.y, target.x, target.y);
 
-    // Land directly below
-    Vector2f *leftCollide = spriteUtil.rayTrace(groundSprite, bottomLeft.x, bottomLeft.y, targetLeft.x, targetLeft.y);
-    Vector2f *middleCollide = spriteUtil.rayTrace(groundSprite, bottomMiddle.x, bottomMiddle.y, targetMiddle.x, targetMiddle.y);
-    Vector2f *rightCollide = spriteUtil.rayTrace(groundSprite, bottomRight.x, bottomRight.y, targetRight.x, targetRight.y);
-
-    cout << "-- Local coordinates (collide) -----------" << endl;
-    cout << "leftCollide:\t(" << leftCollide->x << ", " << leftCollide->y << ')' << endl;
-    cout << "rightCollide:\t(" << rightCollide->x << ", " << rightCollide->y << ')' << endl;
-    cout << "middleCollide:\t(" << middleCollide->x << ", " << middleCollide->y << ')' << endl;
-
-    if(leftCollide == 0 || rightCollide == 0)
+    // Both points find ground
+    if(leftCollide != 0 && rightCollide != 0)
     {
-        // No land below. Move with relative gravity
-        float angle = -sprite->GetRotation() + 90;
-        float velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
-        float velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
-        sprite->Move(velocityX, velocityY);
-    }else{
-        inJump = false;
+         inJump = false;
         // Draw the ground line for debugging purposes
         Vector2f lineLeftPoint = groundSprite->TransformToGlobal(*leftCollide);
         Vector2f lineRightPoint = groundSprite->TransformToGlobal(*rightCollide);
         line = Shape::Line(lineLeftPoint, lineRightPoint, 1, Color::White);
 
-        // Rotate to the correct angle
-        float angle = atan2(rightCollide->y - leftCollide->y, rightCollide->x - leftCollide->x);
-        angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
-        sprite->SetRotation(-angle); // Rotate to the correct angle
+        float groundAngleRad = coordUtil.getAngle(*leftCollide, 0, *rightCollide);
+        float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
 
-        // Move up or down depending on distance with ground
-        if(middleCollide != 0)
+        // If close enough to the land, clamp the position to the land
+        if(coordUtil.getDistance(*middleCollide, bottomMiddle) < clampThreshold)
         {
-            // Only move up or down if the distance is not acceptable
-            Color groundPixel(0, 0, 0, 0);
-            Color groundAbovePixel(0, 0, 0, 0);
+            sprite->SetCenter(0, myBottomY);
+            sprite->SetRotation(-groundAngleDeg);
+            sprite->SetCenter(myCenterX, myCenterY);
+        }else{
+            // Not close enough to land, fall with gravity
 
-            // Get the pixel of the ground
-            if(coordUtil.isLocalPointInside(bottomMiddle, *groundSprite)) // Ground exists, get the pixel.
-                groundPixel = groundSprite->GetPixel(bottomMiddle.x, bottomMiddle.y);
-            // Else ground does not exist, assume transparent.
-
-            // Get the pixel of the position above ground
-            if(coordUtil.isLocalPointInside(bottomMiddleUp, *groundSprite)) // Ground exists, get the pixel.
-                groundAbovePixel = groundSprite->GetPixel(bottomMiddleUp.x, bottomMiddleUp.y);
-            // Else ground does not exist, assume transparent.
-
-            if(groundPixel.a == 0 || groundAbovePixel.a > 0)
-            {
-                float reverseAngle = angle;
-                if(groundPixel.a == 0) // Transparent
-                {
-                    // Move down
-                    reverseAngle += 90;
-                }else{ // Not transparent
-                    // Move up
-                    reverseAngle -= 90;
-                }
-
-                // Move the charcter approprietly
-                float adjustSpeed = speed/3; // The Speed to adjust the character automaticly must be small to avoid jerkiness
-                float velocityX = cos((reverseAngle * M_PI) / 180) * (adjustSpeed * elapsedTime);
-                float velocityY = sin((reverseAngle * M_PI) / 180) * (adjustSpeed * elapsedTime);
-                sprite->Move(velocityX, velocityY);
-            }
         }
     }
 
-    // Perform cleanup.
+
+    // Perform cleanup
     delete leftCollide;
     delete middleCollide;
     delete rightCollide;
