@@ -263,8 +263,8 @@ TEST_F(CharacterTest, attachesToGentleAngledLand)
     Vector2f position = character->getPosition();
 
     // At close range, the character should snap to the island's surface
-    EXPECT_EQ(205, position.x) << "X-position should be on ground";
-    EXPECT_EQ(203, position.y) << "Y-position should be on ground";
+    EXPECT_NEAR(205, position.x, 1) << "X-position should be on ground";
+    EXPECT_NEAR(203, position.y, 1) << "Y-position should be on ground";
     EXPECT_NEAR(0.3, character->getRotation(), 0.05) << "Should be rotated to angle of hill";
 }
 

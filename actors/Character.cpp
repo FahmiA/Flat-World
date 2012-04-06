@@ -208,11 +208,10 @@ void Character::lockToIsland(float elapsedTime)
         // Draw the ground line for debugging purposes
         Vector2f globalLeftCollide = groundSprite->TransformToGlobal(*leftCollide);
         Vector2f globalRightCollide = groundSprite->TransformToGlobal(*rightCollide);
-        line = Shape::Line(globalLeftCollide, globalLeftCollide, 1, Color::White);
+        line = Shape::Line(globalLeftCollide, globalRightCollide, 1, Color::White);
 
         float groundAngleRad = -coordUtil.getAngle(*leftCollide, 0, *rightCollide);
         float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
-        cout << "Distance to ground: " << coordUtil.getDistance(*middleCollide, bottomMiddle) << endl;
 
         // If close enough to the land, clamp the position to the land
         if(coordUtil.getDistance(*middleCollide, bottomMiddle) < clampThreshold)
@@ -229,9 +228,8 @@ void Character::lockToIsland(float elapsedTime)
             float distanceAC = coordUtil.getDistance(pointA, pointC);
             float distanceCB = sprite->GetSize().y / 2.0f;
             float angleAB = atan2(distanceCB, distanceAC);
-            float distanceAB = hypotf(distanceCB, distanceAC);
-            //cout << "angleAB: " << angleAB << endl;
-            //cout << "distanceAB: " << distanceAB << endl;
+            float distanceAB = hypotf(distanceCB, distanceAC); // Gets length of hypotenuse
+
             Vector2f newPosition(
                                  pointA.x + (cos(angleAB) * distanceAB),
                                  pointA.y - (sin(angleAB) * distanceAB)
