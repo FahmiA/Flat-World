@@ -210,7 +210,7 @@ void Character::lockToIsland(float elapsedTime)
         Vector2f globalRightCollide = groundSprite->TransformToGlobal(*rightCollide);
         line = Shape::Line(globalLeftCollide, globalRightCollide, 1, Color::White);
 
-        float groundAngleRad = -coordUtil.getAngle(*leftCollide, 0, *rightCollide);
+        float groundAngleRad = coordUtil.getAngle(*leftCollide, 0, *rightCollide);
         float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
 
         // If close enough to the land, clamp the position to the land
@@ -225,16 +225,24 @@ void Character::lockToIsland(float elapsedTime)
                             (globalLeftCollide.y + globalRightCollide.y) / 2.0f
                             );
 
-            float distanceAC = coordUtil.getDistance(pointA, pointC);
             float distanceCB = sprite->GetSize().y / 2.0f;
+            Vector2f pointB(
+                            pointC.x + (cos(groundAngleRad-M_PI_2) * distanceCB),
+                            pointC.y + (sin(groundAngleRad-M_PI_2) * distanceCB)
+                            );
+
+            /*float distanceAC = coordUtil.getDistance(pointA, pointC);
+
             float angleAB = atan2(distanceCB, distanceAC);
             float distanceAB = hypotf(distanceCB, distanceAC); // Gets length of hypotenuse
 
             Vector2f newPosition(
                                  pointA.x + (cos(angleAB) * distanceAB),
                                  pointA.y - (sin(angleAB) * distanceAB)
-                                 );
-            sprite->SetPosition(newPosition);
+                                 );*/
+
+            sprite->SetPosition(pointB);
+            sprite->SetRotation(-groundAngleDeg);
         }else{
             // Not close enough to land, fall with gravity
             float gravityAngle = groundAngleRad + M_PI_2;

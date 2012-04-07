@@ -67,13 +67,14 @@
 					<Add option="-g" />
 					<Add option="-DSFML_DYNAMIC" />
 					<Add directory="libraries\debug\include" />
+					<Add directory="libraries\unittest\include" />
 					<Add directory="." />
 				</Compiler>
 				<Linker>
 					<Add option="-lsfml-graphics-d" />
 					<Add option="-lsfml-window-d" />
 					<Add option="-lsfml-system-d" />
-					<Add library="libraries\debug\lib\gtest_main.a" />
+					<Add library="libraries\unittest\lib\gtest_main.a" />
 					<Add directory="libraries\debug\lib" />
 				</Linker>
 				<ExtraCommands>
