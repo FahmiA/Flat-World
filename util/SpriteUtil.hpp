@@ -22,9 +22,10 @@ class SpriteUtil
          * @param fromY Start y-position to raytrace from (clamped to sprite bounds).
          * @param toX End x-position to raytrace to (clamped to sprite bounds).
          * @param toY End y-position to raytrace to (clamped to sprite bounds).
+         * @param seekEmpty True to find the first transparent pixel. False to find the first solid pixel.
          * @return First position that is not transparent (is solid).
          */
-        Vector2f* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY);
+        Vector2f* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY, bool seekEmpty = true);
 
         /** Loads a Sprite image given a path to an image.
          * @param path The path of the image to load into the Sprite.

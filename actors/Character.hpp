@@ -143,6 +143,8 @@ class Character: public GameObject
         // Helper-operations variables
         CoordinateUtil coordUtil;
         SpriteUtil spriteUtil;
+
+        void clampToGround(Vector2f &leftCollide, Vector2f &rightCollide);
 };
 
 // Define common animation states

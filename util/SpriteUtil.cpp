@@ -4,7 +4,7 @@
 
 SpriteUtil::SpriteUtil() {}
 
-Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY)
+Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY, bool seekEmpty)
 {
     // Simplified Bresenham line algorithm
     // http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
@@ -30,7 +30,8 @@ Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, in
         // Check pixel (fromX, fromY)
         Color pixel = sprite->GetPixel(fromX, fromY);
 
-        if(pixel.a > 0) // Not transparent
+        if((seekEmpty && pixel.a > 0) || // Solid
+           (!seekEmpty && pixel.a == 0)) // Transparent
         {
             collidePosition = new Vector2f(fromX, fromY);
             break;
