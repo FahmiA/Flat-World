@@ -14,10 +14,10 @@
 		<Cursor position="952" topLine="0" />
 	</File>
 	<File name="actors\Character.cpp" open="1" top="1" tabpos="2">
-		<Cursor position="6703" topLine="188" />
+		<Cursor position="7299" topLine="201" />
 	</File>
-	<File name="actors\Character.hpp" open="1" top="0" tabpos="4">
-		<Cursor position="4857" topLine="44" />
+	<File name="actors\Character.hpp" open="1" top="0" tabpos="5">
+		<Cursor position="5599" topLine="119" />
 	</File>
 	<File name="actors\Player.cpp" open="0" top="0" tabpos="1">
 		<Cursor position="3182" topLine="90" />
@@ -128,7 +128,7 @@
 		<Cursor position="4722" topLine="132" />
 	</File>
 	<File name="unit_test\actors\CharacterTest.cpp" open="1" top="0" tabpos="1">
-		<Cursor position="9808" topLine="259" />
+		<Cursor position="9922" topLine="253" />
 	</File>
 	<File name="unit_test\util\CoordinateUtil_test.cpp" open="0" top="0" tabpos="2">
 		<Cursor position="118" topLine="0" />
@@ -145,11 +145,11 @@
 	<File name="util\Commons.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="53" topLine="0" />
 	</File>
-	<File name="util\CoordinateUtil.cpp" open="0" top="0" tabpos="5">
-		<Cursor position="1102" topLine="23" />
+	<File name="util\CoordinateUtil.cpp" open="1" top="0" tabpos="4">
+		<Cursor position="520" topLine="2" />
 	</File>
-	<File name="util\CoordinateUtil.hpp" open="1" top="0" tabpos="3">
-		<Cursor position="1709" topLine="23" />
+	<File name="util\CoordinateUtil.hpp" open="0" top="0" tabpos="3">
+		<Cursor position="1003" topLine="0" />
 	</File>
 	<File name="util\NumberUtil.cpp" open="0" top="0" tabpos="0">
 		<Cursor position="71" topLine="0" />
@@ -157,10 +157,10 @@
 	<File name="util\NumberUtil.hpp" open="0" top="0" tabpos="0">
 		<Cursor position="564" topLine="0" />
 	</File>
-	<File name="util\SpriteUtil.cpp" open="0" top="0" tabpos="3">
-		<Cursor position="1383" topLine="16" />
+	<File name="util\SpriteUtil.cpp" open="1" top="0" tabpos="3">
+		<Cursor position="89" topLine="3" />
 	</File>
 	<File name="util\SpriteUtil.hpp" open="0" top="0" tabpos="2">
-		<Cursor position="320" topLine="7" />
+		<Cursor position="978" topLine="8" />
 	</File>
 </CodeBlocks_layout_file>

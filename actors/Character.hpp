@@ -129,7 +129,6 @@ class Character: public GameObject
         // State variables
         float speed;
         Sprite *sprite;
-        Shape line;
         Island *currentGround;
         Island *prevGround;
         bool inJump;
@@ -145,6 +144,15 @@ class Character: public GameObject
         SpriteUtil spriteUtil;
 
         void clampToGround(Vector2f &leftCollide, Vector2f &rightCollide);
+        void lockWithCoordinates(float elapsedTime,
+                                 Sprite &groundSprite,
+                                 Vector2f &groundBottomLeft,
+                                 Vector2f &groundBottomMiddle,
+                                 Vector2f &groundBottomRight,
+                                 Vector2f &groundTarget);
+
+        // Debug variables
+        Shape angleLine;
 };
 
 // Define common animation states

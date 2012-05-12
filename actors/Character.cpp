@@ -173,48 +173,81 @@ void Character::lockToIsland(float elapsedTime)
     // Variables to configure ground collision
     int lookDepth = 50; // Depth to ray-trace
     int lookOffset = 10; // Distance between left and right ray-traces
-    float clampThreshold = 10;
+    int airDistance = 10; // Maximum underground level before lifting charcater above ground
 
-    // Get the Sprite directly under the player
+    // Get the Sprite of the ground the charcter is on
     Sprite *groundSprite = currentGround->getSprite();
 
     // Get the position at the bottom of the charcter
     // Global Positions
     float myCenterX = sprite->GetSize().x / 2.0f;
-    float myCenterY = sprite->GetSize().y / 2.0f;
+    //float myCenterY = sprite->GetSize().y / 2.0f;
     float myBottomY = sprite->GetSize().y;
+    float myAirY = myBottomY - airDistance;
     Vector2f globalBottomLeft = sprite->TransformToGlobal(Vector2f(myCenterX - lookOffset, myBottomY));
-    Vector2f globalBottomMiddle = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY + distanceFromGround));
+    Vector2f globalBottomMiddle = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY));
     Vector2f globalBottomRight = sprite->TransformToGlobal(Vector2f(myCenterX + lookOffset, myBottomY));
+    // Point that should always be above ground.
+    Vector2f globalAirMiddle = sprite->TransformToGlobal(Vector2f(myCenterX, myAirY));
 
     // Transform global positions to local ground positions
     Vector2f groundBottomLeft = groundSprite->TransformToLocal(globalBottomLeft);
     Vector2f groundBottomMiddle = groundSprite->TransformToLocal(globalBottomMiddle);
     Vector2f groundBottomRight = groundSprite->TransformToLocal(globalBottomRight);
+    Vector2f groundAirMiddle = groundSprite->TransformToLocal(globalAirMiddle);
 
-    // Get the position of the ray-trace destination
-    Vector2f globalTarget = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY + lookDepth));
+    // Take the air pixel
+    int airPixelAlpha = 0;
+    // Make sure the pixel is within the bounds of the ground sprite
+    if(coordUtil.isLocalPointInside(groundAirMiddle, *groundSprite))
+    {
+        airPixelAlpha = (int)(groundSprite->GetPixel(groundAirMiddle.x, groundAirMiddle.y).a);
+    }
+
+     // Get the position of the ray-trace destination
+    Vector2f globalTarget;
+    if(airPixelAlpha < 100) // We are above ground
+    {
+        // Get the position of the ray-trace destination
+        globalTarget = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY + lookDepth));
+    }else{ // We are under ground
+        cout << "Diving! " << airPixelAlpha << endl;
+
+        // Get the position of the ray-trace destination
+        globalTarget = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY - lookDepth));
+    }
     Vector2f groundTarget = groundSprite->TransformToLocal(globalTarget);
 
+    // Lock to the ground with the claculated coordinates
+    lockWithCoordinates(elapsedTime, *groundSprite,
+                        groundBottomLeft,groundBottomMiddle,
+                        groundBottomRight, groundTarget);
+}
+
+void Character::lockWithCoordinates(float elapsedTime,
+                                    Sprite &groundSprite,
+                                    Vector2f &groundBottomLeft,
+                                    Vector2f &groundBottomMiddle,
+                                    Vector2f &groundBottomRight,
+                                    Vector2f &groundTarget)
+{
+    // Variables to configure ground collision
+    float clampThreshold = 10; // Distance from ground, before character is clamped to the ground
+
     // Ray-trace to get position of land below character
-    Vector2f *groundLeftCollide = spriteUtil.rayTrace(groundSprite, groundBottomLeft.x, groundBottomLeft.y, groundTarget.x, groundTarget.y);
-    Vector2f *groundMiddleCollide = spriteUtil.rayTrace(groundSprite, groundBottomMiddle.x, groundBottomMiddle.y, groundTarget.x, groundTarget.y);
-    Vector2f *groundRightCollide = spriteUtil.rayTrace(groundSprite, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y);
+    Vector2f *groundLeftCollide = spriteUtil.rayTrace(&groundSprite, groundBottomLeft.x, groundBottomLeft.y, groundTarget.x, groundTarget.y);
+    Vector2f *groundMiddleCollide = spriteUtil.rayTrace(&groundSprite, groundBottomMiddle.x, groundBottomMiddle.y, groundTarget.x, groundTarget.y);
+    Vector2f *groundRightCollide = spriteUtil.rayTrace(&groundSprite, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y);
 
     // Both points find ground
     if(groundLeftCollide != 0 && groundRightCollide != 0)
     {
         inJump = false;
-        // Draw the ground line for debugging purposes
-        Vector2f globalLeftCollide = groundSprite->TransformToGlobal(*groundLeftCollide);
-        Vector2f globalRightCollide = groundSprite->TransformToGlobal(*groundRightCollide);
-        line = Shape::Line(globalLeftCollide, globalRightCollide, 1, Color::White);
 
-        if(coordUtil.getDistance(groundBottomLeft, *groundLeftCollide) < 2.0f &&
-           coordUtil.getDistance(groundBottomRight, *groundRightCollide) < 2.0f)
-        {
-            cout << ">>>here" << endl;
-        }
+        // Draw debug graphics
+        Vector2f globalLeftCollide = groundSprite.TransformToGlobal(*groundLeftCollide);
+        Vector2f globalRightCollide = groundSprite.TransformToGlobal(*groundRightCollide);
+        angleLine = Shape::Line(globalLeftCollide, globalRightCollide, 1, Color::White);
 
         float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
         float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
@@ -231,9 +264,8 @@ void Character::lockToIsland(float elapsedTime)
             sprite->Move(velocityX, velocityY);
         }
     }else{
-        cout << "She's taking water!" << endl;
+        cout << "Couldn't get a lock on the ground." << endl;
     }
-
 
     // Perform cleanup
     delete groundLeftCollide;
@@ -285,8 +317,8 @@ void Character::draw(RenderWindow *window)
     // Draw the charcter.
     window->Draw(*sprite);
 
-    // Draw the ground line for debugging.
-    window->Draw(line);
+    // Draw the debug graphics
+    window->Draw(angleLine);
 }
 
 const Vector2f& Character::getPosition()
