@@ -11,10 +11,12 @@ Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, in
     // x0 = fromX   y0 = fromY  x1 = toX    y1 = toY
 
     // Clamp positions to within the bounds of the sprite
-    clamp(fromX, 0, sprite->GetSize().x - 1);
-    clamp(fromY, 0, sprite->GetSize().y - 1);
-    clamp(toX, 0, sprite->GetSize().x - 1);
-    clamp(toY, 0, sprite->GetSize().y - 1);
+    int spriteMaxX = (int)((sprite->GetSize().x / sprite->GetScale().x) - 1.0f);
+    int spriteMaxY = (int)((sprite->GetSize().y / sprite->GetScale().y) - 1.0f);
+    clamp(fromX, 0, spriteMaxX  - 1);
+    clamp(fromY, 0, spriteMaxY - 1);
+    clamp(toX, 0, spriteMaxX  - 1);
+    clamp(toY, 0, spriteMaxY - 1);
 
     // Declare the required variables
     Vector2f *collidePosition = 0;
@@ -47,7 +49,8 @@ Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, in
             fromX = fromX + slopeX;
         }
 
-        if(error2 < differenceX){
+        if(error2 < differenceX)
+        {
             error = error + differenceX;
             fromY = fromY + slopeY;
         }

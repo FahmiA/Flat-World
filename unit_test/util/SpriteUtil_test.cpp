@@ -131,7 +131,7 @@ TEST_F(SpriteUtilTest, rayTraceCornerCase)
      // to: inside-void, from: outside, clamp to
     result = spriteUtil->rayTrace(&sprite, 3, 12, 20, -1);
     EXPECT_EQ(5, result->x) << "to: inside-void, from outside, clamp to";
-    EXPECT_EQ(11, result->y) << "to: inside-void, from outside, clamp to";
+    EXPECT_EQ(10, result->y) << "to: inside-void, from outside, clamp to";
     delete result;
 
     // to: inside-void, from: outside, clamp to
@@ -143,4 +143,48 @@ TEST_F(SpriteUtilTest, rayTraceCornerCase)
     result = spriteUtil->rayTrace(&sprite, 99, 100, -99, 99);
     EXPECT_EQ(0, result) << "to: outside, from: outside, clamp from and to";
     if(result) delete result;
+}
+
+TEST_F(SpriteUtilTest, rayTraceScaledSprite)
+{
+    // Load an image of a square
+    Image image;
+    Sprite sprite;
+
+    if(!image.LoadFromFile(SQUARE_IMAGE_PATH))
+        FAIL() << "Image could not be loaded for test: " << SQUARE_IMAGE_PATH;
+    sprite.SetImage(image);
+
+    sprite.SetScale(Vector2f(1.4, 0.5));
+
+    // Run the tests
+
+    // from inside-void to inside-solid, horizontal
+    Vector2f *result = spriteUtil->rayTrace(&sprite, 18, 10, 12, 10);
+    EXPECT_EQ(14, result->x) << "from inside-void to inside-solid, horizontal";
+    EXPECT_EQ(10, result->y) << "from inside-void to inside-solid, horizontal";
+    delete result;
+
+    // from inside-void to inside-solid, vertical
+    result = spriteUtil->rayTrace(&sprite, 14, 0, 14, 14);
+    EXPECT_EQ(14, result->x) << "from inside-void to inside-solid, vertical";
+    EXPECT_EQ(5, result->y) << "from inside-void toinside-solid, vertical";
+    delete result;
+
+    // from inside-void to inside-solid, diagonal
+    result = spriteUtil->rayTrace(&sprite, 15, 4, 14, 6);
+    EXPECT_EQ(14, result->x) << "from inside-void to inside-solid, diagonal";
+    EXPECT_EQ(6, result->y) << "from inside-void to inside-solid, diagonal";
+    delete result;
+
+    // from inside-void to inside-void
+    result = spriteUtil->rayTrace(&sprite, 18, 5, 15, 12);
+    EXPECT_EQ(0, result) << "from inside-void to inside-void";
+    if(result) delete result;
+
+    // from inside-solid to inside-solid
+    result = spriteUtil->rayTrace(&sprite, 7, 8, 13, 10);
+    EXPECT_EQ(7, result->x) << "from inside-solid to inside-solid";
+    EXPECT_EQ(8, result->y) << "from inside-solid to inside-solid";
+    delete result;
 }

@@ -144,15 +144,11 @@ class Character: public GameObject
         SpriteUtil spriteUtil;
 
         void clampToGround(Vector2f &leftCollide, Vector2f &rightCollide);
-        void lockWithCoordinates(float elapsedTime,
-                                 Sprite &groundSprite,
-                                 Vector2f &groundBottomLeft,
-                                 Vector2f &groundBottomMiddle,
-                                 Vector2f &groundBottomRight,
-                                 Vector2f &groundTarget);
+        bool isAboveGround(Sprite &groundSprite);
 
         // Debug variables
         Shape angleLine;
+        Shape lookLine;
 };
 
 // Define common animation states

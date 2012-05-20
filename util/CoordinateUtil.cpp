@@ -12,8 +12,8 @@ bool CoordinateUtil::isGlobalPointInside(Vector2f &point, Sprite &bounds)
     Vector2f rectSize = bounds.GetSize();
     Vector2f rectPosition = bounds.GetPosition();
 
-    if(point.x >= rectPosition.x && point.x <= rectPosition.x + rectSize.x &&
-       point.y >= rectPosition.y && point.y <= rectPosition.y + rectSize.y)
+    if(point.x >= rectPosition.x && point.x < rectPosition.x + rectSize.x &&
+       point.y >= rectPosition.y && point.y < rectPosition.y + rectSize.y)
        return true;
 
     return false;
@@ -22,9 +22,12 @@ bool CoordinateUtil::isGlobalPointInside(Vector2f &point, Sprite &bounds)
 bool CoordinateUtil::isLocalPointInside(Vector2f &point, Sprite &bounds)
 {
     Vector2f rectSize = bounds.GetSize();
+    // Consider for scaling
+    float rectSizeX = rectSize.x / bounds.GetScale().x;
+    float rectSizeY = rectSize.y / bounds.GetScale().y;
 
-    if(point.x >= 0 && point.x <= rectSize.x &&
-       point.y >= 0 && point.y <= rectSize.y)
+    if(point.x >= 0 && point.x < rectSizeX &&
+       point.y >= 0 && point.y < rectSizeY)
        return true;
 
     return false;

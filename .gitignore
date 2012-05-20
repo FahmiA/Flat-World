@@ -2,3 +2,5 @@
 /obj/
 /.objs/
 /*.cbTemp
+*.depend
+*.layout
