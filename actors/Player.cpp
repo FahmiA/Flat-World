@@ -53,6 +53,9 @@ void Player::doActionNormal(RenderWindow *window)
 
     if(input.IsKeyDown(Key::Space))
         landHop();
+
+    if(input.IsKeyDown(Key::P))
+        pushBack(Left);
 }
 
 void Player::doActionPushBack(float elapsedTime)

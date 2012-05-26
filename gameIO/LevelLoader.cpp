@@ -180,12 +180,13 @@ bool LevelLoader::buildWorld()
         islandDesc = islandMap[pickupDesc->locationID];
 
         int pickupCount = pickupDesc->count;
-        float sequenceDistance = abs(pickupDesc->startAngle - pickupDesc->endAngle);
+        float sequenceDistance = pickupDesc->endAngle - pickupDesc->startAngle;
         float gap = sequenceDistance / pickupCount;
 
         for(int i = 0; i < pickupCount; i++)
         {
             float angle = pickupDesc->startAngle + (gap * i);
+
             if(pickupDesc->type.compare(ATR_STAR) == 0)
             {
                 levelBuilder->addStar(pickupDesc, islandDesc, angle);

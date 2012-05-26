@@ -46,12 +46,12 @@
     <unit type="player">
         <image> media/textures/CharacterBoy.png </image>
         <locationID> 1 </locationID>
-        <angle> 4.7 </angle>
+        <angle> -1 </angle>
     </unit>
 
     <unit type="sheep">
         <image> media/textures/Sheep.png </image>
-        <angle> -90 </angle>
+        <angle> -3 </angle>
         <locationID> 2 </locationID>
     </unit>
 
@@ -63,8 +63,8 @@
     <pickup type="star">
         <image> media/textures/star.png </image>
         <locationID> 1 </locationID>
-        <startAngle> 5.5 </startAngle>
-        <endAngle> 3.9 </endAngle>
+        <startAngle> 0 </startAngle>
+        <endAngle> 0.5 </endAngle>
         <count> 5 </count>
     </pickup>
 

@@ -29,17 +29,14 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
          angleRadians = random.Random(0, M_2_PI);
     }
 
-    // Convert the angle from degrees to radians
-    //float angleRadians = DEGREES_TO_RADIANS(angleDegrees);
-
     // Want to ray-trace beyond the border of the island
     float raytraceDistance = max(island->getSize().x, island->getSize().y);
 
     // Get the ray-trace 'beam' coordinates
-    float toX = island->getSize().x / 2;
-    float toY = island->getSize().y / 2;
-    float fromX = toX + (cos(angleRadians) * raytraceDistance);
-    float fromY = toY + (sin(angleRadians) * raytraceDistance);
+    float fromX = island->getSize().x / 2;
+    float fromY = island->getSize().y / 2;
+    float toX = fromX + (cos(angleRadians) * raytraceDistance);
+    float toY = fromY + (sin(angleRadians) * raytraceDistance);
 
     //cout << cos(angleRadians) << endl;
     // Ray-trace

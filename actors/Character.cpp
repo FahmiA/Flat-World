@@ -184,7 +184,7 @@ void Character::lockToIsland(float elapsedTime)
     // Get the position at the bottom of the charcter
     // Global Positions
     float myCenterX = sprite->GetSize().x / 2.0f;
-    float myBottomY = sprite->GetSize().y;
+    float myBottomY = sprite->GetSize().y + distanceFromGround;
     Vector2f globalBottomLeft = sprite->TransformToGlobal(Vector2f(myCenterX - lookOffset, myBottomY));
     Vector2f globalBottomMiddle = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY));
     Vector2f globalBottomRight = sprite->TransformToGlobal(Vector2f(myCenterX + lookOffset, myBottomY));
@@ -211,6 +211,9 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f *groundMiddleCollide = spriteUtil.rayTrace(groundSprite, groundBottomMiddle.x, groundBottomMiddle.y, groundTarget.x, groundTarget.y, aboveGround);
     Vector2f *groundRightCollide = spriteUtil.rayTrace(groundSprite, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y, aboveGround);
 
+    //if(distanceFromGround > 0)
+    //    aboveGround = false; // Pretending to be underground forces clamping
+
     lookLine = Shape::Line(globalBottomMiddle, globalTarget, 1, Color::Blue);
 
     if(groundLeftCollide != 0 && groundRightCollide != 0)
@@ -231,19 +234,20 @@ void Character::lockToIsland(float elapsedTime)
             float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
 
             // Only move if the angle of change is significant
+            float groundDistance = coordUtil.getDistance(*groundMiddleCollide, groundBottomMiddle);
+            bool significantChange = false;
             if(groundAngleRad - prevAngle > ANGLE_DIFF_THRESHOLD  ||
                prevAngle - groundAngleRad > ANGLE_DIFF_THRESHOLD)
             {
                 prevAngle = groundAngleRad;
-            }else{
-                return;
+                significantChange = true;
             }
 
             // If close enough to the land, clamp the position to the land
-            if(coordUtil.getDistance(*groundMiddleCollide, groundBottomMiddle) < clampThreshold)
+            if(significantChange && groundDistance < clampThreshold)
             {
                 clampToGround(globalLeftCollide, globalRightCollide);
-            }else{
+            }else if(groundDistance > clampThreshold){
                 // Not close enough to clamp so move with gravity
                 float gravityAngle = groundAngleRad + M_PI_2;
                 if(!aboveGround) // Reverse gravity if underground
@@ -273,7 +277,7 @@ bool Character::isAboveGround(Sprite &groundSprite)
     bool aboveGround = true;
 
     float myCenterX = sprite->GetSize().x / 2.0;
-    float myBottomY = sprite->GetSize().y;
+    float myBottomY = sprite->GetSize().y + distanceFromGround;
     int airDistance = (int)(sprite->GetSize().x * 0.1); // Maximum underground level before lifting charcater above ground;
     float myAirY = myBottomY - airDistance;
 
@@ -311,7 +315,7 @@ void Character::clampToGround(Vector2f &leftCollide, Vector2f &rightCollide)
                     (leftCollide.y + rightCollide.y) / 2.0f
                     );
 
-    float distanceCB = sprite->GetSize().y / 2.0f;
+    float distanceCB = (sprite->GetSize().y + distanceFromGround) / 2.0f;
 
     Vector2f pointB(
                     pointC.x + (cos(groundAngleRad - M_PI_2) * distanceCB),
@@ -343,8 +347,8 @@ void Character::draw(RenderWindow *window)
     window->Draw(*sprite);
 
     // Draw the debug graphics
-    //window->Draw(angleLine);
-    //window->Draw(lookLine);
+    window->Draw(angleLine);
+    window->Draw(lookLine);
 }
 
 const Vector2f& Character::getPosition()
