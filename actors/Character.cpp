@@ -8,6 +8,8 @@
 #include<list>
 using namespace std;
 
+#define ANGLE_DIFF_THRESHOLD 0.05f
+
 Character::Character(float x, float y, float width, float height, float speed, Sprite *sprite)
 {
     this->speed = speed;
@@ -24,6 +26,7 @@ Character::Character(float x, float y, float width, float height, float speed, S
     prevGround = 0;
     inJump = false;
     distanceFromGround = 0;
+    prevAngle = 0;
 
     doMoveLeft = false;
     doMoveRight = false;
@@ -115,7 +118,7 @@ void Character::findCurrentIsland(list<Island*>* islands)
                     // Rotate to the new ground
                     float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y, currentGround->getPosition().x - sprite->GetPosition().x);
                     angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
-                    //sprite->SetRotation(-angle + 90); // Rotate to the correct angle
+                    sprite->SetRotation(-angle + 90); // Rotate to the correct angle
 
                     cout << "found new ground" << endl;
                     break;
@@ -170,13 +173,13 @@ void Character::lockToIsland(float elapsedTime)
     if(currentGround == 0)
         return;
 
-    // Variables to configure ground collision
-    int lookDepth = 50; // Depth to ray-trace
-    int lookOffset = 10; // Distance between left and right ray-traces
-    float clampThreshold = 10; // Distance from ground, before character is clamped to the ground
-
     // Get the Sprite of the ground the charcter is on
     Sprite *groundSprite = currentGround->getSprite();
+
+    // Variables to configure ground collision
+    int lookDepth = groundSprite->GetSize().x/2; // Depth to ray-trace
+    int lookOffset = 10; // Distance between left and right ray-traces
+    float clampThreshold = 10; // Distance from ground, before character is clamped to the ground
 
     // Get the position at the bottom of the charcter
     // Global Positions
@@ -226,6 +229,15 @@ void Character::lockToIsland(float elapsedTime)
         {
             float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
             float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
+
+            // Only move if the angle of change is significant
+            if(groundAngleRad - prevAngle > ANGLE_DIFF_THRESHOLD  ||
+               prevAngle - groundAngleRad > ANGLE_DIFF_THRESHOLD)
+            {
+                prevAngle = groundAngleRad;
+            }else{
+                return;
+            }
 
             // If close enough to the land, clamp the position to the land
             if(coordUtil.getDistance(*groundMiddleCollide, groundBottomMiddle) < clampThreshold)
@@ -331,8 +343,8 @@ void Character::draw(RenderWindow *window)
     window->Draw(*sprite);
 
     // Draw the debug graphics
-    window->Draw(angleLine);
-    window->Draw(lookLine);
+    //window->Draw(angleLine);
+    //window->Draw(lookLine);
 }
 
 const Vector2f& Character::getPosition()

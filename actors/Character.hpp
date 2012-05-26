@@ -133,6 +133,7 @@ class Character: public GameObject
         Island *prevGround;
         bool inJump;
         float distanceFromGround;
+        float prevAngle; // Radians
 
         // Actions-to-perform variables
         bool doMoveLeft;
