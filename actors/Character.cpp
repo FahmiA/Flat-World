@@ -219,24 +219,32 @@ void Character::lockToIsland(float elapsedTime)
         Vector2f globalRightCollide = groundSprite->TransformToGlobal(*groundRightCollide);
         angleLine = Shape::Line(globalLeftCollide, globalRightCollide, 1, Color::White);
 
-        float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
-        float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
-
-        // If close enough to the land, clamp the position to the land
-        if(coordUtil.getDistance(*groundMiddleCollide, groundBottomMiddle) < clampThreshold)
+        /* If the character is above ground, the character should naturally fall to the ground with gravity.
+         * If the charcter is underground, the charcter should instantly snap to the ground.
+         */
+        if(aboveGround)
         {
-            clampToGround(globalLeftCollide, globalRightCollide);
-        }else{
-            // Not close enough to clamp so move with gravity
-            float gravityAngle = groundAngleRad + M_PI_2;
-            if(!aboveGround) // Reverse gravity if underground
-            {
-                gravityAngle = gravityAngle - M_PI_2;
-            }
+            float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
+            float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
 
-            float velocityX = cos(gravityAngle) * (speed * elapsedTime);
-            float velocityY = sin(gravityAngle) * (speed * elapsedTime);
-            sprite->Move(velocityX, velocityY);
+            // If close enough to the land, clamp the position to the land
+            if(coordUtil.getDistance(*groundMiddleCollide, groundBottomMiddle) < clampThreshold)
+            {
+                clampToGround(globalLeftCollide, globalRightCollide);
+            }else{
+                // Not close enough to clamp so move with gravity
+                float gravityAngle = groundAngleRad + M_PI_2;
+                if(!aboveGround) // Reverse gravity if underground
+                {
+                    gravityAngle = gravityAngle - M_PI_2;
+                }
+
+                float velocityX = cos(gravityAngle) * (speed * elapsedTime);
+                float velocityY = sin(gravityAngle) * (speed * elapsedTime);
+                sprite->Move(velocityX, velocityY);
+            }
+        }else{
+            clampToGround(globalLeftCollide, globalRightCollide);
         }
     }else{
         cout << "Couldn't get a lock on the ground." << endl;
@@ -254,7 +262,7 @@ bool Character::isAboveGround(Sprite &groundSprite)
 
     float myCenterX = sprite->GetSize().x / 2.0;
     float myBottomY = sprite->GetSize().y;
-    int airDistance = 10; // Maximum underground level before lifting charcater above groundf;
+    int airDistance = (int)(sprite->GetSize().x * 0.1); // Maximum underground level before lifting charcater above ground;
     float myAirY = myBottomY - airDistance;
 
     // Point that should always be above ground.
