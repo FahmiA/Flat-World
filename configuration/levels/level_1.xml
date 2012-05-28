@@ -46,7 +46,7 @@
     <unit type="player">
         <image> media/textures/CharacterBoy.png </image>
         <locationID> 1 </locationID>
-        <angle> -1 </angle>
+        <angle> -1.7 </angle>
     </unit>
 
     <unit type="sheep">

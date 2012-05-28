@@ -33,22 +33,23 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     float raytraceDistance = max(island->getSize().x, island->getSize().y);
 
     // Get the ray-trace 'beam' coordinates
-    float fromX = island->getSize().x / 2;
-    float fromY = island->getSize().y / 2;
-    float toX = fromX + (cos(angleRadians) * raytraceDistance);
-    float toY = fromY + (sin(angleRadians) * raytraceDistance);
+    float toX = island->getSize().x / 2;
+    float toY = island->getSize().y / 2;
+    float fromX = toX + (cos(angleRadians) * raytraceDistance);
+    float fromY = toY + (sin(angleRadians) * raytraceDistance);
 
     //cout << cos(angleRadians) << endl;
     // Ray-trace
     Vector2f *localSpawnPos = spriteUtil.rayTrace(island->getSprite(), (int)fromX, (int)fromY, (int)toX, (int)toY);
+
     cout << "Adding object to island at angle: " << angleRadians << endl;
-    printf("  Raytrace: (x, y): (%.3f, %0.3f) -> (%.3f, %.3f)\n", fromX, fromY, toX, toY);
-    printf("  Spawn:    (x, y): (%.3f, %0.3f)\n",  localSpawnPos->x,  localSpawnPos->y);
     if(localSpawnPos == 0)
     {
         cout << "\tPosition not set, using default" << endl;
-        localSpawnPos = new Vector2f(toX/2, toY/2);
+        localSpawnPos = new Vector2f(fromX, fromY);
     }
+    printf("\tRaytrace: (x, y): (%.3f, %0.3f) -> (%.3f, %.3f)\n", fromX, fromY, toX, toY);
+    printf("\tSpawn:    (x, y): (%.3f, %0.3f)\n",  localSpawnPos->x,  localSpawnPos->y);
 
     // Update the charcter position
     Vector2f globalSpawnPos = island->getSprite()->TransformToGlobal(*localSpawnPos);
