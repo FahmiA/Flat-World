@@ -9,7 +9,7 @@ Star::Star(float x, float y, float width, float height, Sprite *sprite)
 {
     setID(ID_STAR);
 
-    setDistanceFromGround(height/2);
+    //setDistanceFromGround(height/2);
 }
 
 Star::~Star()

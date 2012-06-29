@@ -10,7 +10,7 @@ using namespace std;
 
 Player::Player(float x, float y, float width, float height, float speed, Sprite *sprite)
     : Character(x, y, width, height, speed, sprite),
-    PUSH_BACK_DURATION_SECS(1), PUSH_BACK_MAX_HEIGHT(40)
+    PUSH_BACK_DURATION_SECS(0.3), PUSH_BACK_MAX_HEIGHT(40)
 {
     setID(ID_PLAYER);
 

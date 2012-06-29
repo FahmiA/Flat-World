@@ -13,6 +13,7 @@ Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, in
     // Clamp positions to within the bounds of the sprite
     int spriteMaxX = (int)((sprite->GetSize().x / sprite->GetScale().x) - 1.0f);
     int spriteMaxY = (int)((sprite->GetSize().y / sprite->GetScale().y) - 1.0f);
+    // TODO: Clamping augments the angle! Must find actual bounds intersect.
     clamp(fromX, 0, spriteMaxX  - 1);
     clamp(fromY, 0, spriteMaxY - 1);
     clamp(toX, 0, spriteMaxX  - 1);

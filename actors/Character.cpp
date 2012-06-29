@@ -82,9 +82,6 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     // Get the elapsed time since the last frame
     float elapsedTime = clock->GetElapsedTime();
 
-    // Allow sub-classes to invoke specific behaviour
-    subUpdate(clock, window, world);
-
     // Find the nearest island and assign it as the island the Character is on
     findCurrentIsland(world->getIslands());
 
@@ -93,6 +90,9 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
 
     // Stick the Character to the current island.
     lockToIsland(elapsedTime);
+
+    // Allow sub-classes to invoke specific behaviour
+    subUpdate(clock, window, world);
 }
 
 void Character::findCurrentIsland(list<Island*>* islands)
