@@ -5,7 +5,7 @@
 Island::Island(float x, float y, float width, float height, Sprite *sprite)
 {
     sprite->Resize(width, height);
-    sprite->SetCenter(width/2, height/2);
+    sprite->SetCenter(width / 2, height / 2);
     sprite->SetX(x);
     sprite->SetY(y);
 

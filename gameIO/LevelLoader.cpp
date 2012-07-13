@@ -240,6 +240,8 @@ UnitDescription* LevelLoader::loadUnitDescription(TiXmlHandle &node)
     TiXmlAttribute *typeAttribute = node.ToElement()->FirstAttribute();
     unit->type = typeAttribute->ValueStr();
     unit->startAngle = getFloat(node, TAG_ANGLE);
+    unit->width = getInt(node, TAG_WIDTH);
+    unit->height = getInt(node, TAG_HEIGHT);
     //cout << unit->startAngle << endl;
     // TODO: If no start angle exists, give a random angle.
 

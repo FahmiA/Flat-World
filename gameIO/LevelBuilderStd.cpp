@@ -20,8 +20,8 @@ using namespace std;
 #define STAR_WIDTH 39
 #define STAR_HEIGHT 40
 
-#define PLAYER_WIDTH 68
-#define PLAYER_HEIGHT 85
+//#define PLAYER_WIDTH 68
+//#define PLAYER_HEIGHT 85
 #define PLAYER_SPEED 500
 
 LevelBuilderStd::LevelBuilderStd(World *world, ContentManager *content)
@@ -81,8 +81,8 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
     }else if(getWorld()->getPlayer() == 0){
         // No player currently exists
         int x, y;
-        getPosition(islandDesc->island, playerDesc->startAngle, PLAYER_WIDTH, PLAYER_HEIGHT, &x, &y);
-        Player *player = new Player(x, y, PLAYER_WIDTH, PLAYER_HEIGHT, PLAYER_SPEED, playerSprite);
+        getPosition(islandDesc->island, playerDesc->startAngle, playerDesc->width, playerDesc->height, &x, &y);
+        Player *player = new Player(x, y, playerDesc->width, playerDesc->height, PLAYER_SPEED, playerSprite);
         getWorld()->setPlayer(player);
         addSuccess = true;
     }

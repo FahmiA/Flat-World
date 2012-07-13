@@ -55,7 +55,6 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
 bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 {
     // http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
-
     int ob1Width = object1->GetSize().x;
     int ob1Height = object1->GetSize().y;
     int ob1X = object1->GetPosition().x - object1->GetCenter().x;
@@ -71,7 +70,7 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
     bool yOverlap = valueInRange(ob1Y, ob2Y, ob2Y + ob2Height) ||
                     valueInRange(ob2Y, ob1Y, ob1Y + ob1Height);
 
-    return xOverlap && yOverlap;
+    return true;//xOverlap && yOverlap; // TODO: FIX!!!!!
 }
 
 bool CoordinateUtil::isInFOV(const Vector2f &source, float sourceAngle, const Vector2f &target,

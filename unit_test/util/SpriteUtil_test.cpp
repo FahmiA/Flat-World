@@ -128,6 +128,12 @@ TEST_F(SpriteUtilTest, rayTraceCornerCase)
     EXPECT_EQ(0, result) << "to: inside-void, from: outside, clamp from";
     if(result) delete result;
 
+    // to: inside-void, from: outside, clamp from
+    result = spriteUtil->rayTrace(&sprite, 21, 33, 3, 8);
+    EXPECT_EQ(7, result->x) << "to: inside-void, from outside, clamp from";
+    EXPECT_EQ(14, result->y) << "to: inside-void, from outside, clamp from";
+    if(result) delete result;
+
      // to: inside-void, from: outside, clamp to
     result = spriteUtil->rayTrace(&sprite, 3, 12, 20, -1);
     EXPECT_EQ(5, result->x) << "to: inside-void, from outside, clamp to";

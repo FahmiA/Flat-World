@@ -164,6 +164,8 @@ struct UnitDescription
     string imagePath;
     int locationID;
     float startAngle;
+    int width;
+    int height;
 };
 
 /** A descriptor for a sequence of stars to appear on an island. */

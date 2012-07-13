@@ -8,6 +8,7 @@ using namespace sf;
 
 SteadyCamera::SteadyCamera(View *view) : Camera(view)
 {
+    //view->Zoom(0.4f);
 }
 
 SteadyCamera::~SteadyCamera() { }
