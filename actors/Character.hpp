@@ -150,6 +150,9 @@ class Character: public GameObject
         // Debug variables
         Shape angleLine;
         Shape lookLine;
+
+        bool pause;
+        Shape bounds;
 };
 
 // Define common animation states

@@ -20,8 +20,8 @@
         <image> media/textures/CharacterBoy.png </image>
         <locationID> 1 </locationID>
         <angle> -2.6 </angle>
-        <width> 102 </width>
-        <height> 128 </height>
+        <width> 100 </width>
+        <height> 200 </height>
     </unit>
 
     <!--<island>

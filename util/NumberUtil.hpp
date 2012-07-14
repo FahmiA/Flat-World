@@ -4,7 +4,7 @@
 #include<math.h>
 
 #define AS_DEG(radian) (radian * (180.0f / M_PI))
-//#define AS_RAD(degree)
+#define AS_RAD(degree) (degree * (M_PI / 180.0f))
 
 /** Clamps a value to within a given range.
   * @param value A reference to the value to clamp.
