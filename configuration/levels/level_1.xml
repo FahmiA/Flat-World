@@ -9,11 +9,20 @@
 
     <island>
         <id> 1 </id>
-        <image> media/textures/Level_1_Island_1.png </image>
-        <x> 1640 </x>
-        <y> 1210 </y>
+        <image> media/textures/Level_1/Island_1.png </image>
+        <x> 0 </x>
+        <y> 0 </y>
         <width> 3027 </width>
         <height> 1923 </height>
+    </island>
+
+    <island>
+        <id> 2 </id>
+        <image> media/textures/Level_1/Island_2.png </image>
+        <x> 2100 </x>
+        <y> -300 </y>
+        <width> 560 </width>
+        <height> 560 </height>
     </island>
 
     <unit type="player">

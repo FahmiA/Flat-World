@@ -380,8 +380,8 @@ void Character::draw(RenderWindow *window)
     window->Draw(*sprite);
 
     // Draw the debug graphics
-    //window->Draw(angleLine);
-    //window->Draw(lookLine);
+    window->Draw(angleLine);
+    window->Draw(lookLine);
 
 }
 

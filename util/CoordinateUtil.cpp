@@ -70,7 +70,7 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
     bool yOverlap = valueInRange(ob1Y, ob2Y, ob2Y + ob2Height) ||
                     valueInRange(ob2Y, ob1Y, ob1Y + ob1Height);
 
-    return true;//xOverlap && yOverlap; // TODO: FIX!!!!!
+    return xOverlap && yOverlap;
 }
 
 bool CoordinateUtil::isInFOV(const Vector2f &source, float sourceAngle, const Vector2f &target,
