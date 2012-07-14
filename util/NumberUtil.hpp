@@ -1,6 +1,11 @@
 #ifndef NUMBER_UTIL
 #define NUMBER_UTIL
 
+#include<math.h>
+
+#define AS_DEG(radian) (radian * (180.0f / M_PI))
+//#define AS_RAD(degree)
+
 /** Clamps a value to within a given range.
   * @param value A reference to the value to clamp.
   * @param min value is set to min if it is less than min.

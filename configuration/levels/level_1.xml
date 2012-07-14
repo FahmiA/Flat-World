@@ -9,17 +9,17 @@
 
     <island>
         <id> 1 </id>
-        <image> media/textures/testIsland.png </image>
+        <image> media/textures/Level_1_Island_1.png </image>
         <x> 1640 </x>
         <y> 1210 </y>
-        <width> 2102 </width>
-        <height> 1184 </height>
+        <width> 3027 </width>
+        <height> 1923 </height>
     </island>
 
     <unit type="player">
         <image> media/textures/CharacterBoy.png </image>
         <locationID> 1 </locationID>
-        <angle> -2.5 </angle>
+        <angle> -2.6 </angle>
         <width> 102 </width>
         <height> 128 </height>
     </unit>

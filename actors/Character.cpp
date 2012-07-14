@@ -16,8 +16,7 @@ Character::Character(float x, float y, float width, float height, float speed, S
     this->speed = speed;
 
     sprite->Resize(width, height);
-    //sprite->SetCenter(sprite->GetSize().x/2, sprite->GetSize().y/2);
-    sprite->SetCenter(width/2, height/2);
+    sprite->SetCenter(0, height); // Bottom-left
     sprite->SetX(x);
     sprite->SetY(y);
 
@@ -179,13 +178,13 @@ void Character::lockToIsland(float elapsedTime)
 
     // Variables to configure ground collision
     int lookDepth = groundSprite->GetSize().y / 2; // Depth to ray-trace
-    int lookOffset = sprite->GetSize().x / 3; // Distance between left and right ray-traces
-    float clampThreshold = 40; // Distance from ground, before character is clamped to the ground
+    int lookOffset = sprite->GetSize().x / 2; // Distance between left and right ray-traces
+    float clampThreshold = MIN_GROUND_DIST * 5; // Distance from ground, before character is clamped to the ground
 
     // Get the position at the bottom of the charcter
     // Global Positions
-    float myCenterX = (sprite->GetSize().x / sprite->GetScale().x) / 2.0f;
-    float myBottomY = (sprite->GetSize().y / sprite->GetScale().y) / 2.0f + distanceFromGround;
+    float myCenterX = sprite->GetSize().x / 2.0f;
+    float myBottomY = sprite->GetSize().y + distanceFromGround;
     // We scale down myCenterX/Y because TransformToGlobal will scale it up again
     Vector2f globalBottomLeft = sprite->TransformToGlobal(Vector2f(myCenterX - lookOffset, myBottomY));
     Vector2f globalBottomMiddle = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY));
@@ -219,26 +218,25 @@ void Character::lockToIsland(float elapsedTime)
     {
         inJump = false;
 
+        float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
+
         // Draw debug graphics
         Vector2f globalLeftCollide = groundSprite->TransformToGlobal(*groundLeftCollide);
         Vector2f globalRightCollide = groundSprite->TransformToGlobal(*groundRightCollide);
-        angleLine = Shape::Line(globalLeftCollide, globalRightCollide, 1, Color::White);
+        angleLine = Shape::Line(globalBottomLeft, globalBottomRight, 2, Color::Black);
 
         /* If the character is above ground, the character should naturally fall to the ground with gravity.
          * If the charcter is underground, the charcter should instantly snap to the ground.
          */
         if(aboveGround)
         {
-            float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
-            float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
-
             // Only move if the angle of change is significant
             float groundDistance = coordUtil.getDistance(*groundMiddleCollide, groundBottomMiddle);
 
             // If close enough to the land, clamp the position to the land
             if(groundDistance < clampThreshold)
             {
-                sprite->SetRotation(-groundAngleDeg);
+                clampToGround(globalLeftCollide, groundAngleRad);
             }else{//} if(groundDistance > clampThreshold){
                 // Not close enough to clamp so move with gravity
                 float gravityAngle = groundAngleRad + M_PI_2;
@@ -249,14 +247,14 @@ void Character::lockToIsland(float elapsedTime)
 
                 float velocityX = cos(gravityAngle) * (speed * elapsedTime);
                 float velocityY = sin(gravityAngle) * (speed * elapsedTime);
+
                 sprite->Move(velocityX, velocityY);
+
+                float groundAngleDeg = AS_DEG(groundAngleRad);
                 sprite->SetRotation(-groundAngleDeg);
             }
         }else{
-            clampToGround(globalLeftCollide, globalRightCollide);
-
-            static int count = 0;
-            cout << "Underground and clamped: " << count++ << endl;
+            clampToGround(globalLeftCollide, groundAngleRad);
         }
     }else{
         cout << "Couldn't get a lock on the ground." << endl;
@@ -297,9 +295,9 @@ bool Character::isAboveGround(Sprite &groundSprite)
     return aboveGround;
 }
 
-void Character::clampToGround(Vector2f &leftCollide, Vector2f &rightCollide)
+void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
 {
-    float groundAngleRad = coordUtil.getAngle(leftCollide, 0, rightCollide);
+    /*float groundAngleRad = coordUtil.getAngle(leftCollide, 0, rightCollide);
     float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
 
     //cout << "Before:\t" << sprite->GetPosition().x << " * " << sprite->GetPosition().y << endl;
@@ -311,15 +309,22 @@ void Character::clampToGround(Vector2f &leftCollide, Vector2f &rightCollide)
                     (leftCollide.y + rightCollide.y) / 2.0f
                     );
 
-    float distanceCB = MIN_GROUND_DIST * 2;//(sprite->GetSize().y + distanceFromGround) / 2.0f;
+    float distanceCB = MIN_GROUND_DIST;//(sprite->GetSize().y + distanceFromGround) / 2.0f;
 
     Vector2f pointB(
                     pointC.x + (cos(groundAngleRad - M_PI_2) * distanceCB),
                     pointC.y + (sin(groundAngleRad - M_PI_2) * distanceCB)
-                    );
+                    );*/
 
-    sprite->SetPosition(pointB);
+    float groundAngleDeg = AS_DEG(groundAngleRad);
     sprite->SetRotation(-groundAngleDeg);
+    sprite->SetPosition(leftCollide);
+
+    //Vector2f newPos = Vector2f(pointB.x - sprite->GetSize().x/2, pointB.y - sprite->GetSize().y/2);
+    //sprite->SetPosition(newPos);
+
+    //cout << -groundAngleDeg << endl;
+    //cout << "\t lc: " << leftCollide.x << ", " << leftCollide.y << " rc: " << rightCollide.x << ", " << rightCollide.y << endl;
 }
 
 CoordinateUtil& Character::getCoordinateUtil()

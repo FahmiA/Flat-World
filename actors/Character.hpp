@@ -144,7 +144,7 @@ class Character: public GameObject
         CoordinateUtil coordUtil;
         SpriteUtil spriteUtil;
 
-        void clampToGround(Vector2f &leftCollide, Vector2f &rightCollide);
+        void clampToGround(Vector2f &leftCollide, float groundAngleRad);
         bool isAboveGround(Sprite &groundSprite);
 
         // Debug variables
