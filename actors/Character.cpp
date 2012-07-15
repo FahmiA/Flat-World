@@ -10,6 +10,10 @@ using namespace std;
 
 #define ANGLE_DIFF_THRESHOLD 0.05f
 #define MIN_GROUND_DIST 2
+#define MIN_ANGLE_CHANGE_D 6
+
+#define PRINT_V(vector) '(' << vector.x << ", " << vector.y << ')'
+#define PRINT_NULL(value) "value is " << ((value == 0) ? "null." : "not null.")
 
 Character::Character(float x, float y, float width, float height, float speed, Sprite *sprite)
 {
@@ -194,9 +198,9 @@ void Character::lockToIsland(float elapsedTime)
     Sprite *groundSprite = currentGround->getSprite();
 
     // Variables to configure ground collision
-    int lookDepth = groundSprite->GetSize().y / 2; // Depth to ray-trace
+    int lookDepth = groundSprite->GetSize().y; // Depth to ray-trace
     int lookOffset = sprite->GetSize().x / 2; // Distance between left and right ray-traces
-    float clampThreshold = MIN_GROUND_DIST * 2; // Distance from ground, before character is clamped to the ground
+    float clampThreshold = MIN_GROUND_DIST * 10; // Distance from ground, before character is clamped to the ground
 
     // Get the position at the bottom of the charcter
     // Global Positions
@@ -220,7 +224,7 @@ void Character::lockToIsland(float elapsedTime)
     {
         globalTarget = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY + lookDepth));
     }else{ // We are under ground
-        globalTarget = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY - groundSprite->GetSize().x));
+        globalTarget = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY - groundSprite->GetSize().x / 2));
     }
     Vector2f groundTarget = groundSprite->TransformToLocal(globalTarget);
 
@@ -240,7 +244,7 @@ void Character::lockToIsland(float elapsedTime)
         // Draw debug graphics
         Vector2f globalLeftCollide = groundSprite->TransformToGlobal(*groundLeftCollide);
         Vector2f globalRightCollide = groundSprite->TransformToGlobal(*groundRightCollide);
-        angleLine = Shape::Line(globalBottomLeft, globalBottomRight, 2, Color::Black);
+        angleLine = Shape::Line(globalLeftCollide, globalRightCollide, 2, Color::Black);
 
         /* If the character is above ground, the character should naturally fall to the ground with gravity.
          * If the charcter is underground, the charcter should instantly snap to the ground.
@@ -255,7 +259,7 @@ void Character::lockToIsland(float elapsedTime)
             if(groundDistance < clampThreshold)
             {
                 clampToGround(globalLeftCollide, groundAngleRad);
-            }else{//} if(groundDistance > clampThreshold){
+            }else{//} if(groundDistance > 20){
                 // Not close enough to clamp so move with gravity
                 float gravityAngle = groundAngleRad + M_PI_2;
                 if(!aboveGround) // Reverse gravity if underground
@@ -265,7 +269,6 @@ void Character::lockToIsland(float elapsedTime)
 
                 float velocityX = cos(gravityAngle) * (speed * elapsedTime);
                 float velocityY = sin(gravityAngle) * (speed * elapsedTime);
-
                 sprite->Move(velocityX, velocityY);
 
                 float groundAngleDeg = AS_DEG(groundAngleRad);
@@ -339,7 +342,9 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
     sprite->SetRotation(-groundAngleDeg);
 
     Vector2f newPos = Vector2f(leftCollide);
-    sprite->SetPosition(newPos);
+    float deltaAngle = coordUtil.getDistance(newPos, sprite->GetPosition());
+    if(deltaAngle > MIN_ANGLE_CHANGE_D)
+        sprite->SetPosition(newPos);
 
     /*if(groundAngleDeg != 0)
     {
@@ -397,11 +402,11 @@ const Vector2f& Character::getSize()
 
 float Character::getRotation()
 {
-    float rotation = sprite->GetRotation();
+    /*float rotation = sprite->GetRotation();
     rotation *= M_PI / 180.0f;
-    return rotation;
+    return rotation;*/
 
-    //return AS_RAD(sprite->GetRotation());
+    return AS_RAD(sprite->GetRotation());
 }
 
 Sprite* Character::getSprite()

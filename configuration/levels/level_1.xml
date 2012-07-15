@@ -33,6 +33,12 @@
         <height> 200 </height>
     </unit>
 
+    <unit type="sheep">
+        <image> media/textures/Sheep.png </image>
+        <locationID> 2 </locationID>
+        <angle> -3 </angle>
+    </unit>
+
     <!--<island>
         <id> 2 </id>
         <image> media/textures/Asteroid2.png </image>
