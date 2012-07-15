@@ -19,7 +19,7 @@
     <island>
         <id> 2 </id>
         <image> media/textures/Level_1/Island_2.png </image>
-        <x> 2100 </x>
+        <x> 1900 </x>
         <y> -300 </y>
         <width> 560 </width>
         <height> 560 </height>
@@ -36,7 +36,7 @@
     <unit type="sheep">
         <image> media/textures/Sheep.png </image>
         <locationID> 2 </locationID>
-        <angle> -3 </angle>
+        <angle> 0 </angle>
     </unit>
 
     <!--<island>
