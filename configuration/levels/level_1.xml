@@ -25,13 +25,32 @@
         <height> 560 </height>
     </island>
 
-    <unit type="player">
-        <image> media/textures/CharacterBoy.png </image>
-        <locationID> 1 </locationID>
-        <angle> -2.6 </angle>
-        <width> 100 </width>
-        <height> 200 </height>
-    </unit>
+    <island>
+        <id> 3 </id>
+        <image> media/textures/Level_1/Island_3.png </image>
+        <x> 2000 </x>
+        <y> 700 </y>
+        <width> 520 </width>
+        <height> 696 </height>
+    </island>
+
+    <island>
+        <id> 4 </id>
+        <image> media/textures/Level_1/Island_4.png </image>
+        <x> 0 </x>
+        <y> 1500 </y>
+        <width> 626 </width>
+        <height> 844 </height>
+    </island>
+
+    <island>
+        <id> 5 </id>
+        <image> media/textures/Level_1/Island_5.png </image>
+        <x> 500 </x>
+        <y> 2800 </y>
+        <width> 2344 </width>
+        <height> 1154 </height>
+    </island>
 
     <unit type="sheep">
         <image> media/textures/Sheep.png </image>
@@ -39,56 +58,44 @@
         <angle> 0 </angle>
     </unit>
 
-    <!--<island>
-        <id> 2 </id>
-        <image> media/textures/Asteroid2.png </image>
-        <x> 1000 </x>
-        <y> -100 </y>
-        <width> 235 </width>
-        <height> 235 </height>
-    </island>
-
-    <island>
-        <id> 3 </id>
-        <image> media/textures/Asteroid1.png </image>
-        <x> 1400 </x>
-        <y> 500 </y>
-        <width> 235 </width>
-        <height> 235 </height>
-    </island>
-
-     <island>
-        <id> 4 </id>
-        <image> media/textures/Asteroid1.png </image>
-        <x> 1200 </x>
-        <y> 1000 </y>
-        <width> 235 </width>
-        <height> 235 </height>
-    </island>
-
-    <unit type="player">
-        <image> media/textures/CharacterBoy.png </image>
-        <locationID> 1 </locationID>
-        <angle> -1.7 </angle>
+    <unit type="sheep">
+        <image> media/textures/Sheep.png </image>
+        <locationID> 3 </locationID>
+        <angle> 0 </angle>
     </unit>
 
     <unit type="sheep">
         <image> media/textures/Sheep.png </image>
-        <angle> -3 </angle>
-        <locationID> 2 </locationID>
+        <locationID> 5 </locationID>
+        <angle> 0 </angle>
+    </unit>
+
+     <unit type="sheep">
+        <image> media/textures/Sheep.png </image>
+         <locationID> 5 </locationID>
+        <angle> 3.1 </angle>
     </unit>
 
     <unit type="sheepdog">
         <image> media/textures/SheepDog.png </image>
-        <locationID> 4 </locationID>
+        <locationID> 5 </locationID>
+        <angle> -1.6 </angle>
     </unit>
 
     <pickup type="star">
         <image> media/textures/star.png </image>
-        <locationID> 1 </locationID>
+        <locationID> 4 </locationID>
         <startAngle> 0 </startAngle>
-        <endAngle> 0.5 </endAngle>
+        <endAngle> 1 </endAngle>
         <count> 5 </count>
-    </pickup>-->
+    </pickup>
+
+    <unit type="player">
+        <image> media/textures/CharacterBoy.png </image>
+        <locationID> 4 </locationID>
+        <angle> -2.6 </angle>
+        <width> 100 </width>
+        <height> 200 </height>
+    </unit>
 
 </level>

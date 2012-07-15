@@ -109,7 +109,7 @@ bool LevelBuilderStd::addSheep(UnitDescription *sheepDesc, Island *island)
         // Walk animation
         sprite->addAnimation(ANIMATE_WALK, 0, 0, 9);
         sprite->play(ANIMATE_WALK);
-        sheep = new Sheep(x, y, SHEEP_WIDTH, SHEEP_HEIGHT, SHEEP_SPEED, sprite);
+        sheep = new Sheep(x, y, SHEEP_WIDTH*2, SHEEP_HEIGHT*2, SHEEP_SPEED, sprite);
 
         getWorld()->addLevelObject(sheep);
         addSheepPath(sheepDesc->imagePath);

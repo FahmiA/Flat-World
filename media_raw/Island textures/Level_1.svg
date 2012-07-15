@@ -24,9 +24,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2.8"
-     inkscape:cx="559.75929"
-     inkscape:cy="802.46483"
+     inkscape:zoom="1.4"
+     inkscape:cx="410.19123"
+     inkscape:cy="563.52694"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -210,5 +210,31 @@
          y="616.37067"
          style="font-size:8px;text-align:center;text-anchor:middle"
          id="tspan3107">Go catch it!</tspan></text>
+    <path
+       style="fill:#37c837;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 650.71429,428.07647 c 0,0 -15,3.92857 -23.57143,22.5 -8.57143,18.57143 -5,23.92857 -30.71429,39.64286 -25.71428,15.71428 -23.57143,55.35714 -23.57143,55.35714 0,0 8.57143,47.85714 42.85715,51.78571 34.28571,3.92857 75.71428,-99.64285 75.71428,-99.64285 0,0 37.14286,-92.5 -40.71428,-69.64286 z"
+       id="path3006"
+       inkscape:connector-curvature="0"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\Game Development\Flat_World\media\textures\Level_1\Island_3.png"
+       inkscape:export-xdpi="173.97388"
+       inkscape:export-ydpi="173.97388" />
+    <path
+       style="fill:#c6e9af;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 143.51226,482.24386 c 0,0 142.83825,63.53235 4.81969,164.74596 -138.018552,101.21363 -84.563744,-11.39201 -84.563744,-11.39201 0,0 109.063074,-51.36475 81.934824,-78.42959 -26.61467,-26.55246 -72.295436,-104.71885 -2.19077,-74.92436 z"
+       id="path3010"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscsc"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\Game Development\Flat_World\media\textures\Level_1\Island_4.png"
+       inkscape:export-xdpi="173.97388"
+       inkscape:export-ydpi="173.97388" />
+    <path
+       style="fill:#a0892c;stroke:#000000;stroke-width:2;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+       d="m 195.96959,802.8545 c 0,0 165.66502,-213.14218 433.35544,-63.63961 267.69043,149.50258 84.85282,206.07112 84.85282,206.07112 0,0 -84.85282,-81.82235 -206.07112,-61.6193 -121.21831,20.20305 -130.30968,45.45686 -130.30968,45.45686 0,0 -124.73897,108.48373 -148.98263,0.39739 -6.77718,-30.21493 -14.86718,-47.63093 -25.45184,-54.81605 -23.51827,-15.96477 -44.22036,-1.91762 -7.39299,-71.85041 z"
+       id="path3012"
+       inkscape:connector-curvature="0"
+       sodipodi:nodetypes="cscscssc"
+       inkscape:export-filename="C:\Users\Fahmi\Documents\Game Development\Flat_World\media\textures\Level_1\Island_5.png"
+       inkscape:export-xdpi="173.97388"
+       inkscape:export-ydpi="173.97388" />
   </g>
 </svg>
