@@ -55,15 +55,19 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
 bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 {
     // http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
+    float ob1OffsetX = object1->GetCenter().x * object1->GetScale().x;
+    float ob1OffsetY = object1->GetCenter().y * object1->GetScale().y;
     int ob1Width = object1->GetSize().x;
     int ob1Height = object1->GetSize().y;
-    int ob1X = object1->GetPosition().x - object1->GetCenter().x;
-    int ob1Y = object1->GetPosition().y - object1->GetCenter().y;
+    int ob1X = object1->GetPosition().x - ob1OffsetX;
+    int ob1Y = object1->GetPosition().y - ob1OffsetY;
 
+    float ob2OffsetX = object2->GetCenter().x * object2->GetScale().x;
+    float ob2OffsetY = object2->GetCenter().y * object2->GetScale().y;
     int ob2Width = object2->GetSize().x;
     int ob2Height = object2->GetSize().y;
-    int ob2X = object2->GetPosition().x - object2->GetCenter().x;
-    int ob2Y = object2->GetPosition().y - object2->GetCenter().y;
+    int ob2X = object2->GetPosition().x - ob2OffsetX;
+    int ob2Y = object2->GetPosition().y - ob2OffsetY;
 
     bool xOverlap = valueInRange(ob1X, ob2X, ob2X + ob2Width) ||
                     valueInRange(ob2X, ob1X, ob1X + ob1Width);
