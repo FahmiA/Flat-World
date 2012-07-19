@@ -55,6 +55,7 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
 bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 {
     // http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
+    //TODO: Take rotation into account
     float ob1OffsetX = object1->GetCenter().x * object1->GetScale().x;
     float ob1OffsetY = object1->GetCenter().y * object1->GetScale().y;
     int ob1Width = object1->GetSize().x;

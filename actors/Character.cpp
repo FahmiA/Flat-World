@@ -137,7 +137,8 @@ void Character::findCurrentIsland(list<Island*>* islands)
                     currentGround = island;
 
                     // Rotate to the new ground
-                    float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y, currentGround->getPosition().x - sprite->GetPosition().x);
+                    float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y,
+                                        currentGround->getPosition().x - sprite->GetPosition().x);
                     angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
                     sprite->SetRotation(-angle + 90); // Rotate to the correct angle
 
@@ -278,7 +279,11 @@ void Character::lockToIsland(float elapsedTime)
             clampToGround(globalLeftCollide, groundAngleRad);
         }
     }else{
-        cout << "Couldn't get a lock on the ground." << endl;
+        // Continue moving in the current direction
+        float rotationRad = getRotation() - M_PI_2;
+        float velocityX = cos(rotationRad) * (speed * elapsedTime);
+        float velocityY = sin(rotationRad) * (speed * elapsedTime);
+        sprite->Move(velocityX, velocityY);
     }
 
     // Perform cleanup
@@ -387,7 +392,6 @@ void Character::draw(RenderWindow *window)
     // Draw the debug graphics
     window->Draw(angleLine);
     window->Draw(lookLine);
-
 }
 
 const Vector2f& Character::getPosition()

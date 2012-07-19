@@ -18,5 +18,8 @@ void SteadyCamera::update(Clock *clock, RenderWindow *window, World *world)
     View *view = getView();
     Player *player = world->getPlayer();
 
-    view->SetCenter(player->getPosition());
+    Vector2f position = player->getPosition();
+    position.y -= player->getSize().y / 2;
+
+    view->SetCenter(position);
 }
