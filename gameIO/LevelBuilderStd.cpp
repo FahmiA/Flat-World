@@ -71,7 +71,7 @@ bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    Sprite *playerSprite = new Sprite();
+    AnimatedSprite *playerSprite = new AnimatedSprite();
 
     if(!loadSprite(playerDesc->imagePath, playerSprite))
     {
@@ -82,6 +82,14 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
         // No player currently exists
         int x, y;
         getPosition(islandDesc->island, playerDesc->startAngle, playerDesc->width, playerDesc->height, &x, &y);
+
+        // TODO: AnimatedSprite does not use frameGap
+        playerSprite->setSpriteSheet(9, 110, 140, 100, 70, 240);
+
+        // Run animation
+        playerSprite->addAnimation(ANIMATE_RUN, 1, 1, 1);
+        playerSprite->play(ANIMATE_RUN);
+
         Player *player = new Player(x, y, playerDesc->width, playerDesc->height, PLAYER_SPEED, playerSprite);
         getWorld()->setPlayer(player);
         addSuccess = true;

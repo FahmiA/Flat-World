@@ -52,6 +52,42 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
     return angle;
 }
 
+/*bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
+{
+    float ob1OffsetX = object1->GetCenter().x * object1->GetScale().x;
+    float ob1OffsetY = object1->GetCenter().y * object1->GetScale().y;
+    float ob1Width = object1->GetSize().x;
+    float ob1Height = object1->GetSize().y;
+
+    Vector2f ob1TopLeft = Vector2(object1->GetPosition().x - ob1OffsetX,
+                                  object1->GetPosition().y - ob1OffsetY);
+    Vector2f ob1TopRight = Vector2(ob1TopLeft.x + ob1Width,
+                                   ob1TopLeft.y);
+    Vector2f ob1BottomLeft = Vector2(ob1TopLeft.x,
+                                     ob1TopLeft.y + ob1Height);
+    Vector2f ob1BottomRight = Vector2(ob1TopLeft.x + ob1Width,
+                                      ob1TopLeft.y + ob1Height);
+
+    float ob2OffsetX = object2->GetCenter().x * object2->GetScale().x;
+    float ob2OffsetY = object2->GetCenter().y * object2->GetScale().y;
+    float ob2Width = object2->GetSize().x;
+    float ob2Height = object2->GetSize().y;
+
+    Vector2f ob2TopLeft = Vector2(object2->GetPosition().x - ob2OffsetX,
+                                  object2->GetPosition().y - ob2OffsetY);
+    Vector2f ob2TopRight = Vector2(ob2TopLeft.x + ob2Width,
+                                   ob2TopLeft.y);
+    Vector2f ob2BottomLeft = Vector2(ob2TopLeft.x,
+                                     ob2TopLeft.y + ob2Height);
+    Vector2f ob2BottomRight = Vector2(ob2TopLeft.x + ob2Width,
+                                      ob2TopLeft.y + ob2Height);
+
+    bool hasCollided;
+
+    // Check
+    hasCollided = getLineIntersect()
+}*/
+
 bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 {
     // http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
@@ -147,9 +183,9 @@ bool CoordinateUtil::isInFOV(const Vector2f &source, float sourceAngle, const Ve
     {
 
     }
-}
+}*/
 
-Vector2f* CoordinateUtil::getLineIntersect(Vector2f &line1p1, Vector2f &line1p2, Vector2f &line2p1, Vector2f &line2p2)
+/*Vector2f* CoordinateUtil::getLineIntersect(Vector2f &line1p1, Vector2f &line1p2, Vector2f &line2p1, Vector2f &line2p2)
 {
     // http://en.wikipedia.org/wiki/Line-line_intersection
 
@@ -161,9 +197,9 @@ Vector2f* CoordinateUtil::getLineIntersect(Vector2f &line1p1, Vector2f &line1p2,
 
     Vector2f *intersection = new Vector2f(intersect1, intersect2);
     return intersection;
-}
+}*/
 
-float CoordinateUtil::getDistance(Vector2f &p1, Vector2f &p2)
+/*float CoordinateUtil::getDistance(Vector2f &p1, Vector2f &p2)
 {
     float dx = p2.x - p1.x;
     float dy = p2.y - p1.y;

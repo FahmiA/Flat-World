@@ -32,8 +32,8 @@ void AnimatedSprite::addAnimation(int id, int startFrameX, int startFrameY, int 
 {
     // Create the animation detail
     AnimationDetail *animationDetail = new AnimationDetail();
-    animationDetail->startFrameX = startOffsetX + (startFrameX * frameWidth);
-    animationDetail->startFrameY = startOffsetY + (startFrameY * frameHeight);
+    animationDetail->startFrameX = startOffsetX + (startFrameX * (frameWidth + frameGap));
+    animationDetail->startFrameY = startOffsetY + (startFrameY * (frameHeight + frameGap));
     animationDetail->noOfFrames = noOfFrames;
 
     // Delete the old animation if one exists
@@ -66,15 +66,17 @@ void AnimatedSprite::update(Clock *clock)
 
         int imageWidth = GetImage()->GetWidth();
 
-        int framePosX = currentAnimation->startFrameX + (currentFrame * frameWidth);
+        int framePosX = currentAnimation->startFrameX + (currentFrame * (frameWidth + frameGap));
         framePosX = framePosX % imageWidth;
 
-        int framePosY = startOffsetY + (framePosX / imageWidth);
+        // TODO fix!
+        int framePosY = startOffsetY * (int)(framePosX / imageWidth);
+        framePosY += (int)(framePosX / imageWidth) * frameGap;
 
         SetSubRect(IntRect(framePosX, framePosY, framePosX + frameWidth,
                                         framePosY + frameHeight));
-        //cout << "New SubRect: from = (" << framePosX << ", " << framePosY << ")" << endl;
-        //cout << '\t' << currentFrame << endl;
+        cout << "New SubRect: from = (" << framePosX << ", " << framePosY << ")" << endl;
+        cout << '\t' << currentFrame << endl;
 
         currentFrame++;
 

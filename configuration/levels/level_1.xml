@@ -52,7 +52,7 @@
         <height> 1154 </height>
     </island>
 
-    <unit type="sheep">
+    <!--<unit type="sheep">
         <image> media/textures/Sheep.png </image>
         <locationID> 2 </locationID>
         <angle> 0 </angle>
@@ -88,10 +88,10 @@
         <startAngle> 0 </startAngle>
         <endAngle> 1 </endAngle>
         <count> 5 </count>
-    </pickup>
+    </pickup>-->
 
     <unit type="player">
-        <image> media/textures/CharacterBoy.png </image>
+        <image> media/textures/farmer.png </image>
         <locationID> 1 </locationID>
         <angle> -2.6 </angle>
         <width> 100 </width>
