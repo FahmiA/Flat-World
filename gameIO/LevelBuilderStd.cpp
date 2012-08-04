@@ -85,9 +85,6 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
         int x, y;
         getPosition(islandDesc->island, playerDesc->startAngle, playerDesc->width, playerDesc->height, &x, &y);
 
-        // Run animation
-        playerSprite->play("Run");
-
         Player *player = new Player(x, y, playerDesc->width, playerDesc->height, PLAYER_SPEED, playerSprite);
         getWorld()->setPlayer(player);
         addSuccess = true;

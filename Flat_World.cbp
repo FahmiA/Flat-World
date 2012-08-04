@@ -104,6 +104,8 @@
 		<Unit filename="configuration\levels\level_1.xml" />
 		<Unit filename="environment\Island.cpp" />
 		<Unit filename="environment\Island.hpp" />
+		<Unit filename="gameIO\AnimatedSpriteLoader.cpp" />
+		<Unit filename="gameIO\AnimatedSpriteLoader.hpp" />
 		<Unit filename="gameIO\ContentManager.cpp" />
 		<Unit filename="gameIO\ContentManager.hpp" />
 		<Unit filename="gameIO\LevelBuilder.cpp" />
@@ -164,6 +166,8 @@
 		<Unit filename="util\NumberUtil.hpp" />
 		<Unit filename="util\SpriteUtil.cpp" />
 		<Unit filename="util\SpriteUtil.hpp" />
+		<Unit filename="util\XMLUtil.cpp" />
+		<Unit filename="util\XMLUtil.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

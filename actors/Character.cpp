@@ -19,8 +19,9 @@ Character::Character(float x, float y, float width, float height, float speed, S
 {
     this->speed = speed;
 
-    sprite->SetCenter(0, sprite->GetSize().y); // Bottom-left
+    //sprite->SetCenter(0, sprite->GetSize().y); // Bottom-left
     sprite->Resize(width, height);
+    sprite->SetCenter(0, height); // Bottom-left
     sprite->SetX(x);
     sprite->SetY(y);
 
@@ -384,7 +385,7 @@ void Character::setDistanceFromGround(float distance)
 
 void Character::draw(RenderWindow *window)
 {
-    //window->Draw(bounds);
+    window->Draw(bounds);
 
     // Draw the charcter.
     window->Draw(*sprite);

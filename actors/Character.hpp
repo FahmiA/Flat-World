@@ -155,7 +155,4 @@ class Character: public GameObject
         Shape bounds;
 };
 
-// Define common animation states
-#define ANIMATE_RUN string("run")
-
 #endif // CHARACTER_H

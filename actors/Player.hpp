@@ -27,12 +27,18 @@ class Player: public Character
          */
         Direction getPushDirection();
 
+        static const string ANIMATE_RUN;
+        static const string ANIMATE_IDLE;
+        static const string ANIMATE_JUMP_UP;
+        static const string ANIMATE_JUMP_DOWN;
+
     private:
         AnimatedSprite *sprite;
         Direction pushedBackDirection;
         float pushBackTimeSecs;
-        const float PUSH_BACK_DURATION_SECS;
-        const float PUSH_BACK_MAX_HEIGHT;
+
+        static const float PUSH_BACK_DURATION_SECS;
+        static const float PUSH_BACK_MAX_HEIGHT;
 
         void doActionNormal(RenderWindow *window);
         void doActionPushBack(float elapsedTime);

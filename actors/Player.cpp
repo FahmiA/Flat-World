@@ -8,13 +8,24 @@
 #include <iostream>
 using namespace std;
 
+const float Player::PUSH_BACK_DURATION_SECS = 0.3;
+const float Player::PUSH_BACK_MAX_HEIGHT = 40;
+const string Player::ANIMATE_RUN = "Run";
+const string Player::ANIMATE_IDLE = "Idle";
+const string Player::ANIMATE_JUMP_UP = "JumpUp";
+const string Player::ANIMATE_JUMP_DOWN = "JumpDown";
+
 Player::Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
-    : Character(x, y, width, height, speed, sprite),
-    PUSH_BACK_DURATION_SECS(0.3), PUSH_BACK_MAX_HEIGHT(40)
+    : Character(x, y, width, height, speed, sprite)
 {
     setID(ID_PLAYER);
 
+    //cout << "Size: " << sprite->GetSize().x << " * " << sprite->GetSize().y << endl;
+    //cout << "Cent: " << sprite->GetCenter().x << " * " << sprite->GetCenter().y << endl;
+    sprite->SetSize(sprite->GetSize());
+    sprite->SetCenter(sprite->GetCenter());
     this->sprite = sprite;
+
     pushedBackDirection = None;
     pushBackTimeSecs = 0;
 }
@@ -49,10 +60,16 @@ void Player::doActionNormal(RenderWindow *window)
 {
     const Input &input = window->GetInput();
     if(input.IsKeyDown(Key::Left))
+    {
         moveLeft();
-
-    if(input.IsKeyDown(Key::Right))
+        sprite->play(ANIMATE_RUN);
+    }else if(input.IsKeyDown(Key::Right))
+    {
         moveRight();
+        sprite->play(ANIMATE_RUN);
+    }else{
+        sprite->play(ANIMATE_IDLE);
+    }
 
     if(input.IsKeyDown(Key::Space))
         landHop();

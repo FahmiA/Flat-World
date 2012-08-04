@@ -5,6 +5,7 @@ using namespace std;
 
 AnimatedSprite::AnimatedSprite() : Sprite()
 {
+    currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
 }
@@ -12,6 +13,9 @@ AnimatedSprite::AnimatedSprite() : Sprite()
 AnimatedSprite::~AnimatedSprite()
 {
     animations.clear();
+
+    delete size;
+    delete center;
 }
 
 void AnimatedSprite::addAnimation(Animation *animation)
@@ -22,6 +26,16 @@ void AnimatedSprite::addAnimation(Animation *animation)
 
     // Add the new animation
     animations[animation->name] = animation;
+
+    // Set the subrect if this is the first animation
+    // This is to ensure the sprite is sized correctly
+    if(animations.size() == 1)
+    {
+        size = new Vector2f(GetSize().x, GetSize().y);
+        center = new Vector2f(GetCenter().x, GetCenter().y);
+        play(animation->name);
+        stop();
+    }
 }
 
 void AnimatedSprite::setTransparentColour(unsigned int tColour)
@@ -52,11 +66,20 @@ void AnimatedSprite::update(Clock *clock)
         if(currentFrame >= currentAnimation->frames.size())
             currentFrame = 0; // Loop the animation
 
-        // DIsplay the frame
+        // Display the frame
         AnimationFrame &frame = *currentAnimation->frames[currentFrame];
-        SetSubRect(IntRect(frame.x, frame.y,
-                           frame.x + frame.width,
-                           frame.y + frame.height));
+        //float scale = min(size->x / frame.width, size->y / frame.height);
+        IntRect subRect(frame.x, frame.y,
+                        frame.x + frame.width,
+                        frame.y + frame.height);
+        SetSubRect(subRect);
+        Resize(*size);
+        Sprite::SetCenter(Vector2f((center->x / size->x) * frame.width,
+                                   (center->y / size->y) * frame.height));
+        //cout << "Size: " << GetSize().x << " * " << GetSize().y << endl;
+        //cout << "Cent: " << GetCenter().x << " * " << GetCenter().y << endl;
+
+        // Update the frame counter
         currentFrame++;
 
         // Reset the timer
@@ -66,6 +89,9 @@ void AnimatedSprite::update(Clock *clock)
 
 bool AnimatedSprite::play(string animationName)
 {
+    if(currentAnimation != 0 && animationName == currentAnimation->name)
+        return true;
+
     // Stop the current animation
     stop();
 
@@ -95,6 +121,19 @@ void AnimatedSprite::stop()
     currentFrame = 0;
     timeSinceLastFrame = 0;
     paused = false;
+}
+
+void AnimatedSprite::SetSize(Vector2f size)
+{
+    delete this->size;
+    this->size = new Vector2f(size.x, size.y);
+    //cout << "---" <<  size.x << endl;
+}
+
+void AnimatedSprite::SetCenter(Vector2f center)
+{
+    delete this->center;
+    this->center = new Vector2f(center.x, center.y);
 }
 
 /*int AnimatedSprite::getFrameHeight()

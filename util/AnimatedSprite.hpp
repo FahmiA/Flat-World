@@ -47,8 +47,10 @@ class AnimatedSprite: public Sprite
         /** Stops the current animation (if one exists). */
         void stop();
 
-    private:
+        void SetSize(Vector2f size);
+        void SetCenter(Vector2f center);
 
+    private:
         // Animation storage
         map<string, Animation*> animations;
         Animation *currentAnimation;
@@ -57,6 +59,9 @@ class AnimatedSprite: public Sprite
         // Active animation state
         float timeSinceLastFrame;
         bool paused;
+
+        Vector2f *size;
+        Vector2f *center;
 };
 
 struct Animation
