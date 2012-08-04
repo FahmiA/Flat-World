@@ -151,7 +151,7 @@ bool LevelBuilderStd::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
     AnimatedSpriteLoader aniLoader(getContentManager());
     AnimatedSprite *sprite = aniLoader.loadFromXML(sheepdogDesc->imagePath);
 
-    if(!loadSprite(sheepdogDesc->imagePath, sprite))
+    if(sprite == 0)
     {
         // Error
         cout << "Image for " << sheepdogDesc->type << " could not be loaded: " << sheepdogDesc->imagePath << endl;
@@ -162,7 +162,6 @@ bool LevelBuilderStd::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
         getPosition(islandDesc->island, sheepdogDesc->startAngle, DOG_WIDTH, DOG_HEIGHT, &x, &y);
 
         // Run animation
-        sprite->play("Run");
         sheepdog = new Sheepdog(x, y, DOG_WIDTH, DOG_HEIGHT, DOG_SPEED, sprite, this);
 
         getWorld()->addLevelObject(sheepdog);

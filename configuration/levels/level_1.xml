@@ -90,6 +90,12 @@
         <count> 5 </count>
     </pickup>-->
 
+    <unit type="sheepdog">
+        <image> media/textures/SheepDog.xml </image>
+        <locationID> 1 </locationID>
+        <angle> -2 </angle>
+    </unit>
+
     <unit type="player">
         <image> media/textures/farmer.xml </image>
         <locationID> 1 </locationID>

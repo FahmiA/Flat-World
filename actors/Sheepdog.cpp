@@ -4,6 +4,7 @@
 #include "Player.hpp"
 #include "GUI/HUD.hpp"
 #include "util/CoordinateUtil.hpp"
+#include "util/AnimatedSprite.hpp"
 #include "gameIO/LevelBuilder.hpp"
 
 #include <iostream>
@@ -12,11 +13,14 @@ using namespace std;
 #define DOG_MEMORY_S 3
 
 Sheepdog::Sheepdog(float x, float y, float width, float height,
-         float speed, Sprite *sprite, LevelBuilder *levelBuilder)
+         float speed, AnimatedSprite *sprite, LevelBuilder *levelBuilder)
     : Character(x, y, width, height, speed, sprite)
 {
     setID(ID_DOG);
 
+    sprite->SetSize(sprite->GetSize());
+    sprite->SetCenter(sprite->GetCenter());
+    this->sprite = sprite;
     this->levelBuilder = levelBuilder;
 
     state = new WonderState;
@@ -41,7 +45,7 @@ void Sheepdog::subUpdate(Clock *clock, RenderWindow *window, World *world)
     state->performAction(this, clock);
 
     // Update the sprite animation
-    ((AnimatedSprite*)getSprite())->update(clock);
+    sprite->update(clock);
 }
 
 void Sheepdog::seekPlayer(float elapsedTime, Player &player)

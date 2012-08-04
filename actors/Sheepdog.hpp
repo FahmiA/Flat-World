@@ -13,7 +13,7 @@ class Sheepdog: public Character
 {
     public:
         Sheepdog(float x, float y, float width, float height,
-            float speed, Sprite *sprite, LevelBuilder *levelBuilder);
+            float speed, AnimatedSprite *sprite, LevelBuilder *levelBuilder);
         virtual ~Sheepdog();
 
         void subUpdate(Clock *clock, RenderWindow *window, World *world);
@@ -24,6 +24,8 @@ class Sheepdog: public Character
         LevelBuilder *levelBuilder;
         ActorState *state;
         float timeSincePlayerSeen;
+
+        AnimatedSprite *sprite;
 
         /** Checks if the player is in the FOV and eacts.
          * If the Player is seen, the Sheepdog will chase the player,
