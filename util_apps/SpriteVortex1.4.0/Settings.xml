@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<!--Configuration definition of Sprite Vortex-->
+<Settings>
+   <GeneralSettings>
+      <CameraSpeed Value="400" />
+      <BackgroundColor Value="4280193279" />
+      <FrameRectColor Value="4289593135" />
+      <HoverFrameRectColor Value="4294927175" />
+      <SelectedFrameRectColor Value="4294967040" />
+      <TextureFilterMode Value="Point" />
+      <FrameMargin Value="20" />
+   </GeneralSettings>
+   <CommandSettings>
+      <SpriteMarkup Key="LeftControl" Button="Right" />
+      <DragCamera Key="none" Button="Right" />
+      <SelectSprite Key="none" Button="Left" />
+      <ViewZoom Key="LeftControl" Button="Left" />
+   </CommandSettings>
+   <ExportingSettings>
+      <ImageOverwriteWhenTransparencyModified Value="False" />
+      <PackSpriteSheet Value="False" />
+      <ForcePowTwo Value="False" />
+      <ForceSquare Value="False" />
+      <Padding Value="0" />
+   </ExportingSettings>
+</Settings>

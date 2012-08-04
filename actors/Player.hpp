@@ -2,13 +2,14 @@
 #define PLAYER_H
 
 #include "Character.hpp"
+#include "util/AnimatedSprite.hpp"
 #include "util/Commons.hpp"
 
 /** The Player that is controled by the user. */
 class Player: public Character
 {
     public:
-        Player(float x, float y, float width, float height, float speed, Sprite *sprite);
+        Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite);
         ~Player();
 
         void subUpdate(Clock *clock, RenderWindow *window, World *world);
@@ -27,6 +28,7 @@ class Player: public Character
         Direction getPushDirection();
 
     private:
+        AnimatedSprite *sprite;
         Direction pushedBackDirection;
         float pushBackTimeSecs;
         const float PUSH_BACK_DURATION_SECS;

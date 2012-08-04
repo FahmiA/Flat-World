@@ -156,7 +156,6 @@ class Character: public GameObject
 };
 
 // Define common animation states
-#define ANIMATE_WALK 0
-#define ANIMATE_RUN 1
+#define ANIMATE_RUN string("run")
 
 #endif // CHARACTER_H

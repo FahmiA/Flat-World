@@ -4,6 +4,7 @@
 #include "tinyxml/tinyxml.h"
 #include "gameIO/ContentManager.hpp"
 #include "LevelBuilder.hpp"
+#include "util/XMLUtil.hpp"
 
 #include <map>
 #include <list>
@@ -33,6 +34,7 @@ class LevelLoader
         // Constant variables
         ContentManager *content;
         LevelBuilder *levelBuilder;
+        XMLUtil xmlUtil;
 
         // Temporary variables
         LevelDescription *level;
@@ -51,11 +53,6 @@ class LevelLoader
         IslandDescription* loadIslandDescription(TiXmlHandle &node);
         UnitDescription* loadUnitDescription(TiXmlHandle &node);
         PickupDescription* loadPickupDescription(TiXmlHandle &node);
-
-        // XML helper methods
-        string getString(TiXmlHandle &parent, char* tag);
-        int getInt(TiXmlHandle &parent, char* tag);
-        float getFloat(TiXmlHandle &parent, char* tag);
 };
 
 

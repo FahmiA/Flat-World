@@ -60,14 +60,14 @@ void Character::moveLeft()
 {
     facingDirection = Left;
     doMoveLeft = true;
-    sprite->FlipX(false);
+    sprite->FlipX(true);
 }
 
 void Character::moveRight()
 {
     facingDirection = Right;
     doMoveRight = true;
-    sprite->FlipX(true);
+    sprite->FlipX(false);
 }
 
 bool Character::isJumping()

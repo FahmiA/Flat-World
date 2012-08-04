@@ -21,12 +21,7 @@ void AnimatedSprite::addAnimation(Animation *animation)
         delete animations[animation->name];
 
     // Add the new animation
-    animations[animation->name] = animation;
-}
-
-void AnimatedSprite::setTransparentColour(unsigned int tColour)
-{
-    // TODO: Implement (May need SFML v2.0)
+    animations[id] = animationDetail;
 }
 
 void AnimatedSprite::update(Clock *clock)
@@ -34,27 +29,23 @@ void AnimatedSprite::update(Clock *clock)
     if(paused || currentAnimation == 0)
         return;
 
-    bool advanceFrame = false;
     if(clock != 0)
     {
         timeSinceLastFrame += clock->GetElapsedTime();
-        if(timeSinceLastFrame > 1.0f / currentAnimation->frameRate) // seconds
-            advanceFrame = true;
-    }else{
-        // No click will force an animation change
-        advanceFrame = true;
     }
 
     // Check whether the next frame should be displayed
-    if(advanceFrame)
+    float frameDelay = currentAnimation->frameRate / 1000.0f // ms
+    if(timeSinceLastFrame >= frameDelay)
     {
         // Progress to the next frame
         if(currentFrame >= currentAnimation->frames.size())
             currentFrame = 0; // Loop the animation
 
         // DIsplay the frame
-        AnimationFrame &frame = *currentAnimation->frames[currentFrame];
-        SetSubRect(IntRect(frame.x, frame.y,
+        AnimationFrame &frame = currentAnimation->frames[currentFrame];
+
+        SetSubRect(IntRect(frame.x, frame.u,
                            frame.x + frame.width,
                            frame.y + frame.height));
         currentFrame++;
@@ -64,16 +55,17 @@ void AnimatedSprite::update(Clock *clock)
     }
 }
 
-bool AnimatedSprite::play(string animationName)
+bool AnimatedSprite::play(string &animationName)
 {
     // Stop the current animation
     stop();
 
     // Set the new animation
+
     if(animations.count(animationName) == 0)
         return false; // The animation does not exist
 
-    currentAnimation = animations[animationName];
+    currentAnimation = animations[animationId];
 
     // Set the subrect to the first frame of the animation.
     update(0);
@@ -97,13 +89,13 @@ void AnimatedSprite::stop()
     paused = false;
 }
 
-/*int AnimatedSprite::getFrameHeight()
+int AnimatedSprite::getFrameHeight()
 {
-    return GetSubRect().GetHeight();
+    return frameHeight;
 }
 
 int AnimatedSprite::getFrameWidth()
 {
-    return GetSubRect().GetWidth();
-}*/
+    return frameWidth;
+}
 

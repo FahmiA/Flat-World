@@ -10,7 +10,7 @@
 class Sheep: public Character
 {
     public:
-        Sheep(float x, float y, float width, float height, float speed, AnimatedSprite *sprite);
+        Sheep(float x, float y, float width, float height, float speed, Sprite *sprite);
         ~Sheep();
 
          void subUpdate(Clock *clock, RenderWindow *window, World *world);

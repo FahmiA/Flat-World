@@ -8,12 +8,13 @@
 #include <iostream>
 using namespace std;
 
-Player::Player(float x, float y, float width, float height, float speed, Sprite *sprite)
+Player::Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
     : Character(x, y, width, height, speed, sprite),
     PUSH_BACK_DURATION_SECS(0.3), PUSH_BACK_MAX_HEIGHT(40)
 {
     setID(ID_PLAYER);
 
+    this->sprite = sprite;
     pushedBackDirection = None;
     pushBackTimeSecs = 0;
 }
@@ -30,6 +31,8 @@ void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
     }
 
     check_unit_collide(world);
+
+    sprite->update(clock);
 }
 
 void Player::pushBack(Direction pushDirection)

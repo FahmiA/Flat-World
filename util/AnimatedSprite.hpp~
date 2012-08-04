@@ -5,7 +5,6 @@
 using namespace sf;
 
 #include <map>
-#include <vector>
 using namespace std;
 
 struct Animation;
@@ -25,8 +24,6 @@ class AnimatedSprite: public Sprite
 
         void addAnimation(Animation *animation);
 
-        void setTransparentColour(unsigned int tColour);
-
         /** Updates the animation.
          * @param clock The clock to measure elapsed time since the last frame.
          */
@@ -36,7 +33,7 @@ class AnimatedSprite: public Sprite
          * @param animationName The name of the animation to play.
          * @return True if animationId references a set animation. False otherwise.
          */
-        bool play(string animationName);
+        bool play(string &animationName);
 
         /** Pauses the current animation (if one exists). */
         void pause();
@@ -51,7 +48,7 @@ class AnimatedSprite: public Sprite
 
         // Animation storage
         map<string, Animation*> animations;
-        Animation *currentAnimation;
+        Animation *&currentAnimation;
         int currentFrame;
 
         // Active animation state
@@ -63,8 +60,7 @@ struct Animation
 {
     string name;
     int frameRate; // Frames per second
-    bool loop;
-    bool pingPong;
+    int playStyle; // TODO: Implement 0: Once, 1: Loop, 2:Pingpong (forward then reverse)
     vector<AnimationFrame*> frames; // Ordered list of frames
 };
 

@@ -1,6 +1,6 @@
 #include "LevelBuilderStd.hpp"
 
-#include "gameIO/AnimatedSpriteLoader.hpp"
+#include "util/AnimatedSpriteLoader.hpp"
 #include "pickups/Star.hpp"
 #include "GUI/HUD.hpp"
 #include "game/ID.hpp"
@@ -72,10 +72,10 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
 {
     bool addSuccess = false;
 
-    AnimatedSpriteLoader aniLoader(getContentManager());
+    AnimatedSpriteLoader aniLoader;
     AnimatedSprite *playerSprite = aniLoader.loadFromXML(playerDesc->imagePath);
 
-    if(playerSprite == 0)
+    if(!loadSprite(playerDesc->imagePath, playerSprite))
     {
         // Error
         cout << "Image for player could not be loaded " << endl;
@@ -85,8 +85,12 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
         int x, y;
         getPosition(islandDesc->island, playerDesc->startAngle, playerDesc->width, playerDesc->height, &x, &y);
 
+        // TODO: AnimatedSprite does not use frameGap
+        playerSprite->setSpriteSheet(9, 110, 140, 100, 70, 240);
+
         // Run animation
-        playerSprite->play("Run");
+        playerSprite->addAnimation(ANIMATE_RUN, 1, 1, 1);
+        playerSprite->play(ANIMATE_RUN);
 
         Player *player = new Player(x, y, playerDesc->width, playerDesc->height, PLAYER_SPEED, playerSprite);
         getWorld()->setPlayer(player);
@@ -99,7 +103,7 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
 bool LevelBuilderStd::addSheep(UnitDescription *sheepDesc, Island *island)
 {
     bool addSuccess = false;
-    Sprite *sprite = new Sprite();
+    AnimatedSprite *sprite = new AnimatedSprite();
 
     if(!loadSprite(sheepDesc->imagePath, sprite))
     {
@@ -110,6 +114,11 @@ bool LevelBuilderStd::addSheep(UnitDescription *sheepDesc, Island *island)
         Sheep *sheep;
         int x, y;
         getPosition(island, sheepDesc->startAngle, SHEEP_WIDTH, SHEEP_HEIGHT, &x, &y);
+
+        sprite->setSpriteSheet(9, SHEEP_WIDTH, SHEEP_HEIGHT, 1, 0, 40);
+        // Walk animation
+        sprite->addAnimation(ANIMATE_WALK, 0, 0, 9);
+        sprite->play(ANIMATE_WALK);
         sheep = new Sheep(x, y, SHEEP_WIDTH*2, SHEEP_HEIGHT*2, SHEEP_SPEED, sprite);
 
         getWorld()->addLevelObject(sheep);
@@ -151,8 +160,7 @@ bool LevelBuilderStd::addRandomSheep()
 bool LevelBuilderStd::addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    AnimatedSpriteLoader aniLoader(getContentManager());
-    AnimatedSprite *sprite = aniLoader.loadFromXML(sheepdogDesc->imagePath);
+    AnimatedSprite *sprite = new AnimatedSprite();
 
     if(!loadSprite(sheepdogDesc->imagePath, sprite))
     {
@@ -164,8 +172,11 @@ bool LevelBuilderStd::addSheepdog(UnitDescription *sheepdogDesc, IslandDescripti
         int x, y;
         getPosition(islandDesc->island, sheepdogDesc->startAngle, DOG_WIDTH, DOG_HEIGHT, &x, &y);
 
-        // Run animation
-        sprite->play("Run");
+        sprite->setSpriteSheet(5, DOG_WIDTH, DOG_HEIGHT, 0, 5, 42);
+        // Add animations
+        sprite->addAnimation(ANIMATE_WALK, 0, 1, 4); // Walk animation
+        sprite->addAnimation(ANIMATE_RUN, 0, 1, 4); // Run animation
+        sprite->play(ANIMATE_RUN);
         sheepdog = new Sheepdog(x, y, DOG_WIDTH, DOG_HEIGHT, DOG_SPEED, sprite, this);
 
         getWorld()->addLevelObject(sheepdog);
