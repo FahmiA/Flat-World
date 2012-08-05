@@ -14,13 +14,10 @@ using namespace std;
 
 Sheepdog::Sheepdog(float x, float y, float width, float height,
          float speed, AnimatedSprite *sprite, LevelBuilder *levelBuilder)
-    : Character(x, y, width, height, speed, sprite)
+    : AnimatedCharacter(x, y, width, height, speed, sprite)
 {
     setID(ID_DOG);
 
-    sprite->SetSize(sprite->GetSize());
-    sprite->SetCenter(sprite->GetCenter());
-    this->sprite = sprite;
     this->levelBuilder = levelBuilder;
 
     state = new WonderState;
@@ -34,6 +31,7 @@ Sheepdog::~Sheepdog()
 
 void Sheepdog::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
+    AnimatedCharacter::subUpdate(clock, window, world);
     Player &player = *(world->getPlayer());
     // Execute AI
     seekPlayer(clock->GetElapsedTime(), player);
@@ -43,9 +41,6 @@ void Sheepdog::subUpdate(Clock *clock, RenderWindow *window, World *world)
 
     // Update the state
     state->performAction(this, clock);
-
-    // Update the sprite animation
-    sprite->update(clock);
 }
 
 void Sheepdog::seekPlayer(float elapsedTime, Player &player)

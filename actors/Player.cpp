@@ -10,21 +10,13 @@ using namespace std;
 
 const float Player::PUSH_BACK_DURATION_SECS = 0.3;
 const float Player::PUSH_BACK_MAX_HEIGHT = 40;
-const string Player::ANIMATE_RUN = "Run";
-const string Player::ANIMATE_IDLE = "Idle";
 const string Player::ANIMATE_JUMP_UP = "JumpUp";
 const string Player::ANIMATE_JUMP_DOWN = "JumpDown";
 
 Player::Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
-    : Character(x, y, width, height, speed, sprite)
+    : AnimatedCharacter(x, y, width, height, speed, sprite)
 {
     setID(ID_PLAYER);
-
-    //cout << "Size: " << sprite->GetSize().x << " * " << sprite->GetSize().y << endl;
-    //cout << "Cent: " << sprite->GetCenter().x << " * " << sprite->GetCenter().y << endl;
-    sprite->SetSize(sprite->GetSize());
-    sprite->SetCenter(sprite->GetCenter());
-    this->sprite = sprite;
 
     pushedBackDirection = None;
     pushBackTimeSecs = 0;
@@ -34,6 +26,8 @@ Player::~Player() {}
 
 void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
+    AnimatedCharacter::subUpdate(clock, window, world);
+
     if(pushedBackDirection != None)
     {
         doActionPushBack(clock->GetElapsedTime());
@@ -42,8 +36,6 @@ void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
     }
 
     check_unit_collide(world);
-
-    sprite->update(clock);
 }
 
 void Player::pushBack(Direction pushDirection)
@@ -62,13 +54,13 @@ void Player::doActionNormal(RenderWindow *window)
     if(input.IsKeyDown(Key::Left))
     {
         moveLeft();
-        sprite->play(ANIMATE_RUN);
+        playAnimation(ANIMATE_RUN);
     }else if(input.IsKeyDown(Key::Right))
     {
         moveRight();
-        sprite->play(ANIMATE_RUN);
+        playAnimation(ANIMATE_RUN);
     }else{
-        sprite->play(ANIMATE_IDLE);
+        playAnimation(ANIMATE_IDLE);
     }
 
     if(input.IsKeyDown(Key::Space))

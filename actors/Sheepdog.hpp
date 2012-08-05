@@ -1,7 +1,7 @@
 #ifndef DOG_H
 #define DOG_H
 
-#include "actors/Character.hpp"
+#include "actors/AnimatedCharacter.hpp"
 #include "actors/ActorStates.hpp"
 
 #include "util/AnimatedSprite.hpp"
@@ -9,7 +9,7 @@
 class LevelBuilder;
 
 /** Defines a sheepdog which can attack the player. */
-class Sheepdog: public Character
+class Sheepdog: public AnimatedCharacter
 {
     public:
         Sheepdog(float x, float y, float width, float height,
@@ -24,8 +24,6 @@ class Sheepdog: public Character
         LevelBuilder *levelBuilder;
         ActorState *state;
         float timeSincePlayerSeen;
-
-        AnimatedSprite *sprite;
 
         /** Checks if the player is in the FOV and eacts.
          * If the Player is seen, the Sheepdog will chase the player,

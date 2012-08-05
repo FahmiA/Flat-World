@@ -1,13 +1,13 @@
 #ifndef SHEEP_H
 #define SHEEP_H
 
-#include "Character.hpp"
-#include "ActorStates.hpp"
+#include "actors/AnimatedCharacter.hpp"
+#include "actors/ActorStates.hpp"
 
 #include "util/AnimatedSprite.hpp"
 
 /** Defines a sheep to be captured by the player. */
-class Sheep: public Character
+class Sheep: public AnimatedCharacter
 {
     public:
         Sheep(float x, float y, float width, float height, float speed, AnimatedSprite *sprite);
