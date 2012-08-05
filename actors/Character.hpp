@@ -91,6 +91,11 @@ class Character: public GameObject
          */
         Island* getPreviousGround();
 
+        /** Marks the direction that the sprite image is facing.
+         * @direction The direction of the sprite image. Left or Right only.
+         */
+        void setSpriteDirection(Direction direction);
+
     protected:
         /** Finds the nearest island and assigns it as the island the Character is on.
          * Also remembers the previous island.
@@ -138,22 +143,22 @@ class Character: public GameObject
         // Actions-to-perform variables
         bool doMoveLeft;
         bool doMoveRight;
-        Direction facingDirection;
+        Direction facingDirection; // Direction of the charcter
+        Direction spriteDirection; // Direction alignment of sprire image
 
         // Helper-operations variables
         CoordinateUtil coordUtil;
         SpriteUtil spriteUtil;
 
-        void clampToGround(Vector2f &leftCollide, Vector2f &rightCollide);
+        void clampToGround(Vector2f &leftCollide, float groundAngleRad);
         bool isAboveGround(Sprite &groundSprite);
 
         // Debug variables
         Shape angleLine;
         Shape lookLine;
-};
 
-// Define common animation states
-#define ANIMATE_WALK 0
-#define ANIMATE_RUN 1
+        bool pause;
+        Shape bounds;
+};
 
 #endif // CHARACTER_H

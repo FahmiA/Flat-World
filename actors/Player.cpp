@@ -8,9 +8,13 @@
 #include <iostream>
 using namespace std;
 
-Player::Player(float x, float y, float width, float height, float speed, Sprite *sprite)
-    : Character(x, y, width, height, speed, sprite),
-    PUSH_BACK_DURATION_SECS(0.3), PUSH_BACK_MAX_HEIGHT(40)
+const float Player::PUSH_BACK_DURATION_SECS = 0.3;
+const float Player::PUSH_BACK_MAX_HEIGHT = 40;
+const string Player::ANIMATE_JUMP_UP = "JumpUp";
+const string Player::ANIMATE_JUMP_DOWN = "JumpDown";
+
+Player::Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
+    : AnimatedCharacter(x, y, width, height, speed, sprite)
 {
     setID(ID_PLAYER);
 
@@ -22,6 +26,8 @@ Player::~Player() {}
 
 void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
+    AnimatedCharacter::subUpdate(clock, window, world);
+
     if(pushedBackDirection != None)
     {
         doActionPushBack(clock->GetElapsedTime());
@@ -46,10 +52,16 @@ void Player::doActionNormal(RenderWindow *window)
 {
     const Input &input = window->GetInput();
     if(input.IsKeyDown(Key::Left))
+    {
         moveLeft();
-
-    if(input.IsKeyDown(Key::Right))
+        playAnimation(ANIMATE_RUN);
+    }else if(input.IsKeyDown(Key::Right))
+    {
         moveRight();
+        playAnimation(ANIMATE_RUN);
+    }else{
+        playAnimation(ANIMATE_IDLE);
+    }
 
     if(input.IsKeyDown(Key::Space))
         landHop();

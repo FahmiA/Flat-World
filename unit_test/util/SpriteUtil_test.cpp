@@ -74,9 +74,11 @@ TEST_F(SpriteUtilTest, rayTraceInvertedCase)
     sprite.SetImage(image);
 
     // Run the tests
+    Vector2f *result;
+    Vector2f *nullVector = 0;
 
     // from inside-solid to inside-void, horizontal
-    Vector2f *result = spriteUtil->rayTrace(&sprite, 12, 10, 18, 10, false);
+    result = spriteUtil->rayTrace(&sprite, 12, 10, 18, 10, false);
     EXPECT_EQ(15, result->x) << "from inside-solid to inside-void, horizontal";
     EXPECT_EQ(10, result->y) << "from inside-solid to inside-void, horizontal";
     delete result;
@@ -103,6 +105,13 @@ TEST_F(SpriteUtilTest, rayTraceInvertedCase)
     result = spriteUtil->rayTrace(&sprite, 7, 8, 13, 10, false);
     EXPECT_EQ(0, result) << "from inside-solid to inside-solid";
     if(result) delete result;
+
+    // from out of bounds to within bounds
+    result = spriteUtil->rayTrace(&sprite, 30, 10, 10, 10, false);
+    ASSERT_NE(nullVector, result) << "from out of bounds to within bounds: Want result.";
+    EXPECT_EQ(19, result->x) << "from out of bounds to within bounds";
+    EXPECT_EQ(10, result->y) << "from out of bounds to within bounds";
+    if(result) delete result;
 }
 
 TEST_F(SpriteUtilTest, rayTraceCornerCase)
@@ -126,6 +135,12 @@ TEST_F(SpriteUtilTest, rayTraceCornerCase)
     // to: inside-void, from: outside, clamp from
     result = spriteUtil->rayTrace(&sprite, 100, 12, 17, 12);
     EXPECT_EQ(0, result) << "to: inside-void, from: outside, clamp from";
+    if(result) delete result;
+
+    // to: inside-void, from: outside, clamp from
+    result = spriteUtil->rayTrace(&sprite, 21, 33, 3, 8);
+    EXPECT_EQ(7, result->x) << "to: inside-void, from outside, clamp from";
+    EXPECT_EQ(14, result->y) << "to: inside-void, from outside, clamp from";
     if(result) delete result;
 
      // to: inside-void, from: outside, clamp to
@@ -158,9 +173,11 @@ TEST_F(SpriteUtilTest, rayTraceScaledSprite)
     sprite.SetScale(Vector2f(1.4, 0.5));
 
     // Run the tests
+    Vector2f *result;
+    Vector2f *nullVector = 0;
 
     // from inside-void to inside-solid, horizontal
-    Vector2f *result = spriteUtil->rayTrace(&sprite, 18, 10, 12, 10);
+    result = spriteUtil->rayTrace(&sprite, 18, 10, 12, 10);
     EXPECT_EQ(14, result->x) << "from inside-void to inside-solid, horizontal";
     EXPECT_EQ(10, result->y) << "from inside-void to inside-solid, horizontal";
     delete result;
@@ -187,4 +204,11 @@ TEST_F(SpriteUtilTest, rayTraceScaledSprite)
     EXPECT_EQ(7, result->x) << "from inside-solid to inside-solid";
     EXPECT_EQ(8, result->y) << "from inside-solid to inside-solid";
     delete result;
+
+    // from out of bounds to within bounds
+    result = spriteUtil->rayTrace(&sprite, 30, 10, 10, 10, false);
+    ASSERT_NE(nullVector, result) << "from out of bounds to within bounds: Want result.";
+    EXPECT_EQ(19, result->x) << "from out of bounds to within bounds";
+    EXPECT_EQ(10, result->y) << "from out of bounds to within bounds";
+    if(result) delete result;
 }

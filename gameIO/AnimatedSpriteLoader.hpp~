@@ -1,0 +1,21 @@
+#ifndef ANIMATEDSPRITELOADER_H
+#define ANIMATEDSPRITELOADER_H
+
+#include <string>
+using namespace std;
+
+#include "tinyxml/tinyxml.h"
+#include "util/AnimatedSprite.hpp"
+
+class AnimatedSpriteLoader
+{
+    public:
+        AnimatedSprite* loadFromXML(string &path);
+
+    private:
+        string getImagePath(TiXmlElement &root);
+        
+};
+
+#endif
+

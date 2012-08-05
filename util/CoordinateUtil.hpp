@@ -28,7 +28,7 @@ class CoordinateUtil
         /** Gets the Euclidian distance between two positions.
          * @param p1 The first position.
          * @param p2 The second position.
-         * @return The absolute distance bwteen the first and second positions.
+         * @return The absolute distance between the first and second positions.
          */
         float getDistance(const Vector2f &p1, const Vector2f &p2);
 

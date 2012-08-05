@@ -1,7 +1,7 @@
 #ifndef DOG_H
 #define DOG_H
 
-#include "actors/Character.hpp"
+#include "actors/AnimatedCharacter.hpp"
 #include "actors/ActorStates.hpp"
 
 #include "util/AnimatedSprite.hpp"
@@ -9,11 +9,11 @@
 class LevelBuilder;
 
 /** Defines a sheepdog which can attack the player. */
-class Sheepdog: public Character
+class Sheepdog: public AnimatedCharacter
 {
     public:
         Sheepdog(float x, float y, float width, float height,
-            float speed, Sprite *sprite, LevelBuilder *levelBuilder);
+            float speed, AnimatedSprite *sprite, LevelBuilder *levelBuilder);
         virtual ~Sheepdog();
 
         void subUpdate(Clock *clock, RenderWindow *window, World *world);

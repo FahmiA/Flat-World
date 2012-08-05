@@ -2,7 +2,8 @@
 
 ManualCamera::ManualCamera(View *view) : Camera(view)
 {
-    speed = 400;
+    speed = 500;
+    view->Zoom(0.6);
 }
 
 ManualCamera::~ManualCamera() { }

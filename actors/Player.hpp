@@ -1,14 +1,15 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "Character.hpp"
+#include "actors/AnimatedCharacter.hpp"
+#include "util/AnimatedSprite.hpp"
 #include "util/Commons.hpp"
 
 /** The Player that is controled by the user. */
-class Player: public Character
+class Player: public AnimatedCharacter
 {
     public:
-        Player(float x, float y, float width, float height, float speed, Sprite *sprite);
+        Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite);
         ~Player();
 
         void subUpdate(Clock *clock, RenderWindow *window, World *world);
@@ -26,11 +27,15 @@ class Player: public Character
          */
         Direction getPushDirection();
 
+        static const string ANIMATE_JUMP_UP;
+        static const string ANIMATE_JUMP_DOWN;
+
     private:
         Direction pushedBackDirection;
         float pushBackTimeSecs;
-        const float PUSH_BACK_DURATION_SECS;
-        const float PUSH_BACK_MAX_HEIGHT;
+
+        static const float PUSH_BACK_DURATION_SECS;
+        static const float PUSH_BACK_MAX_HEIGHT;
 
         void doActionNormal(RenderWindow *window);
         void doActionPushBack(float elapsedTime);

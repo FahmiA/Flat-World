@@ -210,10 +210,10 @@ bool LevelLoader::buildWorld()
 LevelDescription* LevelLoader::loadLevelDescription(TiXmlHandle &node)
 {
     LevelDescription *level = new LevelDescription();
-    level->name = getString(node, TAG_NAME);
-    level->width = getInt(node, TAG_WIDTH);
-    level->height = getInt(node, TAG_HEIGHT);
-    level->backgroundPath = getString(node, TAG_BACKGROUND);
+    level->name = xmlUtil.getString(node, TAG_NAME);
+    level->width = xmlUtil.getInt(node, TAG_WIDTH);
+    level->height = xmlUtil.getInt(node, TAG_HEIGHT);
+    level->backgroundPath = xmlUtil.getString(node, TAG_BACKGROUND);
 
     return level;
 }
@@ -221,12 +221,12 @@ LevelDescription* LevelLoader::loadLevelDescription(TiXmlHandle &node)
 IslandDescription* LevelLoader::loadIslandDescription(TiXmlHandle &node)
 {
     IslandDescription *island = new IslandDescription();
-    island->id = getInt(node, TAG_ID);
-    island->imagePath = getString(node, TAG_IMAGE);
-    island->x = getInt(node, TAG_X);
-    island->y = getInt(node, TAG_Y);
-    island->width = getInt(node, TAG_WIDTH);
-    island->height = getInt(node, TAG_HEIGHT);
+    island->id = xmlUtil.getInt(node, TAG_ID);
+    island->imagePath = xmlUtil.getString(node, TAG_IMAGE);
+    island->x = xmlUtil.getInt(node, TAG_X);
+    island->y = xmlUtil.getInt(node, TAG_Y);
+    island->width = xmlUtil.getInt(node, TAG_WIDTH);
+    island->height = xmlUtil.getInt(node, TAG_HEIGHT);
 
     return island;
 }
@@ -234,12 +234,14 @@ IslandDescription* LevelLoader::loadIslandDescription(TiXmlHandle &node)
 UnitDescription* LevelLoader::loadUnitDescription(TiXmlHandle &node)
 {
     UnitDescription *unit = new UnitDescription();
-    unit->imagePath = getString(node, TAG_IMAGE);
-    unit->locationID = getInt(node, TAG_LOCATION);
+    unit->imagePath = xmlUtil.getString(node, TAG_IMAGE);
+    unit->locationID = xmlUtil.getInt(node, TAG_LOCATION);
 
     TiXmlAttribute *typeAttribute = node.ToElement()->FirstAttribute();
     unit->type = typeAttribute->ValueStr();
-    unit->startAngle = getFloat(node, TAG_ANGLE);
+    unit->startAngle = xmlUtil.getFloat(node, TAG_ANGLE);
+    unit->width = xmlUtil.getInt(node, TAG_WIDTH);
+    unit->height = xmlUtil.getInt(node, TAG_HEIGHT);
     //cout << unit->startAngle << endl;
     // TODO: If no start angle exists, give a random angle.
 
@@ -255,32 +257,11 @@ PickupDescription* LevelLoader::loadPickupDescription(TiXmlHandle &node)
     pickupDesc->type = typeAttribute->ValueStr();
 
     // Get the remaining attributes
-    pickupDesc->imagePath = getString(node, TAG_IMAGE);
-    pickupDesc->locationID = getInt(node, TAG_LOCATION);
-    pickupDesc->startAngle = getFloat(node, TAG_START_ANGLE);
-    pickupDesc->endAngle = getFloat(node, TAG_END_ANGLE);
-    pickupDesc->count = getInt(node, TAG_COUNT);
+    pickupDesc->imagePath = xmlUtil.getString(node, TAG_IMAGE);
+    pickupDesc->locationID = xmlUtil.getInt(node, TAG_LOCATION);
+    pickupDesc->startAngle = xmlUtil.getFloat(node, TAG_START_ANGLE);
+    pickupDesc->endAngle = xmlUtil.getFloat(node, TAG_END_ANGLE);
+    pickupDesc->count = xmlUtil.getInt(node, TAG_COUNT);
 
     return pickupDesc;
-}
-
-string LevelLoader::getString(TiXmlHandle &parent, char* tag)
-{
-    TiXmlElement* element = parent.FirstChildElement(tag).ToElement();
-    if(element)
-        return element->GetText();
-    else
-        return "-1\0";
-}
-
-int LevelLoader::getInt(TiXmlHandle &parent, char* tag)
-{
-    string text = getString(parent, tag);
-    return atoi(text.c_str());
-}
-
-float LevelLoader::getFloat(TiXmlHandle &parent, char* tag)
-{
-    string text = getString(parent, tag);
-    return atof(text.c_str());
 }

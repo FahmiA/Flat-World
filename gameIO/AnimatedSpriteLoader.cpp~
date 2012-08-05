@@ -1,0 +1,45 @@
+#include "AnimatedSpriteLoader.hpp"
+
+#include <iostream>
+#include "gameIO/ContentManager.hpp"
+
+AnimatedSprite* AnimatedSpriteLoader::loadFromXML(string &path)
+{
+    TiXmlDocument aniDoc(path);
+    bool loadOK = aniDoc.LoadFile();
+    if(!loadOK)
+        return 0;
+
+    TiXmlHandle aniHandler(aniDoc);
+    TiXmlHandle *root = TiXmlHandle(aniDoc.FirstChildElement("SpriteMapping"));
+
+    string imagePath = getImagePath(*root);
+    unsigned int transparentColour = getTransparentColour(*root);
+    
+    cout << "imagePath: " << imagePath << endl;
+    cout << "tColor: " << tColor << endl;
+
+    // TODO: Implement AnimatedSprite loading.
+    return new AnimatedSprite();
+}
+
+string AnimatedSpriteLoader::getImagePath(TiXmlElement &root)
+{
+    return "";
+}
+
+unsigned int AnimatedSpriteLoader::getTransparentColour(TiXmlElement &root);
+{
+    return 0;
+}
+
+AnimationFrame* AnimatedSpriteLoader::getFrame(TiXmlElement &spriteRoot);
+{
+    return 0;
+}
+
+Animation* AnimatedSpriteLoader::getAnimation(TiXmlElement &animationsRoot, map<string, AnimationFrame*>);
+{
+    return 0;
+}
+

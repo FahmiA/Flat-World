@@ -58,7 +58,7 @@
 			</Target>
 			<Target title="UnitTest">
 				<Option output="bin\UnitTest\Flat_World" prefix_auto="1" extension_auto="1" />
-				<Option object_output="obj\UnitTest\" />
+				<Option object_output="obj\Debug\" />
 				<Option type="1" />
 				<Option compiler="gcc" />
 				<Compiler>
@@ -93,6 +93,8 @@
 		<Unit filename="GUI\HUD.hpp" />
 		<Unit filename="actors\ActorStates.cpp" />
 		<Unit filename="actors\ActorStates.hpp" />
+		<Unit filename="actors\AnimatedCharacter.cpp" />
+		<Unit filename="actors\AnimatedCharacter.hpp" />
 		<Unit filename="actors\Character.cpp" />
 		<Unit filename="actors\Character.hpp" />
 		<Unit filename="actors\Player.cpp" />
@@ -104,6 +106,8 @@
 		<Unit filename="configuration\levels\level_1.xml" />
 		<Unit filename="environment\Island.cpp" />
 		<Unit filename="environment\Island.hpp" />
+		<Unit filename="gameIO\AnimatedSpriteLoader.cpp" />
+		<Unit filename="gameIO\AnimatedSpriteLoader.hpp" />
 		<Unit filename="gameIO\ContentManager.cpp" />
 		<Unit filename="gameIO\ContentManager.hpp" />
 		<Unit filename="gameIO\LevelBuilder.cpp" />
@@ -164,6 +168,8 @@
 		<Unit filename="util\NumberUtil.hpp" />
 		<Unit filename="util\SpriteUtil.cpp" />
 		<Unit filename="util\SpriteUtil.hpp" />
+		<Unit filename="util\XMLUtil.cpp" />
+		<Unit filename="util\XMLUtil.hpp" />
 		<Extensions>
 			<code_completion />
 			<debugger />

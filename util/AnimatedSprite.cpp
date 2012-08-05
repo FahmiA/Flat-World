@@ -3,107 +3,103 @@
 #include <iostream>
 using namespace std;
 
-AnimatedSprite::AnimatedSprite() : Sprite() {}
-
-void AnimatedSprite::setSpriteSheet(int framesPerSecond,
-                                    int frameWidth, int frameHeight, int frameGap,
-                                    int startOffsetX, int startOffsetY)
+AnimatedSprite::AnimatedSprite() : Sprite()
 {
-    // Remember arguments
-    frameDelay = 1.0f / (float)(framesPerSecond); // Take as a fraction of one seccond
-    this->frameHeight = frameHeight;
-    this->frameWidth = frameWidth;
-    this->frameGap = frameGap;
-    this->startOffsetX = startOffsetX;
-    this->startOffsetY = startOffsetY;
-
-    // Setup extra state
-    animations = new map<int, AnimationDetail*>();
+    currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
 }
 
 AnimatedSprite::~AnimatedSprite()
 {
-    delete animations;
+    animations.clear();
+
+    delete size;
+    delete center;
 }
 
-void AnimatedSprite::addAnimation(int id, int startFrameX, int startFrameY, int noOfFrames)
+void AnimatedSprite::addAnimation(Animation *animation)
 {
-    // Create the animation detail
-    AnimationDetail *animationDetail = new AnimationDetail();
-    animationDetail->startFrameX = startOffsetX + (startFrameX * frameWidth);
-    animationDetail->startFrameY = startOffsetY + (startFrameY * frameHeight);
-    animationDetail->noOfFrames = noOfFrames;
-
     // Delete the old animation if one exists
-    if(animations->count(id) > 0)
-        delete (*animations)[id];
+    if(animations.count(animation->name) > 0)
+        delete animations[animation->name];
 
     // Add the new animation
-    (*animations)[id] = animationDetail;
+    animations[animation->name] = animation;
+
+    // Set the subrect if this is the first animation
+    // This is to ensure the sprite is sized correctly
+    if(animations.size() == 1)
+    {
+        size = new Vector2f(GetSize().x, GetSize().y);
+        center = new Vector2f(GetCenter().x, GetCenter().y);
+        play(animation->name);
+        stop();
+    }
+}
+
+void AnimatedSprite::setTransparentColour(unsigned int tColour)
+{
+    // TODO: Implement (May need SFML v2.0)
 }
 
 void AnimatedSprite::update(Clock *clock)
 {
-    if(paused)
+    if(paused || currentAnimation == 0)
         return;
 
-    if(clock == 0)
+    bool advanceFrame = false;
+    if(clock != 0)
     {
-        timeSinceLastFrame = frameDelay;
-    }else{
         timeSinceLastFrame += clock->GetElapsedTime();
+        if(timeSinceLastFrame > 1.0f / currentAnimation->frameRate) // seconds
+            advanceFrame = true;
+    }else{
+        // No click will force an animation change
+        advanceFrame = true;
     }
 
-    //cout << timeSinceLastFrame << ' ' << frameDelay << endl;
     // Check whether the next frame should be displayed
-    if(timeSinceLastFrame >= frameDelay)
+    if(advanceFrame)
     {
         // Progress to the next frame
-        if(currentFrame > currentAnimation->noOfFrames)
+        if(currentFrame >= currentAnimation->frames.size())
             currentFrame = 0; // Loop the animation
 
-        int imageWidth = GetImage()->GetWidth();
+        // Display the frame
+        AnimationFrame &frame = *currentAnimation->frames[currentFrame];
+        //float scale = min(size->x / frame.width, size->y / frame.height);
+        IntRect subRect(frame.x, frame.y,
+                        frame.x + frame.width,
+                        frame.y + frame.height);
+        SetSubRect(subRect);
+        Resize(*size);
+        Sprite::SetCenter(Vector2f((center->x / size->x) * frame.width,
+                                   (center->y / size->y) * frame.height));
 
-        int framePosX = currentAnimation->startFrameX + (currentFrame * frameWidth);
-        framePosX = framePosX % imageWidth;
-
-        int framePosY = startOffsetY + (framePosX / imageWidth);
-
-        SetSubRect(IntRect(framePosX, framePosY, framePosX + frameWidth,
-                                        framePosY + frameHeight));
-        //cout << "New SubRect: from = (" << framePosX << ", " << framePosY << ")" << endl;
-        //cout << '\t' << currentFrame << endl;
-
+        // Update the frame counter
         currentFrame++;
-
-        // Update the center
-        /*float xPercent = GetCenter().x/GetSize().x;
-        float yPercent = GetCenter().y/GetSize().y;
-        int newCenterX = framePosX + (frameWidth * xPercent);
-        int newCenterY = framePosY + (frameHeight * yPercent);
-        SetCenter(newCenterX, newCenterY);*/
-
 
         // Reset the timer
         timeSinceLastFrame = 0;
     }
 }
 
-bool AnimatedSprite::play(int animationId)
+bool AnimatedSprite::play(string animationName)
 {
+    if(currentAnimation != 0 && animationName == currentAnimation->name)
+        return true;
+
     // Stop the current animation
     stop();
 
     // Set the new animation
-
-    if(animations->count(animationId) == 0)
+    if(animations.count(animationName) == 0)
         return false; // The animation does not exist
 
-    currentAnimation = (*animations)[animationId];
+    currentAnimation = animations[animationName];
 
-    // Set the subrect to the first frame in the animation.
+    // Set the subrect to the first frame of the animation.
     update(0);
 }
 
@@ -125,13 +121,14 @@ void AnimatedSprite::stop()
     paused = false;
 }
 
-int AnimatedSprite::getFrameHeight()
+void AnimatedSprite::SetSize(Vector2f size)
 {
-    return frameHeight;
+    delete this->size;
+    this->size = new Vector2f(size.x, size.y);
 }
 
-int AnimatedSprite::getFrameWidth()
+void AnimatedSprite::SetCenter(Vector2f center)
 {
-    return frameWidth;
+    delete this->center;
+    this->center = new Vector2f(center.x, center.y);
 }
-

@@ -10,14 +10,14 @@ Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, in
     // http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
     // x0 = fromX   y0 = fromY  x1 = toX    y1 = toY
 
+    /* Note: If ray trace path is out of bounds, it will still be computed.
+       This is expensive as it is computing extra pixels, but I don't think
+       it's much cheaper to find the intersection of the ray trace path
+       with the rectangle to clamp and reduce line length.*/
+
     // Clamp positions to within the bounds of the sprite
     int spriteMaxX = (int)((sprite->GetSize().x / sprite->GetScale().x) - 1.0f);
     int spriteMaxY = (int)((sprite->GetSize().y / sprite->GetScale().y) - 1.0f);
-    // TODO: Clamping augments the angle! Must find actual bounds intersect.
-    clamp(fromX, 0, spriteMaxX  - 1);
-    clamp(fromY, 0, spriteMaxY - 1);
-    clamp(toX, 0, spriteMaxX  - 1);
-    clamp(toY, 0, spriteMaxY - 1);
 
     // Declare the required variables
     Vector2f *collidePosition = 0;
@@ -27,17 +27,29 @@ Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, in
     int slopeX = (fromX < toX) ? 1 : -1;
     int slopeY = (fromY < toY) ? 1 : -1;
     int error2 = 0;
+    Color pixel; // Pixel to look at
+    bool hasPixel;
 
     while(true)
     {
         // Check pixel (fromX, fromY)
-        Color pixel = sprite->GetPixel(fromX, fromY);
-
-        if((seekEmpty && pixel.a > 0) || // Solid
-           (!seekEmpty && pixel.a == 0)) // Transparent
+        if(fromX >= 0 && fromX <= spriteMaxX &&
+           fromY >= 0 && fromY <= spriteMaxY)
         {
-            collidePosition = new Vector2f(fromX, fromY);
-            break;
+            pixel = sprite->GetPixel(fromX, fromY);
+            hasPixel = true;
+        }else{
+            hasPixel = false;
+        }
+
+        if(hasPixel)
+        {
+            if((seekEmpty && pixel.a > 0) || // Solid
+               (!seekEmpty && pixel.a == 0)) // Transparent
+            {
+                collidePosition = new Vector2f(fromX, fromY);
+                break;
+            }
         }
 
         if(fromX == toX && fromY == toY)
