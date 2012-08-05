@@ -76,8 +76,6 @@ void AnimatedSprite::update(Clock *clock)
         Resize(*size);
         Sprite::SetCenter(Vector2f((center->x / size->x) * frame.width,
                                    (center->y / size->y) * frame.height));
-        //cout << "Size: " << GetSize().x << " * " << GetSize().y << endl;
-        //cout << "Cent: " << GetCenter().x << " * " << GetCenter().y << endl;
 
         // Update the frame counter
         currentFrame++;
@@ -127,7 +125,6 @@ void AnimatedSprite::SetSize(Vector2f size)
 {
     delete this->size;
     this->size = new Vector2f(size.x, size.y);
-    //cout << "---" <<  size.x << endl;
 }
 
 void AnimatedSprite::SetCenter(Vector2f center)
@@ -135,14 +132,3 @@ void AnimatedSprite::SetCenter(Vector2f center)
     delete this->center;
     this->center = new Vector2f(center.x, center.y);
 }
-
-/*int AnimatedSprite::getFrameHeight()
-{
-    return GetSubRect().GetHeight();
-}
-
-int AnimatedSprite::getFrameWidth()
-{
-    return GetSubRect().GetWidth();
-}*/
-

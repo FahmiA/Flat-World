@@ -47,7 +47,14 @@ class AnimatedSprite: public Sprite
         /** Stops the current animation (if one exists). */
         void stop();
 
+        /** Notify of a change in sprite size.
+         * @param size The new size.
+         */
         void SetSize(Vector2f size);
+
+        /** Notify of a change in sprite center.
+         *@param center The new center.
+         */
         void SetCenter(Vector2f center);
 
     private:
@@ -82,6 +89,5 @@ struct AnimationFrame
     int width;
     int height;
 };
-
 
 #endif // ANIMATEDSPRITE_H

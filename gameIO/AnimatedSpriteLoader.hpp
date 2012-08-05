@@ -11,10 +11,18 @@ using namespace std;
 #include "util/XmlUtil.hpp"
 #include "util/SpriteUtil.hpp"
 
+/** Loads animations from Sprite Vortex XML files. */
 class AnimatedSpriteLoader
 {
     public:
+        /** Creates a new AnimationSpriteLoader.
+          * @param content ContentManager for loading the sprite sheet.
+          */
         AnimatedSpriteLoader(ContentManager *content);
+
+        /** Loadsa a sprite.
+          * @path Path to XML file.
+          */
         AnimatedSprite* loadFromXML(string &path);
 
     private:
