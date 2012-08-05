@@ -2,6 +2,7 @@
 #define LEVELBUILDERXML_H
 
 #include "LevelBuilder.hpp"
+#include "gameIO/AnimatedSpriteLoader.hpp"
 
 /** Constructs a standard game world.
  * Concrete Builder in the Builder design pattern.
@@ -33,6 +34,8 @@ class LevelBuilderStd : public LevelBuilder
     private:
         int sheepCount;
         int starCount;
+
+        AnimatedSpriteLoader *aniLoader;
 };
 
 #endif // LEVELBUILDERXML_H

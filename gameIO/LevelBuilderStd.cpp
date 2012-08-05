@@ -1,6 +1,5 @@
 #include "LevelBuilderStd.hpp"
 
-#include "gameIO/AnimatedSpriteLoader.hpp"
 #include "pickups/Star.hpp"
 #include "GUI/HUD.hpp"
 #include "game/ID.hpp"
@@ -29,9 +28,13 @@ LevelBuilderStd::LevelBuilderStd(World *world, ContentManager *content)
 {
     sheepCount = 0;
     starCount = 0;
+    aniLoader = new AnimatedSpriteLoader(content);
 }
 
-LevelBuilderStd::~LevelBuilderStd() { }
+LevelBuilderStd::~LevelBuilderStd()
+{
+    delete aniLoader;
+}
 
 bool LevelBuilderStd::setBackground(LevelDescription *levelDesc)
 {
@@ -71,9 +74,7 @@ bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-
-    AnimatedSpriteLoader aniLoader(getContentManager());
-    AnimatedSprite *playerSprite = aniLoader.loadFromXML(playerDesc->imagePath);
+    AnimatedSprite *playerSprite = aniLoader->loadFromXML(playerDesc->imagePath);
 
     if(playerSprite == 0)
     {
@@ -97,8 +98,7 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
 bool LevelBuilderStd::addSheep(UnitDescription *sheepDesc, Island *island)
 {
     bool addSuccess = false;
-    AnimatedSpriteLoader aniLoader(getContentManager());
-    AnimatedSprite *sprite = aniLoader.loadFromXML(sheepDesc->imagePath);
+    AnimatedSprite *sprite = aniLoader->loadFromXML(sheepDesc->imagePath);
 
     if(sprite == 0)
     {
@@ -150,8 +150,7 @@ bool LevelBuilderStd::addRandomSheep()
 bool LevelBuilderStd::addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    AnimatedSpriteLoader aniLoader(getContentManager());
-    AnimatedSprite *sprite = aniLoader.loadFromXML(sheepdogDesc->imagePath);
+    AnimatedSprite *sprite = aniLoader->loadFromXML(sheepdogDesc->imagePath);
 
     if(sprite == 0)
     {
