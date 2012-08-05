@@ -97,9 +97,10 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
 bool LevelBuilderStd::addSheep(UnitDescription *sheepDesc, Island *island)
 {
     bool addSuccess = false;
-    Sprite *sprite = new Sprite();
+    AnimatedSpriteLoader aniLoader(getContentManager());
+    AnimatedSprite *sprite = aniLoader.loadFromXML(sheepDesc->imagePath);
 
-    if(!loadSprite(sheepDesc->imagePath, sprite))
+    if(sprite == 0)
     {
         // Error
         cout << "Image for " << sheepDesc->type << " could not be loaded: " << sheepDesc->imagePath << endl;
