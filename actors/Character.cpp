@@ -32,6 +32,7 @@ Character::Character(float x, float y, float width, float height, float speed, S
     inJump = false;
     distanceFromGround = 0;
     prevAngle = 0;
+    spriteDirection = Left;
 
     doMoveLeft = false;
     doMoveRight = false;
@@ -61,14 +62,22 @@ void Character::moveLeft()
 {
     facingDirection = Left;
     doMoveLeft = true;
-    sprite->FlipX(false);
+
+    if(spriteDirection == Left)
+        sprite->FlipX(false);
+    else
+        sprite->FlipX(true);
 }
 
 void Character::moveRight()
 {
     facingDirection = Right;
     doMoveRight = true;
-    sprite->FlipX(true);
+
+    if(spriteDirection == Left)
+        sprite->FlipX(true);
+    else
+        sprite->FlipX(false);
 }
 
 bool Character::isJumping()
@@ -385,7 +394,7 @@ void Character::setDistanceFromGround(float distance)
 
 void Character::draw(RenderWindow *window)
 {
-    window->Draw(bounds);
+    //window->Draw(bounds);
 
     // Draw the charcter.
     window->Draw(*sprite);
@@ -427,4 +436,9 @@ Island* Character::getCurrentGround()
 Island* Character::getPreviousGround()
 {
     return prevGround;
+}
+
+void Character::setSpriteDirection(Direction direction)
+{
+    spriteDirection = direction;
 }
