@@ -46,8 +46,8 @@ void HUD::setSize(int width, int height)
 
     // Set the size and position of the sheep corner
     sheepCorner->Resize(width/3, height/3);
-    int sheepCornerX = sheepCorner->GetPosition().x;
-    int sheepCornerY = sheepCorner->GetPosition().y;
+    int sheepCornerX = sheepCorner->getPosition().x;
+    int sheepCornerY = sheepCorner->getPosition().y;
     int sheepCornerWidth = sheepCorner->GetSize().x;
     int sheepCornerHeight = sheepCorner->GetSize().y;
     sheepCorner->SetX(-sheepCornerWidth/4);
