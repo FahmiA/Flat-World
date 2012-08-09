@@ -14,18 +14,20 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+#include <cstdlib>
+#include <ctime>
 #include <iostream>
-#include <stlib.h>
 using namespace std;
 
 #define MAX_FPS 60
-// Initialize random seed
-srand (time(NULL));
 
 int main()
 {
+    // Initialize random seed
+    srand(time(NULL));
+
     RenderWindow app(VideoMode(800, 600, 32), "SFML Graphics");
-    app.SetFramerateLimit(MAX_FPS);
+    app.setFramerateLimit(MAX_FPS);
     Clock clock;
 
     ContentManager content;
@@ -50,35 +52,35 @@ int main()
 
     // Create the hud
 
-    while(app.IsOpened())
+    while(app.isOpen())
     {
         // Process events
         Event event;
-        while(app.GetEvent(event))
+        while(app.pollEvent(event))
         {
             // Window closed
-            if(event.Type == Event::Closed)
-                app.Close();
+            if(event.type == Event::Closed)
+                app.close();
 
             // Escape key pressed
-            if((event.Type == Event::KeyPressed) && (event.Key.Code == Key::Escape))
-                app.Close();
+            if((event.type == Event::KeyPressed) && (event.key.code == Keyboard::Escape))
+                app.close();
 
             // Take screenshot
-            if (event.Key.Code == sf::Key::F1)
+            if (event.key.code == Keyboard::F1)
             {
-                Image Screen = app.Capture();
-                Screen.SaveToFile("screenshot.jpg");
+                Image screen = app.capture();
+                screen.saveToFile("screenshot.jpg");
             }
 
-            if (event.Key.Code == sf::Key::Num1)
+            if (event.key.code == Keyboard::Num1)
             {
                 // Switch to steady camera
                 cout << "Switching to Steady Camera" << endl;
                 delete camera;
                 camera = new SteadyCamera(view);
                 world->setCamera(camera);
-            }else if(event.Key.Code == sf::Key::Num2){
+            }else if(event.key.code == Keyboard::Num2){
                 // Switch to debug manual camera
                 cout << "Switching to Manual Camera" << endl;
                 delete camera;
@@ -88,19 +90,20 @@ int main()
         }
 
         world->update(&clock, &app);
-        clock.Reset();
+        clock.restart();
 
         // Clear the screen (fill it with black color)
-        app.Clear(Color(200, 0, 0));
+        app.clear(Color(200, 0, 0));
 
         world->draw(&app);
 
         // Always display the window last, after all updates.
-        app.Display();
+        app.display();
     }
 
     delete camera;
     delete view;
     delete world;
+
     return EXIT_SUCCESS;
 }

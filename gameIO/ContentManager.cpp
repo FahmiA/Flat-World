@@ -25,7 +25,7 @@ Image* ContentManager::loadImage(string &path)
     }else{
         // Load the image.
         Image *image = new Image();
-        if(!image->LoadFromFile(path))
+        if(!image->loadFromFile(path))
             return 0;
 
         (*imageMap)[path] = image;
@@ -48,7 +48,7 @@ Font* ContentManager::loadFont(string &path)
     }else{
         // Load the font.
         Font *font = new Font();
-        if(!font->LoadFromFile(path))
+        if(!font->loadFromFile(path))
             return 0;
 
         (*fontMap)[path] = font;

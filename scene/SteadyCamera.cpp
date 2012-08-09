@@ -8,7 +8,7 @@ using namespace sf;
 
 SteadyCamera::SteadyCamera(View *view) : Camera(view)
 {
-    //view->Zoom(0.4f);
+    //view->zoom(0.4f);
 }
 
 SteadyCamera::~SteadyCamera() { }
@@ -21,5 +21,5 @@ void SteadyCamera::update(Clock *clock, RenderWindow *window, World *world)
     Vector2f position = player->getPosition();
     position.y -= player->getSize().y / 2;
 
-    view->SetCenter(position);
+    view->setCenter(position);
 }

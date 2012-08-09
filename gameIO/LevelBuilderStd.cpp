@@ -125,13 +125,13 @@ bool LevelBuilderStd::addRandomSheep()
     // Create the sheep description
     UnitDescription sheepDesc;
     sheepDesc.type = "sheep";
-    int imagePathIndex = sf::Randomizer::Random(0, getSheepPathCount() - 1);
+    int imagePathIndex = rand() % (getSheepPathCount() - 1);
     sheepDesc.imagePath = getSheepPath(imagePathIndex);
 
     // Find a random island to spawn the sheep on
     list<Island*> &islands = *(getWorld()->getIslands());
     Island *sheepIsland = 0;
-    int index = sf::Randomizer::Random(0, islands.size() - 1);
+    int index = rand() % (islands.size() - 1);
     int count = 0;
     for(list<Island*>::iterator it = islands.begin(); it != islands.end(); it++)
     {

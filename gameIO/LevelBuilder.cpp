@@ -25,8 +25,7 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     // Produce a random angle if one does not exist.
     if(angleRadians == -1)
     {
-         Randomizer random;
-         angleRadians = random.Random(0, M_2_PI);
+         angleRadians = rand() % 6; // 6 is the closest int to M_2_PI
     }
 
     // Want to ray-trace beyond the border of the island
@@ -38,15 +37,15 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     float fromX = toX + (cos(angleRadians) * raytraceDistance);
     float fromY = toY + (sin(angleRadians) * raytraceDistance);
 
-    float scaleX = island->getSprite()->GetScale().x;
-    float scaleY = island->getSprite()->GetScale().y;
+    float scaleX = island->getSprite()->getScale().x;
+    float scaleY = island->getSprite()->getScale().y;
     toX /= scaleX;
     toY /= scaleY;
     fromX /= scaleX;
     fromY /= scaleY;
 
     // Ray-trace
-    Vector2f *localSpawnPos = spriteUtil.rayTrace(island->getSprite(), (int)fromX, (int)fromY, (int)toX, (int)toY, true);
+    Vector2f *localSpawnPos = spriteUtil.rayTrace(island->getImage(), (int)fromX, (int)fromY, (int)toX, (int)toY, true);
 
     cout << "Adding object to island at angle: " << angleRadians << endl;
     if(localSpawnPos == 0)
@@ -58,7 +57,8 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     printf("\tSpawn:    (x, y): (%.3f, %0.3f)\n",  localSpawnPos->x,  localSpawnPos->y);
 
     // Update the charcter position
-    Vector2f globalSpawnPos = island->getSprite()->TransformToGlobal(*localSpawnPos);
+    Transform islandGlobalTransform = island->getSprite()->getInverseTransform();
+    Vector2f globalSpawnPos = islandGlobalTransform.transformPoint(*localSpawnPos);
     *characterX = globalSpawnPos.x;// + characterWidth;
     *characterY = globalSpawnPos.y;// + characterHeight;
 

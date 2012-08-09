@@ -1,6 +1,7 @@
 #include "CoordinateUtil.hpp"
 
 #include "NumberUtil.hpp"
+#include "SpriteUtil.hpp"
 
 #include<math.h>
 using namespace std;
@@ -9,7 +10,7 @@ CoordinateUtil::CoordinateUtil() {}
 
 bool CoordinateUtil::isGlobalPointInside(Vector2f &point, Sprite &bounds)
 {
-    Vector2f rectSize = bounds.GetSize();
+    Vector2f rectSize = SpriteUtil::getSize(&bounds);
     Vector2f rectPosition = bounds.getPosition();
 
     if(point.x >= rectPosition.x && point.x < rectPosition.x + rectSize.x &&
@@ -21,10 +22,10 @@ bool CoordinateUtil::isGlobalPointInside(Vector2f &point, Sprite &bounds)
 
 bool CoordinateUtil::isLocalPointInside(Vector2f &point, Sprite &bounds)
 {
-    Vector2f rectSize = bounds.GetSize();
+    Vector2f rectSize = SpriteUtil::getSize(&bounds);
     // Consider for scaling
-    float rectSizeX = rectSize.x / bounds.GetScale().x;
-    float rectSizeY = rectSize.y / bounds.GetScale().y;
+    float rectSizeX = rectSize.x / bounds.getScale().x;
+    float rectSizeY = rectSize.y / bounds.getScale().y;
 
     if(point.x >= 0 && point.x < rectSizeX &&
        point.y >= 0 && point.y < rectSizeY)
@@ -54,8 +55,8 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
 
 /*bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 {
-    float ob1OffsetX = object1->GetCenter().x * object1->GetScale().x;
-    float ob1OffsetY = object1->GetCenter().y * object1->GetScale().y;
+    float ob1OffsetX = object1->getOrigin().x * object1->getScale().x;
+    float ob1OffsetY = object1->getOrigin().y * object1->getScale().y;
     float ob1Width = object1->GetSize().x;
     float ob1Height = object1->GetSize().y;
 
@@ -68,8 +69,8 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
     Vector2f ob1BottomRight = Vector2(ob1TopLeft.x + ob1Width,
                                       ob1TopLeft.y + ob1Height);
 
-    float ob2OffsetX = object2->GetCenter().x * object2->GetScale().x;
-    float ob2OffsetY = object2->GetCenter().y * object2->GetScale().y;
+    float ob2OffsetX = object2->getOrigin().x * object2->getScale().x;
+    float ob2OffsetY = object2->getOrigin().y * object2->getScale().y;
     float ob2Width = object2->GetSize().x;
     float ob2Height = object2->GetSize().y;
 
@@ -92,17 +93,17 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 {
     // http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
     //TODO: Take rotation into account
-    float ob1OffsetX = object1->GetCenter().x * object1->GetScale().x;
-    float ob1OffsetY = object1->GetCenter().y * object1->GetScale().y;
-    int ob1Width = object1->GetSize().x;
-    int ob1Height = object1->GetSize().y;
+    float ob1OffsetX = object1->getOrigin().x * object1->getScale().x;
+    float ob1OffsetY = object1->getOrigin().y * object1->getScale().y;
+    int ob1Width = SpriteUtil::getSize(object1).x;
+    int ob1Height = SpriteUtil::getSize(object1).y;
     int ob1X = object1->getPosition().x - ob1OffsetX;
     int ob1Y = object1->getPosition().y - ob1OffsetY;
 
-    float ob2OffsetX = object2->GetCenter().x * object2->GetScale().x;
-    float ob2OffsetY = object2->GetCenter().y * object2->GetScale().y;
-    int ob2Width = object2->GetSize().x;
-    int ob2Height = object2->GetSize().y;
+    float ob2OffsetX = object2->getOrigin().x * object2->getScale().x;
+    float ob2OffsetY = object2->getOrigin().y * object2->getScale().y;
+    int ob2Width = SpriteUtil::getSize(object2).x;
+    int ob2Height = SpriteUtil::getSize(object2).y;
     int ob2X = object2->getPosition().x - ob2OffsetX;
     int ob2Y = object2->getPosition().y - ob2OffsetY;
 

@@ -2,9 +2,8 @@
 
 #include "NumberUtil.hpp"
 
-SpriteUtil::SpriteUtil() {}
 
-Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY, bool seekEmpty)
+Vector2f* SpriteUtil::rayTrace(const Image &image, int fromX, int fromY, int toX, int toY, bool seekEmpty)
 {
     // Simplified Bresenham line algorithm
     // http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
@@ -16,8 +15,8 @@ Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, in
        with the rectangle to clamp and reduce line length.*/
 
     // Clamp positions to within the bounds of the sprite
-    int spriteMaxX = (int)((sprite->GetSize().x / sprite->GetScale().x) - 1.0f);
-    int spriteMaxY = (int)((sprite->GetSize().y / sprite->GetScale().y) - 1.0f);
+    int spriteMaxX = (int)(image.getSize().x - 1.0f);
+    int spriteMaxY = (int)(image.getSize().x - 1.0f);
 
     // Declare the required variables
     Vector2f *collidePosition = 0;
@@ -36,7 +35,7 @@ Vector2f* SpriteUtil::rayTrace(Sprite *sprite, int fromX, int fromY, int toX, in
         if(fromX >= 0 && fromX <= spriteMaxX &&
            fromY >= 0 && fromY <= spriteMaxY)
         {
-            pixel = sprite->GetPixel(fromX, fromY);
+            pixel = image.getPixel(fromX, fromY);
             hasPixel = true;
         }else{
             hasPixel = false;
@@ -82,11 +81,13 @@ void SpriteUtil::resize(Sprite *sprite, float width, float height)
         sprite->setScale(width / originalWidth, height / originalHeight);
 }
 
-Vector2f SpriteUtil::getSize(Sprite *sprite)
+Vector2f& SpriteUtil::getSize(Sprite *sprite)
 {
-    IntRect size = sprite->getTextureRect();
+    IntRect textureSize = sprite->getTextureRect();
     Vector2f scale = sprite->getScale();
-    return Vector2f(size.width * scale.x, size.height * scale.y);
+
+    Vector2f *size = new Vector2f(textureSize.width * scale.x, textureSize.height * scale.y);
+    return *size;
 }
 
 bool SpriteUtil::loadSprite(string &path, Sprite *sprite, ContentManager *content)
@@ -95,7 +96,9 @@ bool SpriteUtil::loadSprite(string &path, Sprite *sprite, ContentManager *conten
     if(image == 0)
         return false;
 
-    sprite->SetImage(*image);
+    Texture texture;
+    texture.loadFromImage(*image);
+    sprite->setTexture(texture);
 
     return true;
 }

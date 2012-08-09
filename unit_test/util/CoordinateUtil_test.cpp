@@ -2,6 +2,8 @@
 
 #include "util/CoordinateUtil.hpp"
 
+#include <math.h>
+
 class CoordinateUtilTest : public ::testing::Test
 {
     protected:

@@ -55,7 +55,7 @@ class AnimatedSprite: public Sprite
         /** Notify of a change in sprite center.
          *@param center The new center.
          */
-        void SetCenter(Vector2f center);
+        void setOrigin(Vector2f center);
 
     private:
         // Animation storage

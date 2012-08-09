@@ -12,7 +12,7 @@ void Camera::draw(RenderWindow *window) { /* Sub-classes can implement draw only
 
 void Camera::activate(RenderWindow *window)
 {
-    window->SetView(*getView());
+    window->setView(*getView());
 }
 
 View* Camera::getView()

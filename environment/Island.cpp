@@ -1,15 +1,16 @@
 #include "Island.hpp"
 
 #include "game/ID.hpp"
+#include "util/SpriteUtil.hpp"
 
 Island::Island(float x, float y, float width, float height, Sprite *sprite)
 {
-    sprite->SetCenter(sprite->GetSize().x / 2, sprite->GetSize().y / 2);
-    sprite->Resize(width, height);
-    sprite->SetX(x);
-    sprite->SetY(y);
+    sprite->setOrigin(SpriteUtil::getSize(sprite).x / 2, SpriteUtil::getSize(sprite).y / 2);
+    SpriteUtil::resize(sprite, width, height);
+    sprite->setPosition(x, y);
 
     this->sprite = sprite;
+    image = sprite->getTexture()->copyToImage();
 
     setID(ID_ISLAND);
 }
@@ -22,6 +23,11 @@ Island::~Island()
 Sprite* Island::getSprite()
 {
     return sprite;
+}
+
+const Image& Island::getImage()
+{
+    return image;
 }
 
 void Island::update(Clock *clock, RenderWindow *window, World *world)
@@ -46,5 +52,5 @@ void Island::setPosition(float x, float y)
 
 const Vector2f& Island::getSize()
 {
-    return sprite->GetSize();
+    return SpriteUtil::getSize(sprite);
 }

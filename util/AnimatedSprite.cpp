@@ -3,6 +3,8 @@
 #include <iostream>
 using namespace std;
 
+#include "util/SpriteUtil.hpp"
+
 AnimatedSprite::AnimatedSprite() : Sprite()
 {
     currentAnimation = 0;
@@ -31,8 +33,8 @@ void AnimatedSprite::addAnimation(Animation *animation)
     // This is to ensure the sprite is sized correctly
     if(animations.size() == 1)
     {
-        size = new Vector2f(GetSize().x, GetSize().y);
-        center = new Vector2f(GetCenter().x, GetCenter().y);
+        *size = SpriteUtil::getSize(this);
+        *center = getOrigin();
         play(animation->name);
         stop();
     }
@@ -51,7 +53,7 @@ void AnimatedSprite::update(Clock *clock)
     bool advanceFrame = false;
     if(clock != 0)
     {
-        timeSinceLastFrame += clock->getElapsedTime.asSeconds();
+        timeSinceLastFrame += clock->getElapsedTime().asSeconds();
         if(timeSinceLastFrame > 1.0f / currentAnimation->frameRate) // seconds
             advanceFrame = true;
     }else{
@@ -72,9 +74,9 @@ void AnimatedSprite::update(Clock *clock)
         IntRect subRect(frame.x, frame.y,
                         frame.x + frame.width,
                         frame.y + frame.height);
-        SetSubRect(subRect);
-        Resize(*size);
-        Sprite::SetCenter(Vector2f((center->x / size->x) * frame.width,
+        setTextureRect(subRect);
+        SpriteUtil::resize(this, size->x, size->y);
+        Sprite::setOrigin(Vector2f((center->x / size->x) * frame.width,
                                    (center->y / size->y) * frame.height));
 
         // Update the frame counter
@@ -101,6 +103,8 @@ bool AnimatedSprite::play(string animationName)
 
     // Set the subrect to the first frame of the animation.
     update(0);
+
+    return true;
 }
 
 void AnimatedSprite::pause()
@@ -127,7 +131,7 @@ void AnimatedSprite::SetSize(Vector2f size)
     this->size = new Vector2f(size.x, size.y);
 }
 
-void AnimatedSprite::SetCenter(Vector2f center)
+void AnimatedSprite::setOrigin(Vector2f center)
 {
     delete this->center;
     this->center = new Vector2f(center.x, center.y);
