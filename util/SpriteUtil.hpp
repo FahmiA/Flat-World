@@ -13,8 +13,6 @@ using namespace std;
 class SpriteUtil
 {
     public:
-        /** Creates a new SpriteUtil object. */
-        SpriteUtil();
 
         /** Performs a raytrace on a Sprite.
          * @param sprite Sprite to perform raytrace on.
@@ -25,7 +23,10 @@ class SpriteUtil
          * @param seekEmpty True to find the first transparent pixel. False to find the first solid pixel.
          * @return First position that is not transparent (is solid).
          */
-        Vector2f* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY, bool seekEmpty = true);
+        static Vector2f* rayTrace(Sprite *sprite, int fromX, int fromY, int toX, int toY, bool seekEmpty = true);
+
+        static void resize(Sprite *sprite, float width, float height);
+        static Vector2f& getSize(Sprite *sprite);
 
         /** Loads a Sprite image given a path to an image.
          * @param path The path of the image to load into the Sprite.
@@ -33,7 +34,7 @@ class SpriteUtil
          * @param content The ContentManager to manage the loaded image.
          * @return True if the image path pointed to a valid image. False otherwise.
          */
-        bool loadSprite(string &path, Sprite *sprite, ContentManager *content);
+        static bool loadSprite(string &path, Sprite *sprite, ContentManager *content);
 
         /** Loads a Font.
          * @param path The path of the font to load.
@@ -41,7 +42,7 @@ class SpriteUtil
          * @param content The ContentManager to manage the loaded font.
          * @return Tue if the font path pointed to a valid font. False otherwise.
          */
-        bool loadFont(string &path, Font *&font, ContentManager *content);
+        static bool loadFont(string &path, Font *&font, ContentManager *content);
 };
 
 #endif // SPRITEUTIL_H

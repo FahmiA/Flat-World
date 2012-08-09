@@ -10,7 +10,7 @@ CoordinateUtil::CoordinateUtil() {}
 bool CoordinateUtil::isGlobalPointInside(Vector2f &point, Sprite &bounds)
 {
     Vector2f rectSize = bounds.GetSize();
-    Vector2f rectPosition = bounds.GetPosition();
+    Vector2f rectPosition = bounds.getPosition();
 
     if(point.x >= rectPosition.x && point.x < rectPosition.x + rectSize.x &&
        point.y >= rectPosition.y && point.y < rectPosition.y + rectSize.y)
@@ -59,8 +59,8 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
     float ob1Width = object1->GetSize().x;
     float ob1Height = object1->GetSize().y;
 
-    Vector2f ob1TopLeft = Vector2(object1->GetPosition().x - ob1OffsetX,
-                                  object1->GetPosition().y - ob1OffsetY);
+    Vector2f ob1TopLeft = Vector2(object1->getPosition().x - ob1OffsetX,
+                                  object1->getPosition().y - ob1OffsetY);
     Vector2f ob1TopRight = Vector2(ob1TopLeft.x + ob1Width,
                                    ob1TopLeft.y);
     Vector2f ob1BottomLeft = Vector2(ob1TopLeft.x,
@@ -73,8 +73,8 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
     float ob2Width = object2->GetSize().x;
     float ob2Height = object2->GetSize().y;
 
-    Vector2f ob2TopLeft = Vector2(object2->GetPosition().x - ob2OffsetX,
-                                  object2->GetPosition().y - ob2OffsetY);
+    Vector2f ob2TopLeft = Vector2(object2->getPosition().x - ob2OffsetX,
+                                  object2->getPosition().y - ob2OffsetY);
     Vector2f ob2TopRight = Vector2(ob2TopLeft.x + ob2Width,
                                    ob2TopLeft.y);
     Vector2f ob2BottomLeft = Vector2(ob2TopLeft.x,
@@ -96,15 +96,15 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
     float ob1OffsetY = object1->GetCenter().y * object1->GetScale().y;
     int ob1Width = object1->GetSize().x;
     int ob1Height = object1->GetSize().y;
-    int ob1X = object1->GetPosition().x - ob1OffsetX;
-    int ob1Y = object1->GetPosition().y - ob1OffsetY;
+    int ob1X = object1->getPosition().x - ob1OffsetX;
+    int ob1Y = object1->getPosition().y - ob1OffsetY;
 
     float ob2OffsetX = object2->GetCenter().x * object2->GetScale().x;
     float ob2OffsetY = object2->GetCenter().y * object2->GetScale().y;
     int ob2Width = object2->GetSize().x;
     int ob2Height = object2->GetSize().y;
-    int ob2X = object2->GetPosition().x - ob2OffsetX;
-    int ob2Y = object2->GetPosition().y - ob2OffsetY;
+    int ob2X = object2->getPosition().x - ob2OffsetX;
+    int ob2Y = object2->getPosition().y - ob2OffsetY;
 
     bool xOverlap = valueInRange(ob1X, ob2X, ob2X + ob2Width) ||
                     valueInRange(ob2X, ob1X, ob1X + ob1Width);

@@ -12,8 +12,8 @@ AnimatedCharacter::AnimatedCharacter(float x, float y,
     aniSprite = sprite;
 
     // Notify the sprite of changes in size and center
-    aniSprite->SetSize(sprite->GetSize());
-    aniSprite->SetCenter(sprite->GetCenter());
+    aniSprite->SetSize(SpriteUtil::getSize(sprite));
+    aniSprite->setOrigin(sprite->getOrigin());
 }
 
 AnimatedCharacter::~AnimatedCharacter()

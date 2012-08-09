@@ -31,17 +31,17 @@ void Island::update(Clock *clock, RenderWindow *window, World *world)
 
 void Island::draw(RenderWindow *window)
 {
-    window->Draw(*sprite);
+    window->draw(*sprite);
 }
 
 const Vector2f& Island::getPosition()
 {
-    return sprite->GetPosition();
+    return sprite->getPosition();
 }
 
 void Island::setPosition(float x, float y)
 {
-    sprite->SetPosition(x, y);
+    sprite->setPosition(x, y);
 }
 
 const Vector2f& Island::getSize()

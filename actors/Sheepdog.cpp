@@ -34,7 +34,7 @@ void Sheepdog::subUpdate(Clock *clock, RenderWindow *window, World *world)
     AnimatedCharacter::subUpdate(clock, window, world);
     Player &player = *(world->getPlayer());
     // Execute AI
-    seekPlayer(clock->GetElapsedTime(), player);
+    seekPlayer(clock->getElapsedTime.asSeconds(), player);
 
     // Perform collision
     checkPlayerCollide(*world);
@@ -49,7 +49,7 @@ void Sheepdog::seekPlayer(float elapsedTime, Player &player)
     float fovAngle = 0.5;
     int fovDepth = 200;
     const Vector2f currentPosition = getSprite()->TransformToGlobal(getSprite()->GetCenter());
-    float currentAngle = getSprite()->GetRotation() * M_PI / 180;
+    float currentAngle = getSprite()->getRotation() * M_PI / 180;
 
     // Reverse the angle if looking to the left
     if(getFacingDirection() == Left)

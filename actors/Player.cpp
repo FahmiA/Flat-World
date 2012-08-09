@@ -30,7 +30,7 @@ void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
 
     if(pushedBackDirection != None)
     {
-        doActionPushBack(clock->GetElapsedTime());
+        doActionPushBack(clock->getElapsedTime.asSeconds());
     }else{
         doActionNormal(window);
     }
@@ -86,7 +86,7 @@ void Player::doActionPushBack(float elapsedTime)
         float groundDistance = PUSH_BACK_MAX_HEIGHT * (pushBackTimeSecs / PUSH_BACK_DURATION_SECS);
         setDistanceFromGround(groundDistance);
 
-        // Move in the direction of the push
+        // move in the direction of the push
         if(pushedBackDirection == Left)
             moveLeft();
         else

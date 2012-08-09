@@ -55,13 +55,13 @@ class Character: public GameObject
          */
         void landHop();
 
-        /** Moves the Character left on the next update.
-         * Movement speed is determined by the speed given in the constructor.
+        /** moves the Character left on the next update.
+         * movement speed is determined by the speed given in the constructor.
          */
         void moveLeft();
 
-        /** Moves the Character right on the next update.
-         * Movement speed is determined by the speed given in the constructor.
+        /** moves the Character right on the next update.
+         * movement speed is determined by the speed given in the constructor.
          */
         void moveRight();
 
@@ -141,8 +141,8 @@ class Character: public GameObject
         float prevAngle; // Radians
 
         // Actions-to-perform variables
-        bool doMoveLeft;
-        bool doMoveRight;
+        bool domoveLeft;
+        bool domoveRight;
         Direction facingDirection; // Direction of the charcter
         Direction spriteDirection; // Direction alignment of sprire image
 
@@ -154,11 +154,11 @@ class Character: public GameObject
         bool isAboveGround(Sprite &groundSprite);
 
         // Debug variables
-        Shape angleLine;
-        Shape lookLine;
+        ConvexShape angleLine;
+        ConvexShape lookLine;
 
         bool pause;
-        Shape bounds;
+        RectangleShape bounds;
 };
 
 #endif // CHARACTER_H

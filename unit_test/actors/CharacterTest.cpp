@@ -197,7 +197,7 @@ TEST_F(CharacterTest, movesLeftAndRight)
 {
     character->findCurrentIsland(islands);
 
-    // Move left
+    // move left
     character->moveLeft();
     EXPECT_EQ(Left, character->getFacingDirection()) << "Sould be facing left.";
 
@@ -206,7 +206,7 @@ TEST_F(CharacterTest, movesLeftAndRight)
     Vector2f newPosition = character->getPosition();
     EXPECT_LT(newPosition.x, oldPosition.x) << "Should move left.";
 
-    // Move right
+    // move right
     character->moveRight();
     EXPECT_EQ(Right, character->getFacingDirection()) << "Sould be facing right.";
 
@@ -217,12 +217,12 @@ TEST_F(CharacterTest, movesLeftAndRight)
 
     // Repeat to check state change
 
-    // Move left
+    // move left
     character->moveLeft();
     character->moveLeft(); // Moving left twice should not toggle direction
     EXPECT_EQ(Left, character->getFacingDirection()) << "Sould be facing left.";
 
-     // Move right
+     // move right
     character->moveRight();
     character->moveRight(); // Moving right twice should not toggle direction
     EXPECT_EQ(Right, character->getFacingDirection()) << "Sould be facing right.";
@@ -254,7 +254,7 @@ TEST_F(CharacterTest, attachesToStraitLand)
 
 TEST_F(CharacterTest, attachesToGentleAngledLand)
 {
-    // Move the island so the player lands on a hill
+    // move the island so the player lands on a hill
     island1->setPosition(230, 235);
 
     character->findCurrentIsland(islands);
@@ -270,7 +270,7 @@ TEST_F(CharacterTest, attachesToGentleAngledLand)
 
 TEST_F(CharacterTest, attachesToSteepAngledLand)
 {
-    // Move the island so the player lands on a hill
+    // move the island so the player lands on a hill
     island1->setPosition(169, 239);
 
     character->findCurrentIsland(islands);
@@ -286,7 +286,7 @@ TEST_F(CharacterTest, attachesToSteepAngledLand)
 
 TEST_F(CharacterTest, movesAboveGroundWhenUnderground)
 {
-    // Move the island so the player lands on a hill
+    // move the island so the player lands on a hill
     island1->setPosition(228, 225);
 
     character->findCurrentIsland(islands);

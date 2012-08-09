@@ -15,9 +15,12 @@
 using namespace sf;
 
 #include <iostream>
+#include <stlib.h>
 using namespace std;
 
 #define MAX_FPS 60
+// Initialize random seed
+srand (time(NULL));
 
 int main()
 {

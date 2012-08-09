@@ -20,10 +20,9 @@ Character::Character(float x, float y, float width, float height, float speed, S
     this->speed = speed;
 
     //sprite->SetCenter(0, sprite->GetSize().y); // Bottom-left
-    sprite->Resize(width, height);
-    sprite->SetCenter(0, height); // Bottom-left
-    sprite->SetX(x);
-    sprite->SetY(y);
+    SpriteUtil::resize(sprite, width, height);
+    sprite->setOrigin(0, height); // Bottom-left
+    sprite->setPosition(x, y);
 
     this->sprite = sprite;
 
@@ -34,8 +33,8 @@ Character::Character(float x, float y, float width, float height, float speed, S
     prevAngle = 0;
     spriteDirection = Left;
 
-    doMoveLeft = false;
-    doMoveRight = false;
+    domoveLeft = false;
+    domoveRight = false;
     facingDirection = Left;
 
     pause = false;
@@ -61,23 +60,24 @@ void Character::landHop()
 void Character::moveLeft()
 {
     facingDirection = Left;
-    doMoveLeft = true;
+    domoveLeft = true;
 
-    if(spriteDirection == Left)
+    // TODO: Implement flipping: http://en.sfml-dev.org/forums/index.php?topic=7604.msg54047#msg54047
+    /*if(spriteDirection == Left)
         sprite->FlipX(false);
     else
-        sprite->FlipX(true);
+        sprite->FlipX(true);*/
 }
 
 void Character::moveRight()
 {
     facingDirection = Right;
-    doMoveRight = true;
+    domoveRight = true;
 
-    if(spriteDirection == Left)
+    /*if(spriteDirection == Left)
         sprite->FlipX(true);
     else
-        sprite->FlipX(false);
+        sprite->FlipX(false);*/
 }
 
 bool Character::isJumping()
@@ -95,28 +95,26 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     // Un-comment the line below to pause the game on the first frame
     //return;
 
-    bounds = Shape::Rectangle(sprite->GetPosition().x,
-                              sprite->GetPosition().y - sprite->GetSize().y,
-                              sprite->GetPosition().x + sprite->GetSize().x,
-                              sprite->GetPosition().y,
-                              Color::White,
-                              2);
+    bounds = RectangleShape(Vector2f(sprite->getPosition().y - SpriteUtil::getSize(sprite).y,
+                            sprite->getPosition().x + SpriteUtil::getSize(sprite).x));
+    bounds.setPosition(sprite->getPosition());
+    bounds.setFillColor(Color::White);
+    bounds.setOutlineThickness(2);
 
-    const Input &input = window->GetInput();
-    if(input.IsKeyDown(Key::P))
+    if(Keyboard::isKeyPressed(Keyboard::P))
         pause = true;
-    if(input.IsKeyDown(Key::O))
+    if(Keyboard::isKeyPressed(Keyboard::O))
         pause = false;
     if(pause)
         return;
 
     // Get the elapsed time since the last frame
-    float elapsedTime = clock->GetElapsedTime();
+    float elapsedTime = clock->getElapsedTime().asSeconds ();
 
     // Find the nearest island and assign it as the island the Character is on
     findCurrentIsland(world->getIslands());
 
-    // Move in responce to user input
+    // move in responce to user input
     steer(elapsedTime);
 
     // Stick the Character to the current island.
@@ -147,10 +145,10 @@ void Character::findCurrentIsland(list<Island*>* islands)
                     currentGround = island;
 
                     // Rotate to the new ground
-                    float angle = atan2(currentGround->getPosition().y - sprite->GetPosition().y,
-                                        currentGround->getPosition().x - sprite->GetPosition().x);
+                    float angle = atan2(currentGround->getPosition().y - sprite->getPosition().y,
+                                        currentGround->getPosition().x - sprite->getPosition().x);
                     angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
-                    sprite->SetRotation(-angle + 90); // Rotate to the correct angle
+                    sprite->setRotation(-angle + 90); // Rotate to the correct angle
 
                     cout << "found new ground" << endl;
                     break;
@@ -163,26 +161,26 @@ void Character::findCurrentIsland(list<Island*>* islands)
 void Character::steer(float elapsedTime)
 {
      // Get the x and y movement velocity
-    float velocityX = cos(sprite->GetRotation() * M_PI / 180) * (speed * elapsedTime);
-    float velocityY = sin(sprite->GetRotation() * M_PI / 180) * (speed * elapsedTime);
+    float velocityX = cos(sprite->getRotation() * M_PI / 180) * (speed * elapsedTime);
+    float velocityY = sin(sprite->getRotation() * M_PI / 180) * (speed * elapsedTime);
 
     // Respond to user input events
-    if(doMoveRight) // Move right
+    if(domoveRight) // move right
     {
-        sprite->Move(velocityX, -velocityY);
-        doMoveRight = false;
+        sprite->move(velocityX, -velocityY);
+        domoveRight = false;
     }
 
-    if(doMoveLeft) // Move left
+    if(domoveLeft) // move left
     {
-        sprite->Move(-velocityX, velocityY);
-        doMoveLeft = false;
+        sprite->move(-velocityX, velocityY);
+        domoveLeft = false;
     }
 
     // If no current island exists, keep jumping
     if(currentGround == 0)
     {
-        float angle = -sprite->GetRotation();
+        float angle = -sprite->getRotation();
         if(inJump)
         {
             angle -= 90; // Up (jump)
@@ -194,8 +192,8 @@ void Character::steer(float elapsedTime)
         velocityX = cos(angle * M_PI / 180) * (speed * elapsedTime);
         velocityY = sin(angle * M_PI / 180) * (speed * elapsedTime);
 
-        // Move the character
-        sprite->Move(velocityX, velocityY);
+        // move the character
+        sprite->move(velocityX, velocityY);
     }
 }
 
@@ -207,16 +205,19 @@ void Character::lockToIsland(float elapsedTime)
 
     // Get the Sprite of the ground the charcter is on
     Sprite *groundSprite = currentGround->getSprite();
+    Transform groundTransform = groundSprite->getTransform();
+    Transform spriteTransform = sprite->getTransform();
+    //Transform globalTransform =
 
     // Variables to configure ground collision
-    int lookDepth = groundSprite->GetSize().y; // Depth to ray-trace
-    int lookOffset = sprite->GetSize().x / 2; // Distance between left and right ray-traces
+    int lookDepth = SpriteUtil::getSize(sprite).y; // Depth to ray-trace
+    int lookOffset = SpriteUtil::getSize(sprite).x / 2; // Distance between left and right ray-traces
     float clampThreshold = MIN_GROUND_DIST * 10; // Distance from ground, before character is clamped to the ground
 
     // Get the position at the bottom of the charcter
     // Global Positions
-    float myCenterX = sprite->GetSize().x / 2;
-    float myBottomY = sprite->GetSize().y / 2 + distanceFromGround;
+    float myCenterX = SpriteUtil::getSize(sprite).x / 2;
+    float myBottomY = SpriteUtil::getSize(sprite).y / 2 + distanceFromGround;
     // We scale down myCenterX/Y because TransformToGlobal will scale it up again
     Vector2f globalBottomLeft = sprite->TransformToGlobal(Vector2f(myCenterX - lookOffset, myBottomY));
     Vector2f globalBottomMiddle = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY));
@@ -235,7 +236,7 @@ void Character::lockToIsland(float elapsedTime)
     {
         globalTarget = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY + lookDepth));
     }else{ // We are under ground
-        globalTarget = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY - groundSprite->GetSize().x / 2));
+        globalTarget = sprite->TransformToGlobal(Vector2f(myCenterX, myBottomY - SpriteUtil::getSize(groundSprite).x / 2));
     }
     Vector2f groundTarget = groundSprite->TransformToLocal(globalTarget);
 
@@ -252,7 +253,7 @@ void Character::lockToIsland(float elapsedTime)
 
         float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
 
-        // Draw debug graphics
+        // draw debug graphics
         Vector2f globalLeftCollide = groundSprite->TransformToGlobal(*groundLeftCollide);
         Vector2f globalRightCollide = groundSprite->TransformToGlobal(*groundRightCollide);
         angleLine = Shape::Line(globalLeftCollide, globalRightCollide, 2, Color::Black);
@@ -280,10 +281,10 @@ void Character::lockToIsland(float elapsedTime)
 
                 float velocityX = cos(gravityAngle) * (speed * elapsedTime);
                 float velocityY = sin(gravityAngle) * (speed * elapsedTime);
-                sprite->Move(velocityX, velocityY);
+                sprite->move(velocityX, velocityY);
 
                 float groundAngleDeg = AS_DEG(groundAngleRad);
-                sprite->SetRotation(-groundAngleDeg);
+                sprite->setRotation(-groundAngleDeg);
             }
         }else{
             clampToGround(globalLeftCollide, groundAngleRad);
@@ -293,7 +294,7 @@ void Character::lockToIsland(float elapsedTime)
         float rotationRad = getRotation() - M_PI_2;
         float velocityX = cos(rotationRad) * (speed * elapsedTime);
         float velocityY = sin(rotationRad) * (speed * elapsedTime);
-        sprite->Move(velocityX, velocityY);
+        sprite->move(velocityX, velocityY);
     }
 
     // Perform cleanup
@@ -306,8 +307,8 @@ bool Character::isAboveGround(Sprite &groundSprite)
 {
     bool aboveGround = true;
 
-    float myCenterX = sprite->GetSize().x / 2;
-    float myBottomY = sprite->GetSize().y / 2 + distanceFromGround;
+    float myCenterX = SpriteUtil::getSize(sprite).x / 2;
+    float myBottomY = SpriteUtil::getSize(sprite).y / 2 + distanceFromGround;
     int airDistance = MIN_GROUND_DIST; // Maximum underground level before lifting charcater above ground;
     float myAirY = myBottomY - airDistance;
 
@@ -336,7 +337,7 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
     /*float groundAngleRad = coordUtil.getAngle(leftCollide, 0, rightCollide);
     float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
 
-    //cout << "Before:\t" << sprite->GetPosition().x << " * " << sprite->GetPosition().y << endl;
+    //cout << "Before:\t" << sprite->getPosition().x << " * " << sprite->getPosition().y << endl;
     // Points defined in: http://www.clarku.edu/~djoyce/trig/right.html
     Vector2f pointA(leftCollide);
 
@@ -354,24 +355,24 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
 
 
     float groundAngleDeg = AS_DEG(groundAngleRad);
-    sprite->SetRotation(-groundAngleDeg);
+    sprite->setRotation(-groundAngleDeg);
 
     Vector2f newPos = Vector2f(leftCollide);
-    float deltaAngle = coordUtil.getDistance(newPos, sprite->GetPosition());
+    float deltaAngle = coordUtil.getDistance(newPos, sprite->getPosition());
     if(deltaAngle > MIN_ANGLE_CHANGE_D)
-        sprite->SetPosition(newPos);
+        sprite->setPosition(newPos);
 
     /*if(groundAngleDeg != 0)
     {
         pause = true;
-        lookLine = Shape::Line(sprite->GetPosition(), leftCollide, 2, Color::Blue);
-        cout << sprite->GetPosition().x << ", " << sprite->GetPosition().y << '\n' << leftCollide.x << ", " << leftCollide.y << endl;
+        lookLine = Shape::Line(sprite->getPosition(), leftCollide, 2, Color::Blue);
+        cout << sprite->getPosition().x << ", " << sprite->getPosition().y << '\n' << leftCollide.x << ", " << leftCollide.y << endl;
         return;
     }*/
 
 
     //Vector2f newPos = Vector2f(pointB.x - sprite->GetSize().x/2, pointB.y - sprite->GetSize().y/2);
-    //sprite->SetPosition(newPos);
+    //sprite->setPosition(newPos);
 
     //cout << -groundAngleDeg << endl;
     //cout << "\t lc: " << leftCollide.x << ", " << leftCollide.y << " rc: " << rightCollide.x << ", " << rightCollide.y << endl;
@@ -394,33 +395,33 @@ void Character::setDistanceFromGround(float distance)
 
 void Character::draw(RenderWindow *window)
 {
-    //window->Draw(bounds);
+    //window->draw(bounds);
 
-    // Draw the charcter.
-    window->Draw(*sprite);
+    // draw the charcter.
+    window->draw(*sprite);
 
-    // Draw the debug graphics
-    window->Draw(angleLine);
-    window->Draw(lookLine);
+    // draw the debug graphics
+    window->draw(angleLine);
+    window->draw(lookLine);
 }
 
 const Vector2f& Character::getPosition()
 {
-    return sprite->GetPosition();
+    return sprite->getPosition();
 }
 
 const Vector2f& Character::getSize()
 {
-    return sprite->GetSize();
+    return SpriteUtil::getSize(sprite);
 }
 
 float Character::getRotation()
 {
-    /*float rotation = sprite->GetRotation();
+    /*float rotation = sprite->getRotation();
     rotation *= M_PI / 180.0f;
     return rotation;*/
 
-    return AS_RAD(sprite->GetRotation());
+    return AS_RAD(sprite->getRotation());
 }
 
 Sprite* Character::getSprite()

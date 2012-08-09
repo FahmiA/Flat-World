@@ -51,7 +51,7 @@ void AnimatedSprite::update(Clock *clock)
     bool advanceFrame = false;
     if(clock != 0)
     {
-        timeSinceLastFrame += clock->GetElapsedTime();
+        timeSinceLastFrame += clock->getElapsedTime.asSeconds();
         if(timeSinceLastFrame > 1.0f / currentAnimation->frameRate) // seconds
             advanceFrame = true;
     }else{
