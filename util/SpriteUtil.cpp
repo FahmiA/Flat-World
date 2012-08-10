@@ -90,9 +90,9 @@ Vector2f& SpriteUtil::getSize(Sprite *sprite)
     return *size;
 }
 
-bool SpriteUtil::loadSprite(string &path, Sprite *sprite, ContentManager *content)
+bool SpriteUtil::loadSprite(string &path, Sprite *sprite, Image *image, ContentManager *content)
 {
-    Image *image = content->loadImage(path);
+    image = content->loadImage(path);
     if(image == 0)
         return false;
 

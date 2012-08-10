@@ -153,3 +153,22 @@ TEST_F(SpriteUtilTest, rayTraceCornerCase)
     EXPECT_EQ(0, result) << "to: outside, from: outside, clamp from and to";
     if(result) delete result;
 }
+
+TEST_F(SpriteUtilTest, getSize)
+{
+    Texture texture;
+    if(!texture.loadFromFile(SQUARE_IMAGE_PATH))
+        FAIL() << "Image could not be loaded for test: " << SQUARE_IMAGE_PATH;
+    Sprite sprite(texture);
+
+    // Check default size
+    Vector2f size = spriteUtil->getSize(&sprite);
+    EXPECT_EQ(20, size.x) << "Sprite unscaled width should match image width";
+    EXPECT_EQ(20, size.y) << "Sprite unscaled height should match image height";
+
+    // Check scaled size
+    sprite.setScale(1.5, 0.8);
+    size = spriteUtil->getSize(&sprite);
+    EXPECT_EQ(30, size.x) << "Sprite scaled width should match scaled image width";
+    EXPECT_EQ(16, size.y) << "Sprite scaled height should match scaled image height";
+}

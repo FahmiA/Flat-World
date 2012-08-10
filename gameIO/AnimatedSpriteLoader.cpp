@@ -17,6 +17,7 @@ AnimatedSprite* AnimatedSpriteLoader::loadFromXML(string &path)
 
     // Build the animated sprite
     AnimatedSprite *aniSprite = new AnimatedSprite;
+    Image *aniImage = 0;
 
     TiXmlHandle aniHandler(&aniDoc);
     TiXmlHandle root = TiXmlHandle(aniDoc.FirstChildElement("SpriteMapping"));
@@ -26,7 +27,7 @@ AnimatedSprite* AnimatedSpriteLoader::loadFromXML(string &path)
     imagePath = path.substr(0, path.find_last_of("/") + 1) + imagePath;
     unsigned int transparentColour = getTransparentColour(root);
 
-    if(!spriteUtil.loadSprite(imagePath, aniSprite, content))
+    if(!spriteUtil.loadSprite(imagePath, aniSprite, aniImage, content))
         return 0;
     aniSprite->setTransparentColour(transparentColour);
 

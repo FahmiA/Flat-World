@@ -3,14 +3,14 @@
 #include "game/ID.hpp"
 #include "util/SpriteUtil.hpp"
 
-Island::Island(float x, float y, float width, float height, Sprite *sprite)
+Island::Island(float x, float y, float width, float height, Sprite *sprite, Image *image)
 {
     sprite->setOrigin(SpriteUtil::getSize(sprite).x / 2, SpriteUtil::getSize(sprite).y / 2);
     SpriteUtil::resize(sprite, width, height);
     sprite->setPosition(x, y);
 
     this->sprite = sprite;
-    image = sprite->getTexture()->copyToImage();
+    this->image = image;
 
     setID(ID_ISLAND);
 }
@@ -25,7 +25,7 @@ Sprite* Island::getSprite()
     return sprite;
 }
 
-const Image& Island::getImage()
+Image* Island::getImage()
 {
     return image;
 }

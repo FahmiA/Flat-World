@@ -10,11 +10,11 @@ using namespace sf;
 class Island: public GameObject
 {
     public:
-        Island(float x, float y, float width, float height, Sprite *sprite);
+        Island(float x, float y, float width, float height, Sprite *sprite, Image *image);
         virtual ~Island();
 
         Sprite* getSprite();
-        const Image& getImage();
+        Image* getImage();
 
         void update(Clock *clock, RenderWindow *window, World *world);
         void draw(RenderWindow *window);
@@ -25,7 +25,7 @@ class Island: public GameObject
 
     private:
         Sprite *sprite;
-        Image image;
+        Image *image;
 };
 
 #endif // ISLAND_H

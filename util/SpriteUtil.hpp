@@ -31,10 +31,11 @@ class SpriteUtil
         /** Loads a Sprite image given a path to an image.
          * @param path The path of the image to load into the Sprite.
          * @param sprite The Sprite to add the loaded image to.
+         * @param image The Image that was assigned to the sprite (for convenience).
          * @param content The ContentManager to manage the loaded image.
          * @return True if the image path pointed to a valid image. False otherwise.
          */
-        static bool loadSprite(string &path, Sprite *sprite, ContentManager *content);
+        static bool loadSprite(string &path, Sprite *sprite, Image *image, ContentManager *content);
 
         /** Loads a Font.
          * @param path The path of the font to load.

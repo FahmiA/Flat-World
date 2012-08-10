@@ -13,6 +13,7 @@ using namespace std;
 #define MIN_ANGLE_CHANGE_D 6
 
 #define PRINT_V(vector) '(' << vector.x << ", " << vector.y << ')'
+#define PRINT_R(pos, size) "(x: " << pos.x << ", y: " << pos.y << ", w: " << size.x << ", h: " << size.y << ')'
 #define PRINT_NULL(value) "value is " << ((value == 0) ? "null." : "not null.")
 
 Character::Character(float x, float y, float width, float height, float speed, Sprite *sprite)
@@ -137,6 +138,9 @@ void Character::findCurrentIsland(list<Island*>* islands)
             if(prevGround != island) // Ignore the previous ground
             {
                 // Check if the charcter is close to the island
+                cout << "Comparing:" << endl;
+                cout << '\t' << PRINT_R(sprite->getPosition(), SpriteUtil::getSize(sprite)) << endl;
+                cout << '\t' << PRINT_R(island->getSprite()->getPosition(), SpriteUtil::getSize(island->getSprite())) << endl;
                 if(coordUtil.collide(sprite, island->getSprite()))
                 {
                     // Mark the new ground as the current ground
@@ -205,7 +209,7 @@ void Character::lockToIsland(float elapsedTime)
 
     // Get the Sprite of the ground the charcter is on
     Sprite *groundSprite = currentGround->getSprite();
-    Image groundImage = currentGround->getImage();
+    Image *groundImage = currentGround->getImage();
     Transform groundTransform = groundSprite->getTransform();
     //Transform spriteTransform = sprite->getTransform();
     Transform groundInvTransform = groundSprite->getInverseTransform();
@@ -243,9 +247,9 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f groundTarget = groundTransform.transformPoint(globalTarget);
 
     // Ray-trace to get position of land below character
-    Vector2f *groundLeftCollide = spriteUtil.rayTrace(groundImage, groundBottomLeft.x, groundBottomLeft.y, groundTarget.x, groundTarget.y, aboveGround);
-    Vector2f *groundMiddleCollide = spriteUtil.rayTrace(groundImage, groundBottomMiddle.x, groundBottomMiddle.y, groundTarget.x, groundTarget.y, aboveGround);
-    Vector2f *groundRightCollide = spriteUtil.rayTrace(groundImage, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y, aboveGround);
+    Vector2f *groundLeftCollide = SpriteUtil::rayTrace(*groundImage, groundBottomLeft.x, groundBottomLeft.y, groundTarget.x, groundTarget.y, aboveGround);
+    Vector2f *groundMiddleCollide = SpriteUtil::rayTrace(*groundImage, groundBottomMiddle.x, groundBottomMiddle.y, groundTarget.x, groundTarget.y, aboveGround);
+    Vector2f *groundRightCollide = SpriteUtil::rayTrace(*groundImage, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y, aboveGround);
 
     lookLine = ConvexShape(2);
     lookLine.setPoint(0, globalBottomMiddle);
@@ -394,11 +398,6 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
 CoordinateUtil& Character::getCoordinateUtil()
 {
     return coordUtil;
-}
-
-SpriteUtil& Character::getSpriteUtil()
-{
-    return spriteUtil;
 }
 
 void Character::setDistanceFromGround(float distance)

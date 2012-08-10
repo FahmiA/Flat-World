@@ -20,8 +20,6 @@ LevelBuilder::~LevelBuilder()
 
 void LevelBuilder::getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY)
 {
-    SpriteUtil spriteUtil;
-
     // Produce a random angle if one does not exist.
     if(angleRadians == -1)
     {
@@ -45,7 +43,7 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     fromY /= scaleY;
 
     // Ray-trace
-    Vector2f *localSpawnPos = spriteUtil.rayTrace(island->getImage(), (int)fromX, (int)fromY, (int)toX, (int)toY, true);
+    Vector2f *localSpawnPos = SpriteUtil::rayTrace(*island->getImage(), (int)fromX, (int)fromY, (int)toX, (int)toY, true);
 
     cout << "Adding object to island at angle: " << angleRadians << endl;
     if(localSpawnPos == 0)
@@ -67,18 +65,19 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
 
 bool LevelBuilder::loadSprite(string &path, Sprite *sprite)
 {
-    return spriteUtil.loadSprite(path, sprite, content);
+    Image *image = 0;
+    return SpriteUtil::loadSprite(path, sprite, image, content);
+}
+
+bool LevelBuilder::loadSprite(string &path, Sprite *sprite, Image *image)
+{
+    return SpriteUtil::loadSprite(path, sprite, image, content);
 }
 
 bool LevelBuilder::loadFont(string &path, Font *&font)
 {
-    return spriteUtil.loadFont(path, font, content);
+    return SpriteUtil::loadFont(path, font, content);
 }
-
-/*SpriteUtil& LevelBuilder::getSpriteUtil()
-{
-    return spriteUtil;
-}*/
 
 World* LevelBuilder::getWorld()
 {

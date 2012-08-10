@@ -107,10 +107,10 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
     int ob2X = object2->getPosition().x - ob2OffsetX;
     int ob2Y = object2->getPosition().y - ob2OffsetY;
 
-    bool xOverlap = valueInRange(ob1X, ob2X, ob2X + ob2Width) ||
-                    valueInRange(ob2X, ob1X, ob1X + ob1Width);
-    bool yOverlap = valueInRange(ob1Y, ob2Y, ob2Y + ob2Height) ||
-                    valueInRange(ob2Y, ob1Y, ob1Y + ob1Height);
+    bool xOverlap = valueInRange(ob1X, ob2X, ob2X + ob2Width - 1) ||
+                    valueInRange(ob2X, ob1X, ob1X + ob1Width - 1);
+    bool yOverlap = valueInRange(ob1Y, ob2Y, ob2Y + ob2Height - 1) ||
+                    valueInRange(ob2Y, ob1Y, ob1Y + ob1Height - 1);
 
     return xOverlap && yOverlap;
 }

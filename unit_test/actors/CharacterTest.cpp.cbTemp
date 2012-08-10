@@ -135,7 +135,7 @@ TEST_F(CharacterTest, locatesNearbyIsland)
     Island *currentGround = character->getCurrentGround();
     Island *previousGround = character->getPreviousGround();
 
-    // TODO: I think this is because the collide method is not using the origin correctly.
+    // TODO: I think this is because the collide method is using the origin correctly.
     EXPECT_EQ(island1, currentGround) << "New ground should be found.";
     EXPECT_EQ(NULL, previousGround) << "No previous ground should exist.";
 

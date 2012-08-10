@@ -120,11 +120,6 @@ class Character: public GameObject
          */
         CoordinateUtil& getCoordinateUtil();
 
-        /** Gets the SpriteUtil object.
-         * Used for performing various sprite-based procedures.
-         */
-        SpriteUtil& getSpriteUtil();
-
         /** Sets the distance the charcter should be from the ground.
          * @param distance Distance between the character and the ground.
          */
@@ -148,7 +143,6 @@ class Character: public GameObject
 
         // Helper-operations variables
         CoordinateUtil coordUtil;
-        SpriteUtil spriteUtil;
 
         void clampToGround(Vector2f &leftCollide, float groundAngleRad);
         bool isAboveGround(Sprite &groundSprite);

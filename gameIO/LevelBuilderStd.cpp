@@ -56,13 +56,14 @@ bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 {
     bool addSuccess = false;
     Sprite *sprite = new Sprite();
-    if(!loadSprite(islandDesc->imagePath, sprite))
+    Image *image = 0;
+    if(!loadSprite(islandDesc->imagePath, sprite, image))
     {
         // Error
         cout << "Image for island " << islandDesc->id << " could not be loaded: " << islandDesc->imagePath << endl;
         cout << "\tIsland has not been loaded." << endl;
     }else{
-        Island *island = new Island(islandDesc->x, islandDesc->y, islandDesc->width, islandDesc->height, sprite);
+        Island *island = new Island(islandDesc->x, islandDesc->y, islandDesc->width, islandDesc->height, sprite, image);
         islandDesc->island = island; // Remember the island in the description
         getWorld()->addIsland(island);
         addSuccess = true;
