@@ -37,6 +37,7 @@ int main()
 
     // Load the level
     LevelBuilderStd levelBuilder(world, &content);
+
     LevelLoader levelLoader(&levelBuilder, &content);
 
     string xmlPath = "configuration\\levels\\level_1.xml";

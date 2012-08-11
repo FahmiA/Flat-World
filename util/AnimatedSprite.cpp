@@ -10,6 +10,9 @@ AnimatedSprite::AnimatedSprite() : Sprite()
     currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
+
+    size = 0;
+    center = 0;
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -33,8 +36,8 @@ void AnimatedSprite::addAnimation(Animation *animation)
     // This is to ensure the sprite is sized correctly
     if(animations.size() == 1)
     {
-        *size = SpriteUtil::getSize(this);
-        *center = getOrigin();
+        //*size = SpriteUtil::getSize(this);
+        //*center = getOrigin();
         play(animation->name);
         stop();
     }
@@ -47,6 +50,7 @@ void AnimatedSprite::setTransparentColour(unsigned int tColour)
 
 void AnimatedSprite::update(Clock *clock)
 {
+    return;
     if(paused || currentAnimation == 0)
         return;
 

@@ -57,7 +57,7 @@ bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
     bool addSuccess = false;
     Sprite *sprite = new Sprite();
     Image *image = 0;
-    if(!loadSprite(islandDesc->imagePath, sprite, image))
+    if(!loadSprite(islandDesc->imagePath, sprite, &image))
     {
         // Error
         cout << "Image for island " << islandDesc->id << " could not be loaded: " << islandDesc->imagePath << endl;

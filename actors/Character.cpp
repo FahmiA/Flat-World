@@ -210,10 +210,9 @@ void Character::lockToIsland(float elapsedTime)
     // Get the Sprite of the ground the charcter is on
     Sprite *groundSprite = currentGround->getSprite();
     Image *groundImage = currentGround->getImage();
-    Transform groundLocalTransform = groundSprite->getTransform();
-    //Transform spriteTransform = sprite->getTransform();
-    Transform groundGlobalTransform = groundSprite->getInverseTransform();
-    Transform spriteGlobalTransform = sprite->getInverseTransform();
+    Transform groundLocalTransform = groundSprite->getInverseTransform();
+    Transform groundGlobalTransform = groundSprite->getTransform();
+    Transform spriteGlobalTransform = sprite->getTransform();
 
     // Variables to configure ground collision
     int lookDepth = SpriteUtil::getSize(sprite).y; // Depth to ray-trace
@@ -223,11 +222,16 @@ void Character::lockToIsland(float elapsedTime)
     // Get the position at the bottom of the charcter
     // Global Positions
     float myCenterX = SpriteUtil::getSize(sprite).x / 2;
-    float myBottomY = SpriteUtil::getSize(sprite).y / 2 + distanceFromGround;
-    // We scale down myCenterX/Y because TransformToGlobal will scale it up again
+    float myBottomY = SpriteUtil::getSize(sprite).y + distanceFromGround;
+
     Vector2f globalBottomLeft = spriteGlobalTransform.transformPoint(myCenterX - lookOffset, myBottomY);
     Vector2f globalBottomMiddle = spriteGlobalTransform.transformPoint(myCenterX, myBottomY);
     Vector2f globalBottomRight = spriteGlobalTransform.transformPoint(myCenterX + lookOffset, myBottomY);
+
+    /*cout << "sprite position: " << PRINT_V(sprite->getPosition()) << endl;
+    cout << "globalBottomLeft: " << PRINT_V(globalBottomLeft) << endl;
+    cout << "globalBottomMiddle: " << PRINT_V(globalBottomMiddle) << endl;
+    cout << "globalBottomRight: " << PRINT_V(globalBottomRight) << endl;*/
 
     // Transform global positions to local ground positions
     Vector2f groundBottomLeft = groundLocalTransform.transformPoint(globalBottomLeft);
@@ -247,6 +251,7 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f groundTarget = groundLocalTransform.transformPoint(globalTarget);
 
     // Ray-trace to get position of land below character
+    //TODO: Maybe I need to rescale the output of raytrace back to the ground sprite's scale.
     Vector2f *groundLeftCollide = SpriteUtil::rayTrace(*groundImage, groundBottomLeft.x, groundBottomLeft.y, groundTarget.x, groundTarget.y, aboveGround);
     Vector2f *groundMiddleCollide = SpriteUtil::rayTrace(*groundImage, groundBottomMiddle.x, groundBottomMiddle.y, groundTarget.x, groundTarget.y, aboveGround);
     Vector2f *groundRightCollide = SpriteUtil::rayTrace(*groundImage, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y, aboveGround);
@@ -271,6 +276,7 @@ void Character::lockToIsland(float elapsedTime)
         lookLine.setPoint(1, globalRightCollide);
         lookLine.setFillColor(Color::Black);
         lookLine.setOutlineThickness(2);
+
 
         /* If the character is above ground, the character should naturally fall to the ground with gravity.
          * If the charcter is underground, the charcter should instantly snap to the ground.
@@ -329,8 +335,8 @@ bool Character::isAboveGround(Island &ground)
     // Point that should always be above ground.
     Sprite *groundSprite = ground.getSprite();
     Image *groundImage = ground.getImage();
-    Transform spriteGlobalTransform = sprite->getInverseTransform();
-    Transform groundLocalTransform = groundSprite->getTransform();
+    Transform spriteGlobalTransform = sprite->getTransform();
+    Transform groundLocalTransform = groundSprite->getInverseTransform();
     Vector2f globalAirMiddle = spriteGlobalTransform.transformPoint(myCenterX, myAirY);
     Vector2f groundAirMiddle = groundLocalTransform.transformPoint(globalAirMiddle);
 
@@ -371,11 +377,11 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
                     pointC.y + (sin(groundAngleRad - M_PI_2) * distanceCB)
                     );*/
 
-
     float groundAngleDeg = AS_DEG(groundAngleRad);
     sprite->setRotation(-groundAngleDeg);
 
     Vector2f newPos = Vector2f(leftCollide);
+    // TODO: Shouldn't this be coordUtil.getAngle(..)?
     float deltaAngle = coordUtil.getDistance(newPos, sprite->getPosition());
     if(deltaAngle > MIN_ANGLE_CHANGE_D)
         sprite->setPosition(newPos);

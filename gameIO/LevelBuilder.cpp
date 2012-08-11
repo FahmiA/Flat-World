@@ -69,9 +69,9 @@ bool LevelBuilder::loadSprite(string &path, Sprite *sprite)
     return SpriteUtil::loadSprite(path, sprite, &image, content);
 }
 
-bool LevelBuilder::loadSprite(string &path, Sprite *sprite, Image *image)
+bool LevelBuilder::loadSprite(string &path, Sprite *sprite, Image **image)
 {
-    return SpriteUtil::loadSprite(path, sprite, &image, content);
+    return SpriteUtil::loadSprite(path, sprite, image, content);
 }
 
 bool LevelBuilder::loadFont(string &path, Font *&font)

@@ -95,9 +95,9 @@ bool SpriteUtil::loadSprite(string &path, Sprite *sprite, Image **image, Content
     if(image == 0)
         return false;
 
-    Texture texture;
-    texture.loadFromImage(**image);
-    sprite->setTexture(texture);
+    Texture *texture = new Texture();
+    texture->loadFromImage(**image);
+    sprite->setTexture(*texture);
 
     return true;
 }

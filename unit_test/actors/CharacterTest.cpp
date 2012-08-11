@@ -241,7 +241,7 @@ TEST_F(CharacterTest, pulledWithGravity)
     EXPECT_GT(newPosition.y, oldPosition.y) << "Character should be pulled down with gravity";
 }
 
-/*TEST_F(CharacterTest, attachesToStraitLand)
+TEST_F(CharacterTest, attachesToStraitLand)
 {
     character->findCurrentIsland(islands);
     character->lockToIsland(0.05f);
@@ -249,12 +249,12 @@ TEST_F(CharacterTest, pulledWithGravity)
     Vector2f position = character->getPosition();
 
     // At close range, the character should snap to the island's surface
-    EXPECT_EQ(205, position.x) << "X-position should be on ground";
-    EXPECT_EQ(204, position.y) << "Y-position should be on ground";
+    EXPECT_EQ(200, position.x) << "X-position should be on ground";
+    EXPECT_EQ(214, position.y) << "Y-position should be on ground";
     EXPECT_EQ(0, character->getRotation()) << "Should not be rotated";
 }
 
-TEST_F(CharacterTest, attachesToGentleAngledLand)
+/*TEST_F(CharacterTest, attachesToGentleAngledLand)
 {
     // move the island so the player lands on a hill
     island1->setPosition(230, 235);
