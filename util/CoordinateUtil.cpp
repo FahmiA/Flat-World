@@ -3,7 +3,7 @@
 #include "NumberUtil.hpp"
 #include "SpriteUtil.hpp"
 
-#include<math.h>
+#include <math.h>
 using namespace std;
 
 CoordinateUtil::CoordinateUtil() {}

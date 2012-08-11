@@ -136,8 +136,8 @@ class Character: public GameObject
         float prevAngle; // Radians
 
         // Actions-to-perform variables
-        bool domoveLeft;
-        bool domoveRight;
+        bool doMoveLeft;
+        bool doMoveRight;
         Direction facingDirection; // Direction of the charcter
         Direction spriteDirection; // Direction alignment of sprire image
 
@@ -145,7 +145,7 @@ class Character: public GameObject
         CoordinateUtil coordUtil;
 
         void clampToGround(Vector2f &leftCollide, float groundAngleRad);
-        bool isAboveGround(Sprite &groundSprite);
+        bool isAboveGround(Island &ground);
 
         // Debug variables
         ConvexShape angleLine;

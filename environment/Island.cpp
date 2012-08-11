@@ -5,8 +5,8 @@
 
 Island::Island(float x, float y, float width, float height, Sprite *sprite, Image *image)
 {
-    sprite->setOrigin(SpriteUtil::getSize(sprite).x / 2, SpriteUtil::getSize(sprite).y / 2);
     SpriteUtil::resize(sprite, width, height);
+    sprite->setOrigin(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2);
     sprite->setPosition(x, y);
 
     this->sprite = sprite;

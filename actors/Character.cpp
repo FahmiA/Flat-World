@@ -22,7 +22,7 @@ Character::Character(float x, float y, float width, float height, float speed, S
 
     //sprite->setOrigin(0, sprite->GetSize().y); // Bottom-left
     SpriteUtil::resize(sprite, width, height);
-    sprite->setOrigin(0, height); // Bottom-left
+    sprite->setOrigin(0, sprite->getLocalBounds().height); // Bottom-left
     sprite->setPosition(x, y);
 
     this->sprite = sprite;
@@ -34,8 +34,8 @@ Character::Character(float x, float y, float width, float height, float speed, S
     prevAngle = 0;
     spriteDirection = Left;
 
-    domoveLeft = false;
-    domoveRight = false;
+    doMoveLeft = false;
+    doMoveRight = false;
     facingDirection = Left;
 
     pause = false;
@@ -61,7 +61,7 @@ void Character::landHop()
 void Character::moveLeft()
 {
     facingDirection = Left;
-    domoveLeft = true;
+    doMoveLeft = true;
 
     // TODO: Implement flipping: http://en.sfml-dev.org/forums/index.php?topic=7604.msg54047#msg54047
     /*if(spriteDirection == Left)
@@ -73,7 +73,7 @@ void Character::moveLeft()
 void Character::moveRight()
 {
     facingDirection = Right;
-    domoveRight = true;
+    doMoveRight = true;
 
     /*if(spriteDirection == Left)
         sprite->FlipX(true);
@@ -138,9 +138,9 @@ void Character::findCurrentIsland(list<Island*>* islands)
             if(prevGround != island) // Ignore the previous ground
             {
                 // Check if the charcter is close to the island
-                cout << "Comparing:" << endl;
+                /*cout << "Comparing:" << endl;
                 cout << '\t' << PRINT_R(sprite->getPosition(), SpriteUtil::getSize(sprite)) << endl;
-                cout << '\t' << PRINT_R(island->getSprite()->getPosition(), SpriteUtil::getSize(island->getSprite())) << endl;
+                cout << '\t' << PRINT_R(island->getSprite()->getPosition(), SpriteUtil::getSize(island->getSprite())) << endl;*/
                 if(coordUtil.collide(sprite, island->getSprite()))
                 {
                     // Mark the new ground as the current ground
@@ -169,16 +169,16 @@ void Character::steer(float elapsedTime)
     float velocityY = sin(sprite->getRotation() * M_PI / 180) * (speed * elapsedTime);
 
     // Respond to user input events
-    if(domoveRight) // move right
+    if(doMoveRight) // move right
     {
         sprite->move(velocityX, -velocityY);
-        domoveRight = false;
+        doMoveRight = false;
     }
 
-    if(domoveLeft) // move left
+    if(doMoveLeft) // move left
     {
         sprite->move(-velocityX, velocityY);
-        domoveLeft = false;
+        doMoveLeft = false;
     }
 
     // If no current island exists, keep jumping
@@ -210,10 +210,10 @@ void Character::lockToIsland(float elapsedTime)
     // Get the Sprite of the ground the charcter is on
     Sprite *groundSprite = currentGround->getSprite();
     Image *groundImage = currentGround->getImage();
-    Transform groundTransform = groundSprite->getTransform();
+    Transform groundLocalTransform = groundSprite->getTransform();
     //Transform spriteTransform = sprite->getTransform();
-    Transform groundInvTransform = groundSprite->getInverseTransform();
-    Transform spriteInvTransform = sprite->getInverseTransform();
+    Transform groundGlobalTransform = groundSprite->getInverseTransform();
+    Transform spriteGlobalTransform = sprite->getInverseTransform();
 
     // Variables to configure ground collision
     int lookDepth = SpriteUtil::getSize(sprite).y; // Depth to ray-trace
@@ -225,26 +225,26 @@ void Character::lockToIsland(float elapsedTime)
     float myCenterX = SpriteUtil::getSize(sprite).x / 2;
     float myBottomY = SpriteUtil::getSize(sprite).y / 2 + distanceFromGround;
     // We scale down myCenterX/Y because TransformToGlobal will scale it up again
-    Vector2f globalBottomLeft = spriteInvTransform.transformPoint(myCenterX - lookOffset, myBottomY);
-    Vector2f globalBottomMiddle = spriteInvTransform.transformPoint(myCenterX, myBottomY);
-    Vector2f globalBottomRight = spriteInvTransform.transformPoint(myCenterX + lookOffset, myBottomY);
+    Vector2f globalBottomLeft = spriteGlobalTransform.transformPoint(myCenterX - lookOffset, myBottomY);
+    Vector2f globalBottomMiddle = spriteGlobalTransform.transformPoint(myCenterX, myBottomY);
+    Vector2f globalBottomRight = spriteGlobalTransform.transformPoint(myCenterX + lookOffset, myBottomY);
 
     // Transform global positions to local ground positions
-    Vector2f groundBottomLeft = groundTransform.transformPoint(globalBottomLeft);
-    Vector2f groundBottomMiddle = groundTransform.transformPoint(globalBottomMiddle);
-    Vector2f groundBottomRight = groundTransform.transformPoint(globalBottomRight);
+    Vector2f groundBottomLeft = groundLocalTransform.transformPoint(globalBottomLeft);
+    Vector2f groundBottomMiddle = groundLocalTransform.transformPoint(globalBottomMiddle);
+    Vector2f groundBottomRight = groundLocalTransform.transformPoint(globalBottomRight);
 
-    bool aboveGround = isAboveGround(*groundSprite);
+    bool aboveGround = isAboveGround(*currentGround);
 
      // Get the position of the ray-trace destination
     Vector2f globalTarget;
     if(aboveGround) // We are above ground
     {
-        globalTarget = spriteInvTransform.transformPoint(myCenterX, myBottomY + lookDepth);
+        globalTarget = spriteGlobalTransform.transformPoint(myCenterX, myBottomY + lookDepth);
     }else{ // We are under ground
-        globalTarget = spriteInvTransform.transformPoint(myCenterX, myBottomY - SpriteUtil::getSize(groundSprite).x / 2);
+        globalTarget = spriteGlobalTransform.transformPoint(myCenterX, myBottomY - SpriteUtil::getSize(groundSprite).x / 2);
     }
-    Vector2f groundTarget = groundTransform.transformPoint(globalTarget);
+    Vector2f groundTarget = groundLocalTransform.transformPoint(globalTarget);
 
     // Ray-trace to get position of land below character
     Vector2f *groundLeftCollide = SpriteUtil::rayTrace(*groundImage, groundBottomLeft.x, groundBottomLeft.y, groundTarget.x, groundTarget.y, aboveGround);
@@ -264,8 +264,8 @@ void Character::lockToIsland(float elapsedTime)
         float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
 
         // draw debug graphics
-        Vector2f globalLeftCollide = groundInvTransform.transformPoint(*groundLeftCollide);
-        Vector2f globalRightCollide = groundInvTransform.transformPoint(*groundRightCollide);
+        Vector2f globalLeftCollide = groundGlobalTransform.transformPoint(*groundLeftCollide);
+        Vector2f globalRightCollide = groundGlobalTransform.transformPoint(*groundRightCollide);
         lookLine = ConvexShape(2);
         lookLine.setPoint(0, globalLeftCollide);
         lookLine.setPoint(1, globalRightCollide);
@@ -317,7 +317,7 @@ void Character::lockToIsland(float elapsedTime)
     delete groundRightCollide;
 }
 
-bool Character::isAboveGround(Sprite &groundSprite)
+bool Character::isAboveGround(Island &ground)
 {
     bool aboveGround = true;
 
@@ -327,19 +327,20 @@ bool Character::isAboveGround(Sprite &groundSprite)
     float myAirY = myBottomY - airDistance;
 
     // Point that should always be above ground.
-    Transform spriteInvTransform = sprite->getInverseTransform();
-    Transform groundTransform = groundSprite.getTransform();
-    Vector2f globalAirMiddle = spriteInvTransform.transformPoint(myCenterX, myAirY);
-    Vector2f groundAirMiddle = groundTransform.transformPoint(globalAirMiddle);
+    Sprite *groundSprite = ground.getSprite();
+    Image *groundImage = ground.getImage();
+    Transform spriteGlobalTransform = sprite->getInverseTransform();
+    Transform groundLocalTransform = groundSprite->getTransform();
+    Vector2f globalAirMiddle = spriteGlobalTransform.transformPoint(myCenterX, myAirY);
+    Vector2f groundAirMiddle = groundLocalTransform.transformPoint(globalAirMiddle);
 
     // Take the air pixel
     int airPixelAlpha = 0;
     // Make sure the pixel is within the bounds of the ground sprite
-    // TODO: Re-add
-    /*if(coordUtil.isLocalPointInside(groundAirMiddle, groundSprite))
+    if(coordUtil.isLocalPointInside(groundAirMiddle, *groundSprite))
     {
-        airPixelAlpha = (int)(groundSprite.GetPixel(groundAirMiddle.x, groundAirMiddle.y).a);
-    }*/
+        airPixelAlpha = (int)(groundImage->getPixel(groundAirMiddle.x, groundAirMiddle.y).a);
+    }
 
     if(airPixelAlpha > 0)
     {

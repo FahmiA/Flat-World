@@ -66,12 +66,12 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
 bool LevelBuilder::loadSprite(string &path, Sprite *sprite)
 {
     Image *image = 0;
-    return SpriteUtil::loadSprite(path, sprite, image, content);
+    return SpriteUtil::loadSprite(path, sprite, &image, content);
 }
 
 bool LevelBuilder::loadSprite(string &path, Sprite *sprite, Image *image)
 {
-    return SpriteUtil::loadSprite(path, sprite, image, content);
+    return SpriteUtil::loadSprite(path, sprite, &image, content);
 }
 
 bool LevelBuilder::loadFont(string &path, Font *&font)

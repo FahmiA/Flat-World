@@ -70,8 +70,8 @@ class CharacterTest : public ::testing::Test
         virtual void SetUp()
         {
             // Load the test character
-            float x = 205;
-            float y = 200;
+            float x = 200;
+            float y = 209;
             float width = 10;
             float height = 20;
             float speed = 200;
@@ -79,7 +79,7 @@ class CharacterTest : public ::testing::Test
             string characterSpritePath = "unit_test/actors/filesForTests/Character.png";
             Sprite *characterSprite = new Sprite();
             Image *characterImage = 0;
-            bool loadSuccess = SpriteUtil::loadSprite(characterSpritePath, characterSprite, characterImage, &content);
+            bool loadSuccess = SpriteUtil::loadSprite(characterSpritePath, characterSprite, &characterImage, &content);
             if(!loadSuccess)
                 cout << "CharacterTest.SetUp: Could not load image: " << characterSpritePath << endl;
             character = new StaticCharacter(x, y, width, height,
@@ -95,7 +95,7 @@ class CharacterTest : public ::testing::Test
             string islandPath = "unit_test/actors/filesForTests/Island1.png";
             Sprite *island1Sprite = new Sprite();
             Image *island1Image = 0;
-            loadSuccess = SpriteUtil::loadSprite(islandPath, island1Sprite, island1Image, &content);
+            loadSuccess = SpriteUtil::loadSprite(islandPath, island1Sprite, &island1Image, &content);
             if(!loadSuccess)
                 cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
             island1 = new Island(x, y, width, height, island1Sprite, island1Image);
@@ -109,7 +109,7 @@ class CharacterTest : public ::testing::Test
 
             Sprite *island2Sprite = new Sprite();
             Image *island2Image = 0;
-            loadSuccess = SpriteUtil::loadSprite(islandPath, island2Sprite, island2Image, &content);
+            loadSuccess = SpriteUtil::loadSprite(islandPath, island2Sprite, &island2Image, &content);
             if(!loadSuccess)
                 cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
             island2 = new Island(x, y, width, height, island2Sprite, island2Image);
@@ -135,7 +135,6 @@ TEST_F(CharacterTest, locatesNearbyIsland)
     Island *currentGround = character->getCurrentGround();
     Island *previousGround = character->getPreviousGround();
 
-    // TODO: I think this is because the collide method is not using the origin correctly.
     EXPECT_EQ(island1, currentGround) << "New ground should be found.";
     EXPECT_EQ(NULL, previousGround) << "No previous ground should exist.";
 
@@ -156,7 +155,7 @@ TEST_F(CharacterTest, locatesNearbyIsland)
     EXPECT_EQ(island2, currentGround) << "New ground should be found.";
     EXPECT_EQ(island1, previousGround) << "Previous ground should be old current ground.";
 }
-/*
+
 TEST_F(CharacterTest, doesntLocateDistantIsland)
 {
     island1->setPosition(1000, 1000);
@@ -193,8 +192,7 @@ TEST_F(CharacterTest, jumpsAgainstGravity)
     character->steer(0.03f);
     Vector2f newPosition = character->getPosition();
 
-    EXPECT_FLOAT_EQ(oldPosition.x, newPosition.x) << "X-position should not change (vertical jump)";
-    EXPECT_NE(oldPosition.y, newPosition.y) << "Y-position should have changed.";
+    EXPECT_GT(oldPosition.y, newPosition.y) << "Y-position should have changed.";
 }
 
 TEST_F(CharacterTest, movesLeftAndRight)
@@ -237,13 +235,13 @@ TEST_F(CharacterTest, pulledWithGravity)
     character->findCurrentIsland(islands);
 
     Vector2f oldPosition = character->getPosition();
-    character->lockToIsland(0.03);
+    character->lockToIsland(0.03f);
     Vector2f newPosition = character->getPosition();
 
     EXPECT_GT(newPosition.y, oldPosition.y) << "Character should be pulled down with gravity";
 }
 
-TEST_F(CharacterTest, attachesToStraitLand)
+/*TEST_F(CharacterTest, attachesToStraitLand)
 {
     character->findCurrentIsland(islands);
     character->lockToIsland(0.05f);

@@ -35,7 +35,7 @@ class SpriteUtil
          * @param content The ContentManager to manage the loaded image.
          * @return True if the image path pointed to a valid image. False otherwise.
          */
-        static bool loadSprite(string &path, Sprite *sprite, Image *image, ContentManager *content);
+        static bool loadSprite(string &path, Sprite *sprite, Image **image, ContentManager *content);
 
         /** Loads a Font.
          * @param path The path of the font to load.

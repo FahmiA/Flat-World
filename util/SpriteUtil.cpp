@@ -2,7 +2,6 @@
 
 #include "NumberUtil.hpp"
 
-
 Vector2f* SpriteUtil::rayTrace(const Image &image, int fromX, int fromY, int toX, int toY, bool seekEmpty)
 {
     // Simplified Bresenham line algorithm
@@ -90,14 +89,14 @@ Vector2f& SpriteUtil::getSize(Sprite *sprite)
     return *size;
 }
 
-bool SpriteUtil::loadSprite(string &path, Sprite *sprite, Image *image, ContentManager *content)
+bool SpriteUtil::loadSprite(string &path, Sprite *sprite, Image **image, ContentManager *content)
 {
-    image = content->loadImage(path);
+    *image = content->loadImage(path);
     if(image == 0)
         return false;
 
     Texture texture;
-    texture.loadFromImage(*image);
+    texture.loadFromImage(**image);
     sprite->setTexture(texture);
 
     return true;
