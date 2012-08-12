@@ -152,7 +152,7 @@ void Character::findCurrentIsland(list<Island*>* islands)
                     float angle = atan2(currentGround->getPosition().y - sprite->getPosition().y,
                                         currentGround->getPosition().x - sprite->getPosition().x);
                     angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
-                    sprite->setRotation(-angle + 90); // Rotate to the correct angle
+                    sprite->setRotation(angle + 90); // Rotate to the correct angle
 
                     cout << "found new ground" << endl;
                     break;
@@ -171,20 +171,20 @@ void Character::steer(float elapsedTime)
     // Respond to user input events
     if(doMoveRight) // move right
     {
-        sprite->move(velocityX, -velocityY);
+        sprite->move(velocityX, velocityY);
         doMoveRight = false;
     }
 
     if(doMoveLeft) // move left
     {
-        sprite->move(-velocityX, velocityY);
+        sprite->move(-velocityX, -velocityY);
         doMoveLeft = false;
     }
 
     // If no current island exists, keep jumping
     if(currentGround == 0)
     {
-        float angle = -sprite->getRotation();
+        float angle = sprite->getRotation();
         if(inJump)
         {
             angle -= 90; // Up (jump)
@@ -215,20 +215,22 @@ void Character::lockToIsland(float elapsedTime)
     Transform spriteGlobalTransform = sprite->getTransform();
 
     // Variables to configure ground collision
-    int lookDepth = SpriteUtil::getSize(sprite).y; // Depth to ray-trace
-    int lookOffset = SpriteUtil::getSize(sprite).x / 2; // Distance between left and right ray-traces
+    int lookDepth = sprite->getLocalBounds().height; // Depth to ray-trace
+    int lookOffset = sprite->getLocalBounds().width/ 2; // Distance between left and right ray-traces
     float clampThreshold = MIN_GROUND_DIST * 10; // Distance from ground, before character is clamped to the ground
 
     // Get the position at the bottom of the charcter
     // Global Positions
-    float myCenterX = SpriteUtil::getSize(sprite).x / 2;
-    float myBottomY = SpriteUtil::getSize(sprite).y + distanceFromGround;
+    float myCenterX = sprite->getLocalBounds().width / 2;
+    float myBottomY = sprite->getLocalBounds().height + distanceFromGround;
 
     Vector2f globalBottomLeft = spriteGlobalTransform.transformPoint(myCenterX - lookOffset, myBottomY);
     Vector2f globalBottomMiddle = spriteGlobalTransform.transformPoint(myCenterX, myBottomY);
     Vector2f globalBottomRight = spriteGlobalTransform.transformPoint(myCenterX + lookOffset, myBottomY);
 
     /*cout << "sprite position: " << PRINT_V(sprite->getPosition()) << endl;
+    cout << "sprite size: " << PRINT_V(SpriteUtil::getSize(sprite)) << endl;
+    cout << "sprite angle: " << getRotation() << endl;
     cout << "globalBottomLeft: " << PRINT_V(globalBottomLeft) << endl;
     cout << "globalBottomMiddle: " << PRINT_V(globalBottomMiddle) << endl;
     cout << "globalBottomRight: " << PRINT_V(globalBottomRight) << endl;*/
@@ -256,9 +258,10 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f *groundMiddleCollide = SpriteUtil::rayTrace(*groundImage, groundBottomMiddle.x, groundBottomMiddle.y, groundTarget.x, groundTarget.y, aboveGround);
     Vector2f *groundRightCollide = SpriteUtil::rayTrace(*groundImage, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y, aboveGround);
 
-    lookLine = ConvexShape(2);
-    lookLine.setPoint(0, globalBottomMiddle);
-    lookLine.setPoint(1, globalTarget);
+    lookLine = ConvexShape(3);
+    lookLine.setPoint(0, globalBottomLeft);
+    lookLine.setPoint(1, globalBottomRight);
+    lookLine.setPoint(2, globalTarget);
     lookLine.setFillColor(Color::Blue);
     lookLine.setOutlineThickness(1);
 
@@ -271,11 +274,13 @@ void Character::lockToIsland(float elapsedTime)
         // draw debug graphics
         Vector2f globalLeftCollide = groundGlobalTransform.transformPoint(*groundLeftCollide);
         Vector2f globalRightCollide = groundGlobalTransform.transformPoint(*groundRightCollide);
-        lookLine = ConvexShape(2);
-        lookLine.setPoint(0, globalLeftCollide);
-        lookLine.setPoint(1, globalRightCollide);
-        lookLine.setFillColor(Color::Black);
-        lookLine.setOutlineThickness(2);
+        angleLine = ConvexShape(4);
+        angleLine.setPoint(0, globalBottomLeft);
+        angleLine.setPoint(1, globalBottomRight);
+        angleLine.setPoint(2, globalRightCollide);
+        angleLine.setPoint(3, globalLeftCollide);
+        angleLine.setFillColor(Color::Green);
+        angleLine.setOutlineThickness(1);
 
 
         /* If the character is above ground, the character should naturally fall to the ground with gravity.
@@ -378,12 +383,11 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
                     );*/
 
     float groundAngleDeg = AS_DEG(groundAngleRad);
-    sprite->setRotation(-groundAngleDeg);
+    sprite->setRotation(groundAngleDeg);
 
     Vector2f newPos = Vector2f(leftCollide);
-    // TODO: Shouldn't this be coordUtil.getAngle(..)?
-    float deltaAngle = coordUtil.getDistance(newPos, sprite->getPosition());
-    if(deltaAngle > MIN_ANGLE_CHANGE_D)
+    float deltaDist = coordUtil.getDistance(newPos, sprite->getPosition());
+    if(deltaDist > MIN_ANGLE_CHANGE_D)
         sprite->setPosition(newPos);
 
     /*if(groundAngleDeg != 0)
@@ -416,12 +420,14 @@ void Character::draw(RenderWindow *window)
 {
     //window->draw(bounds);
 
+    // draw the debug graphics
+
+    window->draw(lookLine);
+
     // draw the charcter.
     window->draw(*sprite);
 
-    // draw the debug graphics
     window->draw(angleLine);
-    window->draw(lookLine);
 }
 
 const Vector2f& Character::getPosition()
@@ -436,10 +442,6 @@ const Vector2f& Character::getSize()
 
 float Character::getRotation()
 {
-    /*float rotation = sprite->getRotation();
-    rotation *= M_PI / 180.0f;
-    return rotation;*/
-
     return AS_RAD(sprite->getRotation());
 }
 

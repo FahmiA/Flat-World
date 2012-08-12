@@ -10,17 +10,11 @@ AnimatedSprite::AnimatedSprite() : Sprite()
     currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
-
-    size = 0;
-    center = 0;
 }
 
 AnimatedSprite::~AnimatedSprite()
 {
     animations.clear();
-
-    delete size;
-    delete center;
 }
 
 void AnimatedSprite::addAnimation(Animation *animation)
@@ -36,8 +30,6 @@ void AnimatedSprite::addAnimation(Animation *animation)
     // This is to ensure the sprite is sized correctly
     if(animations.size() == 1)
     {
-        //*size = SpriteUtil::getSize(this);
-        //*center = getOrigin();
         play(animation->name);
         stop();
     }
@@ -50,7 +42,6 @@ void AnimatedSprite::setTransparentColour(unsigned int tColour)
 
 void AnimatedSprite::update(Clock *clock)
 {
-    return;
     if(paused || currentAnimation == 0)
         return;
 
@@ -76,12 +67,21 @@ void AnimatedSprite::update(Clock *clock)
         AnimationFrame &frame = *currentAnimation->frames[currentFrame];
         //float scale = min(size->x / frame.width, size->y / frame.height);
         IntRect subRect(frame.x, frame.y,
-                        frame.x + frame.width,
-                        frame.y + frame.height);
+                        frame.width,
+                        frame.height);
+
+        // Remember some original Sprite values
+        Vector2f size(SpriteUtil::getSize(this));
+        Vector2f origin(getOrigin());
+        FloatRect localBounds(getLocalBounds());
+
+        // Update the frame (changes Sprite values)
         setTextureRect(subRect);
-        SpriteUtil::resize(this, size->x, size->y);
-        Sprite::setOrigin(Vector2f((center->x / size->x) * frame.width,
-                                   (center->y / size->y) * frame.height));
+
+        // Re-apply the original Sprite values
+        SpriteUtil::resize(this, size.x, size.y);
+        setOrigin(Vector2f((origin.x / localBounds.width) * getLocalBounds().width,
+                           (origin.y / localBounds.height) * getLocalBounds().height));
 
         // Update the frame counter
         currentFrame++;
@@ -127,16 +127,4 @@ void AnimatedSprite::stop()
     currentFrame = 0;
     timeSinceLastFrame = 0;
     paused = false;
-}
-
-void AnimatedSprite::SetSize(Vector2f size)
-{
-    delete this->size;
-    this->size = new Vector2f(size.x, size.y);
-}
-
-void AnimatedSprite::setOrigin(Vector2f center)
-{
-    delete this->center;
-    this->center = new Vector2f(center.x, center.y);
 }

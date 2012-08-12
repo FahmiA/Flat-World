@@ -47,15 +47,15 @@ class AnimatedSprite: public Sprite
         /** Stops the current animation (if one exists). */
         void stop();
 
-        /** Notify of a change in sprite size.
+        /** Set the display size of sprite frames.
          * @param size The new size.
          */
-        void SetSize(Vector2f size);
+        void setFrameSize(Vector2f size);
 
-        /** Notify of a change in sprite center.
+        /** Set the origin of sprite frames.
          *@param center The new center.
          */
-        void setOrigin(Vector2f center);
+        void setFrameOrigin(Vector2f center);
 
     private:
         // Animation storage
@@ -66,9 +66,6 @@ class AnimatedSprite: public Sprite
         // Active animation state
         float timeSinceLastFrame;
         bool paused;
-
-        Vector2f *size;
-        Vector2f *center;
 };
 
 struct Animation

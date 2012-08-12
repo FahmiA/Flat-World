@@ -254,7 +254,7 @@ TEST_F(CharacterTest, attachesToStraitLand)
     EXPECT_EQ(0, character->getRotation()) << "Should not be rotated";
 }
 
-/*TEST_F(CharacterTest, attachesToGentleAngledLand)
+TEST_F(CharacterTest, attachesToGentleAngledLand)
 {
     // move the island so the player lands on a hill
     island1->setPosition(230, 235);
@@ -300,4 +300,4 @@ TEST_F(CharacterTest, movesAboveGroundWhenUnderground)
     EXPECT_NEAR(205, position.x, 1) << "X-position should be on ground";
     EXPECT_NEAR(194, position.y, 1) << "Y-position should be on ground";
     EXPECT_NEAR(0.13, character->getRotation(), 0.05) << "Should be rotated to angle of hill";
-}*/
+}

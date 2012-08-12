@@ -72,7 +72,7 @@ Vector2f* SpriteUtil::rayTrace(const Image &image, int fromX, int fromY, int toX
 
 void SpriteUtil::resize(Sprite *sprite, float width, float height)
 {
-    IntRect originalSize = sprite->getTextureRect();
+    FloatRect originalSize = sprite->getLocalBounds();
     float originalWidth = originalSize.width;
     float originalHeight = originalSize.height;
 
