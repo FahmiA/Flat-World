@@ -86,7 +86,6 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
         // No player currently exists
         int x, y;
         getPosition(islandDesc->island, playerDesc->startAngle, playerDesc->width, playerDesc->height, &x, &y);
-
         Player *player = new Player(x, y, playerDesc->width, playerDesc->height, PLAYER_SPEED, playerSprite);
 
         player->setSpriteDirection(Right);

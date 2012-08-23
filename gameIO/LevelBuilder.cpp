@@ -27,20 +27,21 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     }
 
     // Want to ray-trace beyond the border of the island
-    float raytraceDistance = max(island->getSize().x, island->getSize().y);
+    FloatRect islandBounds = island->getSprite()->getLocalBounds();
+    float raytraceDistance = max(islandBounds.width, islandBounds.height);
 
     // Get the ray-trace 'beam' coordinates
-    float toX = island->getSize().x / 2;
-    float toY = island->getSize().y / 2;
+    float toX =  islandBounds.width / 2;
+    float toY =  islandBounds.height / 2;
     float fromX = toX + (cos(angleRadians) * raytraceDistance);
     float fromY = toY + (sin(angleRadians) * raytraceDistance);
 
-    float scaleX = island->getSprite()->getScale().x;
+    /*float scaleX = island->getSprite()->getScale().x;
     float scaleY = island->getSprite()->getScale().y;
     toX /= scaleX;
     toY /= scaleY;
     fromX /= scaleX;
-    fromY /= scaleY;
+    fromY /= scaleY;*/
 
     // Ray-trace
     Vector2f *localSpawnPos = SpriteUtil::rayTrace(*island->getImage(), (int)fromX, (int)fromY, (int)toX, (int)toY, true);
@@ -51,11 +52,15 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
         cout << "\tPosition not set, using default" << endl;
         localSpawnPos = new Vector2f(toX, toY);
     }
+    /*float scaleX = island->getSprite()->getScale().x;
+    float scaleY = island->getSprite()->getScale().y;
+    localSpawnPos->x /= scaleX;
+    localSpawnPos->y /= scaleY;*/
     printf("\tRaytrace: (x, y): (%.3f, %0.3f) -> (%.3f, %.3f)\n", fromX, fromY, toX, toY);
     printf("\tSpawn:    (x, y): (%.3f, %0.3f)\n",  localSpawnPos->x,  localSpawnPos->y);
 
     // Update the charcter position
-    Transform islandGlobalTransform = island->getSprite()->getInverseTransform();
+    Transform islandGlobalTransform = island->getSprite()->getTransform();
     Vector2f globalSpawnPos = islandGlobalTransform.transformPoint(*localSpawnPos);
     *characterX = globalSpawnPos.x;// + characterWidth;
     *characterY = globalSpawnPos.y;// + characterHeight;

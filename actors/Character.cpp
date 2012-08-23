@@ -110,7 +110,7 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         return;
 
     // Get the elapsed time since the last frame
-    float elapsedTime = clock->getElapsedTime().asSeconds ();
+    float elapsedTime = clock->getElapsedTime().asSeconds();
 
     // Find the nearest island and assign it as the island the Character is on
     findCurrentIsland(world->getIslands());
@@ -149,12 +149,14 @@ void Character::findCurrentIsland(list<Island*>* islands)
                     currentGround = island;
 
                     // Rotate to the new ground
-                    float angle = atan2(currentGround->getPosition().y - sprite->getPosition().y,
-                                        currentGround->getPosition().x - sprite->getPosition().x);
-                    angle = angle * (180.0f/M_PI); // Convert the angle from radians to degrees
-                    sprite->setRotation(angle + 90); // Rotate to the correct angle
+                    //float angleRad = atan2(currentGround->getPosition().y - sprite->getPosition().y,
+                    //                    currentGround->getPosition().x - sprite->getPosition().x);
+                    float angleRad = coordUtil.getAngle(sprite->getPosition(), 0, currentGround->getPosition());
+                    float angleDeg = AS_DEG(angleRad); // Convert the angle from radians to degrees
+                    sprite->setRotation(angleDeg - 90); // Rotate to the correct angle
 
                     cout << "found new ground" << endl;
+
                     break;
                 }
             }
@@ -296,7 +298,7 @@ void Character::lockToIsland(float elapsedTime)
             if(groundDistance < clampThreshold)
             {
                 clampToGround(globalLeftCollide, groundAngleRad);
-            }else{//} if(groundDistance > 20){
+            }else{
                 // Not close enough to clamp so move with gravity
                 float gravityAngle = groundAngleRad + M_PI_2;
                 if(!aboveGround) // Reverse gravity if underground
@@ -308,15 +310,15 @@ void Character::lockToIsland(float elapsedTime)
                 float velocityY = sin(gravityAngle) * (speed * elapsedTime);
                 sprite->move(velocityX, velocityY);
 
-                float groundAngleDeg = AS_DEG(groundAngleRad);
-                sprite->setRotation(-groundAngleDeg);
+                //float groundAngleDeg = AS_DEG(groundAngleRad);
+                //sprite->setRotation(groundAngleDeg);
             }
         }else{
             clampToGround(globalLeftCollide, groundAngleRad);
         }
     }else{
         // Continue moving in the current direction
-        float rotationRad = getRotation() - M_PI_2;
+        float rotationRad = getRotation() + M_PI_2;
         float velocityX = cos(rotationRad) * (speed * elapsedTime);
         float velocityY = sin(rotationRad) * (speed * elapsedTime);
         sprite->move(velocityX, velocityY);
