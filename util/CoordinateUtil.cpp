@@ -1,5 +1,6 @@
 #include "CoordinateUtil.hpp"
 
+#include "util/Collision.hpp"
 #include "NumberUtil.hpp"
 #include "SpriteUtil.hpp"
 
@@ -114,6 +115,11 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 
     return xOverlap && yOverlap;
 }
+
+/*bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
+{
+    return Collision::BoundingBoxTest(*object1, *object2);
+}*/
 
 bool CoordinateUtil::isInFOV(const Vector2f &source, float sourceAngle, const Vector2f &target,
                              int lookDistance, float fovAngle)

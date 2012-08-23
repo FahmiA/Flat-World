@@ -37,6 +37,8 @@ class SpriteUtil
          */
         static bool loadSprite(string &path, Sprite *sprite, Image **image, ContentManager *content);
 
+        static bool loadSprite(string &path, Sprite *sprite, Image **image, unsigned int tColour, ContentManager *content);
+
         /** Loads a Font.
          * @param path The path of the font to load.
          * @param font A reference to the Font to initialise.

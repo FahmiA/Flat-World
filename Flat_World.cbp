@@ -161,6 +161,8 @@
 		</Unit>
 		<Unit filename="util\AnimatedSprite.cpp" />
 		<Unit filename="util\AnimatedSprite.hpp" />
+		<Unit filename="util\Collision.cpp" />
+		<Unit filename="util\Collision.hpp" />
 		<Unit filename="util\Commons.hpp" />
 		<Unit filename="util\CoordinateUtil.cpp" />
 		<Unit filename="util\CoordinateUtil.hpp" />

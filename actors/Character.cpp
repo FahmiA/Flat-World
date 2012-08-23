@@ -363,25 +363,6 @@ bool Character::isAboveGround(Island &ground)
 
 void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
 {
-    /*float groundAngleRad = coordUtil.getAngle(leftCollide, 0, rightCollide);
-    float groundAngleDeg = groundAngleRad * (180.0f / M_PI);
-
-    //cout << "Before:\t" << sprite->getPosition().x << " * " << sprite->getPosition().y << endl;
-    // Points defined in: http://www.clarku.edu/~djoyce/trig/right.html
-    Vector2f pointA(leftCollide);
-
-    Vector2f pointC (
-                    (leftCollide.x + rightCollide.x) / 2.0f,
-                    (leftCollide.y + rightCollide.y) / 2.0f
-                    );
-
-    float distanceCB = MIN_GROUND_DIST;//(sprite->GetSize().y + distanceFromGround) / 2.0f;
-
-    Vector2f pointB(
-                    pointC.x + (cos(groundAngleRad - M_PI_2) * distanceCB),
-                    pointC.y + (sin(groundAngleRad - M_PI_2) * distanceCB)
-                    );*/
-
     float groundAngleDeg = AS_DEG(groundAngleRad);
     sprite->setRotation(groundAngleDeg);
 
@@ -389,21 +370,6 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
     float deltaDist = coordUtil.getDistance(newPos, sprite->getPosition());
     if(deltaDist > MIN_ANGLE_CHANGE_D)
         sprite->setPosition(newPos);
-
-    /*if(groundAngleDeg != 0)
-    {
-        pause = true;
-        lookLine = Shape::Line(sprite->getPosition(), leftCollide, 2, Color::Blue);
-        cout << sprite->getPosition().x << ", " << sprite->getPosition().y << '\n' << leftCollide.x << ", " << leftCollide.y << endl;
-        return;
-    }*/
-
-
-    //Vector2f newPos = Vector2f(pointB.x - sprite->GetSize().x/2, pointB.y - sprite->GetSize().y/2);
-    //sprite->setPosition(newPos);
-
-    //cout << -groundAngleDeg << endl;
-    //cout << "\t lc: " << leftCollide.x << ", " << leftCollide.y << " rc: " << rightCollide.x << ", " << rightCollide.y << endl;
 }
 
 CoordinateUtil& Character::getCoordinateUtil()
@@ -438,6 +404,11 @@ const Vector2f& Character::getPosition()
 const Vector2f& Character::getSize()
 {
     return SpriteUtil::getSize(sprite);
+}
+
+float Character::getSpeed()
+{
+    return speed;
 }
 
 float Character::getRotation()

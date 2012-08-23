@@ -102,6 +102,25 @@ bool SpriteUtil::loadSprite(string &path, Sprite *sprite, Image **image, Content
     return true;
 }
 
+bool SpriteUtil::loadSprite(string &path, Sprite *sprite, Image **image, unsigned int tColour, ContentManager *content)
+{
+    *image = content->loadImage(path);
+    if(image == 0)
+        return false;
+
+    Color mask(0, 0, 0);
+    mask.r = (tColour >> 16) & 0xFF;
+    mask.g = (tColour >> 8) & 0xFF;
+    mask.b = tColour & 0xFF;
+    (*image)->createMaskFromColor(mask);
+
+    Texture *texture = new Texture();
+    texture->loadFromImage(**image);
+    sprite->setTexture(*texture);
+
+    return true;
+}
+
 bool SpriteUtil::loadFont(string &path, Font *&font, ContentManager *content)
 {
     font = content->loadFont(path);

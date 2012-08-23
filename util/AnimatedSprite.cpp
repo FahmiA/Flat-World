@@ -35,11 +35,6 @@ void AnimatedSprite::addAnimation(Animation *animation)
     }
 }
 
-void AnimatedSprite::setTransparentColour(unsigned int tColour)
-{
-    // TODO: Implement (May need SFML v2.0)
-}
-
 void AnimatedSprite::update(Clock *clock)
 {
     if(paused || currentAnimation == 0)

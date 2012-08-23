@@ -44,6 +44,8 @@ class Character: public GameObject
         const Vector2f& getPosition();
         const Vector2f& getSize();
 
+        float getSpeed();
+
         /** Gets the rotation of the Charcter in Radians.
          * @return Character rotation.
          */

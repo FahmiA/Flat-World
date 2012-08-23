@@ -25,8 +25,6 @@ class AnimatedSprite: public Sprite
 
         void addAnimation(Animation *animation);
 
-        void setTransparentColour(unsigned int tColour);
-
         /** Updates the animation.
          * @param clock The clock to measure elapsed time since the last frame.
          */

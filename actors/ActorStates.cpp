@@ -23,14 +23,14 @@ void WonderState::performAction(Character *character, Clock *clock)
     {
         character->moveLeft();
         // Update the animation
-        ((AnimatedSprite*)character->getSprite())->play("Run");
+        ((AnimatedSprite*)sprite)->play("Run");
     }else if(action == Right){
         character->moveRight();
         // Update the animation
-        ((AnimatedSprite*)character->getSprite())->play("Run");
+        ((AnimatedSprite*)sprite)->play("Run");
     }else{ //Idle
         // Update the animation
-        ((AnimatedSprite*)character->getSprite())->play("Idle");
+        ((AnimatedSprite*)sprite)->play("Idle");
     }
 }
 

@@ -16,6 +16,15 @@
         <height> 1923 </height>
     </island>
 
+    <island>
+        <id> 2 </id>
+        <image> media/textures/Level_1/Island_2.png </image>
+        <x> 1900 </x>
+        <y> -300 </y>
+        <width> 560 </width>
+        <height> 560 </height>
+    </island>
+
     <unit type="player">
         <image> media/textures/farmer.xml </image>
         <locationID> 1 </locationID>
