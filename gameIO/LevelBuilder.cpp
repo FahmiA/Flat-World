@@ -31,8 +31,8 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     float raytraceDistance = max(islandBounds.width, islandBounds.height);
 
     // Get the ray-trace 'beam' coordinates
-    float toX =  islandBounds.width / 2;
-    float toY =  islandBounds.height / 2;
+    float toX =  islandBounds.width / 1.5f; // Quick fix for island_1 which is transparent in the center
+    float toY =  islandBounds.height / 1.5f;
     float fromX = toX + (cos(angleRadians) * raytraceDistance);
     float fromY = toY + (sin(angleRadians) * raytraceDistance);
 

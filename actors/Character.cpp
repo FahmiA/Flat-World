@@ -156,6 +156,7 @@ void Character::findCurrentIsland(list<Island*>* islands)
                     sprite->setRotation(angleDeg - 90); // Rotate to the correct angle
 
                     cout << "found new ground" << endl;
+                    //pause = true;
 
                     break;
                 }
