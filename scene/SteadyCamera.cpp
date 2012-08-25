@@ -7,6 +7,9 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+#include <iostream>
+using namespace std;
+
 SteadyCamera::SteadyCamera(View *view) : Camera(view)
 {
     //view->zoom(0.4f);
@@ -27,5 +30,5 @@ void SteadyCamera::update(Clock *clock, RenderWindow *window, World *world)
 
     // Set the rotation
     float newRotation = player->getRotation();// / AS_RAD(view->getRotation()));
-    //view->setRotation(AS_DEG(newRotation));
+    view->setRotation(AS_DEG(newRotation));
 }
