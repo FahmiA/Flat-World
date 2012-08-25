@@ -225,7 +225,7 @@ void Character::lockToIsland(float elapsedTime)
     // Get the position at the bottom of the charcter
     // Global Positions
     float myCenterX = sprite->getLocalBounds().width / 2;
-    float myBottomY = sprite->getLocalBounds().height + distanceFromGround;
+    float myBottomY = sprite->getLocalBounds().height;
 
     Vector2f globalBottomLeft = spriteGlobalTransform.transformPoint(myCenterX - lookOffset, myBottomY);
     Vector2f globalBottomMiddle = spriteGlobalTransform.transformPoint(myCenterX, myBottomY);
@@ -335,12 +335,11 @@ bool Character::isAboveGround(Island &ground)
 {
     bool aboveGround = true;
 
-    float myCenterX = SpriteUtil::getSize(sprite).x / 2;
-    float myBottomY = SpriteUtil::getSize(sprite).y / 2 + distanceFromGround;
-    int airDistance = MIN_GROUND_DIST; // Maximum underground level before lifting charcater above ground;
-    float myAirY = myBottomY - airDistance;
+    float myCenterX = sprite->getLocalBounds().width / 2;
+    float myBottomY = sprite->getLocalBounds().height;
+    int airDistance = MIN_GROUND_DIST; // Maximum underground level before lifting charcater above ground.
+    float myAirY = myBottomY - airDistance; // Point that should always be above ground.
 
-    // Point that should always be above ground.
     Sprite *groundSprite = ground.getSprite();
     Image *groundImage = ground.getImage();
     Transform spriteGlobalTransform = sprite->getTransform();
