@@ -1,6 +1,6 @@
 /bin/
 /obj/
 /.objs/
-/*.cbTemp
+*.cbTemp
 *.depend
 *.layout
