@@ -8,6 +8,7 @@
 #include "gameIO/LevelBuilder.hpp"
 
 #include <iostream>
+#include <math.h>
 using namespace std;
 
 #define DOG_MEMORY_S 3
@@ -34,7 +35,7 @@ void Sheepdog::subUpdate(Clock *clock, RenderWindow *window, World *world)
     AnimatedCharacter::subUpdate(clock, window, world);
     Player &player = *(world->getPlayer());
     // Execute AI
-    seekPlayer(clock->GetElapsedTime(), player);
+    seekPlayer(clock->getElapsedTime().asSeconds(), player);
 
     // Perform collision
     checkPlayerCollide(*world);
@@ -48,13 +49,15 @@ void Sheepdog::seekPlayer(float elapsedTime, Player &player)
     // Change to a chassing state when the player is in the field of view (FOV)
     float fovAngle = 0.5;
     int fovDepth = 200;
-    const Vector2f currentPosition = getSprite()->TransformToGlobal(getSprite()->GetCenter());
-    float currentAngle = getSprite()->GetRotation() * M_PI / 180;
+    Transform currentPosTransform = getSprite()->getTransform();
+    const Vector2f currentPosition = currentPosTransform.transformPoint(getSprite()->getOrigin());
+    float currentAngle = getSprite()->getRotation() * M_PI / 180;
 
     // Reverse the angle if looking to the left
     if(getFacingDirection() == Left)
         currentAngle = currentAngle - M_PI;
-    const Vector2f playerPosition = player.getSprite()->TransformToGlobal(player.getSprite()->GetCenter());
+    Transform playerPosTransform = player.getSprite()->getTransform();
+    const Vector2f playerPosition = playerPosTransform.transformPoint(player.getSprite()->getOrigin());
 
     // Check if the player is in the FOV
     bool canSeePlayer = getCoordinateUtil().isInFOV(currentPosition, currentAngle, playerPosition,

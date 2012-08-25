@@ -24,7 +24,7 @@ class GameObject
           */
         virtual void update(Clock *clock, RenderWindow *window, World *world) = 0;
 
-        /** Draws the GameObject and related elements to the screen.
+        /** draws the GameObject and related elements to the screen.
           * As much as possible no game logic should occour here, only drawing.
           * @param window The RenderWindow to use for drawing.
           */

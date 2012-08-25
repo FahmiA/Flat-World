@@ -1,15 +1,16 @@
 #include "Island.hpp"
 
 #include "game/ID.hpp"
+#include "util/SpriteUtil.hpp"
 
-Island::Island(float x, float y, float width, float height, Sprite *sprite)
+Island::Island(float x, float y, float width, float height, Sprite *sprite, Image *image)
 {
-    sprite->SetCenter(sprite->GetSize().x / 2, sprite->GetSize().y / 2);
-    sprite->Resize(width, height);
-    sprite->SetX(x);
-    sprite->SetY(y);
+    SpriteUtil::resize(sprite, width, height);
+    sprite->setOrigin(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2);
+    sprite->setPosition(x, y);
 
     this->sprite = sprite;
+    this->image = image;
 
     setID(ID_ISLAND);
 }
@@ -24,6 +25,11 @@ Sprite* Island::getSprite()
     return sprite;
 }
 
+Image* Island::getImage()
+{
+    return image;
+}
+
 void Island::update(Clock *clock, RenderWindow *window, World *world)
 {
 
@@ -31,20 +37,20 @@ void Island::update(Clock *clock, RenderWindow *window, World *world)
 
 void Island::draw(RenderWindow *window)
 {
-    window->Draw(*sprite);
+    window->draw(*sprite);
 }
 
 const Vector2f& Island::getPosition()
 {
-    return sprite->GetPosition();
+    return sprite->getPosition();
 }
 
 void Island::setPosition(float x, float y)
 {
-    sprite->SetPosition(x, y);
+    sprite->setPosition(x, y);
 }
 
 const Vector2f& Island::getSize()
 {
-    return sprite->GetSize();
+    return SpriteUtil::getSize(sprite);
 }

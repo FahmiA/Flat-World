@@ -107,8 +107,8 @@ class LevelBuilder
         // Helper methods
         virtual void getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY);
         bool loadSprite(string &path, Sprite *sprite);
+        bool loadSprite(string &path, Sprite *sprite, Image **image);
         bool loadFont(string &path, Font *&font);
-        //SpriteUtil& getSpriteUtil();
 
         /** Stores the path to a sheep image.
          * Duplicates will be removed.
@@ -131,7 +131,6 @@ class LevelBuilder
         World *world;
         ContentManager *content;
         set<string> sheepPaths;
-        SpriteUtil spriteUtil;
 };
 
 /** Describes the information needed to create a level

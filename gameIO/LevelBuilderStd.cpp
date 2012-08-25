@@ -56,13 +56,14 @@ bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 {
     bool addSuccess = false;
     Sprite *sprite = new Sprite();
-    if(!loadSprite(islandDesc->imagePath, sprite))
+    Image *image = 0;
+    if(!loadSprite(islandDesc->imagePath, sprite, &image))
     {
         // Error
         cout << "Image for island " << islandDesc->id << " could not be loaded: " << islandDesc->imagePath << endl;
         cout << "\tIsland has not been loaded." << endl;
     }else{
-        Island *island = new Island(islandDesc->x, islandDesc->y, islandDesc->width, islandDesc->height, sprite);
+        Island *island = new Island(islandDesc->x, islandDesc->y, islandDesc->width, islandDesc->height, sprite, image);
         islandDesc->island = island; // Remember the island in the description
         getWorld()->addIsland(island);
         addSuccess = true;
@@ -85,8 +86,8 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
         // No player currently exists
         int x, y;
         getPosition(islandDesc->island, playerDesc->startAngle, playerDesc->width, playerDesc->height, &x, &y);
-
         Player *player = new Player(x, y, playerDesc->width, playerDesc->height, PLAYER_SPEED, playerSprite);
+
         player->setSpriteDirection(Right);
         getWorld()->setPlayer(player);
         addSuccess = true;
@@ -125,13 +126,13 @@ bool LevelBuilderStd::addRandomSheep()
     // Create the sheep description
     UnitDescription sheepDesc;
     sheepDesc.type = "sheep";
-    int imagePathIndex = sf::Randomizer::Random(0, getSheepPathCount() - 1);
+    int imagePathIndex = rand() % (getSheepPathCount() - 1);
     sheepDesc.imagePath = getSheepPath(imagePathIndex);
 
     // Find a random island to spawn the sheep on
     list<Island*> &islands = *(getWorld()->getIslands());
     Island *sheepIsland = 0;
-    int index = sf::Randomizer::Random(0, islands.size() - 1);
+    int index = rand() % (islands.size() - 1);
     int count = 0;
     for(list<Island*>::iterator it = islands.begin(); it != islands.end(); it++)
     {

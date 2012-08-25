@@ -70,15 +70,16 @@ class CharacterTest : public ::testing::Test
         virtual void SetUp()
         {
             // Load the test character
-            float x = 205;
-            float y = 200;
+            float x = 200;
+            float y = 209;
             float width = 10;
             float height = 20;
             float speed = 200;
 
             string characterSpritePath = "unit_test/actors/filesForTests/Character.png";
             Sprite *characterSprite = new Sprite();
-            bool loadSuccess = spriteUtil.loadSprite(characterSpritePath, characterSprite, &content);
+            Image *characterImage = 0;
+            bool loadSuccess = SpriteUtil::loadSprite(characterSpritePath, characterSprite, &characterImage, &content);
             if(!loadSuccess)
                 cout << "CharacterTest.SetUp: Could not load image: " << characterSpritePath << endl;
             character = new StaticCharacter(x, y, width, height,
@@ -93,10 +94,11 @@ class CharacterTest : public ::testing::Test
 
             string islandPath = "unit_test/actors/filesForTests/Island1.png";
             Sprite *island1Sprite = new Sprite();
-            loadSuccess = spriteUtil.loadSprite(islandPath, island1Sprite, &content);
+            Image *island1Image = 0;
+            loadSuccess = SpriteUtil::loadSprite(islandPath, island1Sprite, &island1Image, &content);
             if(!loadSuccess)
                 cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
-            island1 = new Island(x, y, width, height, island1Sprite);
+            island1 = new Island(x, y, width, height, island1Sprite, island1Image);
             islands->push_back(island1);
 
             // Load island 2
@@ -106,10 +108,11 @@ class CharacterTest : public ::testing::Test
             height = 60;
 
             Sprite *island2Sprite = new Sprite();
-            loadSuccess = spriteUtil.loadSprite(islandPath, island1Sprite, &content);
+            Image *island2Image = 0;
+            loadSuccess = SpriteUtil::loadSprite(islandPath, island2Sprite, &island2Image, &content);
             if(!loadSuccess)
                 cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
-            island2 = new Island(x, y, width, height, island2Sprite);
+            island2 = new Island(x, y, width, height, island2Sprite, island2Image);
             islands->push_back(island2);
         }
 
@@ -189,15 +192,14 @@ TEST_F(CharacterTest, jumpsAgainstGravity)
     character->steer(0.03f);
     Vector2f newPosition = character->getPosition();
 
-    EXPECT_FLOAT_EQ(oldPosition.x, newPosition.x) << "X-position should not change (vertical jump)";
-    EXPECT_NE(oldPosition.y, newPosition.y) << "Y-position should have changed.";
+    EXPECT_GT(oldPosition.y, newPosition.y) << "Y-position should have changed.";
 }
 
 TEST_F(CharacterTest, movesLeftAndRight)
 {
     character->findCurrentIsland(islands);
 
-    // Move left
+    // move left
     character->moveLeft();
     EXPECT_EQ(Left, character->getFacingDirection()) << "Sould be facing left.";
 
@@ -206,7 +208,7 @@ TEST_F(CharacterTest, movesLeftAndRight)
     Vector2f newPosition = character->getPosition();
     EXPECT_LT(newPosition.x, oldPosition.x) << "Should move left.";
 
-    // Move right
+    // move right
     character->moveRight();
     EXPECT_EQ(Right, character->getFacingDirection()) << "Sould be facing right.";
 
@@ -217,12 +219,12 @@ TEST_F(CharacterTest, movesLeftAndRight)
 
     // Repeat to check state change
 
-    // Move left
+    // move left
     character->moveLeft();
     character->moveLeft(); // Moving left twice should not toggle direction
     EXPECT_EQ(Left, character->getFacingDirection()) << "Sould be facing left.";
 
-     // Move right
+     // move right
     character->moveRight();
     character->moveRight(); // Moving right twice should not toggle direction
     EXPECT_EQ(Right, character->getFacingDirection()) << "Sould be facing right.";
@@ -233,7 +235,7 @@ TEST_F(CharacterTest, pulledWithGravity)
     character->findCurrentIsland(islands);
 
     Vector2f oldPosition = character->getPosition();
-    character->lockToIsland(0.03);
+    character->lockToIsland(0.03f);
     Vector2f newPosition = character->getPosition();
 
     EXPECT_GT(newPosition.y, oldPosition.y) << "Character should be pulled down with gravity";
@@ -247,14 +249,14 @@ TEST_F(CharacterTest, attachesToStraitLand)
     Vector2f position = character->getPosition();
 
     // At close range, the character should snap to the island's surface
-    EXPECT_EQ(205, position.x) << "X-position should be on ground";
-    EXPECT_EQ(204, position.y) << "Y-position should be on ground";
+    EXPECT_EQ(200, position.x) << "X-position should be on ground";
+    EXPECT_EQ(214, position.y) << "Y-position should be on ground";
     EXPECT_EQ(0, character->getRotation()) << "Should not be rotated";
 }
 
 TEST_F(CharacterTest, attachesToGentleAngledLand)
 {
-    // Move the island so the player lands on a hill
+    // move the island so the player lands on a hill
     island1->setPosition(230, 235);
 
     character->findCurrentIsland(islands);
@@ -270,7 +272,7 @@ TEST_F(CharacterTest, attachesToGentleAngledLand)
 
 TEST_F(CharacterTest, attachesToSteepAngledLand)
 {
-    // Move the island so the player lands on a hill
+    // move the island so the player lands on a hill
     island1->setPosition(169, 239);
 
     character->findCurrentIsland(islands);
@@ -286,7 +288,7 @@ TEST_F(CharacterTest, attachesToSteepAngledLand)
 
 TEST_F(CharacterTest, movesAboveGroundWhenUnderground)
 {
-    // Move the island so the player lands on a hill
+    // move the island so the player lands on a hill
     island1->setPosition(228, 225);
 
     character->findCurrentIsland(islands);

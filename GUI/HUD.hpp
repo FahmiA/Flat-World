@@ -96,8 +96,8 @@ class HUD : public GameObject
         Sprite *sheepIcon;
         Sprite *starIcon;
 
-        sf::String *sheepText;
-        sf::String *starText;
+        Text *sheepText;
+        Text *starText;
         Font *textFont;
 
         Vector2f *position;

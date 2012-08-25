@@ -2,6 +2,10 @@
 
 #include "util/CoordinateUtil.hpp"
 
+#include <math.h>
+
+#define SQUARE_IMAGE_PATH "unit_test/util/filesForTests/square.png"
+
 class CoordinateUtilTest : public ::testing::Test
 {
     protected:
@@ -141,7 +145,7 @@ TEST_F(CoordinateUtilTest, isInFOVReflex)
 
 TEST_F(CoordinateUtilTest, isInFOVFull)
 {
-     bool result;
+    bool result;
     int lookDistance = 586;
     float fovAngle = M_PI; // radians
 
@@ -152,4 +156,56 @@ TEST_F(CoordinateUtilTest, isInFOVFull)
     // Border
     result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(86, 345), lookDistance, fovAngle);
     EXPECT_TRUE(result) << "Target should be detected if it border of the FOV.";
+}
+
+TEST_F(CoordinateUtilTest, collideNoRotation)
+{
+    Texture texture;
+    if(!texture.loadFromFile(SQUARE_IMAGE_PATH))
+        FAIL() << "Image could not be loaded for test: " << SQUARE_IMAGE_PATH;
+    // Sprite default size is 20 * 20 pixels
+    Sprite *spriteA = new Sprite(texture);
+    spriteA->setOrigin(10, 10);
+    Sprite *spriteB = new Sprite(texture);
+    bool didCollide = true;
+
+    // Check for no collision with gap
+    spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB->setPosition(100, 100); // Width: 100 - 119, height: 100 - 119
+    didCollide = coordUtil->collide(spriteA, spriteB);
+    EXPECT_EQ(false, didCollide) << "Check for no collision with gap";
+
+    // Check for no collision without gap
+    spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB->setPosition(20, 0); // Width: 20 - 39, height: 0 - 19
+    didCollide = coordUtil->collide(spriteA, spriteB);
+    EXPECT_EQ(false, didCollide) << "Check for no collision without gap";
+
+    // Check for collission with complete overlap
+    spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB->setPosition(0, 0); // Width: 0 - 19, height: 0 - 19
+    didCollide = coordUtil->collide(spriteA, spriteB);
+    EXPECT_EQ(true, didCollide) << "Check for collission with complete overlap";
+
+    // Check for collission with partial overlap
+    spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB->setPosition(10, 10); // Width: 10 - 29, height: 10 - 29
+    didCollide = coordUtil->collide(spriteA, spriteB);
+    EXPECT_EQ(true, didCollide) << "Check for collission with partial overlap";
+
+    // Check for collission with boundary overlap
+    spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB->setPosition(19, 0); // Width: 19 - 28, height: 0 - 19
+    didCollide = coordUtil->collide(spriteA, spriteB);
+    EXPECT_EQ(true, didCollide) << "Check for collission with boundary overlap";
+
+    // Check with scale
+    spriteA->setScale(2, 2); // Width: 40, height: 40
+    spriteA->setPosition(20, 20); // Width: 0 - 39, height: 0 - 39
+    spriteB->setPosition(39, 0); // Width: 39 - 59, height: 0 - 19
+    didCollide = coordUtil->collide(spriteA, spriteB);
+    EXPECT_EQ(true, didCollide) << "Check with scale";
+
+    delete spriteA;
+    delete spriteB;
 }

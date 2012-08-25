@@ -120,30 +120,30 @@ void World::draw(RenderWindow *window)
     // Render game content with the game camera
     gameCamera->activate(window);
 
-    // Draw the backround
+    // draw the backround
     if(background != 0)
-        window->Draw(*background);
+        window->draw(*background);
 
-    // Draw the islands
+    // draw the islands
     for(list<Island*>::iterator it = islands->begin(); it != islands->end(); it++)
     {
         (*it)->draw(window);
     }
 
-    // Draw the game objects
+    // draw the game objects
     for(list<GameObject*>::iterator it = levelObjects->begin(); it != levelObjects->end(); it++)
     {
         (*it)->draw(window);
     }
 
-    // Draw the player
+    // draw the player
     if(player != 0)
         player->draw(window);
 
     // Render HUD content with the HUD camera
     hudCamera->activate(window);
 
-    // Draw the HUD
+    // draw the HUD
     if(hud != 0)
         hud->draw(window);
 }

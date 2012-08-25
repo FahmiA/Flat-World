@@ -44,6 +44,8 @@ class Character: public GameObject
         const Vector2f& getPosition();
         const Vector2f& getSize();
 
+        float getSpeed();
+
         /** Gets the rotation of the Charcter in Radians.
          * @return Character rotation.
          */
@@ -55,13 +57,13 @@ class Character: public GameObject
          */
         void landHop();
 
-        /** Moves the Character left on the next update.
-         * Movement speed is determined by the speed given in the constructor.
+        /** moves the Character left on the next update.
+         * movement speed is determined by the speed given in the constructor.
          */
         void moveLeft();
 
-        /** Moves the Character right on the next update.
-         * Movement speed is determined by the speed given in the constructor.
+        /** moves the Character right on the next update.
+         * movement speed is determined by the speed given in the constructor.
          */
         void moveRight();
 
@@ -120,11 +122,6 @@ class Character: public GameObject
          */
         CoordinateUtil& getCoordinateUtil();
 
-        /** Gets the SpriteUtil object.
-         * Used for performing various sprite-based procedures.
-         */
-        SpriteUtil& getSpriteUtil();
-
         /** Sets the distance the charcter should be from the ground.
          * @param distance Distance between the character and the ground.
          */
@@ -148,17 +145,16 @@ class Character: public GameObject
 
         // Helper-operations variables
         CoordinateUtil coordUtil;
-        SpriteUtil spriteUtil;
 
         void clampToGround(Vector2f &leftCollide, float groundAngleRad);
-        bool isAboveGround(Sprite &groundSprite);
+        bool isAboveGround(Island &ground);
 
         // Debug variables
-        Shape angleLine;
-        Shape lookLine;
+        ConvexShape angleLine;
+        ConvexShape lookLine;
 
         bool pause;
-        Shape bounds;
+        RectangleShape bounds;
 };
 
 #endif // CHARACTER_H

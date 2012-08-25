@@ -3,6 +3,8 @@
 #include <iostream>
 using namespace std;
 
+#include "util/SpriteUtil.hpp"
+
 AnimatedSprite::AnimatedSprite() : Sprite()
 {
     currentAnimation = 0;
@@ -13,9 +15,6 @@ AnimatedSprite::AnimatedSprite() : Sprite()
 AnimatedSprite::~AnimatedSprite()
 {
     animations.clear();
-
-    delete size;
-    delete center;
 }
 
 void AnimatedSprite::addAnimation(Animation *animation)
@@ -31,16 +30,9 @@ void AnimatedSprite::addAnimation(Animation *animation)
     // This is to ensure the sprite is sized correctly
     if(animations.size() == 1)
     {
-        size = new Vector2f(GetSize().x, GetSize().y);
-        center = new Vector2f(GetCenter().x, GetCenter().y);
         play(animation->name);
         stop();
     }
-}
-
-void AnimatedSprite::setTransparentColour(unsigned int tColour)
-{
-    // TODO: Implement (May need SFML v2.0)
 }
 
 void AnimatedSprite::update(Clock *clock)
@@ -51,7 +43,7 @@ void AnimatedSprite::update(Clock *clock)
     bool advanceFrame = false;
     if(clock != 0)
     {
-        timeSinceLastFrame += clock->GetElapsedTime();
+        timeSinceLastFrame += clock->getElapsedTime().asSeconds();
         if(timeSinceLastFrame > 1.0f / currentAnimation->frameRate) // seconds
             advanceFrame = true;
     }else{
@@ -70,12 +62,21 @@ void AnimatedSprite::update(Clock *clock)
         AnimationFrame &frame = *currentAnimation->frames[currentFrame];
         //float scale = min(size->x / frame.width, size->y / frame.height);
         IntRect subRect(frame.x, frame.y,
-                        frame.x + frame.width,
-                        frame.y + frame.height);
-        SetSubRect(subRect);
-        Resize(*size);
-        Sprite::SetCenter(Vector2f((center->x / size->x) * frame.width,
-                                   (center->y / size->y) * frame.height));
+                        frame.width,
+                        frame.height);
+
+        // Remember some original Sprite values
+        Vector2f size(SpriteUtil::getSize(this));
+        Vector2f origin(getOrigin());
+        FloatRect localBounds(getLocalBounds());
+
+        // Update the frame (changes Sprite values)
+        setTextureRect(subRect);
+
+        // Re-apply the original Sprite values
+        SpriteUtil::resize(this, size.x, size.y);
+        setOrigin(Vector2f((origin.x / localBounds.width) * getLocalBounds().width,
+                           (origin.y / localBounds.height) * getLocalBounds().height));
 
         // Update the frame counter
         currentFrame++;
@@ -101,6 +102,8 @@ bool AnimatedSprite::play(string animationName)
 
     // Set the subrect to the first frame of the animation.
     update(0);
+
+    return true;
 }
 
 void AnimatedSprite::pause()
@@ -119,16 +122,4 @@ void AnimatedSprite::stop()
     currentFrame = 0;
     timeSinceLastFrame = 0;
     paused = false;
-}
-
-void AnimatedSprite::SetSize(Vector2f size)
-{
-    delete this->size;
-    this->size = new Vector2f(size.x, size.y);
-}
-
-void AnimatedSprite::SetCenter(Vector2f center)
-{
-    delete this->center;
-    this->center = new Vector2f(center.x, center.y);
 }

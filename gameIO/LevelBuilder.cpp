@@ -20,33 +20,31 @@ LevelBuilder::~LevelBuilder()
 
 void LevelBuilder::getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY)
 {
-    SpriteUtil spriteUtil;
-
     // Produce a random angle if one does not exist.
     if(angleRadians == -1)
     {
-         Randomizer random;
-         angleRadians = random.Random(0, M_2_PI);
+         angleRadians = rand() % 6; // 6 is the closest int to M_2_PI
     }
 
     // Want to ray-trace beyond the border of the island
-    float raytraceDistance = max(island->getSize().x, island->getSize().y);
+    FloatRect islandBounds = island->getSprite()->getLocalBounds();
+    float raytraceDistance = max(islandBounds.width, islandBounds.height);
 
     // Get the ray-trace 'beam' coordinates
-    float toX = island->getSize().x / 2;
-    float toY = island->getSize().y / 2;
+    float toX =  islandBounds.width / 1.5f; // Quick fix for island_1 which is transparent in the center
+    float toY =  islandBounds.height / 1.5f;
     float fromX = toX + (cos(angleRadians) * raytraceDistance);
     float fromY = toY + (sin(angleRadians) * raytraceDistance);
 
-    float scaleX = island->getSprite()->GetScale().x;
-    float scaleY = island->getSprite()->GetScale().y;
+    /*float scaleX = island->getSprite()->getScale().x;
+    float scaleY = island->getSprite()->getScale().y;
     toX /= scaleX;
     toY /= scaleY;
     fromX /= scaleX;
-    fromY /= scaleY;
+    fromY /= scaleY;*/
 
     // Ray-trace
-    Vector2f *localSpawnPos = spriteUtil.rayTrace(island->getSprite(), (int)fromX, (int)fromY, (int)toX, (int)toY, true);
+    Vector2f *localSpawnPos = SpriteUtil::rayTrace(*island->getImage(), (int)fromX, (int)fromY, (int)toX, (int)toY, true);
 
     cout << "Adding object to island at angle: " << angleRadians << endl;
     if(localSpawnPos == 0)
@@ -54,11 +52,16 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
         cout << "\tPosition not set, using default" << endl;
         localSpawnPos = new Vector2f(toX, toY);
     }
+    /*float scaleX = island->getSprite()->getScale().x;
+    float scaleY = island->getSprite()->getScale().y;
+    localSpawnPos->x /= scaleX;
+    localSpawnPos->y /= scaleY;*/
     printf("\tRaytrace: (x, y): (%.3f, %0.3f) -> (%.3f, %.3f)\n", fromX, fromY, toX, toY);
     printf("\tSpawn:    (x, y): (%.3f, %0.3f)\n",  localSpawnPos->x,  localSpawnPos->y);
 
     // Update the charcter position
-    Vector2f globalSpawnPos = island->getSprite()->TransformToGlobal(*localSpawnPos);
+    Transform islandGlobalTransform = island->getSprite()->getTransform();
+    Vector2f globalSpawnPos = islandGlobalTransform.transformPoint(*localSpawnPos);
     *characterX = globalSpawnPos.x;// + characterWidth;
     *characterY = globalSpawnPos.y;// + characterHeight;
 
@@ -67,18 +70,19 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
 
 bool LevelBuilder::loadSprite(string &path, Sprite *sprite)
 {
-    return spriteUtil.loadSprite(path, sprite, content);
+    Image *image = 0;
+    return SpriteUtil::loadSprite(path, sprite, &image, content);
+}
+
+bool LevelBuilder::loadSprite(string &path, Sprite *sprite, Image **image)
+{
+    return SpriteUtil::loadSprite(path, sprite, image, content);
 }
 
 bool LevelBuilder::loadFont(string &path, Font *&font)
 {
-    return spriteUtil.loadFont(path, font, content);
+    return SpriteUtil::loadFont(path, font, content);
 }
-
-/*SpriteUtil& LevelBuilder::getSpriteUtil()
-{
-    return spriteUtil;
-}*/
 
 World* LevelBuilder::getWorld()
 {

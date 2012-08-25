@@ -30,7 +30,7 @@ void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
 
     if(pushedBackDirection != None)
     {
-        doActionPushBack(clock->GetElapsedTime());
+        doActionPushBack(clock->getElapsedTime().asSeconds());
     }else{
         doActionNormal(window);
     }
@@ -50,12 +50,11 @@ Direction Player::getPushDirection()
 
 void Player::doActionNormal(RenderWindow *window)
 {
-    const Input &input = window->GetInput();
-    if(input.IsKeyDown(Key::Left))
+    if(Keyboard::isKeyPressed(Keyboard::Left))
     {
         moveLeft();
         playAnimation(ANIMATE_RUN);
-    }else if(input.IsKeyDown(Key::Right))
+    }else if(Keyboard::isKeyPressed(Keyboard::Right))
     {
         moveRight();
         playAnimation(ANIMATE_RUN);
@@ -63,10 +62,10 @@ void Player::doActionNormal(RenderWindow *window)
         playAnimation(ANIMATE_IDLE);
     }
 
-    if(input.IsKeyDown(Key::Space))
+    if(Keyboard::isKeyPressed(Keyboard::Space))
         landHop();
 
-    if(input.IsKeyDown(Key::P))
+    if(Keyboard::isKeyPressed(Keyboard::P))
         pushBack(Left);
 }
 
@@ -86,7 +85,7 @@ void Player::doActionPushBack(float elapsedTime)
         float groundDistance = PUSH_BACK_MAX_HEIGHT * (pushBackTimeSecs / PUSH_BACK_DURATION_SECS);
         setDistanceFromGround(groundDistance);
 
-        // Move in the direction of the push
+        // move in the direction of the push
         if(pushedBackDirection == Left)
             moveLeft();
         else

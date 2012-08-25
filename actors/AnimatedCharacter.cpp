@@ -1,5 +1,8 @@
 #include "AnimatedCharacter.hpp"
 
+#include <iostream>
+using namespace std;
+
 const string AnimatedCharacter::ANIMATE_RUN = "Run";
 const string AnimatedCharacter::ANIMATE_IDLE = "Idle";
 
@@ -12,8 +15,9 @@ AnimatedCharacter::AnimatedCharacter(float x, float y,
     aniSprite = sprite;
 
     // Notify the sprite of changes in size and center
-    aniSprite->SetSize(sprite->GetSize());
-    aniSprite->SetCenter(sprite->GetCenter());
+    //aniSprite->setFrameSize(Vector2f(width, height));
+    //aniSprite->setFrameOrigin(sprite->getOrigin());
+    //aniSprite->setScale(1, 1);
 }
 
 AnimatedCharacter::~AnimatedCharacter()

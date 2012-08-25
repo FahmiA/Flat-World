@@ -1,6 +1,7 @@
 #include "HUD.hpp"
 
 #include "util/NumberUtil.hpp"
+#include "util/SpriteUtil.hpp"
 
 #include <algorithm>
 #include <sstream>
@@ -45,46 +46,40 @@ void HUD::setSize(int width, int height)
     float icon_height = icon_width;
 
     // Set the size and position of the sheep corner
-    sheepCorner->Resize(width/3, height/3);
-    int sheepCornerX = sheepCorner->GetPosition().x;
-    int sheepCornerY = sheepCorner->GetPosition().y;
-    int sheepCornerWidth = sheepCorner->GetSize().x;
-    int sheepCornerHeight = sheepCorner->GetSize().y;
-    sheepCorner->SetX(-sheepCornerWidth/4);
-    sheepCorner->SetY(-sheepCornerHeight/4);
+    SpriteUtil::resize(sheepCorner, width / 3.0f, height / 3.0f);
+    int sheepCornerX = sheepCorner->getPosition().x;
+    int sheepCornerY = sheepCorner->getPosition().y;
+    int sheepCornerWidth = SpriteUtil::getSize(sheepCorner).x;
+    int sheepCornerHeight = SpriteUtil::getSize(sheepCorner).y;
+    sheepCorner->setPosition(-sheepCornerWidth / 4, -sheepCornerHeight / 4);
 
     // Set the size and position of the sheep icon
-    float top_align = sheepCornerY + sheepCornerHeight/4.5;
-    sheepIcon->Resize(icon_width, icon_width);
-    sheepIcon->SetX(sheepCornerX + sheepCornerWidth/2.5);
-    sheepIcon->SetY(top_align);
+    float top_align = sheepCornerY + sheepCornerHeight / 4.5;
+    SpriteUtil::resize(sheepIcon, icon_width, icon_width);
+    sheepIcon->setPosition(sheepCornerX + sheepCornerWidth / 2.5, top_align);
 
     // Set the size and position of the star corner
-    starCorner->Resize(width/3, width/3);
-    int starCornerX = starCorner->GetPosition().x;
-    int starCornerY = starCorner->GetPosition().y;
-    int starCornerWidth = starCorner->GetSize().x;
-    int starCornerHeight = starCorner->GetSize().y;
-    starCorner->SetX(width - (starCornerWidth * 0.76));
-    starCorner->SetY(-starCornerHeight/2);
+    SpriteUtil::resize(starCorner, width / 3, width / 3);
+    //int starCornerX = starCorner->getPosition().x;
+    //int starCornerY = starCorner->getPosition().y;
+    int starCornerWidth = SpriteUtil::getSize(starCorner).x;
+    int starCornerHeight = SpriteUtil::getSize(starCorner).y;
+    starCorner->setPosition(width - (starCornerWidth * 0.76), -starCornerHeight / 2);
 
     // Set the size and position of the star icon
-    starIcon->Resize(icon_width, icon_width);
-    starIcon->SetX(width - (starCornerWidth * 0.27));
-    starIcon->SetY(top_align);
+    SpriteUtil::resize(starIcon, icon_width, icon_height);
+    starIcon->setPosition(width - (starCornerWidth * 0.27), top_align);
 
     // Add the text
-    sheepText = new sf::String(get_ratio_string(sheepCount, sheepTotal));
-    sheepText->SetFont(*textFont);
-    sheepText->SetColor(Color::Black);
-    sheepText->SetX(sheepCornerX + sheepCornerWidth/10);
-    sheepText->SetY(top_align + 15);
+    sheepText = new Text(get_ratio_string(sheepCount, sheepTotal));
+    sheepText->setFont(*textFont);
+    sheepText->setColor(Color::Black);
+    sheepText->setPosition(sheepCornerX + sheepCornerWidth / 10, top_align + 15);
 
-    starText = new sf::String(get_ratio_string(starCount, starTotal));
-    starText->SetFont(*textFont);
-    starText->SetColor(Color::Black);
-    starText->SetX(width - (starCornerWidth * 0.55));
-    starText->SetY(top_align + 15);
+    starText = new Text(get_ratio_string(starCount, starTotal));
+    starText->setFont(*textFont);
+    starText->setColor(Color::Black);
+    starText->setPosition(width - (starCornerWidth * 0.55), top_align + 15);
 }
 
 void HUD::addSheep(int amount)
@@ -96,7 +91,7 @@ void HUD::addSheep(int amount)
     clamp(sheepCount, 0, sheepTotal);
 
     // Update the visible text
-    sheepText->SetText(get_ratio_string(sheepCount, sheepTotal));
+    sheepText->setString(get_ratio_string(sheepCount, sheepTotal));
 }
 
 void HUD::addStars(int amount)
@@ -108,7 +103,7 @@ void HUD::addStars(int amount)
     clamp(starCount, 0, starTotal);
 
     // Update the visible text
-    starText->SetText(get_ratio_string(starCount, starTotal));
+    starText->setString(get_ratio_string(starCount, starTotal));
 }
 
 void HUD::removeSheep(int amount)
@@ -120,7 +115,7 @@ void HUD::removeSheep(int amount)
     clamp(sheepCount, 0, sheepTotal);
 
     // Update the visible text
-    sheepText->SetText(get_ratio_string(sheepCount, sheepTotal));
+    sheepText->setString(get_ratio_string(sheepCount, sheepTotal));
 }
 
 void HUD::removeStars(int amount)
@@ -132,7 +127,7 @@ void HUD::removeStars(int amount)
     clamp(starCount, 0, starTotal);
 
     // Update the visible text
-    starText->SetText(get_ratio_string(starCount, starTotal));
+    starText->setString(get_ratio_string(starCount, starTotal));
 }
 
 int HUD::getSheepTotal()
@@ -162,14 +157,14 @@ void HUD::update(Clock *clock, RenderWindow *window, World *world)
 
 void HUD::draw(RenderWindow *window)
 {
-    window->Draw(*sheepCorner);
-    window->Draw(*sheepIcon);
+    window->draw(*sheepCorner);
+    window->draw(*sheepIcon);
 
-    window->Draw(*starCorner);
-    window->Draw(*starIcon);
+    window->draw(*starCorner);
+    window->draw(*starIcon);
 
-    window->Draw(*sheepText);
-    window->Draw(*starText);
+    window->draw(*sheepText);
+    window->draw(*starText);
 }
 
 const Vector2f& HUD::getPosition()

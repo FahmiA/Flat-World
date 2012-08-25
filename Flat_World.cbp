@@ -19,9 +19,9 @@
 					<Add directory="." />
 				</Compiler>
 				<Linker>
-					<Add option="-lsfml-graphics-d" />
-					<Add option="-lsfml-window-d" />
-					<Add option="-lsfml-system-d" />
+					<Add option="-lsfml-graphics-d-2" />
+					<Add option="-lsfml-window-d-2" />
+					<Add option="-lsfml-system-d-2" />
 					<Add directory="libraries\debug\lib" />
 				</Linker>
 				<ExtraCommands>
@@ -45,9 +45,9 @@
 				</Compiler>
 				<Linker>
 					<Add option="-s" />
-					<Add option="-lsfml-graphics" />
-					<Add option="-lsfml-window" />
-					<Add option="-lsfml-system" />
+					<Add option="-lsfml-graphics-d-2" />
+					<Add option="-lsfml-window-d-2" />
+					<Add option="-lsfml-system-d-2" />
 				</Linker>
 				<ExtraCommands>
 					<Add after="cp -u libraries/release/lib/*.dll bin/Release" />
@@ -71,9 +71,9 @@
 					<Add directory="." />
 				</Compiler>
 				<Linker>
-					<Add option="-lsfml-graphics-d" />
-					<Add option="-lsfml-window-d" />
-					<Add option="-lsfml-system-d" />
+					<Add option="-lsfml-graphics-d-2" />
+					<Add option="-lsfml-window-d-2" />
+					<Add option="-lsfml-system-d-2" />
 					<Add library="libraries\unittest\lib\gtest_main.a" />
 					<Add directory="libraries\debug\lib" />
 				</Linker>
@@ -161,6 +161,8 @@
 		</Unit>
 		<Unit filename="util\AnimatedSprite.cpp" />
 		<Unit filename="util\AnimatedSprite.hpp" />
+		<Unit filename="util\Collision.cpp" />
+		<Unit filename="util\Collision.hpp" />
 		<Unit filename="util\Commons.hpp" />
 		<Unit filename="util\CoordinateUtil.cpp" />
 		<Unit filename="util\CoordinateUtil.hpp" />
