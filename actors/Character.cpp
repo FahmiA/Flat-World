@@ -9,7 +9,7 @@
 using namespace std;
 
 #define ANGLE_DIFF_THRESHOLD 0.05f
-#define MIN_GROUND_DIST 2
+#define MIN_GROUND_DIST 1
 #define MIN_ANGLE_CHANGE_D 6
 
 #define PRINT_V(vector) '(' << vector.x << ", " << vector.y << ')'
@@ -227,23 +227,20 @@ void Character::lockToIsland(float elapsedTime)
     float myCenterX = sprite->getLocalBounds().width / 2;
     float myBottomY = sprite->getLocalBounds().height;
 
-    Vector2f globalBottomLeft = spriteGlobalTransform.transformPoint(myCenterX - lookOffset, myBottomY);
-    Vector2f globalBottomMiddle = spriteGlobalTransform.transformPoint(myCenterX, myBottomY);
-    Vector2f globalBottomRight = spriteGlobalTransform.transformPoint(myCenterX + lookOffset, myBottomY);
-
-    /*cout << "sprite position: " << PRINT_V(sprite->getPosition()) << endl;
-    cout << "sprite size: " << PRINT_V(SpriteUtil::getSize(sprite)) << endl;
-    cout << "sprite angle: " << getRotation() << endl;
-    cout << "globalBottomLeft: " << PRINT_V(globalBottomLeft) << endl;
-    cout << "globalBottomMiddle: " << PRINT_V(globalBottomMiddle) << endl;
-    cout << "globalBottomRight: " << PRINT_V(globalBottomRight) << endl;*/
+    Vector2f localBottomLeft(myCenterX - lookOffset, myBottomY);
+    Vector2f localBottomMiddle(myCenterX, myBottomY);
+    Vector2f localBottomRight(myCenterX + lookOffset, myBottomY);
+    Vector2f globalBottomLeft = spriteGlobalTransform.transformPoint(localBottomLeft);
+    Vector2f globalBottomMiddle = spriteGlobalTransform.transformPoint(localBottomMiddle);
+    Vector2f globalBottomRight = spriteGlobalTransform.transformPoint(localBottomRight);
 
     // Transform global positions to local ground positions
     Vector2f groundBottomLeft = groundLocalTransform.transformPoint(globalBottomLeft);
     Vector2f groundBottomMiddle = groundLocalTransform.transformPoint(globalBottomMiddle);
     Vector2f groundBottomRight = groundLocalTransform.transformPoint(globalBottomRight);
 
-    bool aboveGround = isAboveGround(*currentGround);
+    bool aboveGround = isAboveGround(localBottomLeft, *currentGround) ||
+                       isAboveGround(localBottomRight, *currentGround);
 
      // Get the position of the ray-trace destination
     Vector2f globalTarget;
@@ -331,20 +328,18 @@ void Character::lockToIsland(float elapsedTime)
     delete groundRightCollide;
 }
 
-bool Character::isAboveGround(Island &ground)
+bool Character::isAboveGround(Vector2f spritePoint, Island &ground)
 {
     bool aboveGround = true;
 
-    float myCenterX = sprite->getLocalBounds().width / 2;
-    float myBottomY = sprite->getLocalBounds().height;
     int airDistance = MIN_GROUND_DIST; // Maximum underground level before lifting charcater above ground.
-    float myAirY = myBottomY - airDistance; // Point that should always be above ground.
+    float myAirY = spritePoint.y - airDistance; // Point that should always be above ground.
 
     Sprite *groundSprite = ground.getSprite();
     Image *groundImage = ground.getImage();
     Transform spriteGlobalTransform = sprite->getTransform();
     Transform groundLocalTransform = groundSprite->getInverseTransform();
-    Vector2f globalAirMiddle = spriteGlobalTransform.transformPoint(myCenterX, myAirY);
+    Vector2f globalAirMiddle = spriteGlobalTransform.transformPoint(spritePoint.x, myAirY);
     Vector2f groundAirMiddle = groundLocalTransform.transformPoint(globalAirMiddle);
 
     // Take the air pixel
