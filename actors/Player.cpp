@@ -53,10 +53,12 @@ void Player::doActionNormal(RenderWindow *window)
     if(Keyboard::isKeyPressed(Keyboard::Left))
     {
         moveLeft();
+        getAniSprite()->lookLeft();
         playAnimation(ANIMATE_RUN);
     }else if(Keyboard::isKeyPressed(Keyboard::Right))
     {
         moveRight();
+        getAniSprite()->lookRight();
         playAnimation(ANIMATE_RUN);
     }else{
         playAnimation(ANIMATE_IDLE);

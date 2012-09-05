@@ -15,7 +15,7 @@ Vector2f* SpriteUtil::rayTrace(const Image &image, int fromX, int fromY, int toX
 
     // Clamp positions to within the bounds of the sprite
     int spriteMaxX = (int)(image.getSize().x - 1.0f);
-    int spriteMaxY = (int)(image.getSize().x - 1.0f);
+    int spriteMaxY = (int)(image.getSize().y - 1.0f);
 
     // Declare the required variables
     Vector2f *collidePosition = 0;

@@ -14,7 +14,9 @@ using namespace std;
 
 #define PRINT_V(vector) '(' << vector.x << ", " << vector.y << ')'
 #define PRINT_R(pos, size) "(x: " << pos.x << ", y: " << pos.y << ", w: " << size.x << ", h: " << size.y << ')'
-#define PRINT_NULL(value) "value is " << ((value == 0) ? "null." : "not null.")
+#define PRINT_NULL(value) ((value == 0) ? "null" : "not null")
+#define PRINT_BOOL(value) ((value) ? "true" : "false")
+
 
 Character::Character(float x, float y, float width, float height, float speed, Sprite *sprite)
 {
@@ -218,8 +220,8 @@ void Character::lockToIsland(float elapsedTime)
     Transform spriteGlobalTransform = sprite->getTransform();
 
     // Variables to configure ground collision
-    int lookDepth = sprite->getLocalBounds().height; // Depth to ray-trace
-    int lookOffset = sprite->getLocalBounds().width/ 2; // Distance between left and right ray-traces
+    int lookDepth = 100; // Depth to ray-trace
+    int lookOffset = sprite->getLocalBounds().width / 2; // Distance between left and right ray-traces
     float clampThreshold = MIN_GROUND_DIST * 10; // Distance from ground, before character is clamped to the ground
 
     // Get the position at the bottom of the charcter
@@ -239,16 +241,17 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f groundBottomMiddle = groundLocalTransform.transformPoint(globalBottomMiddle);
     Vector2f groundBottomRight = groundLocalTransform.transformPoint(globalBottomRight);
 
-    bool aboveGround = isAboveGround(localBottomLeft, *currentGround) ||
+    bool aboveGround = isAboveGround(localBottomLeft, *currentGround) &&
                        isAboveGround(localBottomRight, *currentGround);
+    //cout << "aboveGround: " << PRINT_BOOL(aboveGround) << endl;
 
-     // Get the position of the ray-trace destination
+    // Get the position of the ray-trace destination
     Vector2f globalTarget;
     if(aboveGround) // We are above ground
     {
         globalTarget = spriteGlobalTransform.transformPoint(myCenterX, myBottomY + lookDepth);
     }else{ // We are under ground
-        globalTarget = spriteGlobalTransform.transformPoint(myCenterX, myBottomY - SpriteUtil::getSize(groundSprite).x / 2);
+        globalTarget = spriteGlobalTransform.transformPoint(myCenterX, myBottomY - SpriteUtil::getSize(groundSprite).x);
     }
     Vector2f groundTarget = groundLocalTransform.transformPoint(globalTarget);
 
@@ -265,6 +268,7 @@ void Character::lockToIsland(float elapsedTime)
     lookLine.setFillColor(Color::Blue);
     lookLine.setOutlineThickness(1);
 
+    //cout << (groundLeftCollide == 0) << " " << (groundRightCollide == 0) << endl;
     if(groundLeftCollide != 0 && groundRightCollide != 0)
     {
         inJump = false;
@@ -281,7 +285,6 @@ void Character::lockToIsland(float elapsedTime)
         angleLine.setPoint(3, globalLeftCollide);
         angleLine.setFillColor(Color::Green);
         angleLine.setOutlineThickness(1);
-
 
         /* If the character is above ground, the character should naturally fall to the ground with gravity.
          * If the charcter is underground, the charcter should instantly snap to the ground.
@@ -385,12 +388,12 @@ void Character::draw(RenderWindow *window)
 
     // draw the debug graphics
 
-    window->draw(lookLine);
+    //window->draw(lookLine);
 
     // draw the charcter.
     window->draw(*sprite);
 
-    window->draw(angleLine);
+    //window->draw(angleLine);
 }
 
 const Vector2f& Character::getPosition()

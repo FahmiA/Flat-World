@@ -10,6 +10,10 @@ AnimatedSprite::AnimatedSprite() : Sprite()
     currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
+    direction = Left;
+
+    originalScale = getScale();
+    originalPosition = getPosition();
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -40,6 +44,9 @@ void AnimatedSprite::update(Clock *clock)
     if(paused || currentAnimation == 0)
         return;
 
+    originalScale = getScale();
+    originalPosition = getPosition();
+
     bool advanceFrame = false;
     if(clock != 0)
     {
@@ -61,7 +68,7 @@ void AnimatedSprite::update(Clock *clock)
         // Display the frame
         AnimationFrame &frame = *currentAnimation->frames[currentFrame];
         //float scale = min(size->x / frame.width, size->y / frame.height);
-        IntRect subRect(frame.x, frame.y,
+        IntRect subRect(frame.x , frame.y,
                         frame.width,
                         frame.height);
 
@@ -78,11 +85,43 @@ void AnimatedSprite::update(Clock *clock)
         setOrigin(Vector2f((origin.x / localBounds.width) * getLocalBounds().width,
                            (origin.y / localBounds.height) * getLocalBounds().height));
 
+        updateDirection();
+
         // Update the frame counter
         currentFrame++;
 
         // Reset the timer
         timeSinceLastFrame = 0;
+    }
+}
+
+void AnimatedSprite::clear()
+{
+    setScale(originalScale);
+    setPosition(originalPosition);
+}
+
+void AnimatedSprite::updateDirection()
+{
+    Vector2f scale = getScale();
+
+    // Calculate the position of the flipped sprite
+    Transform globalTransform = getTransform();
+    Vector2f flippedOrigin = Vector2f(getOrigin().x + getLocalBounds().width, getOrigin().y);
+    Vector2f flippedPos = globalTransform.transformPoint(flippedOrigin);
+
+    // Fli0p the sprite if requested
+    if(direction == Left && scale.x < 0)
+    {
+        // Keep the scale positive
+        scale.x = -scale.x;
+        setScale(scale.x, scale.y);
+        setPosition(flippedOrigin);
+    }else if(direction != Left && scale.x > 0){
+        // Keep the scale negative
+        scale.x = -scale.x;
+        setScale(scale.x, scale.y);
+        setPosition(flippedPos);
     }
 }
 
@@ -122,4 +161,14 @@ void AnimatedSprite::stop()
     currentFrame = 0;
     timeSinceLastFrame = 0;
     paused = false;
+}
+
+void AnimatedSprite::lookLeft()
+{
+    //direction = Left;
+}
+
+void AnimatedSprite::lookRight()
+{
+    //direction = Right;
 }

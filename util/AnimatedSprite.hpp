@@ -8,6 +8,8 @@ using namespace sf;
 #include <vector>
 using namespace std;
 
+#include "util/Commons.hpp"
+
 struct Animation;
 struct AnimationFrame;
 
@@ -30,6 +32,11 @@ class AnimatedSprite: public Sprite
          */
         void update(Clock *clock);
 
+        /** Clears the animations of any animation-specific transformations
+         * produced by update().
+         */
+        void clear();
+
         /** Stops the current animation (if any) and starts a new aniamtion from the beginning.
          * @param animationName The name of the animation to play.
          * @return True if animationId references a set animation. False otherwise.
@@ -44,6 +51,12 @@ class AnimatedSprite: public Sprite
 
         /** Stops the current animation (if one exists). */
         void stop();
+
+        /** Faces the sprite to the right. */
+        void lookLeft();
+
+        /** Faces the sprite to the left. */
+        void lookRight();
 
         /** Set the display size of sprite frames.
          * @param size The new size.
@@ -64,6 +77,13 @@ class AnimatedSprite: public Sprite
         // Active animation state
         float timeSinceLastFrame;
         bool paused;
+        Direction direction;
+
+        Vector2f originalScale;
+        Vector2f originalPosition;
+
+        // Helper methods
+        void updateDirection();
 };
 
 struct Animation

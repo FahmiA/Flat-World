@@ -147,7 +147,7 @@ class Character: public GameObject
         CoordinateUtil coordUtil;
 
         void clampToGround(Vector2f &leftCollide, float groundAngleRad);
-        bool isAboveGround(Island &ground);
+        bool isAboveGround(Vector2f spritePoint, Island &ground);
 
         // Debug variables
         ConvexShape angleLine;
