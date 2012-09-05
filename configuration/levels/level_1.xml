@@ -92,7 +92,7 @@
 
     <unit type="player">
         <image> media/textures/farmer.xml </image>
-        <locationID> 5 </locationID>
+        <locationID> 1 </locationID>
         <angle> -2.6 </angle>
         <width> 100 </width>
         <height> 200 </height>
