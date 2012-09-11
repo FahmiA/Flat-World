@@ -56,72 +56,10 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
     return angle;
 }
 
-/*bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
-{
-    float ob1OffsetX = object1->getOrigin().x * object1->getScale().x;
-    float ob1OffsetY = object1->getOrigin().y * object1->getScale().y;
-    float ob1Width = object1->GetSize().x;
-    float ob1Height = object1->GetSize().y;
-
-    Vector2f ob1TopLeft = Vector2(object1->getPosition().x - ob1OffsetX,
-                                  object1->getPosition().y - ob1OffsetY);
-    Vector2f ob1TopRight = Vector2(ob1TopLeft.x + ob1Width,
-                                   ob1TopLeft.y);
-    Vector2f ob1BottomLeft = Vector2(ob1TopLeft.x,
-                                     ob1TopLeft.y + ob1Height);
-    Vector2f ob1BottomRight = Vector2(ob1TopLeft.x + ob1Width,
-                                      ob1TopLeft.y + ob1Height);
-
-    float ob2OffsetX = object2->getOrigin().x * object2->getScale().x;
-    float ob2OffsetY = object2->getOrigin().y * object2->getScale().y;
-    float ob2Width = object2->GetSize().x;
-    float ob2Height = object2->GetSize().y;
-
-    Vector2f ob2TopLeft = Vector2(object2->getPosition().x - ob2OffsetX,
-                                  object2->getPosition().y - ob2OffsetY);
-    Vector2f ob2TopRight = Vector2(ob2TopLeft.x + ob2Width,
-                                   ob2TopLeft.y);
-    Vector2f ob2BottomLeft = Vector2(ob2TopLeft.x,
-                                     ob2TopLeft.y + ob2Height);
-    Vector2f ob2BottomRight = Vector2(ob2TopLeft.x + ob2Width,
-                                      ob2TopLeft.y + ob2Height);
-
-    bool hasCollided;
-
-    // Check
-    hasCollided = getLineIntersect()
-}*/
-
 bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
 {
-    // http://stackoverflow.com/questions/306316/determine-if-two-rectangles-overlap-each-other
-    //TODO: Take rotation into account
-    float ob1OffsetX = object1->getOrigin().x * object1->getScale().x;
-    float ob1OffsetY = object1->getOrigin().y * object1->getScale().y;
-    int ob1Width = SpriteUtil::getSize(object1).x;
-    int ob1Height = SpriteUtil::getSize(object1).y;
-    int ob1X = object1->getPosition().x - ob1OffsetX;
-    int ob1Y = object1->getPosition().y - ob1OffsetY;
-
-    float ob2OffsetX = object2->getOrigin().x * object2->getScale().x;
-    float ob2OffsetY = object2->getOrigin().y * object2->getScale().y;
-    int ob2Width = SpriteUtil::getSize(object2).x;
-    int ob2Height = SpriteUtil::getSize(object2).y;
-    int ob2X = object2->getPosition().x - ob2OffsetX;
-    int ob2Y = object2->getPosition().y - ob2OffsetY;
-
-    bool xOverlap = valueInRange(ob1X, ob2X, ob2X + ob2Width - 1) ||
-                    valueInRange(ob2X, ob1X, ob1X + ob1Width - 1);
-    bool yOverlap = valueInRange(ob1Y, ob2Y, ob2Y + ob2Height - 1) ||
-                    valueInRange(ob2Y, ob1Y, ob1Y + ob1Height - 1);
-
-    return xOverlap && yOverlap;
-}
-
-/*bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
-{
     return Collision::BoundingBoxTest(*object1, *object2);
-}*/
+}
 
 bool CoordinateUtil::isInFOV(Character &source, Character &target, Direction direction,
                              float fovAngleR, float fovDistance)

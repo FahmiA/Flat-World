@@ -188,11 +188,11 @@ TEST_F(CoordinateUtilTest, collideNoRotation)
     didCollide = coordUtil->collide(spriteA, spriteB);
     EXPECT_EQ(false, didCollide) << "Check for no collision with gap";
 
-    // Check for no collision without gap
+    // Check for collision on touch
     spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
     spriteB->setPosition(20, 0); // Width: 20 - 39, height: 0 - 19
     didCollide = coordUtil->collide(spriteA, spriteB);
-    EXPECT_EQ(false, didCollide) << "Check for no collision without gap";
+    EXPECT_EQ(true, didCollide) << "Check for collision on touch";
 
     // Check for collission with complete overlap
     spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
@@ -221,4 +221,38 @@ TEST_F(CoordinateUtilTest, collideNoRotation)
 
     delete spriteA;
     delete spriteB;
+}
+
+TEST_F(CoordinateUtilTest, collideWithRotation)
+{
+    Texture texture;
+    if(!texture.loadFromFile(SQUARE_IMAGE_PATH))
+        FAIL() << "Image could not be loaded for test: " << SQUARE_IMAGE_PATH;
+    // Sprite default size is 20 * 20 pixels
+    Sprite spriteA(texture);
+    spriteA.setOrigin(10, 10);
+    Sprite spriteB(texture);
+    bool didCollide = true;
+
+    // Check for collision with one sprite rotated
+    spriteA.setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB.setPosition(20, 0); // Width: 20 - 39, height: 0 - 19
+    spriteB.setRotation(45);
+    didCollide = coordUtil->collide(&spriteA, &spriteB);
+    EXPECT_EQ(true, didCollide) << "Check for collision with one sprite rotated";
+
+    // Check for collision with two sprites rotated
+    spriteA.setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB.setPosition(28, 0); // Width: 27 - 36, height: 0 - 19
+    spriteA.setRotation(45);
+    spriteB.setRotation(45);
+    didCollide = coordUtil->collide(&spriteA, &spriteB);
+    EXPECT_EQ(true, didCollide) << "Check for collision with two sprites rotated";
+
+    // Check for no collision
+    spriteA.setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB.setPosition(30, 0); // Width: 30 - 49, height: 0 - 19
+    spriteB.setRotation(45);
+    didCollide = coordUtil->collide(&spriteA, &spriteB);
+    EXPECT_EQ(false, didCollide) << "Check for no collision";
 }
