@@ -24,10 +24,6 @@ Sheepdog::Sheepdog(float x, float y, float width, float height,
 
     state = new WonderState;
     timeSincePlayerSeen = -1;
-
-    fovVis = ConvexShape(3);
-    fovVis.setFillColor(Color::Green);
-    fovVis.setOutlineThickness(1);
 }
 
 Sheepdog::~Sheepdog()
@@ -52,10 +48,7 @@ void Sheepdog::subUpdate(Clock *clock, RenderWindow *window, World *world)
 void Sheepdog::draw(RenderWindow *window)
 {
     Character::draw(window);
-
-    window->draw(fovVis);
 }
-
 
 void Sheepdog::seekPlayer(float elapsedTime, Player &player)
 {
@@ -67,8 +60,6 @@ void Sheepdog::seekPlayer(float elapsedTime, Player &player)
     float currentAngle = getRotation();
 
     // Reverse the angle if looking to the left
-    //if(getFacingDirection() == Left)
-     //   currentAngle = currentAngle - M_PI;
     Transform targetGlobalTransform = player.getSprite()->getTransform();
     const Vector2f playerPosition = targetGlobalTransform.transformPoint(player.getSprite()->getOrigin());
 

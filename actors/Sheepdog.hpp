@@ -26,9 +26,6 @@ class Sheepdog: public AnimatedCharacter
         ActorState *state;
         float timeSincePlayerSeen;
 
-        // Debug variables
-        ConvexShape fovVis;
-
         /** Checks if the player is in the FOV and eacts.
          * If the Player is seen, the Sheepdog will chase the player,
          * If the player is not seen, the SHeepdog will eventually forget
