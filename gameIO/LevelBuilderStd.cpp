@@ -12,8 +12,8 @@ using namespace std;
 #define SHEEP_HEIGHT 40
 #define SHEEP_SPEED 200
 
-#define DOG_WIDTH 60
-#define DOG_HEIGHT 42
+#define DOG_WIDTH 120
+#define DOG_HEIGHT 82
 #define DOG_SPEED 300
 
 #define STAR_WIDTH 39

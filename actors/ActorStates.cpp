@@ -14,7 +14,7 @@ void WonderState::performAction(Character *character, Clock *clock)
     {
         timeSinceLastUpdate = 0;
 
-        action = (Action)(rand() % 2);
+        action = (Action)(rand() % 3);
     }
 
     // Perform the active action
@@ -34,15 +34,20 @@ void WonderState::performAction(Character *character, Clock *clock)
     }
 }
 
-ChaseState::ChaseState(GameObject *target)
+ChaseState::ChaseState(Character *target)
 {
     this->target = target;
 }
 
 void ChaseState::performAction(Character *character, Clock *clock)
 {
-    if(target->getPosition().x < character->getPosition().x)
+    // Move the character
+    if(character->getFacingDirection() == Left)
         character->moveLeft();
     else
         character->moveRight();
+
+    // Animate the character
+    Sprite *sprite = character->getSprite();
+    ((AnimatedSprite*)sprite)->play("Run");
 }

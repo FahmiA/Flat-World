@@ -17,6 +17,7 @@ class Sheepdog: public AnimatedCharacter
         virtual ~Sheepdog();
 
         void subUpdate(Clock *clock, RenderWindow *window, World *world);
+        virtual void draw(RenderWindow *window);
 
     protected:
 
@@ -24,6 +25,9 @@ class Sheepdog: public AnimatedCharacter
         LevelBuilder *levelBuilder;
         ActorState *state;
         float timeSincePlayerSeen;
+
+        // Debug variables
+        ConvexShape fovVis;
 
         /** Checks if the player is in the FOV and eacts.
          * If the Player is seen, the Sheepdog will chase the player,

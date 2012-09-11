@@ -30,7 +30,7 @@ class Character: public GameObject
 
         // Standard update and draw protocol.
         void update(Clock *clock, RenderWindow *window, World *world);
-        void draw(RenderWindow *window);
+        virtual void draw(RenderWindow *window);
 
         /** A Template Method to allow subclass-specific behaviour to take place.
          * Always invoked BEFORE the Character (base class) update logic is performed.

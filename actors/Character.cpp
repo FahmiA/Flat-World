@@ -2,6 +2,7 @@
 
 #include "util/NumberUtil.hpp"
 #include "game/ID.hpp"
+#include "util/Debug.hpp"
 
 #include<iostream>
 #include<math.h>
@@ -11,12 +12,6 @@ using namespace std;
 #define ANGLE_DIFF_THRESHOLD 0.05f
 #define MIN_GROUND_DIST 1
 #define MIN_ANGLE_CHANGE_D 6
-
-#define PRINT_V(vector) '(' << vector.x << ", " << vector.y << ')'
-#define PRINT_R(pos, size) "(x: " << pos.x << ", y: " << pos.y << ", w: " << size.x << ", h: " << size.y << ')'
-#define PRINT_NULL(value) ((value == 0) ? "null" : "not null")
-#define PRINT_BOOL(value) ((value) ? "true" : "false")
-
 
 Character::Character(float x, float y, float width, float height, float speed, Sprite *sprite)
 {

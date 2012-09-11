@@ -33,12 +33,12 @@ class ChaseState: public ActorState
         /** Creates a new ChaseState with the target to chase.
          * @param target The target to chase.
          */
-        ChaseState(GameObject *target);
+        ChaseState(Character *target);
 
         void performAction(Character *character, Clock *clock);
 
     private:
-        GameObject *target;
+        Character *target;
 };
 
 #endif // ACTORSTATES_H

@@ -1,10 +1,12 @@
 #include "CoordinateUtil.hpp"
 
+#include "actors/Character.hpp"
 #include "util/Collision.hpp"
 #include "NumberUtil.hpp"
 #include "SpriteUtil.hpp"
 
 #include <math.h>
+#include <iostream>
 using namespace std;
 
 CoordinateUtil::CoordinateUtil() {}
@@ -50,7 +52,7 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
     // Get the angle relative to the horizontal axis
     float angle = atan2(targetPos.y - sourcePos.y, targetPos.x - sourcePos.x);
     // Augment the angle based on the source's angle
-    angle += sourceAngle;
+    angle -= sourceAngle;
     return angle;
 }
 
@@ -121,20 +123,42 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
     return Collision::BoundingBoxTest(*object1, *object2);
 }*/
 
-bool CoordinateUtil::isInFOV(const Vector2f &source, float sourceAngle, const Vector2f &target,
-                             int lookDistance, float fovAngle)
+float CoordinateUtil::getDotProduct(const Vector2f &a, const Vector2f &b)
 {
-    float distance = getDistance(source, target);
+    return (a.x * b.x) + (a.y * b.y);
+}
+
+bool CoordinateUtil::isInFOV(Character &source, Character &target, Direction direction,
+                             float fovAngleR, float fovDistance)
+{
     bool insideFOV = false;
 
-    // Check that target is within 'seeing distance' of source
-    if(distance < lookDistance)
+    // Get the Sprite positions
+    Vector2f sourceCenter(source.getSize().x / 2, source.getSize().y / 2);
+    Vector2f targetCenter(target.getSize().x / 2, target.getSize().y / 2);
+
+    // Transform the target position into the source's coordinate space
+    Transform targetGlobalTransform = target.getSprite()->getTransform();
+    Transform sourceLocalTransform = source.getSprite()->getInverseTransform();
+    targetCenter = targetGlobalTransform.transformPoint(targetCenter);
+    targetCenter = sourceLocalTransform.transformPoint(targetCenter);
+
+    float distance = getDistance(sourceCenter, targetCenter);
+    if(distance < fovDistance)
     {
-        float angle = getAngle(source, sourceAngle, target);
-        if(angle <= fovAngle && angle >= -fovAngle)
+        // Check the angle between the source and the target
+        float angleR = atan2(targetCenter.y - sourceCenter.y, targetCenter.x - sourceCenter.x);
+
+        // TODO: Only works if source if facing left
+        if(direction == Left)
         {
-             insideFOV = true;
+            if(angleR > -M_PI - fovAngleR && angleR < -M_PI + fovAngleR)
+                insideFOV = true;
+        }else{ // direction == Right
+            if(angleR > -fovAngleR && angleR < fovAngleR)
+                insideFOV = true;
         }
+
     }
 
     return insideFOV;
@@ -206,11 +230,11 @@ bool CoordinateUtil::isInFOV(const Vector2f &source, float sourceAngle, const Ve
     return intersection;
 }*/
 
-/*float CoordinateUtil::getDistance(Vector2f &p1, Vector2f &p2)
+float CoordinateUtil::getDistance(Vector2f &p1, Vector2f &p2)
 {
     float dx = p2.x - p1.x;
     float dy = p2.y - p1.y;
-    float distance = (dx * dx) + (dy * dy);
+    float distance = sqrt((dx * dx) + (dy * dy));
 
     return distance;
-}*/
+}

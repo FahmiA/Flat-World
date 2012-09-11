@@ -4,6 +4,9 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+#include "util/Commons.hpp"
+class Character;
+
 /** Utility methods for working with coordinates. */
 class CoordinateUtil
 {
@@ -47,22 +50,18 @@ class CoordinateUtil
          */
         bool collide(Sprite *object1, Sprite *object2);
 
+        float getDotProduct(const Vector2f &a, const Vector2f &b);
+
         /** Checks if a target object is in the area bound by the source object's field of view (FOV).
-         * @param source Position of the source object (the "looker")
-         * @param sourceAngle Angle relative to the horizontal axis of the source object (the "looker")
-         * @param target Position of the target object (the one being looked at)
-         * @param lookDistance How far the source object can see
-         * @param fovAngle The angle of the source's FOV (in radians)
          * @return True if target isn in source's FOV. False otherwise
          */
-        bool isInFOV(const Vector2f &source, float sourceAngle, const Vector2f &target,
-                     int lookDistance, float fovAngle);
-
+        bool isInFOV(Character &source, Character &target, Direction direction,
+                             float fovAngleR, float fovDistance);
         //void clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds);
 
         //Vector2f& getLineIntersect(Vector2f &line1p1, Vector2f &line1p2, Vector2f &line2p1, Vector2f &line2p2);
 
-        //float getDistance(Vector2f &p1, Vector2f &p2);
+        float getDistance(Vector2f &p1, Vector2f &p2);
 };
 
 #endif // COORDINATE_UTIL_H

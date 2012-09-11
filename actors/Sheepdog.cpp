@@ -6,6 +6,7 @@
 #include "util/CoordinateUtil.hpp"
 #include "util/AnimatedSprite.hpp"
 #include "gameIO/LevelBuilder.hpp"
+#include "util/Debug.hpp"
 
 #include <iostream>
 #include <math.h>
@@ -23,6 +24,10 @@ Sheepdog::Sheepdog(float x, float y, float width, float height,
 
     state = new WonderState;
     timeSincePlayerSeen = -1;
+
+    fovVis = ConvexShape(3);
+    fovVis.setFillColor(Color::Green);
+    fovVis.setOutlineThickness(1);
 }
 
 Sheepdog::~Sheepdog()
@@ -44,24 +49,31 @@ void Sheepdog::subUpdate(Clock *clock, RenderWindow *window, World *world)
     state->performAction(this, clock);
 }
 
+void Sheepdog::draw(RenderWindow *window)
+{
+    Character::draw(window);
+
+    window->draw(fovVis);
+}
+
+
 void Sheepdog::seekPlayer(float elapsedTime, Player &player)
 {
     // Change to a chassing state when the player is in the field of view (FOV)
     float fovAngle = 0.5;
-    int fovDepth = 200;
-    Transform currentPosTransform = getSprite()->getTransform();
-    const Vector2f currentPosition = currentPosTransform.transformPoint(getSprite()->getOrigin());
-    float currentAngle = getSprite()->getRotation() * M_PI / 180;
+    int fovDepth = 400;
+    Transform myGlobalTransform = getSprite()->getTransform();
+    const Vector2f currentPosition = myGlobalTransform.transformPoint(getSprite()->getOrigin());
+    float currentAngle = getRotation();
 
     // Reverse the angle if looking to the left
-    if(getFacingDirection() == Left)
-        currentAngle = currentAngle - M_PI;
-    Transform playerPosTransform = player.getSprite()->getTransform();
-    const Vector2f playerPosition = playerPosTransform.transformPoint(player.getSprite()->getOrigin());
+    //if(getFacingDirection() == Left)
+     //   currentAngle = currentAngle - M_PI;
+    Transform targetGlobalTransform = player.getSprite()->getTransform();
+    const Vector2f playerPosition = targetGlobalTransform.transformPoint(player.getSprite()->getOrigin());
 
     // Check if the player is in the FOV
-    bool canSeePlayer = getCoordinateUtil().isInFOV(currentPosition, currentAngle, playerPosition,
-                                          fovDepth, fovAngle);
+    bool canSeePlayer = getCoordinateUtil().isInFOV(*this, player, getFacingDirection(), M_PI / 2.0f, 200);
 
     // If the dog has been seen recently (last seen time is not invalid), update the last seen time.
     if(timeSincePlayerSeen >= 0)

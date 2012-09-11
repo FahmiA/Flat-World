@@ -52,27 +52,40 @@ TEST_F(CoordinateUtilTest, getAngle)
     float angle;
 
     angle = coordUtil->getAngle(Vector2f(0, 0), 0, Vector2f(10, 0));
-    EXPECT_FLOAT_EQ(0, angle);
+    EXPECT_FLOAT_EQ(0,  angle);
 
     angle = coordUtil->getAngle(Vector2f(10, 10), 0, Vector2f(75, 2));
     EXPECT_NEAR(-0.122f, angle, 0.001);
 
     angle = coordUtil->getAngle(Vector2f(10, 10), 0.5, Vector2f(75, 2));
-    EXPECT_NEAR(0.378f, angle, 0.001);
+    EXPECT_NEAR(-0.622f, angle, 0.001);
 
-     angle = coordUtil->getAngle(Vector2f(10, 10), -1.2, Vector2f(75, 2));
-    EXPECT_NEAR(-1.322f, angle, 0.001);
+    angle = coordUtil->getAngle(Vector2f(10, 10), -1.2, Vector2f(75, 2));
+    EXPECT_NEAR(1.078f, angle, 0.001);
 }
 
-TEST_F(CoordinateUtilTest, isInFOVAcute)
+/*TEST_F(CoordinateUtilTest, isInFOVAcute)
 {
+    Texture texture;
+    if(!texture.loadFromFile(SQUARE_IMAGE_PATH))
+        FAIL() << "Image could not be loaded for test: " << SQUARE_IMAGE_PATH;
+    // Sprite default size is 20 * 20 pixels
+    Character source(texture);
+    source.setScale(2.0f, 2.0f);
+    source.setOrigin(10, 10);
+    Sprite target(texture);
+    target.setScale(0.5f, 0.5f);
+    source.setOrigin(10, 10);
+
+    int fovDistance = 586;
+    float fovAngleR = 0.5; // radians
     bool result;
-    int lookDistance = 586;
-    float fovAngle = 0.5; // radians
 
     // Test for inside FOV
     // Well inside FOV
-    result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(491, 297), lookDistance, fovAngle);
+    source.setPosition(336, 345);
+    target.setPosition(491, 297);
+    result = coordUtil->isInFOV(source, target, Left, fovDistance, fovAngleR);
     EXPECT_TRUE(result) << "Target should be detected if it is within the FOV.";
     // Upper corner
     result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(556, 226), lookDistance, fovAngle);
@@ -156,7 +169,7 @@ TEST_F(CoordinateUtilTest, isInFOVFull)
     // Border
     result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(86, 345), lookDistance, fovAngle);
     EXPECT_TRUE(result) << "Target should be detected if it border of the FOV.";
-}
+}*/
 
 TEST_F(CoordinateUtilTest, collideNoRotation)
 {

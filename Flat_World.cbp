@@ -166,6 +166,7 @@
 		<Unit filename="util\Commons.hpp" />
 		<Unit filename="util\CoordinateUtil.cpp" />
 		<Unit filename="util\CoordinateUtil.hpp" />
+		<Unit filename="util\Debug.hpp" />
 		<Unit filename="util\NumberUtil.cpp" />
 		<Unit filename="util\NumberUtil.hpp" />
 		<Unit filename="util\SpriteUtil.cpp" />
