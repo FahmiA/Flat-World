@@ -53,8 +53,8 @@ void Sheepdog::draw(RenderWindow *window)
 void Sheepdog::seekPlayer(float elapsedTime, Player &player)
 {
     // Change to a chassing state when the player is in the field of view (FOV)
-    float fovAngle = 0.5;
-    int fovDepth = 400;
+    float fovAngleR = M_PI / 2.0;
+    float fovDistance = 200.0f;
     Transform myGlobalTransform = getSprite()->getTransform();
     const Vector2f currentPosition = myGlobalTransform.transformPoint(getSprite()->getOrigin());
     float currentAngle = getRotation();
@@ -64,7 +64,7 @@ void Sheepdog::seekPlayer(float elapsedTime, Player &player)
     const Vector2f playerPosition = targetGlobalTransform.transformPoint(player.getSprite()->getOrigin());
 
     // Check if the player is in the FOV
-    bool canSeePlayer = getCoordinateUtil().isInFOV(*this, player, getFacingDirection(), M_PI / 2.0f, 200);
+    bool canSeePlayer = getCoordinateUtil().isInFOV(*this, player, getFacingDirection(), fovAngleR, fovDistance);
 
     // If the dog has been seen recently (last seen time is not invalid), update the last seen time.
     if(timeSincePlayerSeen >= 0)

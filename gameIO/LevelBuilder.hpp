@@ -62,9 +62,8 @@ class LevelBuilder
 
          /** Adds a completely random sheep to the world.
           * Picks a random style and a random spawn location.
-          * @return True if a random sheep was successfully added to the world. False otherwise.
           */
-        virtual bool addRandomSheep() = 0;
+        virtual void addRandomSheep() = 0;
 
          /** Adds a new Sheepdog unit to the world,
           * @param sheepdogDesc A description of the sheepdog to add.

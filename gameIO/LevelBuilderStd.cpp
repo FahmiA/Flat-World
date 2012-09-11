@@ -121,12 +121,12 @@ bool LevelBuilderStd::addSheep(UnitDescription *sheepDesc, Island *island)
     return addSuccess;
 }
 
-bool LevelBuilderStd::addRandomSheep()
+void LevelBuilderStd::addRandomSheep()
 {
     // Create the sheep description
     UnitDescription sheepDesc;
     sheepDesc.type = "sheep";
-    int imagePathIndex = rand() % (getSheepPathCount() - 1);
+    int imagePathIndex = (int)(rand() * getSheepPathCount());
     sheepDesc.imagePath = getSheepPath(imagePathIndex);
 
     // Find a random island to spawn the sheep on

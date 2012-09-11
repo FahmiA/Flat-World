@@ -23,7 +23,7 @@ class LevelBuilderStd : public LevelBuilder
         bool addIsland(IslandDescription *islandDesc);
         bool setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc);
         bool addSheep(UnitDescription *sheepDesc, Island *island);
-        bool addRandomSheep();
+        void addRandomSheep();
         bool addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc);
         bool addStar(PickupDescription *pickupDesc, IslandDescription *islandDesc,
                      float angle);
