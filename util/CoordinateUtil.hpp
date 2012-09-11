@@ -50,8 +50,6 @@ class CoordinateUtil
          */
         bool collide(Sprite *object1, Sprite *object2);
 
-        float getDotProduct(const Vector2f &a, const Vector2f &b);
-
         /** Checks if a target object is in the area bound by the source object's field of view (FOV).
          * @return True if target isn in source's FOV. False otherwise
          */
@@ -60,8 +58,6 @@ class CoordinateUtil
         //void clampCoordinates(Vector2f &origin, Vector2f &target, Sprite *bounds);
 
         //Vector2f& getLineIntersect(Vector2f &line1p1, Vector2f &line1p2, Vector2f &line2p1, Vector2f &line2p2);
-
-        float getDistance(Vector2f &p1, Vector2f &p2);
 };
 
 #endif // COORDINATE_UTIL_H

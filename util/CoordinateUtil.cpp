@@ -123,16 +123,9 @@ bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
     return Collision::BoundingBoxTest(*object1, *object2);
 }*/
 
-float CoordinateUtil::getDotProduct(const Vector2f &a, const Vector2f &b)
-{
-    return (a.x * b.x) + (a.y * b.y);
-}
-
 bool CoordinateUtil::isInFOV(Character &source, Character &target, Direction direction,
                              float fovAngleR, float fovDistance)
 {
-    bool insideFOV = false;
-
     // Get the Sprite positions
     Vector2f sourceCenter(source.getSize().x / 2, source.getSize().y / 2);
     Vector2f targetCenter(target.getSize().x / 2, target.getSize().y / 2);
@@ -143,6 +136,8 @@ bool CoordinateUtil::isInFOV(Character &source, Character &target, Direction dir
     targetCenter = targetGlobalTransform.transformPoint(targetCenter);
     targetCenter = sourceLocalTransform.transformPoint(targetCenter);
 
+    // Perform the FOV check
+    bool insideFOV = false;
     float distance = getDistance(sourceCenter, targetCenter);
     if(distance < fovDistance)
     {
@@ -229,12 +224,3 @@ bool CoordinateUtil::isInFOV(Character &source, Character &target, Direction dir
     Vector2f *intersection = new Vector2f(intersect1, intersect2);
     return intersection;
 }*/
-
-float CoordinateUtil::getDistance(Vector2f &p1, Vector2f &p2)
-{
-    float dx = p2.x - p1.x;
-    float dy = p2.y - p1.y;
-    float distance = sqrt((dx * dx) + (dy * dy));
-
-    return distance;
-}
