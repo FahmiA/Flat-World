@@ -5,15 +5,22 @@ using namespace std;
 
 #include "util/SpriteUtil.hpp"
 
-AnimatedSprite::AnimatedSprite() : Sprite()
+AnimatedSprite::AnimatedSprite(const Image &image)
 {
+    // Display
+    Texture texture;
+    texture.loadFromImage(image);
+    sprite.setTexture(texture);
+
+    this->image = image;
+    originalScale = sprite.getScale();
+    originalPosition = sprite,getPosition();
+
+    // State
     currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
     direction = Left;
-
-    originalScale = getScale();
-    originalPosition = getPosition();
 }
 
 AnimatedSprite::~AnimatedSprite()
@@ -171,4 +178,56 @@ void AnimatedSprite::lookLeft()
 void AnimatedSprite::lookRight()
 {
     //direction = Right;
+}
+
+Vector2f AnimatedSprite::getPosition()
+{
+    return sprite.getPosition();
+}
+
+void AnimatedSprite::setPosition(float x, float y)
+{
+    sprite.setPosition(x, y);
+}
+
+Vector2f AnimatedSprite::getSize()
+{
+    IntRect textureSize = sprite->getTextureRect();
+    Vector2f scale = sprite->getScale();
+
+    Vector2f size(textureSize.width * scale.x, textureSize.height * scale.y);
+    return size;
+}
+
+bool AnimatedSprite::collide(AnimatedSprite &other)
+{
+    // TODO: Implement AnimatedSprite.collide()
+    return false;
+}
+
+Vector2f AnimatedSprite::toGlobal(const Vector2f &point)
+{
+    Transform globalTransform = sprite.getTransform();
+    return globalTransform.transformPoint(point);
+}
+
+Vector2f AnimatedSprite::toLocal(const Vector2f &point)
+{
+    Transform localTransform = sprite.getInverseTransform();
+    return localTransform.transformPoint(point);
+}
+
+Image* AnimatedSprite::getImage()
+{
+    return image;
+}
+
+void AnimatedSprite::setSize(float x, float y)
+{
+    FloatRect originalSize = sprite.getLocalBounds();
+    float originalWidth = originalSize.width;
+    float originalHeight = originalSize.height;
+
+    if ((originalWidth > 0) && (originalHeight > 0))
+        sprite.setScale(width / originalWidth, height / originalHeight);
 }

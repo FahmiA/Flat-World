@@ -3,8 +3,7 @@
 
 #include "game/World.hpp"
 
-#include <SFML/Graphics.hpp>
-using namespace sf;
+#include "util/AnimatedSprite.hpp"
 
 /** The Heads-Up-Display (HUD).
   * An overlay on top of the game that displays, to the user, information
@@ -24,8 +23,8 @@ class HUD : public GameObject
          * @param starTotal The total number of stars in the current level.
          * @param textFont The font to use to display textual information.
          */
-        HUD(Sprite *sheepCorner, Sprite *starCorner,
-            Sprite *sheepIcon, Sprite *starIcon,
+        HUD(AnimatedSprite *sheepCorner, AnimatedSprite *starCorner,
+            AnimatedSprite *sheepIcon, AnimatedSprite *starIcon,
             int sheepTotal, int starTotal,
             Font *textFont);
         virtual ~HUD();
@@ -91,10 +90,10 @@ class HUD : public GameObject
         int starTotal;
         int starCount;
 
-        Sprite *sheepCorner;
-        Sprite *starCorner;
-        Sprite *sheepIcon;
-        Sprite *starIcon;
+        AnimatedSprite *sheepCorner;
+        AnimatedSprite *starCorner;
+        AnimatedSprite *sheepIcon;
+        AnimatedSprite *starIcon;
 
         Text *sheepText;
         Text *starText;

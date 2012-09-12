@@ -18,11 +18,11 @@ struct AnimationFrame;
  *    - Play, pause, and stop current animation.
  *    - Set predefined animation actions (eg: "Run" animation).
 */
-class AnimatedSprite: public Sprite
+class AnimatedSprite
 {
     public:
         /** Creates a new AnimatedSprite. */
-        AnimatedSprite();
+        AnimatedSprite(const Image &image);
         virtual ~AnimatedSprite();
 
         void addAnimation(Animation *animation);
@@ -58,15 +58,21 @@ class AnimatedSprite: public Sprite
         /** Faces the sprite to the left. */
         void lookRight();
 
-        /** Set the display size of sprite frames.
-         * @param size The new size.
-         */
-        void setFrameSize(Vector2f size);
+        Vector2f getPosition();
 
-        /** Set the origin of sprite frames.
-         *@param center The new center.
-         */
-        void setFrameOrigin(Vector2f center);
+        void setPosition(float x, float y);
+
+        Vector2f getSize();
+
+        bool collide(AnimatedSprite &other);
+
+        Vector2f toGlobal(const Vector2f &point);
+
+        Vector2f toLocal(const Vector2f &point);
+
+        Image* getImage();
+
+        void setSize(float x, float y);
 
     private:
         // Animation storage
@@ -81,6 +87,10 @@ class AnimatedSprite: public Sprite
 
         Vector2f originalScale;
         Vector2f originalPosition;
+
+        // Underlying Sprite and image
+        Sprite sprite;
+        Image image;
 
         // Helper methods
         void updateDirection();

@@ -20,10 +20,12 @@ class AnimatedSpriteLoader
           */
         AnimatedSpriteLoader(ContentManager *content);
 
-        /** Loadsa a sprite.
+        /** Loads a sprite.
           * @path Path to XML file.
           */
-        AnimatedSprite* loadFromXML(string &path);
+        AnimatedSprite* loadAnimated(string xmlPath);
+
+        AnimatedSprite* loadStatic(string imagePath);
 
     private:
         ContentManager *content;

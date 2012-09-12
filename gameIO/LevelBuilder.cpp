@@ -68,17 +68,6 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     delete localSpawnPos;
 }
 
-bool LevelBuilder::loadSprite(string &path, Sprite *sprite)
-{
-    Image *image = 0;
-    return SpriteUtil::loadSprite(path, sprite, &image, content);
-}
-
-bool LevelBuilder::loadSprite(string &path, Sprite *sprite, Image **image)
-{
-    return SpriteUtil::loadSprite(path, sprite, image, content);
-}
-
 bool LevelBuilder::loadFont(string &path, Font *&font)
 {
     return SpriteUtil::loadFont(path, font, content);

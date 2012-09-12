@@ -7,8 +7,8 @@
 #include <sstream>
 using namespace std;
 
-HUD::HUD(Sprite *sheepCorner, Sprite *starCorner,
-            Sprite *sheepIcon, Sprite *starIcon,
+HUD::HUD(AnimatedSprite *sheepCorner, AnimatedSprite *starCorner,
+            AnimatedSprite *sheepIcon, AnimatedSprite *starIcon,
             int sheepTotal, int starTotal,
             Font *textFont)
 {
@@ -46,11 +46,11 @@ void HUD::setSize(int width, int height)
     float icon_height = icon_width;
 
     // Set the size and position of the sheep corner
-    SpriteUtil::resize(sheepCorner, width / 3.0f, height / 3.0f);
+    sheepCorner->setSize(width / 3.0f, height / 3.0f);
     int sheepCornerX = sheepCorner->getPosition().x;
     int sheepCornerY = sheepCorner->getPosition().y;
-    int sheepCornerWidth = SpriteUtil::getSize(sheepCorner).x;
-    int sheepCornerHeight = SpriteUtil::getSize(sheepCorner).y;
+    int sheepCornerWidth = sheepCorner->getSize().x;
+    int sheepCornerHeight = sheepCorner->getSize().y;
     sheepCorner->setPosition(-sheepCornerWidth / 4, -sheepCornerHeight / 4);
 
     // Set the size and position of the sheep icon

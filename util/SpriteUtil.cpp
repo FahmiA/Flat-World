@@ -70,7 +70,7 @@ Vector2f* SpriteUtil::rayTrace(const Image &image, int fromX, int fromY, int toX
     return collidePosition;
 }
 
-void SpriteUtil::resize(Sprite *sprite, float width, float height)
+/*void SpriteUtil::resize(Sprite *sprite, float width, float height)
 {
     FloatRect originalSize = sprite->getLocalBounds();
     float originalWidth = originalSize.width;
@@ -87,19 +87,6 @@ Vector2f& SpriteUtil::getSize(Sprite *sprite)
 
     Vector2f *size = new Vector2f(textureSize.width * scale.x, textureSize.height * scale.y);
     return *size;
-}
-
-bool SpriteUtil::loadSprite(string &path, Sprite *sprite, Image **image, ContentManager *content)
-{
-    *image = content->loadImage(path);
-    if(image == 0)
-        return false;
-
-    Texture *texture = new Texture();
-    texture->loadFromImage(**image);
-    sprite->setTexture(*texture);
-
-    return true;
 }
 
 bool SpriteUtil::loadSprite(string &path, Sprite *sprite, Image **image, unsigned int tColour, ContentManager *content)
@@ -119,7 +106,7 @@ bool SpriteUtil::loadSprite(string &path, Sprite *sprite, Image **image, unsigne
     sprite->setTexture(*texture);
 
     return true;
-}
+}*/
 
 bool SpriteUtil::loadFont(string &path, Font *&font, ContentManager *content)
 {
