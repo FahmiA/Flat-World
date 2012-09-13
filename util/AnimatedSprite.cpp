@@ -4,6 +4,7 @@
 using namespace std;
 
 #include "util/SpriteUtil.hpp"
+#include :util/Numberutil.hpp"
 
 AnimatedSprite::AnimatedSprite(const Image &image)
 {
@@ -102,6 +103,11 @@ void AnimatedSprite::update(Clock *clock)
     }
 }
 
+void AnimatedSprite::draw(RenderWindow *window)
+{
+    window->draw(sprite);
+}
+
 void AnimatedSprite::clear()
 {
     setScale(originalScale);
@@ -190,6 +196,12 @@ void AnimatedSprite::setPosition(float x, float y)
     sprite.setPosition(x, y);
 }
 
+void AnimatedSprite::setOrigin(float x, float y)
+{
+    FloatRect bounds = sprite.getLocalBounds();
+    sprite.setOrigin(bounds.width * x, bounds.height * y);
+}
+
 Vector2f AnimatedSprite::getSize()
 {
     IntRect textureSize = sprite->getTextureRect();
@@ -230,4 +242,19 @@ void AnimatedSprite::setSize(float x, float y)
 
     if ((originalWidth > 0) && (originalHeight > 0))
         sprite.setScale(width / originalWidth, height / originalHeight);
+}
+
+void AnimatedSprite::setRotation(float angleR)
+{
+    sprite.setRotation(AS_DEG(angleR));
+}
+
+float AnimatedSprite::getRotation()
+{
+    return AS_RAD(sprite.getRotation);
+}
+
+void AnimatedSprite::move(float x, float y)
+{
+    sprite.move(x, y);
 }

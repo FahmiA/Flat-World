@@ -3,14 +3,13 @@
 #include "game/ID.hpp"
 #include "util/SpriteUtil.hpp"
 
-Island::Island(float x, float y, float width, float height, Sprite *sprite, Image *image)
+Island::Island(float x, float y, float width, float height, AnimatedSprite *sprite)
 {
-    SpriteUtil::resize(sprite, width, height);
-    sprite->setOrigin(sprite->getLocalBounds().width / 2, sprite->getLocalBounds().height / 2);
+    sprite->setSize(width, height);
+    sprite->setOrigin(0.5f, 0.5f);
     sprite->setPosition(x, y);
 
     this->sprite = sprite;
-    this->image = image;
 
     setID(ID_ISLAND);
 }
@@ -27,7 +26,7 @@ Sprite* Island::getSprite()
 
 Image* Island::getImage()
 {
-    return image;
+    return sprite->getImage();
 }
 
 void Island::update(Clock *clock, RenderWindow *window, World *world)

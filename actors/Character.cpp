@@ -13,13 +13,12 @@ using namespace std;
 #define MIN_GROUND_DIST 1
 #define MIN_ANGLE_CHANGE_D 6
 
-Character::Character(float x, float y, float width, float height, float speed, Sprite *sprite)
+Character::Character(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
 {
     this->speed = speed;
 
-    //sprite->setOrigin(0, sprite->GetSize().y); // Bottom-left
-    SpriteUtil::resize(sprite, width, height);
-    sprite->setOrigin(0, sprite->getLocalBounds().height); // Bottom-left
+    sprite->setSize(width, height);
+    sprite->setOrigin(0.0f, 1.0f); // Bottom-left
     sprite->setPosition(x, y);
 
     this->sprite = sprite;
@@ -93,8 +92,7 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
     // Un-comment the line below to pause the game on the first frame
     //return;
 
-    bounds = RectangleShape(Vector2f(sprite->getPosition().y - SpriteUtil::getSize(sprite).y,
-                            sprite->getPosition().x + SpriteUtil::getSize(sprite).x));
+    bounds = RectangleShape(sprite->getSize());
     bounds.setPosition(sprite->getPosition());
     bounds.setFillColor(Color::White);
     bounds.setOutlineThickness(2);
@@ -138,7 +136,7 @@ void Character::findCurrentIsland(list<Island*>* islands)
                 /*cout << "Comparing:" << endl;
                 cout << '\t' << PRINT_R(sprite->getPosition(), SpriteUtil::getSize(sprite)) << endl;
                 cout << '\t' << PRINT_R(island->getSprite()->getPosition(), SpriteUtil::getSize(island->getSprite())) << endl;*/
-                if(coordUtil.collide(sprite, island->getSprite()))
+                if(sprite->collide(*island->getSprite()))
                 {
                     // Mark the new ground as the current ground
                     if(currentGround != 0) // Only set the previous ground if a current ground exists
@@ -149,8 +147,7 @@ void Character::findCurrentIsland(list<Island*>* islands)
                     //float angleRad = atan2(currentGround->getPosition().y - sprite->getPosition().y,
                     //                    currentGround->getPosition().x - sprite->getPosition().x);
                     float angleRad = coordUtil.getAngle(sprite->getPosition(), 0, currentGround->getPosition());
-                    float angleDeg = AS_DEG(angleRad); // Convert the angle from radians to degrees
-                    sprite->setRotation(angleDeg - 90); // Rotate to the correct angle
+                    sprite->setRotation(angleRad - M_PI / 2.0f); // Rotate to the correct angle
 
                     cout << "found new ground" << endl;
                     //pause = true;
@@ -165,8 +162,8 @@ void Character::findCurrentIsland(list<Island*>* islands)
 void Character::steer(float elapsedTime)
 {
      // Get the x and y movement velocity
-    float velocityX = cos(sprite->getRotation() * M_PI / 180) * (speed * elapsedTime);
-    float velocityY = sin(sprite->getRotation() * M_PI / 180) * (speed * elapsedTime);
+    float velocityX = cos(sprite->getRotation()) * speed * elapsedTime;
+    float velocityY = sin(sprite->getRotation()) * speed * elapsedTime;
 
     // Respond to user input events
     if(doMoveRight) // move right
@@ -208,7 +205,8 @@ void Character::lockToIsland(float elapsedTime)
         return;
 
     // Get the Sprite of the ground the charcter is on
-    Sprite *groundSprite = currentGround->getSprite();
+    AnimatedSprite &groundSprite = *currentGround->getSprite();
+    AnimatedSprite &mySprite = *sprite;
     Image *groundImage = currentGround->getImage();
     Transform groundLocalTransform = groundSprite->getInverseTransform();
     Transform groundGlobalTransform = groundSprite->getTransform();

@@ -32,6 +32,11 @@ class AnimatedSprite
          */
         void update(Clock *clock);
 
+        /** Renders the Sprite.
+         * @param window The window to update to.
+         */
+        void draw(RenderWindow *window);
+
         /** Clears the animations of any animation-specific transformations
          * produced by update().
          */
@@ -62,17 +67,21 @@ class AnimatedSprite
 
         void setPosition(float x, float y);
 
+        /** Sets the origin of the Sprite,
+         * @param x Percentage of width (0.0 - 1.0).
+         * @param y Percentage of height (0.0 - 1.0).
+         */
+        void setOrigin(float x, float y);
+
         Vector2f getSize();
-
         bool collide(AnimatedSprite &other);
-
         Vector2f toGlobal(const Vector2f &point);
-
         Vector2f toLocal(const Vector2f &point);
-
         Image* getImage();
-
         void setSize(float x, float y);
+        void setRotation(float angleR);
+        float getRotation();
+        void move(float x, float y);
 
     private:
         // Animation storage
