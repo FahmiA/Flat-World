@@ -208,9 +208,6 @@ void Character::lockToIsland(float elapsedTime)
     AnimatedSprite &groundSprite = *currentGround->getSprite();
     AnimatedSprite &mySprite = *sprite;
     Image *groundImage = currentGround->getImage();
-    Transform groundLocalTransform = groundSprite->getInverseTransform();
-    Transform groundGlobalTransform = groundSprite->getTransform();
-    Transform spriteGlobalTransform = sprite->getTransform();
 
     // Variables to configure ground collision
     int lookDepth = 100; // Depth to ray-trace
@@ -225,14 +222,14 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f localBottomLeft(myCenterX - lookOffset, myBottomY);
     Vector2f localBottomMiddle(myCenterX, myBottomY);
     Vector2f localBottomRight(myCenterX + lookOffset, myBottomY);
-    Vector2f globalBottomLeft = spriteGlobalTransform.transformPoint(localBottomLeft);
-    Vector2f globalBottomMiddle = spriteGlobalTransform.transformPoint(localBottomMiddle);
-    Vector2f globalBottomRight = spriteGlobalTransform.transformPoint(localBottomRight);
+    Vector2f globalBottomLeft = mySprite.toGlobal(localBottomLeft);
+    Vector2f globalBottomMiddle = mySprite.toGlobal(localBottomMiddle);
+    Vector2f globalBottomRight = mySprite.toGlobal(localBottomRight);
 
     // Transform global positions to local ground positions
-    Vector2f groundBottomLeft = groundLocalTransform.transformPoint(globalBottomLeft);
-    Vector2f groundBottomMiddle = groundLocalTransform.transformPoint(globalBottomMiddle);
-    Vector2f groundBottomRight = groundLocalTransform.transformPoint(globalBottomRight);
+    Vector2f groundBottomLeft = groundSprite.toLocal(globalBottomLeft);
+    Vector2f groundBottomMiddle = groundSprite.toLocal(globalBottomMiddle);
+    Vector2f groundBottomRight = groundSprite.toLocal(globalBottomRight);
 
     bool aboveGround = isAboveGround(localBottomLeft, *currentGround) &&
                        isAboveGround(localBottomRight, *currentGround);
@@ -242,11 +239,11 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f globalTarget;
     if(aboveGround) // We are above ground
     {
-        globalTarget = spriteGlobalTransform.transformPoint(myCenterX, myBottomY + lookDepth);
+        globalTarget = mySprite.toGlobal(Vector2f(myCenterX, myBottomY + lookDepth));
     }else{ // We are under ground
-        globalTarget = spriteGlobalTransform.transformPoint(myCenterX, myBottomY - SpriteUtil::getSize(groundSprite).x);
+        globalTarget = mySprite.toGlobal(Vector2f(myCenterX, myBottomY - groundSprite.getSize().x));
     }
-    Vector2f groundTarget = groundLocalTransform.transformPoint(globalTarget);
+    Vector2f groundTarget = groundSprite.toLocal(globalTarget);
 
     // Ray-trace to get position of land below character
     //TODO: Maybe I need to rescale the output of raytrace back to the ground sprite's scale.
@@ -269,8 +266,8 @@ void Character::lockToIsland(float elapsedTime)
         float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
 
         // draw debug graphics
-        Vector2f globalLeftCollide = groundGlobalTransform.transformPoint(*groundLeftCollide);
-        Vector2f globalRightCollide = groundGlobalTransform.transformPoint(*groundRightCollide);
+        Vector2f globalLeftCollide = groundSprite.toGlobal(*groundLeftCollide);
+        Vector2f globalRightCollide = groundSprite.toGlobal(*groundRightCollide);
         angleLine = ConvexShape(4);
         angleLine.setPoint(0, globalBottomLeft);
         angleLine.setPoint(1, globalBottomRight);
@@ -331,12 +328,10 @@ bool Character::isAboveGround(Vector2f spritePoint, Island &ground)
     int airDistance = MIN_GROUND_DIST; // Maximum underground level before lifting charcater above ground.
     float myAirY = spritePoint.y - airDistance; // Point that should always be above ground.
 
-    Sprite *groundSprite = ground.getSprite();
+    AnimatedSprite *groundSprite = ground.getSprite();
     Image *groundImage = ground.getImage();
-    Transform spriteGlobalTransform = sprite->getTransform();
-    Transform groundLocalTransform = groundSprite->getInverseTransform();
-    Vector2f globalAirMiddle = spriteGlobalTransform.transformPoint(spritePoint.x, myAirY);
-    Vector2f groundAirMiddle = groundLocalTransform.transformPoint(globalAirMiddle);
+    Vector2f globalAirMiddle = sprite->toGlobal(Vector2f(spritePoint.x, myAirY));
+    Vector2f groundAirMiddle = groundSprite->toLocal(globalAirMiddle);
 
     // Take the air pixel
     int airPixelAlpha = 0;
@@ -362,7 +357,7 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
     Vector2f newPos = Vector2f(leftCollide);
     float deltaDist = coordUtil.getDistance(newPos, sprite->getPosition());
     if(deltaDist > MIN_ANGLE_CHANGE_D)
-        sprite->setPosition(newPos);
+        sprite->setPosition(newPos.x, newPos.y);
 }
 
 CoordinateUtil& Character::getCoordinateUtil()
@@ -384,7 +379,7 @@ void Character::draw(RenderWindow *window)
     //window->draw(lookLine);
 
     // draw the charcter.
-    window->draw(*sprite);
+    sprite->draw(window);
 
     //window->draw(angleLine);
 }
@@ -396,7 +391,7 @@ const Vector2f& Character::getPosition()
 
 const Vector2f& Character::getSize()
 {
-    return SpriteUtil::getSize(sprite);
+    return sprite->getSize();
 }
 
 float Character::getSpeed()
@@ -409,7 +404,7 @@ float Character::getRotation()
     return AS_RAD(sprite->getRotation());
 }
 
-Sprite* Character::getSprite()
+AnimatedSprite* Character::getSprite()
 {
     return sprite;
 }

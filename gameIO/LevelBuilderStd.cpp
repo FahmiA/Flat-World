@@ -72,7 +72,7 @@ bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    AnimatedSprite *sprite = aniLoader->loadFromXML(playerDesc->imagePath);
+    AnimatedSprite *sprite = aniLoader->loadAnimated(playerDesc->imagePath);
 
     if(sprite == 0)
     {
@@ -96,7 +96,7 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
 bool LevelBuilderStd::addSheep(UnitDescription *sheepDesc, Island *island)
 {
     bool addSuccess = false;
-    AnimatedSprite *sprite = aniLoader->loadFromXML(sheepDesc->imagePath);
+    AnimatedSprite *sprite = aniLoader->loadAnimated(sheepDesc->imagePath);
 
     if(sprite == 0)
     {
@@ -148,7 +148,7 @@ void LevelBuilderStd::addRandomSheep()
 bool LevelBuilderStd::addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    AnimatedSprite *sprite = aniLoader->loadFromXML(sheepdogDesc->imagePath);
+    AnimatedSprite *sprite = aniLoader->loadAnimated(sheepdogDesc->imagePath);
 
     if(sprite == 0)
     {
@@ -174,7 +174,7 @@ bool LevelBuilderStd::addStar(PickupDescription *pickupDesc, IslandDescription *
 {
     cout << pickupDesc->imagePath <<  endl;
     bool addSuccess = false;
-    Sprite *sprite = aniLoader->loadStatic(pickupDesc->imagePath);
+    AnimatedSprite *sprite = aniLoader->loadStatic(pickupDesc->imagePath);
 
     if(sprite == 0)
     {
@@ -201,10 +201,10 @@ bool LevelBuilderStd::setHUD(string &sheepCornerPath, string &starCornerPath,
                              string &fontPath)
 {
     bool success = false;
-    Sprite *sheepCorner = aniLoader->loadStatic(sheepCornerPath);
-    Sprite *starCorner = aniLoader->loadStatic(starCornerPath);
-    Sprite *sheepIcon = aniLoader->loadStatic(sheepIconPath);
-    Sprite *starIcon = aniLoader->loadStatic(starIconPath);
+    AnimatedSprite *sheepCorner = aniLoader->loadStatic(sheepCornerPath);
+    AnimatedSprite *starCorner = aniLoader->loadStatic(starCornerPath);
+    AnimatedSprite *sheepIcon = aniLoader->loadStatic(sheepIconPath);
+    AnimatedSprite *starIcon = aniLoader->loadStatic(starIconPath);
     Font *textFont = 0;
 
     if(sheepCorner != 0 && starCorner != 0 &&

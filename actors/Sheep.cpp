@@ -6,7 +6,7 @@
 using namespace std;
 
 Sheep::Sheep(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
-    : AnimatedCharacter(x, y, width, height, speed, sprite)
+    : Character(x, y, width, height, speed, sprite)
 {
     setID(ID_SHEEP);
 
@@ -20,6 +20,5 @@ Sheep::~Sheep()
 
 void Sheep::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
-    AnimatedCharacter::subUpdate(clock, window, world);
     state->performAction(this, clock);
 }

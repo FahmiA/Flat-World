@@ -4,6 +4,7 @@
 #include "util/Collision.hpp"
 #include "NumberUtil.hpp"
 #include "SpriteUtil.hpp"
+#include "util/AnimatedSprite.hpp"
 
 #include <math.h>
 #include <iostream>
@@ -11,9 +12,9 @@ using namespace std;
 
 CoordinateUtil::CoordinateUtil() {}
 
-bool CoordinateUtil::isGlobalPointInside(Vector2f &point, Sprite &bounds)
+bool CoordinateUtil::isGlobalPointInside(Vector2f &point, AnimatedSprite &bounds)
 {
-    Vector2f rectSize = SpriteUtil::getSize(&bounds);
+    Vector2f rectSize = bounds.getSize();
     Vector2f rectPosition = bounds.getPosition();
 
     if(point.x >= rectPosition.x && point.x < rectPosition.x + rectSize.x &&
@@ -23,15 +24,15 @@ bool CoordinateUtil::isGlobalPointInside(Vector2f &point, Sprite &bounds)
     return false;
 }
 
-bool CoordinateUtil::isLocalPointInside(Vector2f &point, Sprite &bounds)
+bool CoordinateUtil::isLocalPointInside(Vector2f &point, AnimatedSprite &bounds)
 {
-    Vector2f rectSize = SpriteUtil::getSize(&bounds);
+    Vector2f rectSize = bounds.getSize();
     // Consider for scaling
-    float rectSizeX = rectSize.x / bounds.getScale().x;
-    float rectSizeY = rectSize.y / bounds.getScale().y;
+    //float rectSizeX = rectSize.x / bounds.getScale().x;
+    //float rectSizeY = rectSize.y / bounds.getScale().y;
 
-    if(point.x >= 0 && point.x < rectSizeX &&
-       point.y >= 0 && point.y < rectSizeY)
+    if(point.x >= 0 && point.x < rectSize.x &&
+       point.y >= 0 && point.y < rectSize.y)
        return true;
 
     return false;
@@ -56,9 +57,9 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
     return angle;
 }
 
-bool CoordinateUtil::collide(Sprite *object1, Sprite *object2)
+bool CoordinateUtil::collide(AnimatedSprite *object1, AnimatedSprite *object2)
 {
-    return Collision::BoundingBoxTest(*object1, *object2);
+    return Collision::BoundingBoxTest(*object1->getRawSprite(), *object2->getRawSprite());
 }
 
 bool CoordinateUtil::isInFOV(Character &source, Character &target, Direction direction,
@@ -68,11 +69,10 @@ bool CoordinateUtil::isInFOV(Character &source, Character &target, Direction dir
     Vector2f sourceCenter(source.getSize().x / 2, source.getSize().y / 2);
     Vector2f targetCenter(target.getSize().x / 2, target.getSize().y / 2);
 
+
     // Transform the target position into the source's coordinate space
-    Transform targetGlobalTransform = target.getSprite()->getTransform();
-    Transform sourceLocalTransform = source.getSprite()->getInverseTransform();
-    targetCenter = targetGlobalTransform.transformPoint(targetCenter);
-    targetCenter = sourceLocalTransform.transformPoint(targetCenter);
+    targetCenter = target.getSprite()->toGlobal(targetCenter);
+    targetCenter = source.getSprite()->toLocal(targetCenter);
 
     // Perform the FOV check
     bool insideFOV = false;

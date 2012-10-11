@@ -4,7 +4,7 @@
 
 #define STAR_SPEED 100
 
-Star::Star(float x, float y, float width, float height, Sprite *sprite)
+Star::Star(float x, float y, float width, float height, AnimatedSprite *sprite)
     : Character(x, y, width, height, STAR_SPEED, sprite)
 {
     setID(ID_STAR);

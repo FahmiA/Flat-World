@@ -1,12 +1,11 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
-#include "actors/AnimatedCharacter.hpp"
-#include "util/AnimatedSprite.hpp"
+#include "actors/Character.hpp"
 #include "util/Commons.hpp"
 
 /** The Player that is controled by the user. */
-class Player: public AnimatedCharacter
+class Player: public Character
 {
     public:
         Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite);

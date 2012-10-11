@@ -10,7 +10,7 @@ AnimatedSpriteLoader::AnimatedSpriteLoader(ContentManager *content)
 AnimatedSprite* AnimatedSpriteLoader::loadAnimated(string xmlPath)
 {
     // Load the XMl document
-    TiXmlDocument aniDoc(path);
+    TiXmlDocument aniDoc(xmlPath);
     bool loadOK = aniDoc.LoadFile();
     if(!loadOK)
         return 0;
@@ -20,7 +20,7 @@ AnimatedSprite* AnimatedSpriteLoader::loadAnimated(string xmlPath)
 
     string imagePath = getImagePath(root);
     // Get the full image path
-    imagePath = path.substr(0, path.find_last_of("/") + 1) + imagePath;
+    imagePath = xmlPath.substr(0, xmlPath.find_last_of("/") + 1) + imagePath;
     unsigned int transparentColour = getTransparentColour(root);
 
     Image *aniImage = content->loadImage(imagePath, transparentColour);
@@ -28,7 +28,7 @@ AnimatedSprite* AnimatedSpriteLoader::loadAnimated(string xmlPath)
         return 0;
 
     // Build the animated sprite
-    AnimatedSprite *aniSprite = new AnimatedSprite(*image);
+    AnimatedSprite *aniSprite = new AnimatedSprite(*aniImage);
 
     // Read all animation frames
     TiXmlHandle spritesRoot = TiXmlHandle(root.FirstChildElement("Sprites"));

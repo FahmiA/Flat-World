@@ -93,8 +93,6 @@
 		<Unit filename="GUI\HUD.hpp" />
 		<Unit filename="actors\ActorStates.cpp" />
 		<Unit filename="actors\ActorStates.hpp" />
-		<Unit filename="actors\AnimatedCharacter.cpp" />
-		<Unit filename="actors\AnimatedCharacter.hpp" />
 		<Unit filename="actors\Character.cpp" />
 		<Unit filename="actors\Character.hpp" />
 		<Unit filename="actors\Player.cpp" />

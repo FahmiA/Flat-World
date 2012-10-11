@@ -60,8 +60,7 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     printf("\tSpawn:    (x, y): (%.3f, %0.3f)\n",  localSpawnPos->x,  localSpawnPos->y);
 
     // Update the charcter position
-    Transform islandGlobalTransform = island->getSprite()->getTransform();
-    Vector2f globalSpawnPos = islandGlobalTransform.transformPoint(*localSpawnPos);
+    Vector2f globalSpawnPos = island->getSprite()->toGlobal(*localSpawnPos);
     *characterX = globalSpawnPos.x;// + characterWidth;
     *characterY = globalSpawnPos.y;// + characterHeight;
 

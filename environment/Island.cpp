@@ -19,7 +19,7 @@ Island::~Island()
     delete sprite;
 }
 
-Sprite* Island::getSprite()
+AnimatedSprite* Island::getSprite()
 {
     return sprite;
 }
@@ -36,7 +36,7 @@ void Island::update(Clock *clock, RenderWindow *window, World *world)
 
 void Island::draw(RenderWindow *window)
 {
-    window->draw(*sprite);
+    sprite->draw(window);
 }
 
 const Vector2f& Island::getPosition()
@@ -51,5 +51,5 @@ void Island::setPosition(float x, float y)
 
 const Vector2f& Island::getSize()
 {
-    return SpriteUtil::getSize(sprite);
+    return sprite->getSize();
 }

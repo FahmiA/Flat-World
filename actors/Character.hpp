@@ -82,7 +82,7 @@ class Character: public GameObject
         /** Gets the Sprite used to display the Character.
          * @return The Character's Sprite.
          */
-        AnimatedSprite *getSprite();
+        AnimatedSprite* getSprite();
 
         /** Gets the current ground the Character is on.
          * @return Current ground of NULL if no current ground exists (eg: in jump).

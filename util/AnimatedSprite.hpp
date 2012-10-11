@@ -63,25 +63,34 @@ class AnimatedSprite
         /** Faces the sprite to the left. */
         void lookRight();
 
+
+
         Vector2f getPosition();
-
         void setPosition(float x, float y);
-
-        /** Sets the origin of the Sprite,
-         * @param x Percentage of width (0.0 - 1.0).
-         * @param y Percentage of height (0.0 - 1.0).
-         */
-        void setOrigin(float x, float y);
+        void move(float x, float y);
 
         Vector2f getSize();
-        bool collide(AnimatedSprite &other);
+        void setSize(float x, float y);
+
+        void setOrigin(float x, float y);
+        const Vector2f& getOrigin();
+
         Vector2f toGlobal(const Vector2f &point);
         Vector2f toLocal(const Vector2f &point);
-        Image* getImage();
-        void setSize(float x, float y);
+
         void setRotation(float angleR);
         float getRotation();
-        void move(float x, float y);
+
+
+        FloatRect getLocalBounds(); // TODO: Remove
+        Image* getImage();
+        Sprite* getRawSprite();
+        bool collide(AnimatedSprite &other);
+
+        /** Animation name for moving. */
+        static const string ANIMATE_RUN;
+        /** Animation name for standing still. */
+        static const string ANIMATE_IDLE;
 
     private:
         // Animation storage

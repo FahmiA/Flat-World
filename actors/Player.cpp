@@ -14,7 +14,7 @@ const string Player::ANIMATE_JUMP_UP = "JumpUp";
 const string Player::ANIMATE_JUMP_DOWN = "JumpDown";
 
 Player::Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
-    : AnimatedCharacter(x, y, width, height, speed, sprite)
+    : Character(x, y, width, height, speed, sprite)
 {
     setID(ID_PLAYER);
 
@@ -26,8 +26,6 @@ Player::~Player() {}
 
 void Player::subUpdate(Clock *clock, RenderWindow *window, World *world)
 {
-    AnimatedCharacter::subUpdate(clock, window, world);
-
     if(pushedBackDirection != None)
     {
         doActionPushBack(clock->getElapsedTime().asSeconds());
@@ -53,15 +51,15 @@ void Player::doActionNormal(RenderWindow *window)
     if(Keyboard::isKeyPressed(Keyboard::Left))
     {
         moveLeft();
-        getAniSprite()->lookLeft();
-        playAnimation(ANIMATE_RUN);
+        getSprite()->lookLeft();
+        getSprite()->play(AnimatedSprite::ANIMATE_RUN);
     }else if(Keyboard::isKeyPressed(Keyboard::Right))
     {
         moveRight();
-        getAniSprite()->lookRight();
-        playAnimation(ANIMATE_RUN);
+        getSprite()->lookRight();
+        getSprite()->play(AnimatedSprite::ANIMATE_RUN);
     }else{
-        playAnimation(ANIMATE_IDLE);
+        getSprite()->play(AnimatedSprite::ANIMATE_IDLE);
     }
 
     if(Keyboard::isKeyPressed(Keyboard::Space))
@@ -110,7 +108,7 @@ Character* Player::check_unit_collide(World *world)
         if(id == ID_SHEEP)
         {
             Character *character = (Character*)gameObject;
-            if(cordUtil.collide(getSprite(), character->getSprite()))
+            if(getSprite()->collide(*character->getSprite()))
             {
                 // Remove the item
                 world->removeLevelObject(character);
@@ -127,7 +125,7 @@ Character* Player::check_unit_collide(World *world)
         if(id == ID_STAR)
         {
             Star *star = (Star*)gameObject;
-            if(cordUtil.collide(getSprite(), star->getSprite()))
+            if(getSprite()->collide(*star->getSprite()))
             {
                 // Remove the item
                 world->removeLevelObject(star);

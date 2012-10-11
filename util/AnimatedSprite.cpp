@@ -4,7 +4,10 @@
 using namespace std;
 
 #include "util/SpriteUtil.hpp"
-#include :util/Numberutil.hpp"
+#include "util/Numberutil.hpp"
+
+const string AnimatedSprite::ANIMATE_RUN = "Run";
+const string AnimatedSprite::ANIMATE_IDLE = "Idle";
 
 AnimatedSprite::AnimatedSprite(const Image &image)
 {
@@ -15,7 +18,7 @@ AnimatedSprite::AnimatedSprite(const Image &image)
 
     this->image = image;
     originalScale = sprite.getScale();
-    originalPosition = sprite,getPosition();
+    originalPosition = sprite.getPosition();
 
     // State
     currentAnimation = 0;
@@ -52,8 +55,8 @@ void AnimatedSprite::update(Clock *clock)
     if(paused || currentAnimation == 0)
         return;
 
-    originalScale = getScale();
-    originalPosition = getPosition();
+    originalScale = sprite.getScale();
+    originalPosition = sprite.getPosition();
 
     bool advanceFrame = false;
     if(clock != 0)
@@ -81,17 +84,17 @@ void AnimatedSprite::update(Clock *clock)
                         frame.height);
 
         // Remember some original Sprite values
-        Vector2f size(SpriteUtil::getSize(this));
-        Vector2f origin(getOrigin());
+        Vector2f size = getSize();
+        Vector2f origin(sprite.getOrigin());
         FloatRect localBounds(getLocalBounds());
 
         // Update the frame (changes Sprite values)
-        setTextureRect(subRect);
+        sprite.setTextureRect(subRect);
 
         // Re-apply the original Sprite values
-        SpriteUtil::resize(this, size.x, size.y);
-        setOrigin(Vector2f((origin.x / localBounds.width) * getLocalBounds().width,
-                           (origin.y / localBounds.height) * getLocalBounds().height));
+        setSize(size.x, size.y);
+        sprite.setOrigin(Vector2f((origin.x / localBounds.width) * sprite.getLocalBounds().width,
+                           (origin.y / localBounds.height) * sprite.getLocalBounds().height));
 
         updateDirection();
 
@@ -110,17 +113,17 @@ void AnimatedSprite::draw(RenderWindow *window)
 
 void AnimatedSprite::clear()
 {
-    setScale(originalScale);
-    setPosition(originalPosition);
+    sprite.setScale(originalScale);
+    sprite.setPosition(originalPosition);
 }
 
 void AnimatedSprite::updateDirection()
 {
-    Vector2f scale = getScale();
+    Vector2f scale = sprite.getScale();
 
     // Calculate the position of the flipped sprite
-    Transform globalTransform = getTransform();
-    Vector2f flippedOrigin = Vector2f(getOrigin().x + getLocalBounds().width, getOrigin().y);
+    Transform globalTransform = sprite.getTransform();
+    Vector2f flippedOrigin = Vector2f(sprite.getOrigin().x + sprite.getLocalBounds().width, sprite.getOrigin().y);
     Vector2f flippedPos = globalTransform.transformPoint(flippedOrigin);
 
     // Fli0p the sprite if requested
@@ -128,13 +131,13 @@ void AnimatedSprite::updateDirection()
     {
         // Keep the scale positive
         scale.x = -scale.x;
-        setScale(scale.x, scale.y);
-        setPosition(flippedOrigin);
+        sprite.setScale(scale.x, scale.y);
+        sprite.setPosition(flippedOrigin);
     }else if(direction != Left && scale.x > 0){
         // Keep the scale negative
         scale.x = -scale.x;
-        setScale(scale.x, scale.y);
-        setPosition(flippedPos);
+        sprite.setScale(scale.x, scale.y);
+        sprite.setPosition(flippedPos);
     }
 }
 
@@ -204,8 +207,8 @@ void AnimatedSprite::setOrigin(float x, float y)
 
 Vector2f AnimatedSprite::getSize()
 {
-    IntRect textureSize = sprite->getTextureRect();
-    Vector2f scale = sprite->getScale();
+    IntRect textureSize = sprite.getTextureRect();
+    Vector2f scale = sprite.getScale();
 
     Vector2f size(textureSize.width * scale.x, textureSize.height * scale.y);
     return size;
@@ -231,10 +234,15 @@ Vector2f AnimatedSprite::toLocal(const Vector2f &point)
 
 Image* AnimatedSprite::getImage()
 {
-    return image;
+    return &image;
 }
 
-void AnimatedSprite::setSize(float x, float y)
+Sprite* AnimatedSprite::getRawSprite()
+{
+    return &sprite;
+}
+
+void AnimatedSprite::setSize(float width, float height)
 {
     FloatRect originalSize = sprite.getLocalBounds();
     float originalWidth = originalSize.width;
@@ -251,10 +259,15 @@ void AnimatedSprite::setRotation(float angleR)
 
 float AnimatedSprite::getRotation()
 {
-    return AS_RAD(sprite.getRotation);
+    return AS_RAD(sprite.getRotation());
 }
 
 void AnimatedSprite::move(float x, float y)
 {
     sprite.move(x, y);
+}
+
+FloatRect AnimatedSprite::getLocalBounds()
+{
+    return sprite.getLocalBounds();
 }
