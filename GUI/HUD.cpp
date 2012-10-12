@@ -69,13 +69,11 @@ void HUD::setSize(int width, int height)
     starIcon->setPosition(width - (starCornerWidth * 0.27), top_align);
 
     // Add the text
-    sheepText = new Text(get_ratio_string(sheepCount, sheepTotal));
-    sheepText->setFont(*textFont);
+    sheepText = new Text(get_ratio_string(sheepCount, sheepTotal), *textFont);
     sheepText->setColor(Color::Black);
     sheepText->setPosition(sheepCornerX + sheepCornerWidth / 10, top_align + 15);
 
-    starText = new Text(get_ratio_string(starCount, starTotal));
-    starText->setFont(*textFont);
+    starText = new Text(get_ratio_string(starCount, starTotal), *textFont);
     starText->setColor(Color::Black);
     starText->setPosition(width - (starCornerWidth * 0.55), top_align + 15);
 }

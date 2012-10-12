@@ -11,12 +11,12 @@ const string AnimatedSprite::ANIMATE_IDLE = "Idle";
 
 AnimatedSprite::AnimatedSprite(const Image &image)
 {
-    // Display
-    Texture texture;
+    // Initialise the Sprite
     texture.loadFromImage(image);
     sprite.setTexture(texture);
 
-    this->image = image;
+    // Store the sprite and image details
+    this->image = image; // TODO: Remove expensive duplicate
     originalScale = sprite.getScale();
     originalPosition = sprite.getPosition();
 
@@ -41,7 +41,7 @@ void AnimatedSprite::addAnimation(Animation *animation)
     // Add the new animation
     animations[animation->name] = animation;
 
-    // Set the subrect if this is the first animation
+    // Set the subject if this is the first animation
     // This is to ensure the sprite is sized correctly
     if(animations.size() == 1)
     {

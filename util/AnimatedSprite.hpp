@@ -107,8 +107,10 @@ class AnimatedSprite
         Vector2f originalPosition;
 
         // Underlying Sprite and image
-        Sprite sprite;
-        Image image;
+        Image image; // A flyweight, managed by ContentManager
+        Texture texture; // Must keep this reference alive to keep image
+        Sprite sprite; // The actual sprite
+
 
         // Helper methods
         void updateDirection();
