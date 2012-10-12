@@ -97,7 +97,7 @@ Character* Player::check_unit_collide(World *world)
 {
     list<GameObject*>* gameObjects = world->getObjects();
 
-    CoordinateUtil cordUtil;
+    CoordinateUtil coordUtil;
 
     for(list<GameObject*>::iterator it = gameObjects->begin(); it != gameObjects->end(); it++)
     {
@@ -108,7 +108,7 @@ Character* Player::check_unit_collide(World *world)
         if(id == ID_SHEEP)
         {
             Character *character = (Character*)gameObject;
-            if(getSprite()->collide(*character->getSprite()))
+            if(coordUtil.collide(getSprite(), character->getSprite()));
             {
                 // Remove the item
                 world->removeLevelObject(character);
@@ -125,7 +125,7 @@ Character* Player::check_unit_collide(World *world)
         if(id == ID_STAR)
         {
             Star *star = (Star*)gameObject;
-            if(getSprite()->collide(*star->getSprite()))
+            if(coordUtil.collide(getSprite(), star->getSprite()));
             {
                 // Remove the item
                 world->removeLevelObject(star);

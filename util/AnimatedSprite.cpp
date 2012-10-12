@@ -214,12 +214,6 @@ Vector2f AnimatedSprite::getSize()
     return size;
 }
 
-bool AnimatedSprite::collide(AnimatedSprite &other)
-{
-    // TODO: Implement AnimatedSprite.collide()
-    return false;
-}
-
 Vector2f AnimatedSprite::toGlobal(const Vector2f &point)
 {
     Transform globalTransform = sprite.getTransform();

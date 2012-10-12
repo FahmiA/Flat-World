@@ -85,7 +85,6 @@ class AnimatedSprite
         FloatRect getLocalBounds(); // TODO: Remove
         Image* getImage();
         Sprite* getRawSprite();
-        bool collide(AnimatedSprite &other);
 
         /** Animation name for moving. */
         static const string ANIMATE_RUN;

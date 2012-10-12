@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 
 #include "gameIO/ContentManager.hpp"
+#include "util/AnimatedSprite.hpp"
+#include "gameIO/AnimatedSpriteLoader.hpp"
 #include "util/SpriteUtil.hpp"
 #include "actors/Character.hpp"
 
@@ -19,7 +21,7 @@ class StaticCharacter : public Character
 {
     public:
         StaticCharacter(float x, float y, float width, float height,
-                        float speed, Sprite *sprite) :
+                        float speed, AnimatedSprite *sprite) :
                         Character(x, y, width, height, speed, sprite)
         {
             subUpdateCalled = 0;
@@ -77,11 +79,8 @@ class CharacterTest : public ::testing::Test
             float speed = 200;
 
             string characterSpritePath = "unit_test/actors/filesForTests/Character.png";
-            Sprite *characterSprite = new Sprite();
-            Image *characterImage = 0;
-            bool loadSuccess = SpriteUtil::loadSprite(characterSpritePath, characterSprite, &characterImage, &content);
-            if(!loadSuccess)
-                cout << "CharacterTest.SetUp: Could not load image: " << characterSpritePath << endl;
+            AnimatedSpriteLoader spriteLoader(&content);
+            AnimatedSprite *characterSprite = spriteLoader.loadStatic(characterSpritePath);
             character = new StaticCharacter(x, y, width, height,
                                             speed, characterSprite);
 
@@ -93,12 +92,8 @@ class CharacterTest : public ::testing::Test
             height = 60;
 
             string islandPath = "unit_test/actors/filesForTests/Island1.png";
-            Sprite *island1Sprite = new Sprite();
-            Image *island1Image = 0;
-            loadSuccess = SpriteUtil::loadSprite(islandPath, island1Sprite, &island1Image, &content);
-            if(!loadSuccess)
-                cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
-            island1 = new Island(x, y, width, height, island1Sprite, island1Image);
+            AnimatedSprite *island1Sprite = spriteLoader.loadStatic(islandPath);
+            island1 = new Island(x, y, width, height, island1Sprite);
             islands->push_back(island1);
 
             // Load island 2
@@ -107,12 +102,8 @@ class CharacterTest : public ::testing::Test
             width = 185;
             height = 60;
 
-            Sprite *island2Sprite = new Sprite();
-            Image *island2Image = 0;
-            loadSuccess = SpriteUtil::loadSprite(islandPath, island2Sprite, &island2Image, &content);
-            if(!loadSuccess)
-                cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
-            island2 = new Island(x, y, width, height, island2Sprite, island2Image);
+            AnimatedSprite *island2Sprite = spriteLoader.loadStatic(islandPath);
+            island2 = new Island(x, y, width, height, island2Sprite);
             islands->push_back(island2);
         }
 

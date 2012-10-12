@@ -134,9 +134,10 @@ void Character::findCurrentIsland(list<Island*>* islands)
             {
                 // Check if the charcter is close to the island
                 /*cout << "Comparing:" << endl;
-                cout << '\t' << PRINT_R(sprite->getPosition(), SpriteUtil::getSize(sprite)) << endl;
-                cout << '\t' << PRINT_R(island->getSprite()->getPosition(), SpriteUtil::getSize(island->getSprite())) << endl;*/
-                if(sprite->collide(*island->getSprite()))
+                cout << '\t' << PRINT_R(sprite->getPosition(), sprite->getSize()) << endl;
+                cout << '\t' << PRINT_R(island->getSprite()->getPosition(), island->getSprite()->getSize()) << endl;*/
+                //if(sprite->collide(*island->getSprite()))
+                if(coordUtil.collide(sprite, island->getSprite()))
                 {
                     // Mark the new ground as the current ground
                     if(currentGround != 0) // Only set the previous ground if a current ground exists
@@ -376,12 +377,12 @@ void Character::draw(RenderWindow *window)
 
     // draw the debug graphics
 
-    //window->draw(lookLine);
+    window->draw(lookLine);
 
     // draw the charcter.
     sprite->draw(window);
 
-    //window->draw(angleLine);
+    window->draw(angleLine);
 }
 
 const Vector2f& Character::getPosition()
