@@ -28,7 +28,7 @@ void ManualCamera::update(Clock *clock, RenderWindow *window, World *world)
 
     // Respond to user zoom control
     if(Keyboard::isKeyPressed(Keyboard::Add))
-        view->zoom(1.6f);
-    if(Keyboard::isKeyPressed(Keyboard::Subtract))
         view->zoom(0.6f);
+    if(Keyboard::isKeyPressed(Keyboard::Subtract))
+        view->zoom(1.6f);
 }

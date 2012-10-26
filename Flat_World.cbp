@@ -119,6 +119,9 @@
 		<Unit filename="game\ID.hpp" />
 		<Unit filename="game\World.cpp" />
 		<Unit filename="game\World.hpp" />
+		<Unit filename="imageMain.cpp">
+			<Option target="Debug" />
+		</Unit>
 		<Unit filename="libs\debug\sfml-system-d.dll">
 			<Option target="Debug" />
 			<Option target="UnitTest" />

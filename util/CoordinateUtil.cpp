@@ -5,6 +5,7 @@
 #include "NumberUtil.hpp"
 #include "SpriteUtil.hpp"
 #include "util/AnimatedSprite.hpp"
+#include "util/Debug.hpp"
 
 #include <math.h>
 #include <iostream>
@@ -24,18 +25,17 @@ bool CoordinateUtil::isGlobalPointInside(Vector2f &point, AnimatedSprite &bounds
     return false;
 }
 
-bool CoordinateUtil::isLocalPointInside(Vector2f &point, AnimatedSprite &bounds)
+bool CoordinateUtil::isLocalPointInside(Vector2f point, Vector2u bounds)
 {
-    Vector2f rectSize = bounds.getSize();
-    // Consider for scaling
-    //float rectSizeX = rectSize.x / bounds.getScale().x;
-    //float rectSizeY = rectSize.y / bounds.getScale().y;
+    //cout << PRINT_V(point) << ", " << PRINT_V(rectSize) << endl;
+    // TODO: This collision detection does not work
+    if(((int)point.x < 0) || ((int)point.x >= (int)bounds.x) ||
+       ((int)point.y < 0) || ((int)point.y >= (int)bounds.y))
+    {
+        return false;
+    }
 
-    if(point.x >= 0 && point.x < rectSize.x &&
-       point.y >= 0 && point.y < rectSize.y)
-       return true;
-
-    return false;
+    return true;
 }
 
 float CoordinateUtil::getDistance(const Vector2f &p1, const Vector2f &p2)

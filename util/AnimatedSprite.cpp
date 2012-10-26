@@ -100,6 +100,7 @@ void AnimatedSprite::update(Clock *clock)
 
         // Update the frame counter
         currentFrame++;
+        //cout << "Frame:" << currentFrame << '/' << currentAnimation->frames.size() << endl;
 
         // Reset the timer
         timeSinceLastFrame = 0;

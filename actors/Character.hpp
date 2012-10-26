@@ -43,6 +43,7 @@ class Character: public GameObject
 
         // Position and size getters
         const Vector2f& getPosition();
+        void setPosition(float x, float y);
         const Vector2f& getSize();
 
         float getSpeed();

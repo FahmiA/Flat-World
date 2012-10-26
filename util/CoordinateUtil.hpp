@@ -25,10 +25,10 @@ class CoordinateUtil
 
          /** Checks if a point in a Sprite's local space is inside the given Sprite.
          * @param point The position in the Sprite's local space.
-         * @param bounds The Sprite to check if the local point is inside,
+         * @param bounds The bounds to check if the local point is inside,
          * @return True if local point is inside bounds. False otherwise.
          */
-        bool isLocalPointInside(Vector2f &point, AnimatedSprite &bounds);
+        bool isLocalPointInside(Vector2f point, Vector2u bounds);
 
         /** Gets the Euclidian distance between two positions.
          * @param p1 The first position.

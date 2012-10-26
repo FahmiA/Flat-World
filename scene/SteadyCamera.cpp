@@ -12,7 +12,7 @@ using namespace std;
 
 SteadyCamera::SteadyCamera(View *view) : Camera(view)
 {
-    //view->zoom(0.4f);
+    view->zoom(1.4f);
 }
 
 SteadyCamera::~SteadyCamera() { }

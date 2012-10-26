@@ -108,7 +108,7 @@ Character* Player::check_unit_collide(World *world)
         if(id == ID_SHEEP)
         {
             Character *character = (Character*)gameObject;
-            if(coordUtil.collide(getSprite(), character->getSprite()));
+            if(coordUtil.collide(getSprite(), character->getSprite()))
             {
                 // Remove the item
                 world->removeLevelObject(character);
@@ -125,7 +125,7 @@ Character* Player::check_unit_collide(World *world)
         if(id == ID_STAR)
         {
             Star *star = (Star*)gameObject;
-            if(coordUtil.collide(getSprite(), star->getSprite()));
+            if(coordUtil.collide(getSprite(), star->getSprite()))
             {
                 // Remove the item
                 world->removeLevelObject(star);
