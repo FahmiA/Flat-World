@@ -7,8 +7,8 @@
 #include <sstream>
 using namespace std;
 
-HUD::HUD(Sprite *sheepCorner, Sprite *starCorner,
-            Sprite *sheepIcon, Sprite *starIcon,
+HUD::HUD(TSprite *sheepCorner, TSprite *starCorner,
+            TSprite *sheepIcon, TSprite *starIcon,
             int sheepTotal, int starTotal,
             Font *textFont)
 {
@@ -46,38 +46,34 @@ void HUD::setSize(int width, int height)
     float icon_height = icon_width;
 
     // Set the size and position of the sheep corner
-    SpriteUtil::resize(sheepCorner, width / 3.0f, height / 3.0f);
+    sheepCorner->setSize(width / 3.0f, height / 3.0f);
     int sheepCornerX = sheepCorner->getPosition().x;
     int sheepCornerY = sheepCorner->getPosition().y;
-    int sheepCornerWidth = SpriteUtil::getSize(sheepCorner).x;
-    int sheepCornerHeight = SpriteUtil::getSize(sheepCorner).y;
+    int sheepCornerWidth = sheepCorner->getSize().x;
+    int sheepCornerHeight = sheepCorner->getSize().y;
     sheepCorner->setPosition(-sheepCornerWidth / 4, -sheepCornerHeight / 4);
 
     // Set the size and position of the sheep icon
     float top_align = sheepCornerY + sheepCornerHeight / 4.5;
-    SpriteUtil::resize(sheepIcon, icon_width, icon_width);
+    sheepIcon->setSize(icon_width, icon_width);
     sheepIcon->setPosition(sheepCornerX + sheepCornerWidth / 2.5, top_align);
 
     // Set the size and position of the star corner
-    SpriteUtil::resize(starCorner, width / 3, width / 3);
-    //int starCornerX = starCorner->getPosition().x;
-    //int starCornerY = starCorner->getPosition().y;
-    int starCornerWidth = SpriteUtil::getSize(starCorner).x;
-    int starCornerHeight = SpriteUtil::getSize(starCorner).y;
+    starCorner->setSize(width / 3, width / 3);
+    int starCornerWidth = starCorner->getSize().x;
+    int starCornerHeight = starCorner->getSize().y;
     starCorner->setPosition(width - (starCornerWidth * 0.76), -starCornerHeight / 2);
 
     // Set the size and position of the star icon
-    SpriteUtil::resize(starIcon, icon_width, icon_height);
+    starIcon->setSize(icon_width, icon_height);
     starIcon->setPosition(width - (starCornerWidth * 0.27), top_align);
 
     // Add the text
-    sheepText = new Text(get_ratio_string(sheepCount, sheepTotal));
-    sheepText->setFont(*textFont);
+    sheepText = new Text(get_ratio_string(sheepCount, sheepTotal), *textFont);
     sheepText->setColor(Color::Black);
     sheepText->setPosition(sheepCornerX + sheepCornerWidth / 10, top_align + 15);
 
-    starText = new Text(get_ratio_string(starCount, starTotal));
-    starText->setFont(*textFont);
+    starText = new Text(get_ratio_string(starCount, starTotal), *textFont);
     starText->setColor(Color::Black);
     starText->setPosition(width - (starCornerWidth * 0.55), top_align + 15);
 }
@@ -157,11 +153,14 @@ void HUD::update(Clock *clock, RenderWindow *window, World *world)
 
 void HUD::draw(RenderWindow *window)
 {
-    window->draw(*sheepCorner);
-    window->draw(*sheepIcon);
+    sheepCorner->draw(window);
+    sheepIcon->draw(window);
 
-    window->draw(*starCorner);
-    window->draw(*starIcon);
+    sheepCorner->draw(window);
+    sheepCorner->draw(window);
+
+    starCorner->draw(window);
+    starIcon->draw(window);
 
     window->draw(*sheepText);
     window->draw(*starText);

@@ -105,8 +105,6 @@ class LevelBuilder
     protected:
         // Helper methods
         virtual void getPosition(Island *island, float angleRadians, int characterWidth, int characterHeight, int *characterX, int *characterY);
-        bool loadSprite(string &path, Sprite *sprite);
-        bool loadSprite(string &path, Sprite *sprite, Image **image);
         bool loadFont(string &path, Font *&font);
 
         /** Stores the path to a sheep image.

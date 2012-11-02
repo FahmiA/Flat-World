@@ -154,7 +154,7 @@ TEST_F(SpriteUtilTest, rayTraceCornerCase)
     if(result) delete result;
 }
 
-TEST_F(SpriteUtilTest, getSize)
+/*TEST_F(SpriteUtilTest, getSize)
 {
     Texture texture;
     if(!texture.loadFromFile(SQUARE_IMAGE_PATH))
@@ -171,4 +171,4 @@ TEST_F(SpriteUtilTest, getSize)
     size = spriteUtil->getSize(&sprite);
     EXPECT_EQ(30, size.x) << "Sprite scaled width should match scaled image width";
     EXPECT_EQ(16, size.y) << "Sprite scaled height should match scaled image height";
-}
+}*/

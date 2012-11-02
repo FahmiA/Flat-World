@@ -28,7 +28,7 @@ LevelBuilderStd::LevelBuilderStd(World *world, ContentManager *content)
 {
     sheepCount = 0;
     starCount = 0;
-    aniLoader = new AnimatedSpriteLoader(content);
+    aniLoader = new TSpriteLoader(content);
 }
 
 LevelBuilderStd::~LevelBuilderStd()
@@ -40,10 +40,8 @@ bool LevelBuilderStd::setBackground(LevelDescription *levelDesc)
 {
     bool addSuccess = false;
 
-    Sprite *sprite = new Sprite();
-    addSuccess = loadSprite(levelDesc->backgroundPath, sprite);
-
-    if(addSuccess)
+    TSprite *sprite = aniLoader->loadStatic(levelDesc->backgroundPath);
+    if(sprite != 0)
     {
         getWorld()->setBackground(sprite);
         addSuccess = true;
@@ -55,15 +53,14 @@ bool LevelBuilderStd::setBackground(LevelDescription *levelDesc)
 bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    Sprite *sprite = new Sprite();
-    Image *image = 0;
-    if(!loadSprite(islandDesc->imagePath, sprite, &image))
+    TSprite *sprite = aniLoader->loadStatic(islandDesc->imagePath);
+    if(sprite == 0)
     {
         // Error
         cout << "Image for island " << islandDesc->id << " could not be loaded: " << islandDesc->imagePath << endl;
         cout << "\tIsland has not been loaded." << endl;
     }else{
-        Island *island = new Island(islandDesc->x, islandDesc->y, islandDesc->width, islandDesc->height, sprite, image);
+        Island *island = new Island(islandDesc->x, islandDesc->y, islandDesc->width, islandDesc->height, sprite);
         islandDesc->island = island; // Remember the island in the description
         getWorld()->addIsland(island);
         addSuccess = true;
@@ -75,9 +72,9 @@ bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    AnimatedSprite *playerSprite = aniLoader->loadFromXML(playerDesc->imagePath);
+    TSprite *sprite = aniLoader->loadAnimated(playerDesc->imagePath);
 
-    if(playerSprite == 0)
+    if(sprite == 0)
     {
         // Error
         cout << "Image for player could not be loaded " << endl;
@@ -86,7 +83,7 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
         // No player currently exists
         int x, y;
         getPosition(islandDesc->island, playerDesc->startAngle, playerDesc->width, playerDesc->height, &x, &y);
-        Player *player = new Player(x, y, playerDesc->width, playerDesc->height, PLAYER_SPEED, playerSprite);
+        Player *player = new Player(x, y, playerDesc->width, playerDesc->height, PLAYER_SPEED, sprite);
 
         player->setSpriteDirection(Right);
         getWorld()->setPlayer(player);
@@ -99,7 +96,7 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
 bool LevelBuilderStd::addSheep(UnitDescription *sheepDesc, Island *island)
 {
     bool addSuccess = false;
-    AnimatedSprite *sprite = aniLoader->loadFromXML(sheepDesc->imagePath);
+    TSprite *sprite = aniLoader->loadAnimated(sheepDesc->imagePath);
 
     if(sprite == 0)
     {
@@ -151,7 +148,7 @@ void LevelBuilderStd::addRandomSheep()
 bool LevelBuilderStd::addSheepdog(UnitDescription *sheepdogDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    AnimatedSprite *sprite = aniLoader->loadFromXML(sheepdogDesc->imagePath);
+    TSprite *sprite = aniLoader->loadAnimated(sheepdogDesc->imagePath);
 
     if(sprite == 0)
     {
@@ -177,9 +174,9 @@ bool LevelBuilderStd::addStar(PickupDescription *pickupDesc, IslandDescription *
 {
     cout << pickupDesc->imagePath <<  endl;
     bool addSuccess = false;
-    Sprite *sprite = new Sprite();
+    TSprite *sprite = aniLoader->loadStatic(pickupDesc->imagePath);
 
-    if(!loadSprite(pickupDesc->imagePath, sprite))
+    if(sprite == 0)
     {
         // Error
         cout << "Image for " << pickupDesc->type << " could not be loaded: " << pickupDesc->imagePath << endl;
@@ -203,23 +200,19 @@ bool LevelBuilderStd::setHUD(string &sheepCornerPath, string &starCornerPath,
                              string &sheepIconPath, string &starIconPath,
                              string &fontPath)
 {
-    bool success = true;
-    Sprite *sheepCorner = new Sprite();
-    Sprite *starCorner = new Sprite();
-    Sprite *sheepIcon = new Sprite();
-    Sprite *starIcon = new Sprite();
+    bool success = false;
+    TSprite *sheepCorner = aniLoader->loadStatic(sheepCornerPath);
+    TSprite *starCorner = aniLoader->loadStatic(starCornerPath);
+    TSprite *sheepIcon = aniLoader->loadStatic(sheepIconPath);
+    TSprite *starIcon = aniLoader->loadStatic(starIconPath);
     Font *textFont = 0;
 
-    if(!loadSprite(sheepCornerPath, sheepCorner))
-        success = false;
-    if(success  && !loadSprite(starCornerPath, starCorner))
-        success = false;
-    if(success  && !loadSprite(sheepIconPath, sheepIcon))
-        success = false;
-    if(success  && !loadSprite(starIconPath, starIcon))
-        success = false;
-    if(success && !loadFont(fontPath, textFont))
-        success = false;
+    if(sheepCorner != 0 && starCorner != 0 &&
+       sheepIcon != 0 && starIcon != 0)
+    {
+        if(loadFont(fontPath, textFont))
+            success = true;
+    }
 
     if(success)
     {

@@ -33,6 +33,30 @@ Image* ContentManager::loadImage(string &path)
     }
 }
 
+Image* ContentManager::loadImage(string &path, unsigned int transparentColour)
+{
+    if(imageMap->count(path) > 0)
+    {
+        // The image is currently loaded. Pass an alias.
+        return (*imageMap)[path];
+    }else{
+        // Load the image.
+        Image *image = new Image();
+        if(!image->loadFromFile(path))
+            return 0;
+
+        // Set the transparency
+        Color mask(0, 0, 0);
+        mask.r = (transparentColour >> 16) & 0xFF;
+        mask.g = (transparentColour >> 8) & 0xFF;
+        mask.b = transparentColour & 0xFF;
+        image->createMaskFromColor(mask);
+
+        (*imageMap)[path] = image;
+        return image;
+    }
+}
+
 Image* ContentManager::loadImage(char *path)
 {
     string *pathString = new string(path);

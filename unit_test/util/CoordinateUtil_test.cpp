@@ -1,6 +1,8 @@
 #include "gtest/gtest.h"
 
 #include "util/CoordinateUtil.hpp"
+#include "util/TSprite.hpp"
+#include "gameIO/TSpriteLoader.hpp"
 
 #include <math.h>
 
@@ -11,17 +13,47 @@ class CoordinateUtilTest : public ::testing::Test
     protected:
 
         CoordinateUtil *coordUtil;
+        ContentManager *content;
+        TSpriteLoader *spriteLoader;
+
 
         virtual void SetUp()
         {
             coordUtil = new CoordinateUtil();
+            content = new ContentManager();
+            spriteLoader = new TSpriteLoader(content);
         }
 
         virtual void TearDown()
         {
             delete coordUtil;
+            delete content;
+            delete spriteLoader;
         }
 };
+
+TEST_F(CoordinateUtilTest, isLocalPointInside)
+{
+    bool result;
+
+    result = coordUtil->isLocalPointInside(Vector2f(10.0f, 10.0f), Vector2u(20, 30));
+    EXPECT_TRUE(result) << "Inside point";
+
+    result = coordUtil->isLocalPointInside(Vector2f(40.3f, 40.005f), Vector2u(2, 30));
+    EXPECT_FALSE(result) << "Outside point";
+
+    result = coordUtil->isLocalPointInside(Vector2f(19.8f, 38.0f), Vector2u(20, 30));
+    EXPECT_FALSE(result) << "Near point";
+
+    result = coordUtil->isLocalPointInside(Vector2f(20.0f, 30.0f), Vector2u(20, 30));
+    EXPECT_FALSE(result) << "Edge point";
+
+    result = coordUtil->isLocalPointInside(Vector2f(-1.0f, -3.0f), Vector2u(20, 30));
+    EXPECT_FALSE(result) << "Negative point";
+
+    result = coordUtil->isLocalPointInside(Vector2f(1081.0f, 581.0f), Vector2u(1172, 577));
+    EXPECT_FALSE(result) << "Real test";
+}
 
 // TEST_F = Test with Ficture (CoordinateUtilTest is a test ficture)
 TEST_F(CoordinateUtilTest, getDistance)
@@ -173,13 +205,10 @@ TEST_F(CoordinateUtilTest, isInFOVFull)
 
 TEST_F(CoordinateUtilTest, collideNoRotation)
 {
-    Texture texture;
-    if(!texture.loadFromFile(SQUARE_IMAGE_PATH))
-        FAIL() << "Image could not be loaded for test: " << SQUARE_IMAGE_PATH;
     // Sprite default size is 20 * 20 pixels
-    Sprite *spriteA = new Sprite(texture);
+    TSprite *spriteA = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
     spriteA->setOrigin(10, 10);
-    Sprite *spriteB = new Sprite(texture);
+    TSprite *spriteB = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
     bool didCollide = true;
 
     // Check for no collision with gap
@@ -212,8 +241,7 @@ TEST_F(CoordinateUtilTest, collideNoRotation)
     didCollide = coordUtil->collide(spriteA, spriteB);
     EXPECT_EQ(true, didCollide) << "Check for collission with boundary overlap";
 
-    // Check with scale
-    spriteA->setScale(2, 2); // Width: 40, height: 40
+    spriteA->setSize(40, 40); // Width: 40, height: 40
     spriteA->setPosition(20, 20); // Width: 0 - 39, height: 0 - 39
     spriteB->setPosition(39, 0); // Width: 39 - 59, height: 0 - 19
     didCollide = coordUtil->collide(spriteA, spriteB);
@@ -225,34 +253,31 @@ TEST_F(CoordinateUtilTest, collideNoRotation)
 
 TEST_F(CoordinateUtilTest, collideWithRotation)
 {
-    Texture texture;
-    if(!texture.loadFromFile(SQUARE_IMAGE_PATH))
-        FAIL() << "Image could not be loaded for test: " << SQUARE_IMAGE_PATH;
     // Sprite default size is 20 * 20 pixels
-    Sprite spriteA(texture);
-    spriteA.setOrigin(10, 10);
-    Sprite spriteB(texture);
+    TSprite *spriteA = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
+    spriteA->setOrigin(10, 10);
+    TSprite *spriteB = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
     bool didCollide = true;
 
     // Check for collision with one sprite rotated
-    spriteA.setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
-    spriteB.setPosition(20, 0); // Width: 20 - 39, height: 0 - 19
-    spriteB.setRotation(45);
-    didCollide = coordUtil->collide(&spriteA, &spriteB);
+    spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB->setPosition(20, 0); // Width: 20 - 39, height: 0 - 19
+    spriteB->setRotation(M_PI / 4.0f);
+    didCollide = coordUtil->collide(spriteA, spriteB);
     EXPECT_EQ(true, didCollide) << "Check for collision with one sprite rotated";
 
     // Check for collision with two sprites rotated
-    spriteA.setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
-    spriteB.setPosition(28, 0); // Width: 27 - 36, height: 0 - 19
-    spriteA.setRotation(45);
-    spriteB.setRotation(45);
-    didCollide = coordUtil->collide(&spriteA, &spriteB);
+    spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB->setPosition(28, 0); // Width: 27 - 36, height: 0 - 19
+    spriteA->setRotation(M_PI / 4.0f);
+    spriteB->setRotation(M_PI / 4.0f);
+    didCollide = coordUtil->collide(spriteA, spriteB);
     EXPECT_EQ(true, didCollide) << "Check for collision with two sprites rotated";
 
     // Check for no collision
-    spriteA.setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
-    spriteB.setPosition(30, 0); // Width: 30 - 49, height: 0 - 19
-    spriteB.setRotation(45);
-    didCollide = coordUtil->collide(&spriteA, &spriteB);
+    spriteA->setPosition(10, 10); // Width: 0 - 19, height: 0 - 19
+    spriteB->setPosition(30, 0); // Width: 30 - 49, height: 0 - 19
+    spriteB->setRotation(M_PI / 4.0f);
+    didCollide = coordUtil->collide(spriteA, spriteB);
     EXPECT_EQ(false, didCollide) << "Check for no collision";
 }

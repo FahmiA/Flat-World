@@ -2,6 +2,7 @@
 #define CHARACTER_H
 
 #include "game/World.hpp"
+#include "util/TSprite.hpp"
 #include "environment/Island.hpp"
 #include "util/CoordinateUtil.hpp"
 #include "util/SpriteUtil.hpp"
@@ -25,7 +26,7 @@ class Character: public GameObject
          * @param speed The movement speed of the Character. Given in pixels-per-second.
          * @param sprite The initialised Sprite object used to display the Character.
          */
-        Character(float x, float y, float width, float height, float speed, Sprite *sprite);
+        Character(float x, float y, float width, float height, float speed, TSprite *sprite);
         virtual ~Character();
 
         // Standard update and draw protocol.
@@ -42,6 +43,7 @@ class Character: public GameObject
 
         // Position and size getters
         const Vector2f& getPosition();
+        void setPosition(float x, float y);
         const Vector2f& getSize();
 
         float getSpeed();
@@ -81,7 +83,7 @@ class Character: public GameObject
         /** Gets the Sprite used to display the Character.
          * @return The Character's Sprite.
          */
-        Sprite *getSprite();
+        TSprite* getSprite();
 
         /** Gets the current ground the Character is on.
          * @return Current ground of NULL if no current ground exists (eg: in jump).
@@ -130,7 +132,7 @@ class Character: public GameObject
     private:
         // State variables
         float speed;
-        Sprite *sprite;
+        TSprite *sprite;
         Island *currentGround;
         Island *prevGround;
         bool inJump;

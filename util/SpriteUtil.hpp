@@ -2,6 +2,7 @@
 #define SPRITEUTIL_H
 
 #include "gameIO/ContentManager.hpp"
+#include "util/TSprite.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
@@ -25,19 +26,11 @@ class SpriteUtil
          */
         static Vector2f* rayTrace(const Image &image, int fromX, int fromY, int toX, int toY, bool seekEmpty = true);
 
-        static void resize(Sprite *sprite, float width, float height);
-        static Vector2f& getSize(Sprite *sprite);
+        //static void resize(Sprite *sprite, float width, float height);
+        //static Vector2f& getSize(Sprite *sprite);
 
-        /** Loads a Sprite image given a path to an image.
-         * @param path The path of the image to load into the Sprite.
-         * @param sprite The Sprite to add the loaded image to.
-         * @param image The Image that was assigned to the sprite (for convenience).
-         * @param content The ContentManager to manage the loaded image.
-         * @return True if the image path pointed to a valid image. False otherwise.
-         */
-        static bool loadSprite(string &path, Sprite *sprite, Image **image, ContentManager *content);
-
-        static bool loadSprite(string &path, Sprite *sprite, Image **image, unsigned int tColour, ContentManager *content);
+        /** Loads a Sprite image given a path to an image.*/
+        //static TSprite* loadSprite(string &path, unsigned int tColour, ContentManager *content);
 
         /** Loads a Font.
          * @param path The path of the font to load.

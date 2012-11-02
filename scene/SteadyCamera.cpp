@@ -12,7 +12,7 @@ using namespace std;
 
 SteadyCamera::SteadyCamera(View *view) : Camera(view)
 {
-    //view->zoom(0.4f);
+    view->zoom(1.4f);
 }
 
 SteadyCamera::~SteadyCamera() { }
@@ -30,5 +30,5 @@ void SteadyCamera::update(Clock *clock, RenderWindow *window, World *world)
 
     // Set the rotation
     float newRotation = player->getRotation();// / AS_RAD(view->getRotation()));
-    view->setRotation(AS_DEG(newRotation));
+    //view->setRotation(AS_DEG(newRotation));
 }

@@ -3,7 +3,6 @@
 ManualCamera::ManualCamera(View *view) : Camera(view)
 {
     speed = 500;
-    view->zoom(1.6);
 }
 
 ManualCamera::~ManualCamera() { }
@@ -14,7 +13,7 @@ void ManualCamera::update(Clock *clock, RenderWindow *window, World *world)
     View *view = getView();
     float moveDistance = speed * clock->getElapsedTime().asSeconds();
 
-    // Respond to user control
+    // Respond to user movement control
     if(Keyboard::isKeyPressed(Keyboard::Left))
         view->move(-moveDistance, 0);
 
@@ -26,4 +25,10 @@ void ManualCamera::update(Clock *clock, RenderWindow *window, World *world)
 
     if(Keyboard::isKeyPressed(Keyboard::Down))
         view->move(0, moveDistance);
+
+    // Respond to user zoom control
+    if(Keyboard::isKeyPressed(Keyboard::Add))
+        view->zoom(0.6f);
+    if(Keyboard::isKeyPressed(Keyboard::Subtract))
+        view->zoom(1.6f);
 }

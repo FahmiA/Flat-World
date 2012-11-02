@@ -1,5 +1,5 @@
-#ifndef ANIMATEDSPRITE_H
-#define ANIMATEDSPRITE_H
+#ifndef TSprite_H
+#define TSprite_H
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
@@ -18,12 +18,12 @@ struct AnimationFrame;
  *    - Play, pause, and stop current animation.
  *    - Set predefined animation actions (eg: "Run" animation).
 */
-class AnimatedSprite: public Sprite
+class TSprite
 {
     public:
-        /** Creates a new AnimatedSprite. */
-        AnimatedSprite();
-        virtual ~AnimatedSprite();
+        /** Creates a new TSprite. */
+        TSprite(const Image &image);
+        virtual ~TSprite();
 
         void addAnimation(Animation *animation);
 
@@ -31,6 +31,11 @@ class AnimatedSprite: public Sprite
          * @param clock The clock to measure elapsed time since the last frame.
          */
         void update(Clock *clock);
+
+        /** Renders the Sprite.
+         * @param window The window to update to.
+         */
+        void draw(RenderWindow *window);
 
         /** Clears the animations of any animation-specific transformations
          * produced by update().
@@ -58,15 +63,33 @@ class AnimatedSprite: public Sprite
         /** Faces the sprite to the left. */
         void lookRight();
 
-        /** Set the display size of sprite frames.
-         * @param size The new size.
-         */
-        void setFrameSize(Vector2f size);
 
-        /** Set the origin of sprite frames.
-         *@param center The new center.
-         */
-        void setFrameOrigin(Vector2f center);
+
+        Vector2f getPosition();
+        void setPosition(float x, float y);
+        void move(float x, float y);
+
+        Vector2f getSize();
+        void setSize(float x, float y);
+
+        void setOrigin(float x, float y);
+        const Vector2f& getOrigin();
+
+        Vector2f toGlobal(const Vector2f &point);
+        Vector2f toLocal(const Vector2f &point);
+
+        void setRotation(float angleR);
+        float getRotation();
+
+
+        FloatRect getLocalBounds(); // TODO: Remove
+        Image* getImage();
+        Sprite* getRawSprite();
+
+        /** Animation name for moving. */
+        static const string ANIMATE_RUN;
+        /** Animation name for standing still. */
+        static const string ANIMATE_IDLE;
 
     private:
         // Animation storage
@@ -81,6 +104,12 @@ class AnimatedSprite: public Sprite
 
         Vector2f originalScale;
         Vector2f originalPosition;
+
+        // Underlying Sprite and image
+        Image image; // A flyweight, managed by ContentManager
+        Texture texture; // Must keep this reference alive to keep image
+        Sprite sprite; // The actual sprite
+
 
         // Helper methods
         void updateDirection();
@@ -105,4 +134,4 @@ struct AnimationFrame
     int height;
 };
 
-#endif // ANIMATEDSPRITE_H
+#endif // TSprite_H

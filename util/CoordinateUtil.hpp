@@ -4,7 +4,9 @@
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
+#include "util/TSprite.hpp"
 #include "util/Commons.hpp"
+
 class Character;
 
 /** Utility methods for working with coordinates. */
@@ -19,14 +21,14 @@ class CoordinateUtil
          * @param bounds The Sprite to check if the global point is inside,
          * @return True if global point is inside bounds. False otherwise.
          */
-        bool isGlobalPointInside(Vector2f &point, Sprite &bounds);
+        bool isGlobalPointInside(Vector2f &point, TSprite &bounds);
 
          /** Checks if a point in a Sprite's local space is inside the given Sprite.
          * @param point The position in the Sprite's local space.
-         * @param bounds The Sprite to check if the local point is inside,
+         * @param bounds The bounds to check if the local point is inside,
          * @return True if local point is inside bounds. False otherwise.
          */
-        bool isLocalPointInside(Vector2f &point, Sprite &bounds);
+        bool isLocalPointInside(Vector2f point, Vector2u bounds);
 
         /** Gets the Euclidian distance between two positions.
          * @param p1 The first position.
@@ -48,7 +50,7 @@ class CoordinateUtil
          * @param object2 The second Sprite object.
          * @return True if object1 and object2 overlap. False otherwise.
          */
-        bool collide(Sprite *object1, Sprite *object2);
+        bool collide(TSprite *object1, TSprite *object2);
 
         /** Checks if a target object is in the area bound by the source object's field of view (FOV).
          * @return True if target isn in source's FOV. False otherwise

@@ -88,7 +88,7 @@ int World::getSheepCaptured()
     return count;
 }
 
-void World::setBackground(Sprite *background)
+void World::setBackground(TSprite *background)
 {
     this->background = background;
 }
@@ -122,7 +122,7 @@ void World::draw(RenderWindow *window)
 
     // draw the backround
     if(background != 0)
-        window->draw(*background);
+        background->draw(window);
 
     // draw the islands
     for(list<Island*>::iterator it = islands->begin(); it != islands->end(); it++)

@@ -28,6 +28,14 @@ class ContentManager
         */
         Image* loadImage(string &path);
 
+        /** Loads or retrieves an image.
+         * NULL is returned if the image could not be loaded.
+         * @param path The path to the image to load.
+         * @param transparentColour Make this colour transparent.
+         * @return The loaded image or NULL if the image could not be loaded.
+        */
+        Image* loadImage(string &path, unsigned int transparentColour);
+
          /** Loads or retrieves an image.
          * NULL is returned if the image could not be loaded.
          * @param path The path to the image to load.

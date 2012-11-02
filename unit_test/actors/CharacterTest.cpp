@@ -1,8 +1,11 @@
 #include "gtest/gtest.h"
 
 #include "gameIO/ContentManager.hpp"
+#include "util/TSprite.hpp"
+#include "gameIO/TSpriteLoader.hpp"
 #include "util/SpriteUtil.hpp"
 #include "actors/Character.hpp"
+#include "util/Debug.hpp"
 
 #include <iostream>
 #include <stdlib.h>
@@ -19,7 +22,7 @@ class StaticCharacter : public Character
 {
     public:
         StaticCharacter(float x, float y, float width, float height,
-                        float speed, Sprite *sprite) :
+                        float speed, TSprite *sprite) :
                         Character(x, y, width, height, speed, sprite)
         {
             subUpdateCalled = 0;
@@ -71,17 +74,14 @@ class CharacterTest : public ::testing::Test
         {
             // Load the test character
             float x = 200;
-            float y = 209;
+            float y = 205;
             float width = 10;
             float height = 20;
             float speed = 200;
 
             string characterSpritePath = "unit_test/actors/filesForTests/Character.png";
-            Sprite *characterSprite = new Sprite();
-            Image *characterImage = 0;
-            bool loadSuccess = SpriteUtil::loadSprite(characterSpritePath, characterSprite, &characterImage, &content);
-            if(!loadSuccess)
-                cout << "CharacterTest.SetUp: Could not load image: " << characterSpritePath << endl;
+            TSpriteLoader spriteLoader(&content);
+            TSprite *characterSprite = spriteLoader.loadStatic(characterSpritePath);
             character = new StaticCharacter(x, y, width, height,
                                             speed, characterSprite);
 
@@ -93,12 +93,8 @@ class CharacterTest : public ::testing::Test
             height = 60;
 
             string islandPath = "unit_test/actors/filesForTests/Island1.png";
-            Sprite *island1Sprite = new Sprite();
-            Image *island1Image = 0;
-            loadSuccess = SpriteUtil::loadSprite(islandPath, island1Sprite, &island1Image, &content);
-            if(!loadSuccess)
-                cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
-            island1 = new Island(x, y, width, height, island1Sprite, island1Image);
+            TSprite *island1Sprite = spriteLoader.loadStatic(islandPath);
+            island1 = new Island(x, y, width, height, island1Sprite);
             islands->push_back(island1);
 
             // Load island 2
@@ -107,12 +103,8 @@ class CharacterTest : public ::testing::Test
             width = 185;
             height = 60;
 
-            Sprite *island2Sprite = new Sprite();
-            Image *island2Image = 0;
-            loadSuccess = SpriteUtil::loadSprite(islandPath, island2Sprite, &island2Image, &content);
-            if(!loadSuccess)
-                cout << "CharacterTest.SetUp: Could not load image: " << islandPath << endl;
-            island2 = new Island(x, y, width, height, island2Sprite, island2Image);
+            TSprite *island2Sprite = spriteLoader.loadStatic(islandPath);
+            island2 = new Island(x, y, width, height, island2Sprite);
             islands->push_back(island2);
         }
 
@@ -198,6 +190,7 @@ TEST_F(CharacterTest, jumpsAgainstGravity)
 TEST_F(CharacterTest, movesLeftAndRight)
 {
     character->findCurrentIsland(islands);
+    character->lockToIsland(0.1f);
 
     // move left
     character->moveLeft();
@@ -235,6 +228,7 @@ TEST_F(CharacterTest, pulledWithGravity)
     character->findCurrentIsland(islands);
 
     Vector2f oldPosition = character->getPosition();
+    cout << PRINT_V(oldPosition) << endl;
     character->lockToIsland(0.03f);
     Vector2f newPosition = character->getPosition();
 
@@ -245,11 +239,12 @@ TEST_F(CharacterTest, attachesToStraitLand)
 {
     character->findCurrentIsland(islands);
     character->lockToIsland(0.05f);
+    cout << PRINT_V(character->getPosition()) << endl;
 
     Vector2f position = character->getPosition();
 
     // At close range, the character should snap to the island's surface
-    EXPECT_EQ(200, position.x) << "X-position should be on ground";
+    EXPECT_NEAR(200, position.x, 2.0f) << "X-position should be on ground";
     EXPECT_EQ(214, position.y) << "Y-position should be on ground";
     EXPECT_EQ(0, character->getRotation()) << "Should not be rotated";
 }
@@ -267,16 +262,16 @@ TEST_F(CharacterTest, attachesToGentleAngledLand)
     // At close range, the character should snap to the island's surface
     EXPECT_NEAR(201, position.x, 1) << "X-position should be on ground";
     EXPECT_NEAR(204, position.y, 1) << "Y-position should be on ground";
-    EXPECT_NEAR(0.3, character->getRotation(), 0.05) << "Should be rotated to angle of hill";
+    EXPECT_NEAR(0.15, character->getRotation(), 0.05) << "Should be rotated to angle of hill";
 }
 
 TEST_F(CharacterTest, attachesToSteepAngledLand)
 {
     // move the island so the player lands on a hill
-    island1->setPosition(169, 239);
+    island1->setPosition(169, 233);
 
     character->findCurrentIsland(islands);
-    character->lockToIsland(0.0f); // The player is already close enough
+    character->lockToIsland(0.1f); // The player is already close enough
 
     Vector2f position = character->getPosition();
 
