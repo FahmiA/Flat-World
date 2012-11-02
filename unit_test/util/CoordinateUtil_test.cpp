@@ -36,22 +36,22 @@ TEST_F(CoordinateUtilTest, isLocalPointInside)
 {
     bool result;
 
-    result = coordUtil->isLocalPointInside(Vector2f(10.0f, 10.0f), Vector2f(20.0f, 30.0f));
+    result = coordUtil->isLocalPointInside(Vector2f(10.0f, 10.0f), Vector2u(20, 30));
     EXPECT_TRUE(result) << "Inside point";
 
-    result = coordUtil->isLocalPointInside(Vector2f(40.3f, 40.005f), Vector2f(2.0f, 30.0f));
+    result = coordUtil->isLocalPointInside(Vector2f(40.3f, 40.005f), Vector2u(2, 30));
     EXPECT_FALSE(result) << "Outside point";
 
-    result = coordUtil->isLocalPointInside(Vector2f(19.8f, 38.0f), Vector2f(20.0f, 30.0f));
+    result = coordUtil->isLocalPointInside(Vector2f(19.8f, 38.0f), Vector2u(20, 30));
     EXPECT_FALSE(result) << "Near point";
 
-    result = coordUtil->isLocalPointInside(Vector2f(20.0f, 30.0f), Vector2f(20.0f, 30.0f));
+    result = coordUtil->isLocalPointInside(Vector2f(20.0f, 30.0f), Vector2u(20, 30));
     EXPECT_FALSE(result) << "Edge point";
 
-    result = coordUtil->isLocalPointInside(Vector2f(-1.0f, -3.0f), Vector2f(20.0f, 30.0f));
+    result = coordUtil->isLocalPointInside(Vector2f(-1.0f, -3.0f), Vector2u(20, 30));
     EXPECT_FALSE(result) << "Negative point";
 
-    result = coordUtil->isLocalPointInside(Vector2f(1081.0f, 581.0f), Vector2f(1172.0f, 577.0f));
+    result = coordUtil->isLocalPointInside(Vector2f(1081.0f, 581.0f), Vector2u(1172, 577));
     EXPECT_FALSE(result) << "Real test";
 }
 
