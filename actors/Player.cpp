@@ -13,7 +13,7 @@ const float Player::PUSH_BACK_MAX_HEIGHT = 40;
 const string Player::ANIMATE_JUMP_UP = "JumpUp";
 const string Player::ANIMATE_JUMP_DOWN = "JumpDown";
 
-Player::Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
+Player::Player(float x, float y, float width, float height, float speed, TSprite *sprite)
     : Character(x, y, width, height, speed, sprite)
 {
     setID(ID_PLAYER);
@@ -52,14 +52,14 @@ void Player::doActionNormal(RenderWindow *window)
     {
         moveLeft();
         getSprite()->lookLeft();
-        getSprite()->play(AnimatedSprite::ANIMATE_RUN);
+        getSprite()->play(TSprite::ANIMATE_RUN);
     }else if(Keyboard::isKeyPressed(Keyboard::Right))
     {
         moveRight();
         getSprite()->lookRight();
-        getSprite()->play(AnimatedSprite::ANIMATE_RUN);
+        getSprite()->play(TSprite::ANIMATE_RUN);
     }else{
-        getSprite()->play(AnimatedSprite::ANIMATE_IDLE);
+        getSprite()->play(TSprite::ANIMATE_IDLE);
     }
 
     if(Keyboard::isKeyPressed(Keyboard::Space))

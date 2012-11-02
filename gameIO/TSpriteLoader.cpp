@@ -1,13 +1,13 @@
-#include "AnimatedSpriteLoader.hpp"
+#include "TSpriteLoader.hpp"
 
 #include <iostream>
 
-AnimatedSpriteLoader::AnimatedSpriteLoader(ContentManager *content)
+TSpriteLoader::TSpriteLoader(ContentManager *content)
 {
     this->content = content;
 }
 
-AnimatedSprite* AnimatedSpriteLoader::loadAnimated(string xmlPath)
+TSprite* TSpriteLoader::loadAnimated(string xmlPath)
 {
     // Load the XMl document
     TiXmlDocument aniDoc(xmlPath);
@@ -28,7 +28,7 @@ AnimatedSprite* AnimatedSpriteLoader::loadAnimated(string xmlPath)
         return 0;
 
     // Build the animated sprite
-    AnimatedSprite *aniSprite = new AnimatedSprite(*aniImage);
+    TSprite *tSprite = new TSprite(*aniImage);
 
     // Read all animation frames
     TiXmlHandle spritesRoot = TiXmlHandle(root.FirstChildElement("Sprites"));
@@ -50,27 +50,27 @@ AnimatedSprite* AnimatedSpriteLoader::loadAnimated(string xmlPath)
     while(animationRoot.ToElement() != 0)
     {
         Animation *animation = getAnimation(animationRoot, frames);
-        aniSprite->addAnimation(animation);
+        tSprite->addAnimation(animation);
 
         animationRoot = animationsRoot.ChildElement(++animationIndex);
     }
 
     // Return the completed animated sprite
-    return aniSprite;
+    return tSprite;
 }
 
-AnimatedSprite* AnimatedSpriteLoader::loadStatic(string imagePath)
+TSprite* TSpriteLoader::loadStatic(string imagePath)
 {
     Image *image = content->loadImage(imagePath);
     if(image == 0)
         return false;
 
-    AnimatedSprite *aniSprite = new AnimatedSprite(*image);
+    TSprite *tSprite = new TSprite(*image);
 
-    return aniSprite;
+    return tSprite;
 }
 
-string AnimatedSpriteLoader::getImagePath(TiXmlHandle &root)
+string TSpriteLoader::getImagePath(TiXmlHandle &root)
 {
     string imagePath = "";
 
@@ -81,7 +81,7 @@ string AnimatedSpriteLoader::getImagePath(TiXmlHandle &root)
     return imagePath;
 }
 
-unsigned int AnimatedSpriteLoader::getTransparentColour(TiXmlHandle &root)
+unsigned int TSpriteLoader::getTransparentColour(TiXmlHandle &root)
 {
     int transparentColour = 0x00000000;
 
@@ -93,7 +93,7 @@ unsigned int AnimatedSpriteLoader::getTransparentColour(TiXmlHandle &root)
     return (unsigned int)transparentColour;
 }
 
-AnimationFrame* AnimatedSpriteLoader::getFrame(TiXmlHandle &spriteRoot)
+AnimationFrame* TSpriteLoader::getFrame(TiXmlHandle &spriteRoot)
 {
     AnimationFrame *frame = new AnimationFrame;
 
@@ -113,7 +113,7 @@ AnimationFrame* AnimatedSpriteLoader::getFrame(TiXmlHandle &spriteRoot)
     return frame;
 }
 
-Animation* AnimatedSpriteLoader::getAnimation(TiXmlHandle &animationRoot, map<int, AnimationFrame*> frames)
+Animation* TSpriteLoader::getAnimation(TiXmlHandle &animationRoot, map<int, AnimationFrame*> frames)
 {
     Animation *animation = new Animation;
 

@@ -2,7 +2,7 @@
 #define SPRITEUTIL_H
 
 #include "gameIO/ContentManager.hpp"
-#include "util/AnimatedSprite.hpp"
+#include "util/TSprite.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
@@ -30,7 +30,7 @@ class SpriteUtil
         //static Vector2f& getSize(Sprite *sprite);
 
         /** Loads a Sprite image given a path to an image.*/
-        //static AnimatedSprite* loadSprite(string &path, unsigned int tColour, ContentManager *content);
+        //static TSprite* loadSprite(string &path, unsigned int tColour, ContentManager *content);
 
         /** Loads a Font.
          * @param path The path of the font to load.

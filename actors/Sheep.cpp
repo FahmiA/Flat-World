@@ -5,7 +5,7 @@
 #include<iostream>
 using namespace std;
 
-Sheep::Sheep(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
+Sheep::Sheep(float x, float y, float width, float height, float speed, TSprite *sprite)
     : Character(x, y, width, height, speed, sprite)
 {
     setID(ID_SHEEP);

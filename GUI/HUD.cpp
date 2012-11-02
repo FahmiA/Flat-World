@@ -7,8 +7,8 @@
 #include <sstream>
 using namespace std;
 
-HUD::HUD(AnimatedSprite *sheepCorner, AnimatedSprite *starCorner,
-            AnimatedSprite *sheepIcon, AnimatedSprite *starIcon,
+HUD::HUD(TSprite *sheepCorner, TSprite *starCorner,
+            TSprite *sheepIcon, TSprite *starIcon,
             int sheepTotal, int starTotal,
             Font *textFont)
 {

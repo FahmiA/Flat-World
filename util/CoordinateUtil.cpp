@@ -4,7 +4,7 @@
 #include "util/Collision.hpp"
 #include "NumberUtil.hpp"
 #include "SpriteUtil.hpp"
-#include "util/AnimatedSprite.hpp"
+#include "util/TSprite.hpp"
 #include "util/Debug.hpp"
 
 #include <math.h>
@@ -13,7 +13,7 @@ using namespace std;
 
 CoordinateUtil::CoordinateUtil() {}
 
-bool CoordinateUtil::isGlobalPointInside(Vector2f &point, AnimatedSprite &bounds)
+bool CoordinateUtil::isGlobalPointInside(Vector2f &point, TSprite &bounds)
 {
     Vector2f rectSize = bounds.getSize();
     Vector2f rectPosition = bounds.getPosition();
@@ -57,7 +57,7 @@ float CoordinateUtil::getAngle(const Vector2f &sourcePos, float sourceAngle, con
     return angle;
 }
 
-bool CoordinateUtil::collide(AnimatedSprite *object1, AnimatedSprite *object2)
+bool CoordinateUtil::collide(TSprite *object1, TSprite *object2)
 {
     return Collision::BoundingBoxTest(*object1->getRawSprite(), *object2->getRawSprite());
 }

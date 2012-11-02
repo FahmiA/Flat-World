@@ -3,7 +3,7 @@
 #include "game/ID.hpp"
 #include "util/SpriteUtil.hpp"
 
-Island::Island(float x, float y, float width, float height, AnimatedSprite *sprite)
+Island::Island(float x, float y, float width, float height, TSprite *sprite)
 {
     sprite->setSize(width, height);
     sprite->setOrigin(0.5f, 0.5f);
@@ -19,7 +19,7 @@ Island::~Island()
     delete sprite;
 }
 
-AnimatedSprite* Island::getSprite()
+TSprite* Island::getSprite()
 {
     return sprite;
 }

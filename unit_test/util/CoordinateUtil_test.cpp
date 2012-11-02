@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
 #include "util/CoordinateUtil.hpp"
-#include "util/AnimatedSprite.hpp"
-#include "gameIO/AnimatedSpriteLoader.hpp"
+#include "util/TSprite.hpp"
+#include "gameIO/TSpriteLoader.hpp"
 
 #include <math.h>
 
@@ -14,14 +14,14 @@ class CoordinateUtilTest : public ::testing::Test
 
         CoordinateUtil *coordUtil;
         ContentManager *content;
-        AnimatedSpriteLoader *spriteLoader;
+        TSpriteLoader *spriteLoader;
 
 
         virtual void SetUp()
         {
             coordUtil = new CoordinateUtil();
             content = new ContentManager();
-            spriteLoader = new AnimatedSpriteLoader(content);
+            spriteLoader = new TSpriteLoader(content);
         }
 
         virtual void TearDown()
@@ -206,9 +206,9 @@ TEST_F(CoordinateUtilTest, isInFOVFull)
 TEST_F(CoordinateUtilTest, collideNoRotation)
 {
     // Sprite default size is 20 * 20 pixels
-    AnimatedSprite *spriteA = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
+    TSprite *spriteA = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
     spriteA->setOrigin(10, 10);
-    AnimatedSprite *spriteB = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
+    TSprite *spriteB = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
     bool didCollide = true;
 
     // Check for no collision with gap
@@ -254,9 +254,9 @@ TEST_F(CoordinateUtilTest, collideNoRotation)
 TEST_F(CoordinateUtilTest, collideWithRotation)
 {
     // Sprite default size is 20 * 20 pixels
-    AnimatedSprite *spriteA = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
+    TSprite *spriteA = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
     spriteA->setOrigin(10, 10);
-    AnimatedSprite *spriteB = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
+    TSprite *spriteB = spriteLoader->loadStatic(SQUARE_IMAGE_PATH);
     bool didCollide = true;
 
     // Check for collision with one sprite rotated

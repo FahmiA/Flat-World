@@ -1,7 +1,7 @@
 #include "ActorStates.hpp"
 
 #include "Character.hpp"
-#include "util/AnimatedSprite.hpp"
+#include "util/TSprite.hpp"
 
 ActorState::~ActorState() {}
 
@@ -18,7 +18,7 @@ void WonderState::performAction(Character *character, Clock *clock)
     }
 
     // Perform the active action
-    AnimatedSprite *sprite = character->getSprite();
+    TSprite *sprite = character->getSprite();
     if(action == Left)
     {
         character->moveLeft();
@@ -48,6 +48,6 @@ void ChaseState::performAction(Character *character, Clock *clock)
         character->moveRight();
 
     // Animate the character
-    AnimatedSprite *sprite = character->getSprite();
+    TSprite *sprite = character->getSprite();
     sprite->play("Run");
 }

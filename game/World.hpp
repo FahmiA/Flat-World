@@ -3,7 +3,7 @@
 
 #include "game/GameObject.hpp"
 #include "scene/Camera.hpp"
-#include "util/AnimatedSprite.hpp"
+#include "util/TSprite.hpp"
 
 class Player;
 class HUD;
@@ -92,7 +92,7 @@ class World
          */
         int getSheepCaptured();
 
-        void setBackground(AnimatedSprite *background);
+        void setBackground(TSprite *background);
 
         void update(Clock *clock, RenderWindow *window);
         void draw(RenderWindow *window);
@@ -102,7 +102,7 @@ class World
         Player *player;
         list<GameObject*> *levelObjects;
         list<Island*> *islands;
-        AnimatedSprite *background;
+        TSprite *background;
 
         Camera *gameCamera;
         Camera *hudCamera;

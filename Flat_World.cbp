@@ -104,8 +104,6 @@
 		<Unit filename="configuration\levels\level_1.xml" />
 		<Unit filename="environment\Island.cpp" />
 		<Unit filename="environment\Island.hpp" />
-		<Unit filename="gameIO\AnimatedSpriteLoader.cpp" />
-		<Unit filename="gameIO\AnimatedSpriteLoader.hpp" />
 		<Unit filename="gameIO\ContentManager.cpp" />
 		<Unit filename="gameIO\ContentManager.hpp" />
 		<Unit filename="gameIO\LevelBuilder.cpp" />
@@ -114,6 +112,8 @@
 		<Unit filename="gameIO\LevelBuilderStd.hpp" />
 		<Unit filename="gameIO\LevelLoader.cpp" />
 		<Unit filename="gameIO\LevelLoader.hpp" />
+		<Unit filename="gameIO\TSpriteLoader.cpp" />
+		<Unit filename="gameIO\TSpriteLoader.hpp" />
 		<Unit filename="game\GameObject.cpp" />
 		<Unit filename="game\GameObject.hpp" />
 		<Unit filename="game\ID.hpp" />
@@ -160,8 +160,6 @@
 		<Unit filename="unit_test\util\SpriteUtil_test.cpp">
 			<Option target="UnitTest" />
 		</Unit>
-		<Unit filename="util\AnimatedSprite.cpp" />
-		<Unit filename="util\AnimatedSprite.hpp" />
 		<Unit filename="util\Collision.cpp" />
 		<Unit filename="util\Collision.hpp" />
 		<Unit filename="util\Commons.hpp" />
@@ -172,6 +170,8 @@
 		<Unit filename="util\NumberUtil.hpp" />
 		<Unit filename="util\SpriteUtil.cpp" />
 		<Unit filename="util\SpriteUtil.hpp" />
+		<Unit filename="util\TSprite.cpp" />
+		<Unit filename="util\TSprite.hpp" />
 		<Unit filename="util\XMLUtil.cpp" />
 		<Unit filename="util\XMLUtil.hpp" />
 		<Extensions>

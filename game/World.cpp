@@ -88,7 +88,7 @@ int World::getSheepCaptured()
     return count;
 }
 
-void World::setBackground(AnimatedSprite *background)
+void World::setBackground(TSprite *background)
 {
     this->background = background;
 }

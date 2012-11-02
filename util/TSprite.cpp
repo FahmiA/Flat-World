@@ -1,4 +1,4 @@
-#include "AnimatedSprite.hpp"
+#include "TSprite.hpp"
 
 #include <iostream>
 using namespace std;
@@ -6,10 +6,10 @@ using namespace std;
 #include "util/SpriteUtil.hpp"
 #include "util/Numberutil.hpp"
 
-const string AnimatedSprite::ANIMATE_RUN = "Run";
-const string AnimatedSprite::ANIMATE_IDLE = "Idle";
+const string TSprite::ANIMATE_RUN = "Run";
+const string TSprite::ANIMATE_IDLE = "Idle";
 
-AnimatedSprite::AnimatedSprite(const Image &image)
+TSprite::TSprite(const Image &image)
 {
     // Initialise the Sprite
     texture.loadFromImage(image);
@@ -27,12 +27,12 @@ AnimatedSprite::AnimatedSprite(const Image &image)
     direction = Left;
 }
 
-AnimatedSprite::~AnimatedSprite()
+TSprite::~TSprite()
 {
     animations.clear();
 }
 
-void AnimatedSprite::addAnimation(Animation *animation)
+void TSprite::addAnimation(Animation *animation)
 {
     // Delete the old animation if one exists
     if(animations.count(animation->name) > 0)
@@ -50,7 +50,7 @@ void AnimatedSprite::addAnimation(Animation *animation)
     }
 }
 
-void AnimatedSprite::update(Clock *clock)
+void TSprite::update(Clock *clock)
 {
     if(paused || currentAnimation == 0)
         return;
@@ -107,18 +107,18 @@ void AnimatedSprite::update(Clock *clock)
     }
 }
 
-void AnimatedSprite::draw(RenderWindow *window)
+void TSprite::draw(RenderWindow *window)
 {
     window->draw(sprite);
 }
 
-void AnimatedSprite::clear()
+void TSprite::clear()
 {
     sprite.setScale(originalScale);
     sprite.setPosition(originalPosition);
 }
 
-void AnimatedSprite::updateDirection()
+void TSprite::updateDirection()
 {
     Vector2f scale = sprite.getScale();
 
@@ -142,7 +142,7 @@ void AnimatedSprite::updateDirection()
     }
 }
 
-bool AnimatedSprite::play(string animationName)
+bool TSprite::play(string animationName)
 {
     if(currentAnimation != 0 && animationName == currentAnimation->name)
         return true;
@@ -162,17 +162,17 @@ bool AnimatedSprite::play(string animationName)
     return true;
 }
 
-void AnimatedSprite::pause()
+void TSprite::pause()
 {
     paused = true;
 }
 
-void AnimatedSprite::resume()
+void TSprite::resume()
 {
     paused = false;
 }
 
-void AnimatedSprite::stop()
+void TSprite::stop()
 {
     currentAnimation = 0;
     currentFrame = 0;
@@ -180,33 +180,33 @@ void AnimatedSprite::stop()
     paused = false;
 }
 
-void AnimatedSprite::lookLeft()
+void TSprite::lookLeft()
 {
     //direction = Left;
 }
 
-void AnimatedSprite::lookRight()
+void TSprite::lookRight()
 {
     //direction = Right;
 }
 
-Vector2f AnimatedSprite::getPosition()
+Vector2f TSprite::getPosition()
 {
     return sprite.getPosition();
 }
 
-void AnimatedSprite::setPosition(float x, float y)
+void TSprite::setPosition(float x, float y)
 {
     sprite.setPosition(x, y);
 }
 
-void AnimatedSprite::setOrigin(float x, float y)
+void TSprite::setOrigin(float x, float y)
 {
     FloatRect bounds = sprite.getLocalBounds();
     sprite.setOrigin(bounds.width * x, bounds.height * y);
 }
 
-Vector2f AnimatedSprite::getSize()
+Vector2f TSprite::getSize()
 {
     IntRect textureSize = sprite.getTextureRect();
     Vector2f scale = sprite.getScale();
@@ -215,29 +215,29 @@ Vector2f AnimatedSprite::getSize()
     return size;
 }
 
-Vector2f AnimatedSprite::toGlobal(const Vector2f &point)
+Vector2f TSprite::toGlobal(const Vector2f &point)
 {
     Transform globalTransform = sprite.getTransform();
     return globalTransform.transformPoint(point);
 }
 
-Vector2f AnimatedSprite::toLocal(const Vector2f &point)
+Vector2f TSprite::toLocal(const Vector2f &point)
 {
     Transform localTransform = sprite.getInverseTransform();
     return localTransform.transformPoint(point);
 }
 
-Image* AnimatedSprite::getImage()
+Image* TSprite::getImage()
 {
     return &image;
 }
 
-Sprite* AnimatedSprite::getRawSprite()
+Sprite* TSprite::getRawSprite()
 {
     return &sprite;
 }
 
-void AnimatedSprite::setSize(float width, float height)
+void TSprite::setSize(float width, float height)
 {
     FloatRect originalSize = sprite.getLocalBounds();
     float originalWidth = originalSize.width;
@@ -247,22 +247,22 @@ void AnimatedSprite::setSize(float width, float height)
         sprite.setScale(width / originalWidth, height / originalHeight);
 }
 
-void AnimatedSprite::setRotation(float angleR)
+void TSprite::setRotation(float angleR)
 {
     sprite.setRotation(AS_DEG(angleR));
 }
 
-float AnimatedSprite::getRotation()
+float TSprite::getRotation()
 {
     return AS_RAD(sprite.getRotation());
 }
 
-void AnimatedSprite::move(float x, float y)
+void TSprite::move(float x, float y)
 {
     sprite.move(x, y);
 }
 
-FloatRect AnimatedSprite::getLocalBounds()
+FloatRect TSprite::getLocalBounds()
 {
     return sprite.getLocalBounds();
 }

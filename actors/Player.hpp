@@ -8,7 +8,7 @@
 class Player: public Character
 {
     public:
-        Player(float x, float y, float width, float height, float speed, AnimatedSprite *sprite);
+        Player(float x, float y, float width, float height, float speed, TSprite *sprite);
         ~Player();
 
         void subUpdate(Clock *clock, RenderWindow *window, World *world);

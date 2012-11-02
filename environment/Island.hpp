@@ -2,7 +2,7 @@
 #define ISLAND_H
 
 #include "game/GameObject.hpp"
-#include "util/AnimatedSprite.hpp"
+#include "util/TSprite.hpp"
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
@@ -11,10 +11,10 @@ using namespace sf;
 class Island: public GameObject
 {
     public:
-        Island(float x, float y, float width, float height, AnimatedSprite *sprite);
+        Island(float x, float y, float width, float height, TSprite *sprite);
         virtual ~Island();
 
-        AnimatedSprite* getSprite();
+        TSprite* getSprite();
         Image* getImage();
 
         void update(Clock *clock, RenderWindow *window, World *world);
@@ -25,7 +25,7 @@ class Island: public GameObject
         const Vector2f& getSize();
 
     private:
-        AnimatedSprite *sprite;
+        TSprite *sprite;
 };
 
 #endif // ISLAND_H

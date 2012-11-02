@@ -1,8 +1,8 @@
 #include "gtest/gtest.h"
 
 #include "gameIO/ContentManager.hpp"
-#include "util/AnimatedSprite.hpp"
-#include "gameIO/AnimatedSpriteLoader.hpp"
+#include "util/TSprite.hpp"
+#include "gameIO/TSpriteLoader.hpp"
 #include "util/SpriteUtil.hpp"
 #include "actors/Character.hpp"
 #include "util/Debug.hpp"
@@ -22,7 +22,7 @@ class StaticCharacter : public Character
 {
     public:
         StaticCharacter(float x, float y, float width, float height,
-                        float speed, AnimatedSprite *sprite) :
+                        float speed, TSprite *sprite) :
                         Character(x, y, width, height, speed, sprite)
         {
             subUpdateCalled = 0;
@@ -80,8 +80,8 @@ class CharacterTest : public ::testing::Test
             float speed = 200;
 
             string characterSpritePath = "unit_test/actors/filesForTests/Character.png";
-            AnimatedSpriteLoader spriteLoader(&content);
-            AnimatedSprite *characterSprite = spriteLoader.loadStatic(characterSpritePath);
+            TSpriteLoader spriteLoader(&content);
+            TSprite *characterSprite = spriteLoader.loadStatic(characterSpritePath);
             character = new StaticCharacter(x, y, width, height,
                                             speed, characterSprite);
 
@@ -93,7 +93,7 @@ class CharacterTest : public ::testing::Test
             height = 60;
 
             string islandPath = "unit_test/actors/filesForTests/Island1.png";
-            AnimatedSprite *island1Sprite = spriteLoader.loadStatic(islandPath);
+            TSprite *island1Sprite = spriteLoader.loadStatic(islandPath);
             island1 = new Island(x, y, width, height, island1Sprite);
             islands->push_back(island1);
 
@@ -103,7 +103,7 @@ class CharacterTest : public ::testing::Test
             width = 185;
             height = 60;
 
-            AnimatedSprite *island2Sprite = spriteLoader.loadStatic(islandPath);
+            TSprite *island2Sprite = spriteLoader.loadStatic(islandPath);
             island2 = new Island(x, y, width, height, island2Sprite);
             islands->push_back(island2);
         }

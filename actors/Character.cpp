@@ -13,7 +13,7 @@ using namespace std;
 #define MIN_GROUND_DIST 1
 #define MIN_ANGLE_CHANGE_D 6
 
-Character::Character(float x, float y, float width, float height, float speed, AnimatedSprite *sprite)
+Character::Character(float x, float y, float width, float height, float speed, TSprite *sprite)
 {
     this->speed = speed;
 
@@ -221,8 +221,8 @@ void Character::lockToIsland(float elapsedTime)
         return;
 
     // Get the Sprite of the ground the charcter is on
-    AnimatedSprite &groundSprite = *currentGround->getSprite();
-    AnimatedSprite &mySprite = *sprite;
+    TSprite &groundSprite = *currentGround->getSprite();
+    TSprite &mySprite = *sprite;
     Image *groundImage = currentGround->getImage();
 
     // Variables to configure ground collision
@@ -344,7 +344,7 @@ bool Character::isAboveGround(Vector2f spritePoint, Island &ground)
     int airDistance = MIN_GROUND_DIST; // Maximum underground level before lifting charcater above ground.
     float myAirY = spritePoint.y - airDistance; // Point that should always be above ground.
 
-    AnimatedSprite *groundSprite = ground.getSprite();
+    TSprite *groundSprite = ground.getSprite();
     Image *groundImage = ground.getImage();
     Vector2f globalAirMiddle = sprite->toGlobal(Vector2f(spritePoint.x, myAirY));
     Vector2f groundAirMiddle = groundSprite->toLocal(globalAirMiddle);
@@ -428,7 +428,7 @@ float Character::getRotation()
     return sprite->getRotation();
 }
 
-AnimatedSprite* Character::getSprite()
+TSprite* Character::getSprite()
 {
     return sprite;
 }

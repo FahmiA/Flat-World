@@ -1,5 +1,5 @@
-#ifndef ANIMATEDSPRITE_H
-#define ANIMATEDSPRITE_H
+#ifndef TSprite_H
+#define TSprite_H
 
 #include <SFML/Graphics.hpp>
 using namespace sf;
@@ -18,12 +18,12 @@ struct AnimationFrame;
  *    - Play, pause, and stop current animation.
  *    - Set predefined animation actions (eg: "Run" animation).
 */
-class AnimatedSprite
+class TSprite
 {
     public:
-        /** Creates a new AnimatedSprite. */
-        AnimatedSprite(const Image &image);
-        virtual ~AnimatedSprite();
+        /** Creates a new TSprite. */
+        TSprite(const Image &image);
+        virtual ~TSprite();
 
         void addAnimation(Animation *animation);
 
@@ -134,4 +134,4 @@ struct AnimationFrame
     int height;
 };
 
-#endif // ANIMATEDSPRITE_H
+#endif // TSprite_H

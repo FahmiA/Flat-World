@@ -7,7 +7,7 @@ using namespace sf;
 #include <iostream>
 using namespace std;
 
-#include "util/AnimatedSprite.hpp"
+#include "util/TSprite.hpp"
 #include "util/CoordinateUtil.hpp"
 
 #define MAX_FPS 60
@@ -26,14 +26,14 @@ int main1()
     image.loadFromFile("media/textures/star.png");
 
     // Create the sprite
-    AnimatedSprite sprite(image);
+    TSprite sprite(image);
     sprite.setOrigin(0.5, 0.5);
     sprite.setPosition(400.0f, 300.0f);
 
     // Create the target
     Image targetImage;
     targetImage.loadFromFile("media/textures/yCube.png");
-    AnimatedSprite target(targetImage);
+    TSprite target(targetImage);
     target.setOrigin(0.5, 0.5);
 
     CoordinateUtil coordUtil;

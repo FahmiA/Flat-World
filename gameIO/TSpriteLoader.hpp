@@ -1,5 +1,5 @@
-#ifndef ANIMATEDSPRITELOADER_H
-#define ANIMATEDSPRITELOADER_H
+#ifndef TSpriteLOADER_H
+#define TSpriteLOADER_H
 
 #include <string>
 #include <map>
@@ -7,25 +7,25 @@ using namespace std;
 
 #include "tinyxml/tinyxml.h"
 #include "gameIO/ContentManager.hpp"
-#include "util/AnimatedSprite.hpp"
+#include "util/TSprite.hpp"
 #include "util/XmlUtil.hpp"
 #include "util/SpriteUtil.hpp"
 
 /** Loads animations from Sprite Vortex XML files. */
-class AnimatedSpriteLoader
+class TSpriteLoader
 {
     public:
         /** Creates a new AnimationSpriteLoader.
           * @param content ContentManager for loading the sprite sheet.
           */
-        AnimatedSpriteLoader(ContentManager *content);
+        TSpriteLoader(ContentManager *content);
 
         /** Loads a sprite.
           * @path Path to XML file.
           */
-        AnimatedSprite* loadAnimated(string xmlPath);
+        TSprite* loadAnimated(string xmlPath);
 
-        AnimatedSprite* loadStatic(string imagePath);
+        TSprite* loadStatic(string imagePath);
 
     private:
         ContentManager *content;

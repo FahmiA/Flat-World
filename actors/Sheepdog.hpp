@@ -4,7 +4,7 @@
 #include "actors/Character.hpp"
 #include "actors/ActorStates.hpp"
 
-#include "util/AnimatedSprite.hpp"
+#include "util/TSprite.hpp"
 
 class LevelBuilder;
 
@@ -13,7 +13,7 @@ class Sheepdog: public Character
 {
     public:
         Sheepdog(float x, float y, float width, float height,
-            float speed, AnimatedSprite *sprite, LevelBuilder *levelBuilder);
+            float speed, TSprite *sprite, LevelBuilder *levelBuilder);
         virtual ~Sheepdog();
 
         void subUpdate(Clock *clock, RenderWindow *window, World *world);

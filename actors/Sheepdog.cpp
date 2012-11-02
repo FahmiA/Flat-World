@@ -4,7 +4,7 @@
 #include "Player.hpp"
 #include "GUI/HUD.hpp"
 #include "util/CoordinateUtil.hpp"
-#include "util/AnimatedSprite.hpp"
+#include "util/TSprite.hpp"
 #include "gameIO/LevelBuilder.hpp"
 #include "util/Debug.hpp"
 
@@ -15,7 +15,7 @@ using namespace std;
 #define DOG_MEMORY_S 3
 
 Sheepdog::Sheepdog(float x, float y, float width, float height,
-         float speed, AnimatedSprite *sprite, LevelBuilder *levelBuilder)
+         float speed, TSprite *sprite, LevelBuilder *levelBuilder)
     : Character(x, y, width, height, speed, sprite)
 {
     setID(ID_DOG);
