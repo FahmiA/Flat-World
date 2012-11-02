@@ -101,6 +101,19 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
         pause = true;
     if(Keyboard::isKeyPressed(Keyboard::O))
         pause = false;
+
+    if(Keyboard::isKeyPressed(Keyboard::Z))
+    {
+        sprite->setRotation(sprite->getRotation() + 0.1f);
+        cout << sprite->getRotation() << endl;
+    }
+
+    if(Keyboard::isKeyPressed(Keyboard::X))
+    {
+        sprite->setRotation(sprite->getRotation() - 0.1f);
+        cout << sprite->getRotation() << endl;
+    }
+
     if(pause)
         return;
 
@@ -139,10 +152,6 @@ void Character::findCurrentIsland(list<Island*>* islands)
             if(prevGround != island) // Ignore the previous ground
             {
                 // Check if the charcter is close to the island
-                /*cout << "Comparing:" << endl;
-                cout << '\t' << PRINT_R(sprite->getPosition(), sprite->getSize()) << endl;
-                cout << '\t' << PRINT_R(island->getSprite()->getPosition(), island->getSprite()->getSize()) << endl;*/
-                //if(sprite->collide(*island->getSprite()))
                 if(coordUtil.collide(sprite, island->getSprite()))
                 {
                     // Mark the new ground as the current ground
@@ -151,11 +160,10 @@ void Character::findCurrentIsland(list<Island*>* islands)
                     currentGround = island;
 
                     // Rotate to the new ground
-                    //float angleRad = atan2(currentGround->getPosition().y - sprite->getPosition().y,
-                    //                    currentGround->getPosition().x - sprite->getPosition().x);
-                    float angleRad = coordUtil.getAngle(sprite->getPosition(), 0, currentGround->getPosition());
-                    sprite->setRotation(-angleRad - M_PI_2); // Rotate to the correct angle
-                    //pause = true;
+                    Vector2f spritePos = sprite->getPosition(); // Must copy
+                    Vector2f groundPos = currentGround->getPosition(); // Must copy
+                    float angleRad = coordUtil.getAngle(spritePos, 0, groundPos);
+                    sprite->setRotation(angleRad - M_PI_2); // Rotate to the correct angle
 
                     cout << "found new ground" << endl;
                     //pause = true;
