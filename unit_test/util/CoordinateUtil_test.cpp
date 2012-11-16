@@ -3,6 +3,7 @@
 #include "util/CoordinateUtil.hpp"
 #include "util/TSprite.hpp"
 #include "gameIO/TSpriteLoader.hpp"
+#include "actors/Sheep.hpp"
 
 #include <math.h>
 
@@ -96,61 +97,62 @@ TEST_F(CoordinateUtilTest, getAngle)
     EXPECT_NEAR(1.078f, angle, 0.001);
 }
 
-/*TEST_F(CoordinateUtilTest, isInFOVAcute)
+TEST_F(CoordinateUtilTest, isInFOVAcute)
 {
-    Texture texture;
-    if(!texture.loadFromFile(SQUARE_IMAGE_PATH))
-        FAIL() << "Image could not be loaded for test: " << SQUARE_IMAGE_PATH;
-    // Sprite default size is 20 * 20 pixels
-    Character source(texture);
-    source.setScale(2.0f, 2.0f);
-    source.setOrigin(10, 10);
-    Sprite target(texture);
-    target.setScale(0.5f, 0.5f);
-    source.setOrigin(10, 10);
+    TSpriteLoader spriteLoader(content);
+    TSprite *sourceTexture = spriteLoader.loadStatic(SQUARE_IMAGE_PATH);
+    TSprite *targetTexture = spriteLoader.loadStatic(SQUARE_IMAGE_PATH);
 
-    int fovDistance = 586;
+    // Sprite default size is 20 * 20 pixels
+    Sheep source(0, 0, 40, 40, 100, sourceTexture);
+    Sheep target(0, 0, 20, 20, 100, targetTexture);
+
+    source.setPosition(1000, 1000);
+    int fovDistance = 500;
     float fovAngleR = 0.5; // radians
     bool result;
 
     // Test for inside FOV
     // Well inside FOV
-    source.setPosition(336, 345);
-    target.setPosition(491, 297);
-    result = coordUtil->isInFOV(source, target, Left, fovDistance, fovAngleR);
-    EXPECT_TRUE(result) << "Target should be detected if it is within the FOV.";
+    target.setPosition(600, 1000);
+    result = coordUtil->isInFOV(source, target, Left, fovAngleR, fovDistance);
+    ASSERT_TRUE(result) << "Target should be detected if it is within the FOV.";
     // Upper corner
-    result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(556, 226), lookDistance, fovAngle);
-    EXPECT_TRUE(result) << "Target should be detected if it borders the upper corner of the FOV.";
+    target.setPosition(500, 727);
+    result = coordUtil->isInFOV(source, target, Left, fovAngleR, fovDistance);
+    ASSERT_TRUE(result) << "Target should be detected if it borders the upper corner of the FOV.";
     // Upper edge
-    result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(575, 271), lookDistance, fovAngle);
-    EXPECT_TRUE(result) << "Target should be detected if it borders the upper edge of the FOV.";
-    // Directly infront
-    result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(586, 345), lookDistance, fovAngle);
-    EXPECT_TRUE(result) << "Target should be detected if it borders the distant edge of the FOV.";
+    target.setPosition(800, 891);
+    result = coordUtil->isInFOV(source, target, Left, fovAngleR, fovDistance);
+    ASSERT_TRUE(result) << "Target should be detected if it borders the upper edge of the FOV.";
     // Lower edge
-    result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(575, 415), lookDistance, fovAngle);
-    EXPECT_TRUE(result) << "Target should be detected if it borders the lower edge of the FOV.";
+    target.setPosition(800, 1109);
+    result = coordUtil->isInFOV(source, target, Left, fovAngleR, fovDistance);
+    ASSERT_TRUE(result) << "Target should be detected if it borders the lower edge of the FOV.";
     // Lower corner
-    result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(556, 462), lookDistance, fovAngle);
-    EXPECT_TRUE(result) << "Target should be detected if it borders the lower corner of the FOV.";
+    target.setPosition(500, 1273);
+    result = coordUtil->isInFOV(source, target, Left, fovAngleR, fovDistance);
+    ASSERT_TRUE(result) << "Target should be detected if it borders the lower corner of the FOV.";
     // Ontop of source
-    result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(336, 345), lookDistance, fovAngle);
-    EXPECT_TRUE(result) << "Target should be detected if it is on top of the source.";
+    result = coordUtil->isInFOV(source, source, Left, fovAngleR, fovDistance);
+    ASSERT_TRUE(result) << "Target should be detected if it is on top of the source.";
 
     // Test for outside FOV
     // Infront and outside FOV
-    result = coordUtil->isInFOV(Vector2f(336, 345), 0, Vector2f(243, 334), lookDistance, fovAngle);
-    EXPECT_FALSE(result) << "Target should not be detected if it is close but not in the FOV.";
+    target.setPosition(400, 400);
+    result = coordUtil->isInFOV(source, target, Left, fovAngleR, fovDistance);
+    ASSERT_FALSE(result) << "Target should not be detected if it is close but not in the FOV.";
     // Infront and outside FOV
-    result = coordUtil->isInFOV(Vector2f(14, 5), 0, Vector2f(1000, 4), lookDistance, fovAngle);
-    EXPECT_FALSE(result) << "Target should not be detected if it is infront, but outside, the FOV";
+    target.setPosition(200, 1000);
+    result = coordUtil->isInFOV(source, target, Left, fovAngleR, fovDistance);
+    ASSERT_FALSE(result) << "Target should not be detected if it is infront, but outside, the FOV";
     // Behind, but oitherwise within, FOV
-    result = coordUtil->isInFOV(Vector2f(-14, -5), 0, Vector2f(-90, -6), lookDistance, fovAngle);
-    EXPECT_FALSE(result) << "Target should not be detected if it is behind, but otherwise inside, the FOV";
+    target.setPosition(1400, 1000);
+    result = coordUtil->isInFOV(source, target, Left, fovAngleR, fovDistance);
+    ASSERT_FALSE(result) << "Target should not be detected if it is behind, but otherwise inside, the FOV";
 }
 
-TEST_F(CoordinateUtilTest, isInFOVReflex)
+/*TEST_F(CoordinateUtilTest, isInFOVReflex)
 {
     bool result;
     int lookDistance = 586;

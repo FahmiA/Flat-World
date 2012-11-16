@@ -71,27 +71,28 @@ bool CoordinateUtil::isInFOV(Character &source, Character &target, Direction dir
 
 
     // Transform the target position into the source's coordinate space
+    cout << "-----" << endl;
+    cout << PRINT_V(targetCenter) << endl;
     targetCenter = target.getSprite()->toGlobal(targetCenter);
+    cout << PRINT_V(targetCenter) << endl;
     targetCenter = source.getSprite()->toLocal(targetCenter);
 
     // Perform the FOV check
     bool insideFOV = false;
     float distance = getDistance(sourceCenter, targetCenter);
-    if(distance < fovDistance)
+    // TODO multiply distance my scale of source
+    cout << PRINT_V(sourceCenter) << " -> " << PRINT_V(targetCenter) << " = ";
+    cout << distance << endl;
+    if(distance <= fovDistance)
     {
         // Check the angle between the source and the target
         float angleR = atan2(targetCenter.y - sourceCenter.y, targetCenter.x - sourceCenter.x);
 
         // TODO: Only works if source if facing left
         if(direction == Left)
-        {
-            if(angleR > -M_PI - fovAngleR && angleR < -M_PI + fovAngleR)
-                insideFOV = true;
-        }else{ // direction == Right
-            if(angleR > -fovAngleR && angleR < fovAngleR)
-                insideFOV = true;
-        }
-
+            angleR += M_PI;
+        if(angleR <= fovAngleR || angleR >= M_PI_2 - fovAngleR)
+            insideFOV = true;
     }
 
     return insideFOV;
