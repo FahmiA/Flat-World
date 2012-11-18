@@ -52,14 +52,8 @@ int main1()
             if((event.type == Event::KeyPressed) && (event.key.code == Keyboard::Escape))
                 app.close();
 
-            // Rotation controls
-            float rotationSpeed = 0.1f;
-            if((event.type == Event::KeyPressed) && (event.key.code == Keyboard::Q))
-                sprite.setRotation(sprite.getRotation() + rotationSpeed);
-            if((event.type == Event::KeyPressed) && (event.key.code == Keyboard::W))
-                sprite.setRotation(sprite.getRotation() - rotationSpeed);
-            if((event.type == Event::KeyPressed) && (event.key.code == Keyboard::S))
-                sprite.setRotation(sprite.getRotation() - 3.14);
+            if((event.type == Event::KeyPressed) && (event.key.code == Keyboard::L))
+                sprite.lookLeft();
 
             // Move the target to the mouse
             Vector2i mousePos = Mouse::getPosition(app);

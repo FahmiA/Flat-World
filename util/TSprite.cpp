@@ -3,6 +3,7 @@
 #include <iostream>
 using namespace std;
 
+#include "util/Debug.hpp"
 #include "util/SpriteUtil.hpp"
 #include "util/Numberutil.hpp"
 
@@ -24,7 +25,7 @@ TSprite::TSprite(const Image &image)
     currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
-    direction = Left;
+    direction = Right;
 }
 
 TSprite::~TSprite()
@@ -96,7 +97,7 @@ void TSprite::update(Clock *clock)
         sprite.setOrigin(Vector2f((origin.x / localBounds.width) * sprite.getLocalBounds().width,
                            (origin.y / localBounds.height) * sprite.getLocalBounds().height));
 
-        updateDirection();
+        //updateDirection();
 
         // Update the frame counter
         currentFrame++;
@@ -116,30 +117,6 @@ void TSprite::clear()
 {
     sprite.setScale(originalScale);
     sprite.setPosition(originalPosition);
-}
-
-void TSprite::updateDirection()
-{
-    Vector2f scale = sprite.getScale();
-
-    // Calculate the position of the flipped sprite
-    Transform globalTransform = sprite.getTransform();
-    Vector2f flippedOrigin = Vector2f(sprite.getOrigin().x + sprite.getLocalBounds().width, sprite.getOrigin().y);
-    Vector2f flippedPos = globalTransform.transformPoint(flippedOrigin);
-
-    // Fli0p the sprite if requested
-    if(direction == Left && scale.x < 0)
-    {
-        // Keep the scale positive
-        scale.x = -scale.x;
-        sprite.setScale(scale.x, scale.y);
-        sprite.setPosition(flippedOrigin);
-    }else if(direction != Left && scale.x > 0){
-        // Keep the scale negative
-        scale.x = -scale.x;
-        sprite.setScale(scale.x, scale.y);
-        sprite.setPosition(flippedPos);
-    }
 }
 
 bool TSprite::play(string animationName)
@@ -182,17 +159,31 @@ void TSprite::stop()
 
 void TSprite::lookLeft()
 {
-    //direction = Left;
+    if(direction != Left)
+    {
+        //sprite.setOrigin(sprite.getLocalBounds().width, sprite.getOrigin().y); // TODO: Generalise
+        Vector2f scale = sprite.getScale();
+        sprite.setScale(-scale.x, scale.y);
+        direction = Left;
+    }
 }
 
 void TSprite::lookRight()
 {
-    //direction = Right;
+    // TODO; Complete afrer lookLeft works
+    /*if(direction != Right)
+    {
+        image.flipHorizontally();
+        direction = Right;
+    }*/
 }
 
 Vector2f TSprite::getPosition()
 {
-    return sprite.getPosition();
+    Vector2f pos(sprite.getPosition());
+    //pos = toLocal(pos);
+    //pos = toGlobal(pos);
+    return pos;
 }
 
 void TSprite::setPosition(float x, float y)
@@ -218,13 +209,44 @@ Vector2f TSprite::getSize()
 Vector2f TSprite::toGlobal(const Vector2f &point)
 {
     Transform globalTransform = sprite.getTransform();
-    return globalTransform.transformPoint(point);
+
+    /*Vector2f scaledPoint = globalTransform.transformPoint(point);
+    scaledPoint.x /= sprite.getScale().x;
+    scaledPoint.y /= sprite.getScale().y;
+    return scaledPoint;*/
+    Vector2f result(point);
+    if(direction == Left)
+    {
+        //cout << "ME" << PRINT_V(getPosition()) << endl;
+        //cout << PRINT_V(result) << endl;
+        //result.x *= -1;
+        //result.y *= -1;
+        globalTransform.scale(-1,1);
+    }
+
+    result = globalTransform.transformPoint(point);
+    return result;
 }
 
 Vector2f TSprite::toLocal(const Vector2f &point)
 {
     Transform localTransform = sprite.getInverseTransform();
-    return localTransform.transformPoint(point);
+
+    /*Vector2f scaledPoint = localTransform.transformPoint(point);
+    scaledPoint.x *= sprite.getScale().x;
+    scaledPoint.y *= sprite.getScale().y;
+    return scaledPoint;*/
+    Vector2f result(point);
+    if(direction == Left)
+    {
+        //result.x *= -1;
+        //result.y *= -1;
+        //result.x = sprite.getLocalBounds().left - result.x;
+        localTransform.scale(-1,1);
+    }
+
+    result = localTransform.transformPoint(point);
+    return result;
 }
 
 Image* TSprite::getImage()

@@ -91,8 +91,9 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
 {
     // Un-comment the line below to pause the game on the first frame
     //return;
-
-    bounds = RectangleShape(sprite->getSize());
+    Vector2f boundsSize(sprite->getSize());
+    boundsSize.y = -boundsSize.y;
+    bounds = RectangleShape(boundsSize);
     bounds.setPosition(sprite->getPosition());
     bounds.setFillColor(Color::White);
     bounds.setOutlineThickness(2);
@@ -137,6 +138,8 @@ void Character::update(Clock *clock, RenderWindow *window, World *world)
 
     // Update sprite animation
     sprite->update(clock);
+
+    //pause = true;
 }
 
 void Character::findCurrentIsland(list<Island*>* islands)
@@ -227,13 +230,14 @@ void Character::lockToIsland(float elapsedTime)
 
     // Variables to configure ground collision
     int lookDepth = 100; // Depth to ray-trace
-    int lookOffset = sprite->getLocalBounds().width / 2; // Distance between left and right ray-traces
+    int lookOffset = mySprite.getSize().x / 2; // Distance between left and right ray-traces
+    lookOffset = abs(lookOffset);
     float clampThreshold = MIN_GROUND_DIST * 10; // Distance from ground, before character is clamped to the ground
 
     // Get the position at the bottom of the charcter
     // Global Positions
-    float myCenterX = sprite->getLocalBounds().width / 2;
-    float myBottomY = sprite->getLocalBounds().height;
+    float myCenterX = mySprite.getSize().x / 2;
+    float myBottomY = mySprite.getSize().y;
 
     Vector2f localBottomLeft(myCenterX - lookOffset, myBottomY);
     Vector2f localBottomMiddle(myCenterX, myBottomY);
@@ -268,7 +272,9 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f *groundRightCollide = SpriteUtil::rayTrace(*groundImage, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y, aboveGround);
 
     lookLine = ConvexShape(3);
-    lookLine.setPoint(0, globalBottomLeft);
+    cout << '-' << endl;
+    cout << PRINT_V(mySprite.getSize()) << " - " << mySprite.getLocalBounds().width << endl;
+    lookLine.setPoint(0, mySprite.toGlobal(Vector2f(0, mySprite.getLocalBounds().height)));
     lookLine.setPoint(1, globalBottomRight);
     lookLine.setPoint(2, globalTarget);
     lookLine.setFillColor(Color::Blue);
@@ -375,8 +381,8 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
     Vector2f newPos = Vector2f(leftCollide);
     float deltaDist = coordUtil.getDistance(newPos, sprite->getPosition());
     //cout << deltaDist << " > " << MIN_ANGLE_CHANGE_D << endl;
-    if(deltaDist > MIN_ANGLE_CHANGE_D)
-        sprite->setPosition(newPos.x, newPos.y);
+    //if(deltaDist > MIN_ANGLE_CHANGE_D)
+     //   sprite->setPosition(newPos.x, newPos.y);
 }
 
 CoordinateUtil& Character::getCoordinateUtil()
@@ -391,7 +397,7 @@ void Character::setDistanceFromGround(float distance)
 
 void Character::draw(RenderWindow *window)
 {
-    //window->draw(bounds);
+    window->draw(bounds);
 
     // draw the debug graphics
 
