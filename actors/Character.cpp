@@ -272,9 +272,7 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f *groundRightCollide = SpriteUtil::rayTrace(*groundImage, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y, aboveGround);
 
     lookLine = ConvexShape(3);
-    cout << '-' << endl;
-    cout << PRINT_V(mySprite.getSize()) << " - " << mySprite.getLocalBounds().width << endl;
-    lookLine.setPoint(0, mySprite.toGlobal(Vector2f(0, mySprite.getLocalBounds().height)));
+    lookLine.setPoint(0, globalBottomLeft);
     lookLine.setPoint(1, globalBottomRight);
     lookLine.setPoint(2, globalTarget);
     lookLine.setFillColor(Color::Blue);
@@ -381,8 +379,8 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
     Vector2f newPos = Vector2f(leftCollide);
     float deltaDist = coordUtil.getDistance(newPos, sprite->getPosition());
     //cout << deltaDist << " > " << MIN_ANGLE_CHANGE_D << endl;
-    //if(deltaDist > MIN_ANGLE_CHANGE_D)
-     //   sprite->setPosition(newPos.x, newPos.y);
+    if(deltaDist > MIN_ANGLE_CHANGE_D)
+        sprite->setPosition(newPos.x, newPos.y);
 }
 
 CoordinateUtil& Character::getCoordinateUtil()

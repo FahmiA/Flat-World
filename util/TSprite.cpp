@@ -170,19 +170,18 @@ void TSprite::lookLeft()
 
 void TSprite::lookRight()
 {
-    // TODO; Complete afrer lookLeft works
-    /*if(direction != Right)
+    if(direction != Right)
     {
-        image.flipHorizontally();
+        //sprite.setOrigin(sprite.getLocalBounds().width, sprite.getOrigin().y); // TODO: Generalise
+        Vector2f scale = sprite.getScale();
+        sprite.setScale(-scale.x, scale.y);
         direction = Right;
-    }*/
+    }
 }
 
 Vector2f TSprite::getPosition()
 {
     Vector2f pos(sprite.getPosition());
-    //pos = toLocal(pos);
-    //pos = toGlobal(pos);
     return pos;
 }
 
@@ -208,45 +207,33 @@ Vector2f TSprite::getSize()
 
 Vector2f TSprite::toGlobal(const Vector2f &point)
 {
+    // Create the transform
     Transform globalTransform = sprite.getTransform();
-
-    /*Vector2f scaledPoint = globalTransform.transformPoint(point);
-    scaledPoint.x /= sprite.getScale().x;
-    scaledPoint.y /= sprite.getScale().y;
-    return scaledPoint;*/
-    Vector2f result(point);
     if(direction == Left)
     {
-        //cout << "ME" << PRINT_V(getPosition()) << endl;
-        //cout << PRINT_V(result) << endl;
-        //result.x *= -1;
-        //result.y *= -1;
-        globalTransform.scale(-1,1);
+        //globalTransform.scale(-1,1);
     }
 
-    result = globalTransform.transformPoint(point);
-    return result;
+    // Scale point to coordinate space of original image
+    Vector2f scale = sprite.getScale();
+    Vector2f result(point.x / scale.x, point.y / scale.y);
+
+    return globalTransform.transformPoint(result);
 }
 
 Vector2f TSprite::toLocal(const Vector2f &point)
 {
     Transform localTransform = sprite.getInverseTransform();
-
-    /*Vector2f scaledPoint = localTransform.transformPoint(point);
-    scaledPoint.x *= sprite.getScale().x;
-    scaledPoint.y *= sprite.getScale().y;
-    return scaledPoint;*/
-    Vector2f result(point);
     if(direction == Left)
     {
-        //result.x *= -1;
-        //result.y *= -1;
-        //result.x = sprite.getLocalBounds().left - result.x;
-        localTransform.scale(-1,1);
+        //localTransform.scale(-1,1);
     }
 
-    result = localTransform.transformPoint(point);
-    return result;
+    // Scale point to coordinate space of original image
+    Vector2f scale = sprite.getScale();
+    Vector2f result(point.x / scale.x, point.y / scale.y);
+
+    return localTransform.transformPoint(result);
 }
 
 Image* TSprite::getImage()
