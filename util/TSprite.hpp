@@ -81,10 +81,11 @@ class TSprite
         void setRotation(float angleR);
         float getRotation();
 
+        Color getPixel(unsigned int x, unsigned int y) const;
 
         FloatRect getLocalBounds(); // TODO: Remove
-        Image* getImage();
-        Sprite* getRawSprite();
+        Image* getImage(); // TODO: Remove
+        Sprite* getRawSprite(); // TODO: Remove
 
         /** Animation name for moving. */
         static const string ANIMATE_RUN;

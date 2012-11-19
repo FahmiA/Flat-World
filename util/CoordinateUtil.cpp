@@ -25,7 +25,7 @@ bool CoordinateUtil::isGlobalPointInside(Vector2f &point, TSprite &bounds)
     return false;
 }
 
-bool CoordinateUtil::isLocalPointInside(Vector2f point, Vector2u bounds)
+bool CoordinateUtil::isLocalPointInside(Vector2f point, Vector2f bounds)
 {
     //cout << PRINT_V(point) << ", " << PRINT_V(rectSize) << endl;
     // TODO: This collision detection does not work

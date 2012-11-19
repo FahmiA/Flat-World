@@ -226,7 +226,6 @@ void Character::lockToIsland(float elapsedTime)
     // Get the Sprite of the ground the charcter is on
     TSprite &groundSprite = *currentGround->getSprite();
     TSprite &mySprite = *sprite;
-    Image *groundImage = currentGround->getImage();
 
     // Variables to configure ground collision
     int lookDepth = 100; // Depth to ray-trace
@@ -251,8 +250,8 @@ void Character::lockToIsland(float elapsedTime)
     Vector2f groundBottomMiddle = groundSprite.toLocal(globalBottomMiddle);
     Vector2f groundBottomRight = groundSprite.toLocal(globalBottomRight);
 
-    bool aboveGround = isAboveGround(localBottomLeft, *currentGround) &&
-                       isAboveGround(localBottomRight, *currentGround);
+    bool aboveGround = isAboveGround(localBottomLeft, groundSprite) &&
+                       isAboveGround(localBottomRight, groundSprite);
     //cout << "aboveGround: " << PRINT_BOOL(aboveGround) << endl;
 
     // Get the position of the ray-trace destination
@@ -267,9 +266,9 @@ void Character::lockToIsland(float elapsedTime)
 
     // Ray-trace to get position of land below character
     //TODO: Maybe I need to rescale the output of raytrace back to the ground sprite's scale.
-    Vector2f *groundLeftCollide = SpriteUtil::rayTrace(*groundImage, groundBottomLeft.x, groundBottomLeft.y, groundTarget.x, groundTarget.y, aboveGround);
-    Vector2f *groundMiddleCollide = SpriteUtil::rayTrace(*groundImage, groundBottomMiddle.x, groundBottomMiddle.y, groundTarget.x, groundTarget.y, aboveGround);
-    Vector2f *groundRightCollide = SpriteUtil::rayTrace(*groundImage, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y, aboveGround);
+    Vector2f *groundLeftCollide = SpriteUtil::rayTrace(groundSprite, groundBottomLeft.x, groundBottomLeft.y, groundTarget.x, groundTarget.y, aboveGround);
+    Vector2f *groundMiddleCollide = SpriteUtil::rayTrace(groundSprite, groundBottomMiddle.x, groundBottomMiddle.y, groundTarget.x, groundTarget.y, aboveGround);
+    Vector2f *groundRightCollide = SpriteUtil::rayTrace(groundSprite, groundBottomRight.x, groundBottomRight.y, groundTarget.x, groundTarget.y, aboveGround);
 
     lookLine = ConvexShape(3);
     lookLine.setPoint(0, globalBottomLeft);
@@ -341,27 +340,25 @@ void Character::lockToIsland(float elapsedTime)
     delete groundRightCollide;
 }
 
-bool Character::isAboveGround(Vector2f spritePoint, Island &ground)
+bool Character::isAboveGround(Vector2f spritePoint, TSprite &groundSprite)
 {
     bool aboveGround = true;
 
     int airDistance = MIN_GROUND_DIST; // Maximum underground level before lifting charcater above ground.
     float myAirY = spritePoint.y - airDistance; // Point that should always be above ground.
 
-    TSprite *groundSprite = ground.getSprite();
-    Image *groundImage = ground.getImage();
     Vector2f globalAirMiddle = sprite->toGlobal(Vector2f(spritePoint.x, myAirY));
-    Vector2f groundAirMiddle = groundSprite->toLocal(globalAirMiddle);
+    Vector2f groundAirMiddle = groundSprite.toLocal(globalAirMiddle);
     groundAirMiddle.x = (int)groundAirMiddle.x;
     groundAirMiddle.y = (int)groundAirMiddle.y;
 
     // Take the air pixel
     int airPixelAlpha = 0;
     // Make sure the pixel is within the bounds of the ground sprite
-    if(coordUtil.isLocalPointInside(groundAirMiddle, groundImage->getSize()))
+    if(coordUtil.isLocalPointInside(groundAirMiddle, groundSprite.getSize()))
     {
-        //cout << PRINT_V(groundImage->getSize()) << ", " << PRINT_V(groundAirMiddle) << endl;
-        airPixelAlpha = (int)(groundImage->getPixel(groundAirMiddle.x, groundAirMiddle.y).a);
+        //cout << PRINT_V(groundSprite.getSize()) << ", " << PRINT_V(groundAirMiddle) << endl;
+        airPixelAlpha = (int)(groundSprite.getPixel(groundAirMiddle.x, groundAirMiddle.y).a);
     }
 
     if(airPixelAlpha > 0)
@@ -369,6 +366,7 @@ bool Character::isAboveGround(Vector2f spritePoint, Island &ground)
         aboveGround = false;
     }
 
+    //cout << PRINT_BOOL(aboveGround) << endl;
     return aboveGround;
 }
 
@@ -380,7 +378,9 @@ void Character::clampToGround(Vector2f &leftCollide, float groundAngleRad)
     float deltaDist = coordUtil.getDistance(newPos, sprite->getPosition());
     //cout << deltaDist << " > " << MIN_ANGLE_CHANGE_D << endl;
     if(deltaDist > MIN_ANGLE_CHANGE_D)
+    {
         sprite->setPosition(newPos.x, newPos.y);
+    }
 }
 
 CoordinateUtil& Character::getCoordinateUtil()

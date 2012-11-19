@@ -28,7 +28,7 @@ class CoordinateUtil
          * @param bounds The bounds to check if the local point is inside,
          * @return True if local point is inside bounds. False otherwise.
          */
-        bool isLocalPointInside(Vector2f point, Vector2u bounds);
+        bool isLocalPointInside(Vector2f point, Vector2f bounds);
 
         /** Gets the Euclidian distance between two positions.
          * @param p1 The first position.

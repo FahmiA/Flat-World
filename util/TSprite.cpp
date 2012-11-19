@@ -230,10 +230,12 @@ Vector2f TSprite::toLocal(const Vector2f &point)
     }
 
     // Scale point to coordinate space of original image
+    Vector2f result = localTransform.transformPoint(point);
     Vector2f scale = sprite.getScale();
-    Vector2f result(point.x / scale.x, point.y / scale.y);
+    result.x *= scale.x;
+    result.y *= scale.y;
 
-    return localTransform.transformPoint(result);
+    return result;
 }
 
 Image* TSprite::getImage()
@@ -264,6 +266,17 @@ void TSprite::setRotation(float angleR)
 float TSprite::getRotation()
 {
     return AS_RAD(sprite.getRotation());
+}
+
+Color TSprite::getPixel(unsigned int x, unsigned int y) const
+{
+    // Scale the coordinates from TSprite to image coordinate space
+    Vector2f scale = sprite.getScale();
+    x = x / scale.x;
+    y = y / scale.y;
+
+    // Get the pixel
+    return image.getPixel(x, y);
 }
 
 void TSprite::move(float x, float y)

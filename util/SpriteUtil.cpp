@@ -2,7 +2,7 @@
 
 #include "NumberUtil.hpp"
 
-Vector2f* SpriteUtil::rayTrace(const Image &image, int fromX, int fromY, int toX, int toY, bool seekEmpty)
+Vector2f* SpriteUtil::rayTrace(TSprite &sprite, int fromX, int fromY, int toX, int toY, bool seekEmpty)
 {
     // Simplified Bresenham line algorithm
     // http://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
@@ -14,8 +14,8 @@ Vector2f* SpriteUtil::rayTrace(const Image &image, int fromX, int fromY, int toX
        with the rectangle to clamp and reduce line length.*/
 
     // Clamp positions to within the bounds of the sprite
-    int spriteMaxX = (int)(image.getSize().x - 1.0f);
-    int spriteMaxY = (int)(image.getSize().y - 1.0f);
+    int spriteMaxX = (int)(sprite.getSize().x - 1.0f);
+    int spriteMaxY = (int)(sprite.getSize().y - 1.0f);
 
     // Declare the required variables
     Vector2f *collidePosition = 0;
@@ -34,7 +34,7 @@ Vector2f* SpriteUtil::rayTrace(const Image &image, int fromX, int fromY, int toX
         if(fromX >= 0 && fromX <= spriteMaxX &&
            fromY >= 0 && fromY <= spriteMaxY)
         {
-            pixel = image.getPixel(fromX, fromY);
+            pixel = sprite.getPixel(fromX, fromY);
             hasPixel = true;
         }else{
             hasPixel = false;
