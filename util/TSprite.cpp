@@ -10,7 +10,7 @@ using namespace std;
 const string TSprite::ANIMATE_RUN = "Run";
 const string TSprite::ANIMATE_IDLE = "Idle";
 
-TSprite::TSprite(const Image &image)
+TSprite::TSprite(const Image &image, Direction direction)
 {
     // Initialise the Sprite
     texture.loadFromImage(image);
@@ -25,7 +25,14 @@ TSprite::TSprite(const Image &image)
     currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
-    direction = Right;
+
+    this->direction = direction;
+    if(direction == Left)
+    {
+        // Invert scale (direction) as default
+        Vector2f scale = sprite.getScale();
+        sprite.setScale(-scale.x, scale.y);
+    }
 }
 
 TSprite::~TSprite()
@@ -161,7 +168,6 @@ void TSprite::lookLeft()
 {
     if(direction != Left)
     {
-        //sprite.setOrigin(sprite.getLocalBounds().width, sprite.getOrigin().y); // TODO: Generalise
         Vector2f scale = sprite.getScale();
         sprite.setScale(-scale.x, scale.y);
         direction = Left;
@@ -172,7 +178,6 @@ void TSprite::lookRight()
 {
     if(direction != Right)
     {
-        //sprite.setOrigin(sprite.getLocalBounds().width, sprite.getOrigin().y); // TODO: Generalise
         Vector2f scale = sprite.getScale();
         sprite.setScale(-scale.x, scale.y);
         direction = Right;
@@ -200,8 +205,8 @@ Vector2f TSprite::getSize()
 {
     IntRect textureSize = sprite.getTextureRect();
     Vector2f scale = sprite.getScale();
-
     Vector2f size(textureSize.width * scale.x, textureSize.height * scale.y);
+
     return size;
 }
 
@@ -211,7 +216,7 @@ Vector2f TSprite::toGlobal(const Vector2f &point)
     Transform globalTransform = sprite.getTransform();
     if(direction == Left)
     {
-        //globalTransform.scale(-1,1);
+        globalTransform.scale(1,1);
     }
 
     // Scale point to coordinate space of original image
@@ -223,6 +228,7 @@ Vector2f TSprite::toGlobal(const Vector2f &point)
 
 Vector2f TSprite::toLocal(const Vector2f &point)
 {
+    // TODO: transforms do not know that flipping moves the rendered image
     Transform localTransform = sprite.getInverseTransform();
     if(direction == Left)
     {

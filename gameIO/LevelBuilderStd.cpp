@@ -72,7 +72,7 @@ bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    TSprite *sprite = aniLoader->loadAnimated(playerDesc->imagePath);
+    TSprite *sprite = aniLoader->loadAnimated(playerDesc->imagePath, Right);
 
     if(sprite == 0)
     {

@@ -7,7 +7,7 @@ TSpriteLoader::TSpriteLoader(ContentManager *content)
     this->content = content;
 }
 
-TSprite* TSpriteLoader::loadAnimated(string xmlPath)
+TSprite* TSpriteLoader::loadAnimated(string xmlPath, Direction direction)
 {
     // Load the XMl document
     TiXmlDocument aniDoc(xmlPath);
@@ -28,7 +28,7 @@ TSprite* TSpriteLoader::loadAnimated(string xmlPath)
         return 0;
 
     // Build the animated sprite
-    TSprite *tSprite = new TSprite(*aniImage);
+    TSprite *tSprite = new TSprite(*aniImage, direction);
 
     // Read all animation frames
     TiXmlHandle spritesRoot = TiXmlHandle(root.FirstChildElement("Sprites"));

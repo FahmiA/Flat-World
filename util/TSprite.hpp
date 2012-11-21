@@ -21,8 +21,11 @@ struct AnimationFrame;
 class TSprite
 {
     public:
-        /** Creates a new TSprite. */
-        TSprite(const Image &image);
+        /** Creates a new TSprite.
+         * @param image Spritesheet or image of TSprite.
+         * @param direction Direction sprite image is facing (optional).
+         */
+        TSprite(const Image &image, Direction direction = Right);
         virtual ~TSprite();
 
         void addAnimation(Animation *animation);

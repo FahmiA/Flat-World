@@ -21,9 +21,10 @@ class TSpriteLoader
         TSpriteLoader(ContentManager *content);
 
         /** Loads a sprite.
-          * @path Path to XML file.
+          * @param Path to XML file.
+          * @param direction Direction sprite image is facing (optional).
           */
-        TSprite* loadAnimated(string xmlPath);
+        TSprite* loadAnimated(string xmlPath, Direction direction = Left);
 
         TSprite* loadStatic(string imagePath);
 

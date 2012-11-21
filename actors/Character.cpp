@@ -58,23 +58,14 @@ void Character::moveLeft()
 {
     facingDirection = Left;
     doMoveLeft = true;
-
-    // TODO: Implement flipping: http://en.sfml-dev.org/forums/index.php?topic=7604.msg54047#msg54047
-    /*if(spriteDirection == Left)
-        sprite->FlipX(false);
-    else
-        sprite->FlipX(true);*/
+    sprite->lookLeft();
 }
 
 void Character::moveRight()
 {
     facingDirection = Right;
     doMoveRight = true;
-
-    /*if(spriteDirection == Left)
-        sprite->FlipX(true);
-    else
-        sprite->FlipX(false);*/
+    sprite->lookRight();
 }
 
 bool Character::isJumping()
@@ -236,6 +227,10 @@ void Character::lockToIsland(float elapsedTime)
     // Get the position at the bottom of the charcter
     // Global Positions
     float myCenterX = mySprite.getSize().x / 2;
+    if(myCenterX < 0)
+        myCenterX = -myCenterX;
+    //if(myCenterX < 0)
+    //    myCenterX = -myCenterX;
     float myBottomY = mySprite.getSize().y;
 
     Vector2f localBottomLeft(myCenterX - lookOffset, myBottomY);
@@ -280,6 +275,7 @@ void Character::lockToIsland(float elapsedTime)
     //cout << PRINT_BOOL(groundLeftCollide != 0) << ", " << PRINT_BOOL(groundRightCollide != 0) <<  endl;
     if(groundLeftCollide != 0 && groundRightCollide != 0)
     {
+        //cout << PRINT_V(*groundLeftCollide) << " - " << PRINT_V(*groundRightCollide) << endl;
         inJump = false;
 
         float groundAngleRad = coordUtil.getAngle(*groundLeftCollide, 0, *groundRightCollide);
