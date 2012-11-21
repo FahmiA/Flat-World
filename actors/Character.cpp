@@ -28,7 +28,6 @@ Character::Character(float x, float y, float width, float height, float speed, T
     inJump = false;
     distanceFromGround = 0;
     prevAngle = 0;
-    spriteDirection = Left;
 
     doMoveLeft = false;
     doMoveRight = false;
@@ -441,9 +440,4 @@ Island* Character::getCurrentGround()
 Island* Character::getPreviousGround()
 {
     return prevGround;
-}
-
-void Character::setSpriteDirection(Direction direction)
-{
-    spriteDirection = direction;
 }

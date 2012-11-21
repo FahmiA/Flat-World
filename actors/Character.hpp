@@ -143,7 +143,6 @@ class Character: public GameObject
         bool doMoveLeft;
         bool doMoveRight;
         Direction facingDirection; // Direction of the charcter
-        Direction spriteDirection; // Direction alignment of sprire image
 
         // Helper-operations variables
         CoordinateUtil coordUtil;
