@@ -390,16 +390,16 @@ void Character::setDistanceFromGround(float distance)
 
 void Character::draw(RenderWindow *window)
 {
-    window->draw(bounds);
+    //window->draw(bounds);
 
     // draw the debug graphics
 
-    window->draw(lookLine);
+    //window->draw(lookLine);
 
     // draw the charcter.
     sprite->draw(window);
 
-    window->draw(angleLine);
+    //window->draw(angleLine);
 }
 
 const Vector2f& Character::getPosition()
