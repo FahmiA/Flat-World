@@ -23,14 +23,14 @@ void WonderState::performAction(Character *character, Clock *clock)
     {
         character->moveLeft();
         // Update the animation
-        sprite->play("Run");
+        sprite->play(TSprite::ANIMATE_RUN);
     }else if(action == Right){
         character->moveRight();
         // Update the animation
-        sprite->play("Run");
+        sprite->play(TSprite::ANIMATE_RUN);
     }else{ //Idle
         // Update the animation
-        sprite->play("Idle");
+        sprite->play(TSprite::ANIMATE_IDLE);
     }
 }
 
@@ -49,5 +49,5 @@ void ChaseState::performAction(Character *character, Clock *clock)
 
     // Animate the character
     TSprite *sprite = character->getSprite();
-    sprite->play("Run");
+    sprite->play(TSprite::ANIMATE_RUN);
 }

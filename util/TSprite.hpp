@@ -21,8 +21,11 @@ struct AnimationFrame;
 class TSprite
 {
     public:
-        /** Creates a new TSprite. */
-        TSprite(const Image &image);
+        /** Creates a new TSprite.
+         * @param image Spritesheet or image of TSprite.
+         * @param direction Direction sprite image is facing (optional).
+         */
+        TSprite(const Image &image, Direction direction = Right);
         virtual ~TSprite();
 
         void addAnimation(Animation *animation);
@@ -81,10 +84,11 @@ class TSprite
         void setRotation(float angleR);
         float getRotation();
 
+        Color getPixel(unsigned int x, unsigned int y) const;
 
         FloatRect getLocalBounds(); // TODO: Remove
-        Image* getImage();
-        Sprite* getRawSprite();
+        Image* getImage(); // TODO: Remove
+        Sprite* getRawSprite(); // TODO: Remove
 
         /** Animation name for moving. */
         static const string ANIMATE_RUN;
@@ -109,10 +113,6 @@ class TSprite
         Image image; // A flyweight, managed by ContentManager
         Texture texture; // Must keep this reference alive to keep image
         Sprite sprite; // The actual sprite
-
-
-        // Helper methods
-        void updateDirection();
 };
 
 struct Animation

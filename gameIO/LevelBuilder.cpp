@@ -27,12 +27,12 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     }
 
     // Want to ray-trace beyond the border of the island
-    FloatRect islandBounds = island->getSprite()->getLocalBounds();
-    float raytraceDistance = max(islandBounds.width, islandBounds.height);
+    Vector2f islandSize = island->getSprite()->getSize();
+    float raytraceDistance = max(islandSize.x, islandSize.y);
 
     // Get the ray-trace 'beam' coordinates
-    float toX =  islandBounds.width / 1.5f; // Quick fix for island_1 which is transparent in the center
-    float toY =  islandBounds.height / 1.5f;
+    float toX =  islandSize.x / 1.5f; // Quick fix for island_1 which is transparent in the center
+    float toY =  islandSize.y / 1.5f;
     float fromX = toX + (cos(angleRadians) * raytraceDistance);
     float fromY = toY + (sin(angleRadians) * raytraceDistance);
 
@@ -44,7 +44,7 @@ void LevelBuilder::getPosition(Island *island, float angleRadians, int character
     fromY /= scaleY;*/
 
     // Ray-trace
-    Vector2f *localSpawnPos = SpriteUtil::rayTrace(*island->getImage(), (int)fromX, (int)fromY, (int)toX, (int)toY, true);
+    Vector2f *localSpawnPos = SpriteUtil::rayTrace(*island->getSprite(), (int)fromX, (int)fromY, (int)toX, (int)toY, true);
 
     cout << "Adding object to island at angle: " << angleRadians << endl;
     if(localSpawnPos == 0)

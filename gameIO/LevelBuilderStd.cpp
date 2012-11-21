@@ -72,7 +72,7 @@ bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)
 bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc)
 {
     bool addSuccess = false;
-    TSprite *sprite = aniLoader->loadAnimated(playerDesc->imagePath);
+    TSprite *sprite = aniLoader->loadAnimated(playerDesc->imagePath, Right);
 
     if(sprite == 0)
     {
@@ -85,7 +85,6 @@ bool LevelBuilderStd::setPlayer(UnitDescription* playerDesc, IslandDescription *
         getPosition(islandDesc->island, playerDesc->startAngle, playerDesc->width, playerDesc->height, &x, &y);
         Player *player = new Player(x, y, playerDesc->width, playerDesc->height, PLAYER_SPEED, sprite);
 
-        player->setSpriteDirection(Right);
         getWorld()->setPlayer(player);
         addSuccess = true;
     }

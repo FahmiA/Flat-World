@@ -3,13 +3,14 @@
 #include <iostream>
 using namespace std;
 
+#include "util/Debug.hpp"
 #include "util/SpriteUtil.hpp"
 #include "util/Numberutil.hpp"
 
 const string TSprite::ANIMATE_RUN = "Run";
 const string TSprite::ANIMATE_IDLE = "Idle";
 
-TSprite::TSprite(const Image &image)
+TSprite::TSprite(const Image &image, Direction direction)
 {
     // Initialise the Sprite
     texture.loadFromImage(image);
@@ -24,7 +25,14 @@ TSprite::TSprite(const Image &image)
     currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
-    direction = Left;
+
+    this->direction = direction;
+    if(direction == Left)
+    {
+        // Invert scale (direction) as default
+        Vector2f scale = sprite.getScale();
+        sprite.setScale(-scale.x, scale.y);
+    }
 }
 
 TSprite::~TSprite()
@@ -96,7 +104,7 @@ void TSprite::update(Clock *clock)
         sprite.setOrigin(Vector2f((origin.x / localBounds.width) * sprite.getLocalBounds().width,
                            (origin.y / localBounds.height) * sprite.getLocalBounds().height));
 
-        updateDirection();
+        //updateDirection();
 
         // Update the frame counter
         currentFrame++;
@@ -116,30 +124,6 @@ void TSprite::clear()
 {
     sprite.setScale(originalScale);
     sprite.setPosition(originalPosition);
-}
-
-void TSprite::updateDirection()
-{
-    Vector2f scale = sprite.getScale();
-
-    // Calculate the position of the flipped sprite
-    Transform globalTransform = sprite.getTransform();
-    Vector2f flippedOrigin = Vector2f(sprite.getOrigin().x + sprite.getLocalBounds().width, sprite.getOrigin().y);
-    Vector2f flippedPos = globalTransform.transformPoint(flippedOrigin);
-
-    // Fli0p the sprite if requested
-    if(direction == Left && scale.x < 0)
-    {
-        // Keep the scale positive
-        scale.x = -scale.x;
-        sprite.setScale(scale.x, scale.y);
-        sprite.setPosition(flippedOrigin);
-    }else if(direction != Left && scale.x > 0){
-        // Keep the scale negative
-        scale.x = -scale.x;
-        sprite.setScale(scale.x, scale.y);
-        sprite.setPosition(flippedPos);
-    }
 }
 
 bool TSprite::play(string animationName)
@@ -182,17 +166,28 @@ void TSprite::stop()
 
 void TSprite::lookLeft()
 {
-    //direction = Left;
+    if(direction != Left)
+    {
+        Vector2f scale = sprite.getScale();
+        sprite.setScale(-scale.x, scale.y);
+        direction = Left;
+    }
 }
 
 void TSprite::lookRight()
 {
-    //direction = Right;
+    if(direction != Right)
+    {
+        Vector2f scale = sprite.getScale();
+        sprite.setScale(-scale.x, scale.y);
+        direction = Right;
+    }
 }
 
 Vector2f TSprite::getPosition()
 {
-    return sprite.getPosition();
+    Vector2f pos(sprite.getPosition());
+    return pos;
 }
 
 void TSprite::setPosition(float x, float y)
@@ -210,21 +205,43 @@ Vector2f TSprite::getSize()
 {
     IntRect textureSize = sprite.getTextureRect();
     Vector2f scale = sprite.getScale();
-
     Vector2f size(textureSize.width * scale.x, textureSize.height * scale.y);
+
     return size;
 }
 
 Vector2f TSprite::toGlobal(const Vector2f &point)
 {
+    // Create the transform
     Transform globalTransform = sprite.getTransform();
-    return globalTransform.transformPoint(point);
+    if(direction == Left)
+    {
+        globalTransform.scale(1,1);
+    }
+
+    // Scale point to coordinate space of original image
+    Vector2f scale = sprite.getScale();
+    Vector2f result(point.x / scale.x, point.y / scale.y);
+
+    return globalTransform.transformPoint(result);
 }
 
 Vector2f TSprite::toLocal(const Vector2f &point)
 {
+    // TODO: transforms do not know that flipping moves the rendered image
     Transform localTransform = sprite.getInverseTransform();
-    return localTransform.transformPoint(point);
+    if(direction == Left)
+    {
+        //localTransform.scale(-1,1);
+    }
+
+    // Scale point to coordinate space of original image
+    Vector2f result = localTransform.transformPoint(point);
+    Vector2f scale = sprite.getScale();
+    result.x *= scale.x;
+    result.y *= scale.y;
+
+    return result;
 }
 
 Image* TSprite::getImage()
@@ -255,6 +272,17 @@ void TSprite::setRotation(float angleR)
 float TSprite::getRotation()
 {
     return AS_RAD(sprite.getRotation());
+}
+
+Color TSprite::getPixel(unsigned int x, unsigned int y) const
+{
+    // Scale the coordinates from TSprite to image coordinate space
+    Vector2f scale = sprite.getScale();
+    x = x / scale.x;
+    y = y / scale.y;
+
+    // Get the pixel
+    return image.getPixel(x, y);
 }
 
 void TSprite::move(float x, float y)

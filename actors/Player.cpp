@@ -51,12 +51,10 @@ void Player::doActionNormal(RenderWindow *window)
     if(Keyboard::isKeyPressed(Keyboard::Left))
     {
         moveLeft();
-        getSprite()->lookLeft();
         getSprite()->play(TSprite::ANIMATE_RUN);
     }else if(Keyboard::isKeyPressed(Keyboard::Right))
     {
         moveRight();
-        getSprite()->lookRight();
         getSprite()->play(TSprite::ANIMATE_RUN);
     }else{
         getSprite()->play(TSprite::ANIMATE_IDLE);

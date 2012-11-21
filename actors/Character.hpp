@@ -143,13 +143,12 @@ class Character: public GameObject
         bool doMoveLeft;
         bool doMoveRight;
         Direction facingDirection; // Direction of the charcter
-        Direction spriteDirection; // Direction alignment of sprire image
 
         // Helper-operations variables
         CoordinateUtil coordUtil;
 
         void clampToGround(Vector2f &leftCollide, float groundAngleRad);
-        bool isAboveGround(Vector2f spritePoint, Island &ground);
+        bool isAboveGround(Vector2f spritePoint, TSprite  &groundSprite);
 
         // Debug variables
         ConvexShape angleLine;

@@ -25,7 +25,7 @@ bool CoordinateUtil::isGlobalPointInside(Vector2f &point, TSprite &bounds)
     return false;
 }
 
-bool CoordinateUtil::isLocalPointInside(Vector2f point, Vector2u bounds)
+bool CoordinateUtil::isLocalPointInside(Vector2f point, Vector2f bounds)
 {
     //cout << PRINT_V(point) << ", " << PRINT_V(rectSize) << endl;
     // TODO: This collision detection does not work
@@ -71,18 +71,18 @@ bool CoordinateUtil::isInFOV(Character &source, Character &target, Direction dir
 
 
     // Transform the target position into the source's coordinate space
-    cout << "-----" << endl;
-    cout << PRINT_V(targetCenter) << endl;
+    //cout << "-----" << endl;
+    //cout << PRINT_V(targetCenter) << endl;
     targetCenter = target.getSprite()->toGlobal(targetCenter);
-    cout << PRINT_V(targetCenter) << endl;
+    //cout << PRINT_V(targetCenter) << endl;
     targetCenter = source.getSprite()->toLocal(targetCenter);
 
     // Perform the FOV check
     bool insideFOV = false;
     float distance = getDistance(sourceCenter, targetCenter);
     // TODO multiply distance my scale of source
-    cout << PRINT_V(sourceCenter) << " -> " << PRINT_V(targetCenter) << " = ";
-    cout << distance << endl;
+    //cout << PRINT_V(sourceCenter) << " -> " << PRINT_V(targetCenter) << " = ";
+    //cout << distance << endl;
     if(distance <= fovDistance)
     {
         // Check the angle between the source and the target
