@@ -11,7 +11,22 @@
   * @param min value is set to min if it is less than min.
   * @param max value is set to max if it is greater than max.
   */
-void clamp(int &value, int min, int max);
+template<class T>
+void clamp(T &value, T min, T max)
+{
+    // Ensure the min value is less than the max value
+    if(min > max)
+    {
+        int temp = min;
+        min = max;
+        max = temp;
+    }
+
+    if(value < min)
+        value = min;
+    else if(value > max)
+        value = max;
+}
 
 /** Checks if a value is withing a certain range.
   * @param value The value to check.

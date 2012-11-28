@@ -102,6 +102,8 @@
 		<Unit filename="actors\Sheepdog.cpp" />
 		<Unit filename="actors\Sheepdog.hpp" />
 		<Unit filename="configuration\levels\level_1.xml" />
+		<Unit filename="environment\Background.cpp" />
+		<Unit filename="environment\Background.hpp" />
 		<Unit filename="environment\Island.cpp" />
 		<Unit filename="environment\Island.hpp" />
 		<Unit filename="gameIO\ContentManager.cpp" />
@@ -152,6 +154,9 @@
 		<Unit filename="tinyxml\tinyxmlerror.cpp" />
 		<Unit filename="tinyxml\tinyxmlparser.cpp" />
 		<Unit filename="unit_test\actors\CharacterTest.cpp">
+			<Option target="UnitTest" />
+		</Unit>
+		<Unit filename="unit_test\environment\BackgroundTest.cpp">
 			<Option target="UnitTest" />
 		</Unit>
 		<Unit filename="unit_test\util\CoordinateUtil_test.cpp">

@@ -89,7 +89,7 @@ void LevelBuilder::addSheepPath(string sheepPath)
 
 string LevelBuilder::getSheepPath(int index)
 {
-    clamp(index, 0, sheepPaths.size() - 1);
+    clamp<int>(index, 0, sheepPaths.size() - 1);
 
     int count = 0;
     string sheepPath = "";

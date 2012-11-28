@@ -84,7 +84,7 @@ void HUD::addSheep(int amount)
     sheepCount += abs(amount);
 
     // Ensure that sheepCount does not exceed the maximum number of sheep
-    clamp(sheepCount, 0, sheepTotal);
+    clamp<int>(sheepCount, 0, sheepTotal);
 
     // Update the visible text
     sheepText->setString(get_ratio_string(sheepCount, sheepTotal));
