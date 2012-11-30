@@ -22,6 +22,24 @@ TSprite::TSprite(const Image &image, Direction direction)
     originalPosition = sprite.getPosition();
 
     // State
+    init(direction);
+}
+
+TSprite::TSprite(Direction direction)
+{
+    originalScale = Vector2f(1.0f, 1.0f);
+    originalPosition = Vector2f(0.0f, 0.0f);
+
+    init(direction);
+}
+
+TSprite::TSprite(TSprite &other)
+{
+
+}
+
+void TSprite::init(Direction direction)
+{
     currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
@@ -85,7 +103,7 @@ void TSprite::update(Clock *clock)
             currentFrame = 0; // Loop the animation
 
         // Display the frame
-        AnimationFrame &frame = *currentAnimation->frames[currentFrame];
+        AnimationFrame &frame = currentAnimation->frames[currentFrame];
         //float scale = min(size->x / frame.width, size->y / frame.height);
         IntRect subRect(frame.x , frame.y,
                         frame.width,

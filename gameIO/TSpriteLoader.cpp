@@ -137,7 +137,7 @@ Animation* TSpriteLoader::getAnimation(TiXmlHandle &animationRoot, map<int, Anim
 
         if(frames.count(id))
         {
-            animation->frames.push_back(frames[id]);
+            animation->frames.push_back(*frames[id]);
         }else{
             cout << "Could not load sprite " << id << '.' << endl;
         }

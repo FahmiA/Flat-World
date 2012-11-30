@@ -26,6 +26,8 @@ class TSprite
          * @param direction Direction sprite image is facing (optional).
          */
         TSprite(const Image &image, Direction direction = Right);
+        TSprite(Direction direction = Right);
+        TSprite(TSprite &other); // Copy constructor
         virtual ~TSprite();
 
         void addAnimation(Animation *animation);
@@ -96,6 +98,9 @@ class TSprite
         static const string ANIMATE_IDLE;
 
     private:
+        // Initiation
+        void init(Direction direction);
+
         // Animation storage
         map<string, Animation*> animations;
         Animation *currentAnimation;
@@ -111,6 +116,7 @@ class TSprite
 
         // Underlying Sprite and image
         Image image; // A flyweight, managed by ContentManager
+
         Texture texture; // Must keep this reference alive to keep image
         Sprite sprite; // The actual sprite
 };
@@ -121,7 +127,7 @@ struct Animation
     int frameRate; // Frames per second
     bool loop;
     bool pingPong;
-    vector<AnimationFrame*> frames; // Ordered list of frames
+    vector<AnimationFrame> frames; // Ordered list of frames
 };
 
 struct AnimationFrame
