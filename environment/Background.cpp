@@ -28,12 +28,12 @@ void Background::setStage(float stage)
 
 int Background::getStarCount()
 {
-    return 0;
+    return stars.size();
 }
 
 int Background::getCloudCount()
 {
-    return 0;
+    return clouds.size();
 }
 
 int Background::calcStarCount()

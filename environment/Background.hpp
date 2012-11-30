@@ -1,6 +1,7 @@
 #ifndef BACKGROUND_H
 #define BACKGROUND_H
 
+#include <vector>
 #include "util/TSprite.hpp"
 
 class Background
@@ -20,6 +21,8 @@ class Background
         static int MAX_CLOUD_COUNT;
 
         float stage = 0.0f;
+        vector<TSprite> stars;
+        vector<TSprite> clouds;
         TSprite star;
         TSprite cloud;
 
