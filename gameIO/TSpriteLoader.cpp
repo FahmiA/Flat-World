@@ -64,7 +64,7 @@ TSprite* TSpriteLoader::loadStatic(string imagePath)
 {
     ImgTex image = content->loadImage(imagePath);
     if(!image.loadOK)
-        return false;
+        return 0;
 
     TSprite *tSprite = new TSprite(image.texture, image.image);
 

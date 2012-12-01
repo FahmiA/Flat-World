@@ -34,7 +34,7 @@ ImgTex ContentManager::loadImage(string &path)
     }else{
         // Load the image.
         Image *image = new Image();
-        if(!image->loadFromFile(path))
+        if(image->loadFromFile(path))
         {
             Texture *texture = new Texture();
             if(texture->loadFromImage(*image))
@@ -69,18 +69,18 @@ ImgTex ContentManager::loadImage(string &path, unsigned int transparentColour)
     }else{
         // Load the image.
         Image *image = new Image();
-        if(!image->loadFromFile(path))
+        if(image->loadFromFile(path))
         {
+            // Set the transparency
+            Color mask(0, 0, 0);
+            mask.r = (transparentColour >> 16) & 0xFF;
+            mask.g = (transparentColour >> 8) & 0xFF;
+            mask.b = transparentColour & 0xFF;
+            image->createMaskFromColor(mask);
+
             Texture *texture = new Texture();
             if(texture->loadFromImage(*image))
             {
-                // Set the transparency
-                Color mask(0, 0, 0);
-                mask.r = (transparentColour >> 16) & 0xFF;
-                mask.g = (transparentColour >> 8) & 0xFF;
-                mask.b = transparentColour & 0xFF;
-                image->createMaskFromColor(mask);
-
                 imgTex.image = image;
                 imgTex.texture = texture;
                 imgTex.loadOK = true;
