@@ -35,7 +35,26 @@ TSprite::TSprite(Direction direction)
 
 TSprite::TSprite(TSprite &other)
 {
+    // Copy animations
+    for(map<string, Animation*>::iterator anim = other.animations.begin();
+        anim != other.animations.end();
+        anim++)
+    {
+        Animation* newAnimation = new Animation(*anim->second);
+        animations[anim->first] = newAnimation;
+    }
+    currentAnimation = new Animation(*other.currentAnimation); // Hope this is okay
+    currentFrame = other.currentFrame;
 
+    // Copy animation state
+    timeSinceLastFrame = other.timeSinceLastFrame;
+    paused = other.paused;
+    direction = other.Direction;
+
+    originalScale = other.originalScale;
+    originalPosition = other.originalPosition;
+
+    // TODO: Make image a pointer
 }
 
 void TSprite::init(Direction direction)
