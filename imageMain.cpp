@@ -25,15 +25,21 @@ int main1()
     Image image;
     image.loadFromFile("media/textures/star.png");
 
+    // Create the texture
+    Texture texture;
+    texture.loadFromImage(image);
+
     // Create the sprite
-    TSprite sprite(image);
+    TSprite sprite(&texture, &image);
     sprite.setOrigin(0.5, 0.5);
     sprite.setPosition(400.0f, 300.0f);
 
     // Create the target
     Image targetImage;
     targetImage.loadFromFile("media/textures/yCube.png");
-    TSprite target(targetImage);
+    Texture targetTexture;
+    targetTexture.loadFromImage(targetImage);
+    TSprite target(&targetTexture, &targetImage);
     target.setOrigin(0.5, 0.5);
 
     CoordinateUtil coordUtil;

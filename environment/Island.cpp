@@ -24,7 +24,7 @@ TSprite* Island::getSprite()
     return sprite;
 }
 
-Image* Island::getImage()
+const Image* Island::getImage()
 {
     return sprite->getImage();
 }

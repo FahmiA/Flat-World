@@ -8,6 +8,8 @@ using namespace sf;
 #include <map>
 using namespace std;
 
+struct ImgTex;
+
 /** A class for managing the creation and destruction of external resources.
  * If a resource is requested that has not been loaded before, the new resource will be loaded and sent.
  * If a resource is requested which has been loaded before, an ALIASED (duplicate) pointer will be sent.
@@ -26,7 +28,14 @@ class ContentManager
          * @param path The path to the image to load.
          * @return The loaded image or NULL if the image could not be loaded.
         */
-        Image* loadImage(string &path);
+        ImgTex loadImage(string &path);
+
+        /** Loads or retrieves an image.
+         * NULL is returned if the image could not be loaded.
+         * @param path The path to the image to load.
+         * @return The loaded image or NULL if the image could not be loaded.
+        */
+        ImgTex loadImage(char *path);
 
         /** Loads or retrieves an image.
          * NULL is returned if the image could not be loaded.
@@ -34,14 +43,7 @@ class ContentManager
          * @param transparentColour Make this colour transparent.
          * @return The loaded image or NULL if the image could not be loaded.
         */
-        Image* loadImage(string &path, unsigned int transparentColour);
-
-         /** Loads or retrieves an image.
-         * NULL is returned if the image could not be loaded.
-         * @param path The path to the image to load.
-         * @return The loaded image or NULL if the image could not be loaded.
-        */
-        Image* loadImage(char *path);
+        ImgTex loadImage(string &path, unsigned int transparentColour);
 
         /** Loads or retrieves a font.
          * NULL is returned if the font could not be loaded.
@@ -56,9 +58,17 @@ class ContentManager
         void clear();
 
     private:
-        map<string, Image*> *imageMap;
+        map<string, ImgTex> *imageMap;
         map<string, Font*> *fontMap;
 
+};
+
+/** A pair consisting of a Texture and the Image used to initialise it. */
+struct ImgTex
+{
+    Image *image;
+    Texture *texture;
+    bool loadOK; // True if image and texture are loaded properly
 };
 
 #endif // CONTENTMANAGER_H

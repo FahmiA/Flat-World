@@ -23,12 +23,13 @@ TSprite* TSpriteLoader::loadAnimated(string xmlPath, Direction direction)
     imagePath = xmlPath.substr(0, xmlPath.find_last_of("/") + 1) + imagePath;
     unsigned int transparentColour = getTransparentColour(root);
 
-    Image *aniImage = content->loadImage(imagePath, transparentColour);
-    if(aniImage == 0)
+    //Image *aniImage = content->loadImage(imagePath, transparentColour);
+    ImgTex aniImage = content->loadImage(imagePath, transparentColour);
+    if(!aniImage.loadOK)
         return 0;
 
     // Build the animated sprite
-    TSprite *tSprite = new TSprite(*aniImage, direction);
+    TSprite *tSprite = new TSprite(aniImage.texture, aniImage.image, direction);
 
     // Read all animation frames
     TiXmlHandle spritesRoot = TiXmlHandle(root.FirstChildElement("Sprites"));
@@ -61,11 +62,11 @@ TSprite* TSpriteLoader::loadAnimated(string xmlPath, Direction direction)
 
 TSprite* TSpriteLoader::loadStatic(string imagePath)
 {
-    Image *image = content->loadImage(imagePath);
-    if(image == 0)
+    ImgTex image = content->loadImage(imagePath);
+    if(!image.loadOK)
         return false;
 
-    TSprite *tSprite = new TSprite(*image);
+    TSprite *tSprite = new TSprite(image.texture, image.image);
 
     return tSprite;
 }

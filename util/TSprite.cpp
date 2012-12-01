@@ -10,14 +10,13 @@ using namespace std;
 const string TSprite::ANIMATE_RUN = "Run";
 const string TSprite::ANIMATE_IDLE = "Idle";
 
-TSprite::TSprite(const Image &image, Direction direction)
+TSprite::TSprite(const Texture *texture, const Image *image, Direction direction)
 {
     // Initialise the Sprite
-    texture.loadFromImage(image);
-    sprite.setTexture(texture);
+    sprite.setTexture(*texture);
 
     // Store the sprite and image details
-    this->image = image; // TODO: Remove expensive duplicate
+    this->image = image;
     originalScale = sprite.getScale();
     originalPosition = sprite.getPosition();
 
@@ -49,7 +48,7 @@ TSprite::TSprite(TSprite &other)
     // Copy animation state
     timeSinceLastFrame = other.timeSinceLastFrame;
     paused = other.paused;
-    direction = other.Direction;
+    direction = other.direction;
 
     originalScale = other.originalScale;
     originalPosition = other.originalPosition;
@@ -281,9 +280,9 @@ Vector2f TSprite::toLocal(const Vector2f &point)
     return result;
 }
 
-Image* TSprite::getImage()
+const Image* TSprite::getImage()
 {
-    return &image;
+    return image;
 }
 
 Sprite* TSprite::getRawSprite()
@@ -319,7 +318,7 @@ Color TSprite::getPixel(unsigned int x, unsigned int y) const
     y = y / scale.y;
 
     // Get the pixel
-    return image.getPixel(x, y);
+    return image->getPixel(x, y);
 }
 
 void TSprite::move(float x, float y)
