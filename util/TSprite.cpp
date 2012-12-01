@@ -42,7 +42,8 @@ TSprite::TSprite(TSprite &other)
         Animation* newAnimation = new Animation(*anim->second);
         animations[anim->first] = newAnimation;
     }
-    currentAnimation = new Animation(*other.currentAnimation); // Hope this is okay
+    currentAnimation = animations[other.currentAnimation->name];
+    //currentAnimation = new Animation(*other.currentAnimation); // Hope this is okay
     currentFrame = other.currentFrame;
 
     // Copy animation state
@@ -50,10 +51,14 @@ TSprite::TSprite(TSprite &other)
     paused = other.paused;
     direction = other.direction;
 
-    originalScale = other.originalScale;
-    originalPosition = other.originalPosition;
+    originalScale.x = other.originalScale.x;
+    originalScale.y = other.originalScale.y;
+    originalPosition.x = other.originalPosition.x;
+    originalPosition.y = other.originalPosition.y;
 
     // TODO: Make image a pointer
+    image = other.image;
+    sprite.setTexture(*other.sprite.getTexture());
 }
 
 void TSprite::init(Direction direction)
