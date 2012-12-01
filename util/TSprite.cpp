@@ -10,18 +10,59 @@ using namespace std;
 const string TSprite::ANIMATE_RUN = "Run";
 const string TSprite::ANIMATE_IDLE = "Idle";
 
-TSprite::TSprite(const Image &image, Direction direction)
+TSprite::TSprite(const Texture *texture, const Image *image, Direction direction)
 {
     // Initialise the Sprite
-    texture.loadFromImage(image);
-    sprite.setTexture(texture);
+    sprite.setTexture(*texture);
 
     // Store the sprite and image details
-    this->image = image; // TODO: Remove expensive duplicate
+    this->image = image;
     originalScale = sprite.getScale();
     originalPosition = sprite.getPosition();
 
     // State
+    init(direction);
+}
+
+TSprite::TSprite(Direction direction)
+{
+    originalScale = Vector2f(1.0f, 1.0f);
+    originalPosition = Vector2f(0.0f, 0.0f);
+
+    init(direction);
+}
+
+TSprite::TSprite(TSprite &other)
+{
+    // Copy animations
+    for(map<string, Animation*>::iterator anim = other.animations.begin();
+        anim != other.animations.end();
+        anim++)
+    {
+        Animation* newAnimation = new Animation(*anim->second);
+        animations[anim->first] = newAnimation;
+    }
+    currentAnimation = animations[other.currentAnimation->name];
+    //currentAnimation = new Animation(*other.currentAnimation); // Hope this is okay
+    currentFrame = other.currentFrame;
+
+    // Copy animation state
+    timeSinceLastFrame = other.timeSinceLastFrame;
+    paused = other.paused;
+    direction = other.direction;
+
+    originalScale.x = other.originalScale.x;
+    originalScale.y = other.originalScale.y;
+    originalPosition.x = other.originalPosition.x;
+    originalPosition.y = other.originalPosition.y;
+
+    // TODO: Make image a pointer
+    image = other.image;
+    sprite.setTexture(*other.sprite.getTexture());
+}
+
+void TSprite::init(Direction direction)
+{
     currentAnimation = 0;
     timeSinceLastFrame = 0;
     paused = false;
@@ -85,7 +126,7 @@ void TSprite::update(Clock *clock)
             currentFrame = 0; // Loop the animation
 
         // Display the frame
-        AnimationFrame &frame = *currentAnimation->frames[currentFrame];
+        AnimationFrame &frame = currentAnimation->frames[currentFrame];
         //float scale = min(size->x / frame.width, size->y / frame.height);
         IntRect subRect(frame.x , frame.y,
                         frame.width,
@@ -244,9 +285,9 @@ Vector2f TSprite::toLocal(const Vector2f &point)
     return result;
 }
 
-Image* TSprite::getImage()
+const Image* TSprite::getImage()
 {
-    return &image;
+    return image;
 }
 
 Sprite* TSprite::getRawSprite()
@@ -282,7 +323,7 @@ Color TSprite::getPixel(unsigned int x, unsigned int y) const
     y = y / scale.y;
 
     // Get the pixel
-    return image.getPixel(x, y);
+    return image->getPixel(x, y);
 }
 
 void TSprite::move(float x, float y)

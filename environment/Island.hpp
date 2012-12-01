@@ -15,7 +15,7 @@ class Island: public GameObject
         virtual ~Island();
 
         TSprite* getSprite();
-        Image* getImage();
+        const Image* getImage();
 
         void update(Clock *clock, RenderWindow *window, World *world);
         void draw(RenderWindow *window);

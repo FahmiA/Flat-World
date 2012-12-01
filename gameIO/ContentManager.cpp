@@ -2,7 +2,7 @@
 
 ContentManager::ContentManager()
 {
-    imageMap = new map<string, Image*>();
+    imageMap = new map<string, ImgTex>();
     fontMap = new map<string, Font*>();
 }
 
@@ -12,55 +12,86 @@ ContentManager::~ContentManager()
     clear();
 
     //Delete the data structures
+    for(map<string, ImgTex>::iterator imgTex = imageMap->begin();
+        imgTex != imageMap->end();
+        imgTex++)
+    {
+        delete imgTex->second.image;
+        delete imgTex->second.texture;
+    }
     delete imageMap;
     delete fontMap;
 }
 
-Image* ContentManager::loadImage(string &path)
+ImgTex ContentManager::loadImage(string &path)
 {
+    ImgTex imgTex{0, 0, false};
+
     if(imageMap->count(path) > 0)
     {
         // The image is currently loaded. Pass an alias.
-        return (*imageMap)[path];
+        imgTex = (*imageMap)[path];
     }else{
         // Load the image.
         Image *image = new Image();
-        if(!image->loadFromFile(path))
-            return 0;
-
-        (*imageMap)[path] = image;
-        return image;
+        if(image->loadFromFile(path))
+        {
+            Texture *texture = new Texture();
+            if(texture->loadFromImage(*image))
+            {
+                imgTex.image = image;
+                imgTex.texture = texture;
+                imgTex.loadOK = true;
+                (*imageMap)[path] = imgTex;
+            }else{
+                delete image;
+            }
+        }
     }
+
+    return imgTex;
 }
 
-Image* ContentManager::loadImage(string &path, unsigned int transparentColour)
+ImgTex ContentManager::loadImage(char *path)
 {
+    string pathString(path);
+    return loadImage(pathString);
+}
+
+ImgTex ContentManager::loadImage(string &path, unsigned int transparentColour)
+{
+    ImgTex imgTex{0, 0, false};
+
     if(imageMap->count(path) > 0)
     {
         // The image is currently loaded. Pass an alias.
-        return (*imageMap)[path];
+        imgTex = (*imageMap)[path];
     }else{
         // Load the image.
         Image *image = new Image();
-        if(!image->loadFromFile(path))
-            return 0;
+        if(image->loadFromFile(path))
+        {
+            // Set the transparency
+            Color mask(0, 0, 0);
+            mask.r = (transparentColour >> 16) & 0xFF;
+            mask.g = (transparentColour >> 8) & 0xFF;
+            mask.b = transparentColour & 0xFF;
+            image->createMaskFromColor(mask);
 
-        // Set the transparency
-        Color mask(0, 0, 0);
-        mask.r = (transparentColour >> 16) & 0xFF;
-        mask.g = (transparentColour >> 8) & 0xFF;
-        mask.b = transparentColour & 0xFF;
-        image->createMaskFromColor(mask);
-
-        (*imageMap)[path] = image;
-        return image;
+            Texture *texture = new Texture();
+            if(texture->loadFromImage(*image))
+            {
+                imgTex.image = image;
+                imgTex.texture = texture;
+                imgTex.loadOK = true;
+                (*imageMap)[path] = imgTex;
+            }else{
+                delete image;
+            }
+        }
     }
-}
 
-Image* ContentManager::loadImage(char *path)
-{
-    string *pathString = new string(path);
-    loadImage(*pathString);
+    return imgTex;
 }
 
 Font* ContentManager::loadFont(string &path)
@@ -83,6 +114,13 @@ Font* ContentManager::loadFont(string &path)
 void ContentManager::clear()
 {
     // Clearing a map will also delete all of the map's contents.
+    for(map<string, ImgTex>::iterator imgTex = imageMap->begin();
+        imgTex != imageMap->end();
+        imgTex++)
+    {
+        delete imgTex->second.image;
+        delete imgTex->second.texture;
+    }
     imageMap->clear();
     fontMap->clear();
 }

@@ -22,10 +22,13 @@ class TSprite
 {
     public:
         /** Creates a new TSprite.
-         * @param image Spritesheet or image of TSprite.
+         * @param texture Spritesheet or image of TSprite.
+         * @param image Image used to initialise texture.
          * @param direction Direction sprite image is facing (optional).
          */
-        TSprite(const Image &image, Direction direction = Right);
+        TSprite(const Texture *texture, const Image *image, Direction direction = Right);
+        TSprite(Direction direction = Right);
+        TSprite(TSprite &other); // Copy constructor
         virtual ~TSprite();
 
         void addAnimation(Animation *animation);
@@ -87,7 +90,7 @@ class TSprite
         Color getPixel(unsigned int x, unsigned int y) const;
 
         FloatRect getLocalBounds(); // TODO: Remove
-        Image* getImage(); // TODO: Remove
+        const Image* getImage(); // TODO: Remove
         Sprite* getRawSprite(); // TODO: Remove
 
         /** Animation name for moving. */
@@ -96,6 +99,9 @@ class TSprite
         static const string ANIMATE_IDLE;
 
     private:
+        // Initiation
+        void init(Direction direction);
+
         // Animation storage
         map<string, Animation*> animations;
         Animation *currentAnimation;
@@ -110,8 +116,7 @@ class TSprite
         Vector2f originalPosition;
 
         // Underlying Sprite and image
-        Image image; // A flyweight, managed by ContentManager
-        Texture texture; // Must keep this reference alive to keep image
+        const Image *image; // A flyweight, managed by ContentManager
         Sprite sprite; // The actual sprite
 };
 
@@ -121,7 +126,7 @@ struct Animation
     int frameRate; // Frames per second
     bool loop;
     bool pingPong;
-    vector<AnimationFrame*> frames; // Ordered list of frames
+    vector<AnimationFrame> frames; // Ordered list of frames
 };
 
 struct AnimationFrame
