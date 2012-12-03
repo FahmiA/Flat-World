@@ -2,9 +2,12 @@
 #define BACKGROUND_H
 
 #include <vector>
-#include "util/TSprite.hpp"
+using namespace std;
 
-class Background
+#include "util/TSprite.hpp"
+#include "game/GameObject.hpp"
+
+class Background : public GameObject
 {
     public:
         Background(TSprite star, TSprite cloud);
@@ -16,6 +19,13 @@ class Background
         int getStarCount();
         int getCloudCount();
 
+        const Vector2f& getPosition();
+        const Vector2f& getSize();
+
+        void update(Clock *clock, RenderWindow *window, World *world);
+        void draw(RenderWindow *window);
+
+
     private:
         static int MAX_STAR_COUNT;
         static int MAX_CLOUD_COUNT;
@@ -23,13 +33,15 @@ class Background
         float stage = 0.0f;
         vector<TSprite> stars;
         vector<TSprite> clouds;
-        TSprite star;
-        TSprite cloud;
+        TSprite prototypeStar;
+        TSprite prototypeCloud;
 
         int calcStarCount();
         int calcCloudCount();
 
         float getLiniar(float value, float min, float max);
+        void populate(vector<TSprite> &items, TSprite &prototypeItem,
+                      int desiredCOunt);
 };
 
 #endif // BACKGROUND_H

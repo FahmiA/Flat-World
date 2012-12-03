@@ -28,7 +28,7 @@ class TSprite
          */
         TSprite(const Texture *texture, const Image *image, Direction direction = Right);
         TSprite(Direction direction = Right);
-        TSprite(TSprite &other); // Copy constructor
+        TSprite(const TSprite &other); // Copy constructor
         virtual ~TSprite();
 
         void addAnimation(Animation *animation);

@@ -32,17 +32,17 @@ TSprite::TSprite(Direction direction)
     init(direction);
 }
 
-TSprite::TSprite(TSprite &other)
+TSprite::TSprite(const TSprite &other)
 {
     // Copy animations
-    for(map<string, Animation*>::iterator anim = other.animations.begin();
+    for(map<string, Animation*>::const_iterator anim = other.animations.begin();
         anim != other.animations.end();
         anim++)
     {
         Animation* newAnimation = new Animation(*anim->second);
         animations[anim->first] = newAnimation;
     }
-    currentAnimation = animations[other.currentAnimation->name];
+    currentAnimation = 0; // TODO: Copy current animation
     //currentAnimation = new Animation(*other.currentAnimation); // Hope this is okay
     currentFrame = other.currentFrame;
 
@@ -58,7 +58,8 @@ TSprite::TSprite(TSprite &other)
 
     // TODO: Make image a pointer
     image = other.image;
-    sprite.setTexture(*other.sprite.getTexture());
+    if(other.sprite.getTexture() != 0)
+        sprite.setTexture(*other.sprite.getTexture());
 }
 
 void TSprite::init(Direction direction)
