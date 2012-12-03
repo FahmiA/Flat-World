@@ -2,6 +2,8 @@
 
 #include "util/NumberUtil.hpp"
 #include "game/ID.hpp"
+#include "game/World.hpp"
+#include "actors/Player.hpp"
 
 #include<iostream>
 using namespace std;
@@ -14,6 +16,9 @@ Background::Background(TSprite star, TSprite cloud)
     setID(ID_BACKGROUND);
     prototypeStar = star;
     prototypeCloud = cloud;
+
+    backDrop.setSize(Vector2f(2000.0f, 2000.0f));
+    backDrop.setOrigin(1000.0f, 1000.0f);
 }
 
 Background::~Background()
@@ -61,10 +66,14 @@ const Vector2f& Background::getSize()
 void Background::update(Clock *clock, RenderWindow *window, World *world)
 {
 
+    backDrop.setPosition(world->getPlayer()->getPosition());
+    backDrop.setFillColor(Color::Black);
 }
 
 void Background::draw(RenderWindow *window)
 {
+    window->draw(backDrop);
+
     for(int i = 0; i < stars.size(); i++)
         stars.at(i).draw(window);
 

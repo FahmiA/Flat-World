@@ -19,7 +19,7 @@ class LevelBuilderStd : public LevelBuilder
 
         // Buider methods
 
-        bool setBackground(LevelDescription *levelDesc);
+        bool setBackground();
         bool addIsland(IslandDescription *islandDesc);
         bool setPlayer(UnitDescription* playerDesc, IslandDescription *islandDesc);
         bool addSheep(UnitDescription *sheepDesc, Island *island);

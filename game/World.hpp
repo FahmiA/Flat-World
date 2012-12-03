@@ -8,6 +8,7 @@
 class Player;
 class HUD;
 class Island;
+class Background;
 
 #include <list>
 using namespace std;
@@ -74,6 +75,8 @@ class World
          */
         void setCamera(Camera *camera);
 
+        void setBackground(Background *background);
+
         /** Gets the Heads-Up-Display (HUD).
          * @return The HUD.
          */
@@ -92,8 +95,6 @@ class World
          */
         int getSheepCaptured();
 
-        void setBackground(TSprite *background);
-
         void update(Clock *clock, RenderWindow *window);
         void draw(RenderWindow *window);
 
@@ -102,7 +103,7 @@ class World
         Player *player;
         list<GameObject*> *levelObjects;
         list<Island*> *islands;
-        TSprite *background;
+        Background *background;
 
         Camera *gameCamera;
         Camera *hudCamera;

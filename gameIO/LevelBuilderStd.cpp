@@ -3,6 +3,7 @@
 #include "pickups/Star.hpp"
 #include "GUI/HUD.hpp"
 #include "game/ID.hpp"
+#include "environment/Background.hpp"
 
 #include <stdio.h>
 #include <iostream>
@@ -36,18 +37,12 @@ LevelBuilderStd::~LevelBuilderStd()
     delete aniLoader;
 }
 
-bool LevelBuilderStd::setBackground(LevelDescription *levelDesc)
+bool LevelBuilderStd::setBackground()
 {
-    bool addSuccess = false;
+    Background *background = new Background(TSprite(), TSprite());
+    getWorld()->setBackground(background);
 
-    TSprite *sprite = aniLoader->loadStatic(levelDesc->backgroundPath);
-    if(sprite != 0)
-    {
-        getWorld()->setBackground(sprite);
-        addSuccess = true;
-    }
-
-    return addSuccess;
+    return true;
 }
 
 bool LevelBuilderStd::addIsland(IslandDescription *islandDesc)

@@ -3,6 +3,7 @@
 #include "actors/Player.hpp"
 #include "GUI/HUD.hpp"
 #include "scene/StaticCamera.hpp"
+#include "environment/Background.hpp"
 
 World::World()
 {
@@ -69,6 +70,11 @@ void World::setCamera(Camera *camera)
     gameCamera = camera;
 }
 
+void World::setBackground(Background *background)
+{
+    this->background = background;
+}
+
 HUD* World::getHud()
 {
     return hud;
@@ -88,11 +94,6 @@ int World::getSheepCaptured()
     return count;
 }
 
-void World::setBackground(TSprite *background)
-{
-    this->background = background;
-}
-
 void World::update(Clock *clock, RenderWindow *window)
 {
     for(list<Island*>::iterator it = islands->begin(); it != islands->end(); it++)
@@ -110,6 +111,9 @@ void World::update(Clock *clock, RenderWindow *window)
 
     if(gameCamera != 0)
         gameCamera->update(clock, window, this);
+
+    if(background != 0)
+        background->update(clock, window, this);
 
     if(hud != 0)
         hud->update(clock, window, this);

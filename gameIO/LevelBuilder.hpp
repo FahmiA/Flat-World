@@ -33,11 +33,9 @@ class LevelBuilder
        // Buider methods
 
         /** Sets the background for a level in the World.
-         * Only sets a background if one does not already exist.
-         * @param levelDesc A description of the level to set the background to.
          * @return True if the background was successfully set. False otherwise.
          */
-        virtual bool setBackground(LevelDescription *levelDesc) = 0;
+        virtual bool setBackground() = 0;
 
         /** Adds a new island to the World.
          * @param islandDesc A description of the island to add.

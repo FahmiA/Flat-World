@@ -146,7 +146,7 @@ bool LevelLoader::buildWorld()
     IslandDescription *islandDesc;
 
     // Set the background
-    levelBuilder->setBackground(level);
+    levelBuilder->setBackground();
 
     // Add the islands
     for(map<int,IslandDescription*>::iterator it = islandMap.begin(); it != islandMap.end(); it++)
