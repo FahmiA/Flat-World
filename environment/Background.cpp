@@ -4,12 +4,13 @@
 #include "game/ID.hpp"
 #include "game/World.hpp"
 #include "actors/Player.hpp"
+#include "util/Debug.hpp"
 
 #include<iostream>
 using namespace std;
 
-int Background::MAX_STAR_COUNT = 10;
-int Background::MAX_CLOUD_COUNT = 10;
+int Background::MAX_STAR_COUNT = 20;
+int Background::MAX_CLOUD_COUNT = 20;
 
 Background::Background(TSprite star, TSprite cloud)
 {
@@ -19,6 +20,8 @@ Background::Background(TSprite star, TSprite cloud)
 
     backDrop.setSize(Vector2f(2000.0f, 2000.0f));
     backDrop.setOrigin(1000.0f, 1000.0f);
+
+    setStage(stage);
 }
 
 Background::~Background()
@@ -38,7 +41,6 @@ void Background::setStage(float stage)
 
     int starCount = calcStarCount();
     int cloudCount = calcCloudCount();
-    cout << stage << ", " << cloudCount << endl;
     populate(stars, prototypeStar, starCount);
     populate(clouds, prototypeCloud, cloudCount);
 }
@@ -65,9 +67,19 @@ const Vector2f& Background::getSize()
 
 void Background::update(Clock *clock, RenderWindow *window, World *world)
 {
-
     backDrop.setPosition(world->getPlayer()->getPosition());
     backDrop.setFillColor(Color::Black);
+
+    Vector2f backDropDelta(backDrop.getPosition().x - backDropPrevPos.x,
+                           backDrop.getPosition().y - backDropPrevPos.y);
+
+    for(int i = 0; i < stars.size(); i++)
+        stars.at(i).move(backDropDelta.x, backDropDelta.y);
+
+     for(int i = 0; i < clouds.size(); i++)
+        clouds.at(i).move(backDropDelta.x, backDropDelta.y);
+
+    backDropPrevPos = backDrop.getPosition();
 }
 
 void Background::draw(RenderWindow *window)
@@ -106,10 +118,17 @@ void Background::populate(vector<TSprite> &items, TSprite &prototypeItem,
     if(itemCount < desiredCOunt)
     {
         // Add more items
+        Vector2f backDropSize = backDrop.getSize();
+        Vector2f backDropPos = backDrop.getPosition();
         for(int i = 0; i < desiredCOunt - itemCount; i++)
         {
             TSprite newItem(prototypeItem);
-            newItem.setPosition(100, 100); // TODO: Give random position in view
+            int x = (int)(rand() % (int)backDropSize.x);
+            int y = (int)(rand() % (int)backDropSize.y);
+            x += backDropPos.x - (backDropSize.x / 2);
+            y += backDropPos.y - (backDropSize.y / 2);
+            newItem.setPosition(x, y); // TODO: Give random position in view
+            cout << "Added item at " << PRINT_V(newItem.getPosition()) << endl;
             items.push_back(newItem);
         }
     }else if(itemCount > desiredCOunt) {

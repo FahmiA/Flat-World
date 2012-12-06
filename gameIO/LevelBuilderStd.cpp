@@ -39,7 +39,9 @@ LevelBuilderStd::~LevelBuilderStd()
 
 bool LevelBuilderStd::setBackground()
 {
-    Background *background = new Background(TSprite(), TSprite());
+    TSprite *star = aniLoader->loadStatic("media/textures/star.png");
+    TSprite *cloud = aniLoader->loadStatic("media/textures/Asteroid1.png");
+    Background *background = new Background(*star, *cloud);
     getWorld()->setBackground(background);
 
     return true;

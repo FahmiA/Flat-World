@@ -75,6 +75,11 @@ void World::setBackground(Background *background)
     this->background = background;
 }
 
+Background* World::getBackground()
+{
+    return background;
+}
+
 HUD* World::getHud()
 {
     return hud;

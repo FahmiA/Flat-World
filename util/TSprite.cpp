@@ -59,7 +59,10 @@ TSprite::TSprite(const TSprite &other)
     // TODO: Make image a pointer
     image = other.image;
     if(other.sprite.getTexture() != 0)
+    {
         sprite.setTexture(*other.sprite.getTexture());
+        sprite.setPosition(other.sprite.getPosition().x,other.sprite.getPosition().y);
+    }
 }
 
 void TSprite::init(Direction direction)
@@ -237,6 +240,11 @@ void TSprite::setPosition(float x, float y)
     sprite.setPosition(x, y);
 }
 
+void TSprite::move(float x, float y)
+{
+    sprite.move(x, y);
+}
+
 void TSprite::setOrigin(float x, float y)
 {
     FloatRect bounds = sprite.getLocalBounds();
@@ -325,11 +333,6 @@ Color TSprite::getPixel(unsigned int x, unsigned int y) const
 
     // Get the pixel
     return image->getPixel(x, y);
-}
-
-void TSprite::move(float x, float y)
-{
-    sprite.move(x, y);
 }
 
 FloatRect TSprite::getLocalBounds()

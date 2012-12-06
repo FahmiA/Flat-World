@@ -76,6 +76,7 @@ class World
         void setCamera(Camera *camera);
 
         void setBackground(Background *background);
+        Background* getBackground();
 
         /** Gets the Heads-Up-Display (HUD).
          * @return The HUD.

@@ -36,6 +36,7 @@ class Background : public GameObject
         TSprite prototypeStar;
         TSprite prototypeCloud;
         RectangleShape backDrop;
+        Vector2f backDropPrevPos;
 
         int calcStarCount();
         int calcCloudCount();

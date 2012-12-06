@@ -4,6 +4,7 @@
 #include "util/CoordinateUtil.hpp"
 #include "GUI/HUD.hpp"
 #include "pickups/Star.hpp"
+#include "environment/Background.hpp"
 
 #include <iostream>
 using namespace std;
@@ -112,8 +113,13 @@ Character* Player::check_unit_collide(World *world)
                 world->removeLevelObject(character);
 
                 // Update the HUD
-                HUD* hud = world->getHud();
+                HUD *hud = world->getHud();
                 hud->addSheep(1);
+
+                // Update the background
+                float progress = (float)(hud->getSheepCount()) / (float)(hud->getSheepTotal());
+                Background *background = world->getBackground();
+                background->setStage(progress);
 
                 break;
             }
