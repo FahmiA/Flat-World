@@ -29,6 +29,8 @@ class Background : public GameObject
     private:
         static int MAX_STAR_COUNT;
         static int MAX_CLOUD_COUNT;
+        /** Multipled with star and cloud movement speed to give a paralax effect. */
+        static float PARALAX_LAG;
 
         float stage = 0.0f;
         vector<TSprite> stars;
@@ -42,8 +44,10 @@ class Background : public GameObject
         int calcCloudCount();
 
         float getLiniar(float value, float min, float max);
+        Vector2f getRelativeCoords(float x, float y);
         void populate(vector<TSprite> &items, TSprite &prototypeItem,
                       int desiredCOunt);
+        void itemUpdate(vector<TSprite> &items, Vector2f &moveDelta);
 };
 
 #endif // BACKGROUND_H

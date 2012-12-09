@@ -22,6 +22,7 @@ class CoordinateUtil
          * @return True if global point is inside bounds. False otherwise.
          */
         bool isGlobalPointInside(Vector2f &point, TSprite &bounds);
+        bool isGlobalPointInside(Vector2f point, RectangleShape &bounds);
 
          /** Checks if a point in a Sprite's local space is inside the given Sprite.
          * @param point The position in the Sprite's local space.

@@ -17,12 +17,29 @@ bool CoordinateUtil::isGlobalPointInside(Vector2f &point, TSprite &bounds)
 {
     Vector2f rectSize = bounds.getSize();
     Vector2f rectPosition = bounds.getPosition();
+    // TODO: Consider origin like method below
 
     if(point.x >= rectPosition.x && point.x < rectPosition.x + rectSize.x &&
        point.y >= rectPosition.y && point.y < rectPosition.y + rectSize.y)
        return true;
 
     return false;
+}
+
+bool CoordinateUtil::isGlobalPointInside(Vector2f point, RectangleShape &bounds)
+{
+    Vector2f rectSize = bounds.getSize();
+
+    Vector2f rectOrigin = bounds.getOrigin();
+    Vector2f rectPosition = bounds.getPosition();
+    rectPosition.x -= rectOrigin.x;
+    rectPosition.y -= rectOrigin.y;
+
+    if(point.x < rectPosition.x || point.x >= rectPosition.x + rectSize.x ||
+       point.y < rectPosition.y || point.y >= rectPosition.y + rectSize.y)
+       return false;
+
+    return true;
 }
 
 bool CoordinateUtil::isLocalPointInside(Vector2f point, Vector2f bounds)
