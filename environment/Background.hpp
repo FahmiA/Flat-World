@@ -43,7 +43,7 @@ class Background : public GameObject
         int calcStarCount();
         int calcCloudCount();
 
-        float getLiniar(float value, float min, float max);
+        float getLiniar(float value);
         Vector2f getRelativeCoords(float x, float y);
         void populate(vector<TSprite> &items, TSprite &prototypeItem,
                       int desiredCOunt);

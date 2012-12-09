@@ -140,20 +140,18 @@ void Background::draw(RenderWindow *window)
 
 int Background::calcStarCount()
 {
-    return (int)(getLiniar(0.7f - stage, 0.0f, 0.7f) * MAX_STAR_COUNT);
+    return (int)(getLiniar(1.0f - stage) * MAX_STAR_COUNT);
 }
 
 int Background::calcCloudCount()
 {
-    return (int)(getLiniar(stage - 0.7f, 0.0f, 0.7f) * MAX_CLOUD_COUNT);
+    return (int)(getLiniar(stage) * MAX_CLOUD_COUNT);
 }
 
-float Background::getLiniar(float value, float min, float max)
+float Background::getLiniar(float value)
 {
-    float result =  value / (max - min);
-    clamp<float>(result, 0.0f, 1.0f);
-
-    return result;
+    clamp<float>(value, 0.0f, 1.0f);
+    return value;
 }
 
 Vector2f Background::getRelativeCoords(float x, float y)
