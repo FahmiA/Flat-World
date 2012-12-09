@@ -7,6 +7,7 @@
 #include "util/TSprite.hpp"
 #include "gameIO/LevelBuilder.hpp"
 #include "util/Debug.hpp"
+#include "environment/Background.hpp"
 
 #include <iostream>
 #include <math.h>
@@ -97,14 +98,23 @@ void Sheepdog::checkPlayerCollide(World &world)
             // Only push the Player back if the player is not already being pushed back
             if(player.getPushDirection() == None)
             {
-                 // Indicate that an attack was made
+                // Indicate that an attack was made
                 player.pushBack(getFacingDirection());
 
                 // Penalise the player by one sheep
                 if(world.getSheepCaptured() > 0)
                 {
+                    // Re-add a sheep to the level
                     levelBuilder->addRandomSheep();
-                    world.getHud()->removeSheep(1);
+
+                    // Update the HUD
+                    HUD *hud = world.getHud();
+                    hud->removeSheep(1);
+
+                    // Update the background
+                    float progress = (float)(hud->getSheepCount()) / (float)(hud->getSheepTotal());
+                    Background *background = world.getBackground();
+                    background->setStage(progress);
                 }
             }
         }
