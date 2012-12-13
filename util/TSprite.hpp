@@ -75,7 +75,7 @@ class TSprite
         void setPosition(float x, float y);
         void move(float x, float y);
 
-        Vector2f getSize();
+        Vector2f getSize() const;
         void setSize(float x, float y);
 
         void setOrigin(float x, float y);

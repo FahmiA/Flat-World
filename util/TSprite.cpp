@@ -63,6 +63,9 @@ TSprite::TSprite(const TSprite &other)
         sprite.setTexture(*other.sprite.getTexture());
         sprite.setPosition(other.sprite.getPosition().x,other.sprite.getPosition().y);
     }
+
+    Vector2f otherSize = other.getSize();
+    setSize(otherSize.x, otherSize.y);
 }
 
 void TSprite::init(Direction direction)
@@ -251,7 +254,7 @@ void TSprite::setOrigin(float x, float y)
     sprite.setOrigin(bounds.width * x, bounds.height * y);
 }
 
-Vector2f TSprite::getSize()
+Vector2f TSprite::getSize() const
 {
     IntRect textureSize = sprite.getTextureRect();
     Vector2f scale = sprite.getScale();
