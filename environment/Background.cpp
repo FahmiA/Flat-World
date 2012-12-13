@@ -23,6 +23,7 @@ Background::Background(TSprite star, TSprite cloud)
 
     backDrop.setSize(Vector2f(2000.0f, 2000.0f));
     backDrop.setOrigin(1000.0f, 1000.0f);
+    backDropColour = Color::Blue;
 
     setStage(stage);
 }
@@ -72,7 +73,8 @@ void Background::update(Clock *clock, RenderWindow *window, World *world)
 {
     // Update the backdrop position
     backDrop.setPosition(world->getPlayer()->getPosition());
-    backDrop.setFillColor(Color::Black);
+    backDropColour.b = pow(stage, 3) * 255;
+    backDrop.setFillColor(backDropColour);
 
     // Calculate the amount of backdrop/player movement since the last frame
     Vector2f backDropDelta(backDrop.getPosition().x - backDropPrevPos.x,
